@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:MyContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:ProjectRunner.Views"
+             x:Class="ProjectRunner.Views.LoginPage"
+             Title="Login"
+             BindingContext="{Binding LoginPageViewModel, Source={StaticResource Locator}}">
+    <ScrollView>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <!-- logo -->
+                <RowDefinition Height="Auto"/>
+                <!-- fields-->
+                <RowDefinition />
+                <!-- space -->
+                <RowDefinition Height="Auto"/>
+                <!-- dont have account -->
+            </Grid.RowDefinitions>
+            <StackLayout Grid.Row="0" Padding="20,20,20,20" MinimumHeightRequest="200">
+                <!--<Image Source="" MinimumHeightRequest="200" />-->
+            </StackLayout>
+
+            <StackLayout Grid.Row="1" Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                <Label Text="Username" Margin="10,0,10,0" />
+                <Entry Placeholder="Username" PlaceholderColor="Gray" Margin="10,0,10,10" Text="{Binding Username}"/>
+                <Label Text="Password" Margin="10,0,10,0" />
+                <Entry Placeholder="********" PlaceholderColor="Gray" IsPassword="True" Margin="10,0,10,10" Text="{Binding Password}"/>
+                <Label x:Name="registerLabel" FontSize="12" Text="I don't have an account" TextColor="Blue" HorizontalOptions="Center" Margin="0,10">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding RegisterCommand}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+
+                <Label FontSize="12" Text="I forgot the password" TextColor="Blue" HorizontalOptions="Center" Margin="0,10">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ForgotPasswordCommand}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+
+            </StackLayout>
+
+            <Button Grid.Row="3"
+                Text="LOGIN"
+                BorderColor="Black"
+                BorderWidth="1"
+                BorderRadius="5"
+                HorizontalOptions="FillAndExpand"
+                HeightRequest="60"
+                BackgroundColor="Green"
+                TextColor="White"
+                Command="{Binding LoginCommand}"/>
+        </Grid>
+    </ScrollView>
+
+</views:MyContentPage>

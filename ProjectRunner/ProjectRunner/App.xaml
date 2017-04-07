@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="ProjectRunner.App" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             d1p1:Ignorable="d" 
+             xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:ProjectRunner.ViewModel;assembly=ProjectRunner"
+             xmlns:views="clr-namespace:ProjectRunner.Views"
+             xmlns:converters="clr-namespace:ProjectRunner.Views.Converters">
+  <Application.Resources>
+    <!-- Application resource dictionary -->
+        <ResourceDictionary>
+            <vm:ViewModelLocator x:Key="Locator" />
+            <converters:SportToBooleanConverter x:Key="SportEquals"/>
+            <converters:NotBoolean x:Key="NotBoolean"/>
+        </ResourceDictionary>  
+      
+    </Application.Resources>
+</Application>

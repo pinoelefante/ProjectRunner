@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:MyContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProjectRunner.Views.RegisterPage"
+             xmlns:views="clr-namespace:ProjectRunner.Views"
+             Title="Register"
+             BindingContext="{Binding RegisterPageViewModel, Source={StaticResource Locator}}">
+    <ScrollView>
+        <StackLayout Padding="10" Orientation="Vertical">
+            <Label Text="Username" Margin="10,0,10,0" />
+            <Entry Placeholder="doctor223" PlaceholderColor="Gray" Margin="10,0,10,10" Text="{Binding Username}"/>
+
+            <Label Text="Password" Margin="10,0,10,0" />
+            <Entry Placeholder="****" PlaceholderColor="Gray" IsPassword="True" Margin="10,0,10,10" Text="{Binding Password}"/>
+
+            <Label Text="Confirm Password" Margin="10,0,10,0" />
+            <Entry Placeholder="****" PlaceholderColor="Gray" IsPassword="True" Margin="10,0,10,10" Text="{Binding Password2}"/>
+
+            <Label Text="First Name" Margin="10,0,10,0" />
+            <Entry Placeholder="John" PlaceholderColor="Gray" Margin="10,0,10,10" Text="{Binding FirstName}"/>
+
+            <Label Text="Last Name" Margin="10,0,10,0" />
+            <Entry Placeholder="Watson" PlaceholderColor="Gray" Margin="10,0,10,10" Text="{Binding LastName}"/>
+
+            <Label Text="Email" Margin="10,0,10,0" />
+            <Entry Placeholder="drwatson@bakerstreet.co.uk" PlaceholderColor="Gray" Margin="10,0,10,10" Text="{Binding Email}"/>
+
+            <Label Text="Birth" Margin="10,0,10,0" />
+            <DatePicker Date="{Binding Birth, Mode=TwoWay}" />
+
+            <Label Text="Phone number" Margin="10,0,10,0" />
+            <Entry Placeholder="+443482512365" PlaceholderColor="Gray" Margin="10,0,10,10" Text="{Binding Phone}"/>
+
+            <Button Text="Register" Command="{Binding RegisterCommand}" />
+        </StackLayout>
+    </ScrollView>
+</views:MyContentPage>
