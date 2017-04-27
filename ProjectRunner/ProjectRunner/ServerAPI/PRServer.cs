@@ -217,24 +217,18 @@ namespace ProjectRunner.ServerAPI
             server = s;
         }
 
-        public async Task<Envelop<string>> CreateActivityAsync(DateTime startDay, TimeSpan startTime, float? mpLong, float? mpLat, string mpAddress, int maxPlayers, int guests, float fee, Sports sport, int feedback, Dictionary<string, string> sportDetails)
+        public async Task<Envelop<string>> CreateActivityAsync(DateTime startDay, TimeSpan startTime, int mpPoint, int maxPlayers, int guests, float fee, Sports sport, int feedback, Dictionary<string, string> sportDetails)
         {
             var content = new List<KeyValuePair<string, string>>()
             {
                 new KeyValuePair<string, string>(ActivityDatabase.STARTTIME, $"{startDay.Year}-{startDay.Month.ToString("D2")}-{startDay.Day.ToString("D2")} {startTime.Hours.ToString("D2")}:{startTime.Minutes.ToString("D2")}:00"),
+                new KeyValuePair<string, string>(ActivityDatabase.MEETINGPOINT, mpPoint.ToString()),
                 new KeyValuePair<string, string>(ActivityDatabase.MAXPLAYERS, maxPlayers.ToString()),
                 new KeyValuePair<string, string>(ActivityDatabase.GUESTUSERS, guests.ToString()),
                 new KeyValuePair<string, string>(ActivityDatabase.FEE, fee.ToString()),
                 new KeyValuePair<string, string>(ActivityDatabase.SPORT, ((int)sport).ToString()),
                 new KeyValuePair<string, string>(ActivityDatabase.FEEDBACK, feedback.ToString()),
             };
-            if (mpLong != null && mpLat != null)
-            {
-                content.Add(new KeyValuePair<string, string>(ActivityDatabase.MPLONG, mpLong.ToString()));
-                content.Add(new KeyValuePair<string, string>(ActivityDatabase.MPLAT, mpLat.ToString()));
-            }
-            if (!string.IsNullOrEmpty(mpAddress))
-                content.Add(new KeyValuePair<string, string>(ActivityDatabase.MPADDR, mpAddress));
 
             switch(sport)
             {
@@ -345,9 +339,9 @@ namespace ProjectRunner.ServerAPI
         }
         private List<Activity> ParseDictionaryListActivity(List<Dictionary<string,string>> x)
         {
-            List<Activity> activities = new List<Activity>(x.Count);
             if (x == null)
-                return activities;
+                return null;
+            List<Activity> activities = new List<Activity>(x.Count);
             foreach (var jsonActivity in x)
             {
                 var act = ParseDictionaryActivity(jsonActivity);
@@ -466,14 +460,59 @@ namespace ProjectRunner.ServerAPI
             return profile;
         }
     }
+    public class MapAddress
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public float Latitude { get; set; }
+        public float Longitude { get; set; }
+        public string Route { get; set; }
+        public int StreetNumber { get; set; }
+        public string City { get; set; }
+        public string Region { get; set; }
+        public string Province { get; set; }
+        public string PostalCode { get; set; }
+        public string Country { get; set; }
+
+        public static MapAddress ParseDictionary(Dictionary<string, string> dict, string prefix = "")
+        {
+            MapAddress mp = new MapAddress()
+            {
+                Id = Int32.Parse(dict[prefix+MapAddressDatabase.ID]),
+                City = dict[prefix + MapAddressDatabase.CITY],
+                Country = dict[prefix + MapAddressDatabase.COUNTRY],
+                Latitude = float.Parse(dict[prefix + MapAddressDatabase.LATITUDE]),
+                Longitude = float.Parse(dict[prefix + MapAddressDatabase.LONGITUDE]),
+                Name = dict[prefix + MapAddressDatabase.NAME],
+                PostalCode = dict[prefix + MapAddressDatabase.POSTAL_CODE],
+                Province = dict[prefix + MapAddressDatabase.PROVINCE],
+                Region = dict[prefix + MapAddressDatabase.REGION],
+                Route = dict[prefix + MapAddressDatabase.ROUTE],
+                StreetNumber = Int32.Parse(dict[prefix + MapAddressDatabase.STREET_NUMBER])
+            };
+            return mp;
+        }
+    }
+    class MapAddressDatabase
+    {
+        public const string ID = "id";
+        public const string NAME = "name";
+        public const string LATITUDE = "latitude";
+        public const string LONGITUDE = "longitude";
+        public const string ROUTE = "route";
+        public const string STREET_NUMBER = "street_number";
+        public const string CITY = "city";
+        public const string REGION = "region";
+        public const string PROVINCE = "province";
+        public const string POSTAL_CODE = "postal_code";
+        public const string COUNTRY = "country";
+    }
     public class Activity
     {
         public int Id { get; set; }
         public int CreatedBy { get; set; }
         public DateTime StartTime { get; set; }
-        public float? MeetingPointLongitude { get; set; }
-        public float? MeetingPointLatitude { get; set; }
-        public string MeetingPointAddress { get; set; }
+        public MapAddress MeetingPoint {get;set;}
         public int GuestUsers { get; set; }
         public int MaxPlayers { get; set; }
         public int JoinedPlayers { get; set; }
@@ -498,13 +537,11 @@ namespace ProjectRunner.ServerAPI
             act.GuestUsers = Int32.Parse(dict[ActivityDatabase.GUESTUSERS]);
             act.Id = Int32.Parse(dict[ActivityDatabase.ID]);
             act.JoinedPlayers = Int32.Parse(dict["joinedPlayers"]);
-            act.MeetingPointLongitude = dict[ActivityDatabase.MPLONG]!=null ? float.Parse(dict[ActivityDatabase.MPLONG]) : 0f;
-            act.MeetingPointLatitude = dict[ActivityDatabase.MPLAT]!=null ? float.Parse(dict[ActivityDatabase.MPLAT]) : 0f;
-            act.MeetingPointAddress = dict[ActivityDatabase.MPADDR];
             act.MaxPlayers = Int32.Parse(dict[ActivityDatabase.MAXPLAYERS]);
             act.Sport = (Sports)Enum.Parse(typeof(Sports), dict[ActivityDatabase.SPORT]);
             act.StartTime = DateTime.Parse(dict[ActivityDatabase.STARTTIME], CultureInfo.InvariantCulture);
             act.Status = (ActivityStatus)Enum.Parse(typeof(ActivityStatus), dict[ActivityDatabase.STATUS]);
+            act.MeetingPoint = MapAddress.ParseDictionary(dict, "mp_");
         }
     }
     public class BicycleActivity : Activity
@@ -608,9 +645,7 @@ namespace ProjectRunner.ServerAPI
         public const string ID = "id";
         public const string CREATEDBY = "createdBy";
         public const string STARTTIME = "startTime";
-        public const string MPLONG = "meetingPointLongitude";
-        public const string MPLAT = "meetingPointLatitude";
-        public const string MPADDR = "meetingPointAddress";
+        public const string MEETINGPOINT = "meetingPoint";
         public const string GUESTUSERS = "guestUsers";
         public const string MAXPLAYERS = "maxPlayers";
         public const string STATUS = "status";

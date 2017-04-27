@@ -17,7 +17,6 @@ namespace ProjectRunner.Views
         public CreateActivityPage()
         {
             InitializeComponent();
-            InitListSports();
             viewModel.PropertyChanged += ViewModel_PropertyChanged;
         }
 
@@ -34,15 +33,6 @@ namespace ProjectRunner.Views
         }
 
         private CreateActivityViewModel viewModel => this.BindingContext as CreateActivityViewModel;
-
-        private void InitListSports()
-        {
-            listSports.Items.Add("Running");
-            listSports.Items.Add("Football");
-            listSports.Items.Add("Bicycle");
-            listSports.Items.Add("Tennis");
-            listSports.SelectedIndex = 0;
-        }
         private void PopulateGuestList()
         {
             var lastIndex = viewModel.SelectedIndexGuestList;

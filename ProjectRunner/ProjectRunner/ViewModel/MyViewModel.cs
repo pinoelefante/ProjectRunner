@@ -20,5 +20,12 @@ namespace ProjectRunner.ViewModel
         {
 
         }
+        /*
+         * OnBackPressed() must return true when override 
+         */
+        public virtual bool OnBackPressed()
+        {
+            return false;
+        }
     }
 }

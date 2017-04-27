@@ -4,6 +4,7 @@ using ProjectRunner.ServerAPI;
 using ProjectRunner.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -64,6 +65,7 @@ namespace ProjectRunner.ViewModel
         public float Fee { get { return _fee; } set { Set(ref _fee, value); } }
         public float Distance { get { return _distance; } set { Set(ref _distance, value); } }
         public int Guests { get { return _guests; } set { Set(ref _guests, value); CalculateMaxPlayers(); } }
+
         public int MaxPlayers
         {
             get
@@ -103,25 +105,24 @@ namespace ProjectRunner.ViewModel
             {
                 Reset();
                 Set(ref _indexSport, value);
+                if(value >= 0)
+                    SelectedSport = SportsAvailable[value].SportEnumValue;
+                
                 RaisePropertyChanged(() => SelectedSport);
                 RaisePropertyChanged(() => IsMaxPlayerActive);
                 RaisePropertyChanged(() => IsGuestListActive);
             }
         }
-        public Sports SelectedSport
-        {
-            get
-            {
-                return (Sports)Enum.Parse(typeof(Sports), (SelectedSportIndex+1).ToString());
-            }
-        }
+        private Sports _selectedSport;
+        public Sports SelectedSport { get { return _selectedSport; } set { Set(ref _selectedSport, value); } }
         public int SelectedIndexPlayerPerTeam
         {
             get { return _indexPlayerPerTeam; }
             set
             {
                 Set(ref _indexPlayerPerTeam, value);
-                PlayersPerTeam = 5 + value;
+                if(value >= 0)
+                    PlayersPerTeam = FootballPlayersPerTeam[value];
             }
         }
         public int PlayersPerTeam
@@ -136,6 +137,27 @@ namespace ProjectRunner.ViewModel
                 CalculateMaxPlayers();
             }
         }
+        private List<MapAddress> _addresses;
+        public List<MapAddress> KnownAddress { get { return _addresses; } set { Set(ref _addresses, value); } }
+        public ObservableCollection<SportItem> SportsAvailable { get; } = new ObservableCollection<SportItem>()
+        {
+            new SportItem(Sports.RUNNING, "Corsa"),
+            new SportItem(Sports.FOOTBALL, "Calcio"),
+            new SportItem(Sports.BICYCLE, "Bicicletta"),
+            new SportItem(Sports.TENNIS, "Tennis")
+        };
+        public ObservableCollection<int> RunningDistances { get; } = new ObservableCollection<int>()
+        {
+            3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,42
+        };
+        public ObservableCollection<int> BicycleDistances { get; } = new ObservableCollection<int>()
+        {
+            5,10,15,20,25,30,35,40,45,50,60,70,80,90,100
+        };
+        public ObservableCollection<int> FootballPlayersPerTeam { get; } = new ObservableCollection<int>()
+        {
+            5,6,7,8,9,10,11
+        };
         public bool HasGPS { get { return _hasGps; } set { Set(ref _hasGps, value); } }
         
         private void CalculateMaxPlayers()
@@ -194,18 +216,8 @@ namespace ProjectRunner.ViewModel
             set
             {
                 Set(ref _indexDistanceRunning, value);
-                switch(value)
-                {
-                    case 18:
-                        Distance = 21;
-                        break;
-                    case 19:
-                        Distance = 42;
-                        break;
-                    default:
-                        Distance = 3 + value;
-                        break;
-                }
+                if(value >= 0)
+                    Distance = RunningDistances[value];
             }
         }
         public int SelectedIndexGuestList
@@ -223,10 +235,8 @@ namespace ProjectRunner.ViewModel
             set
             {
                 Set(ref _indexDistanceBicycle, value);
-                if (value <= 9)
-                    Distance = 5 * (value + 1);
-                else
-                    Distance = 50 + ((value % 10) * 10);
+                if (value >= 0)
+                    Distance = BicycleDistances[value];
             }
         }
         public RelayCommand CreateActivityCommand => new RelayCommand(
@@ -252,7 +262,8 @@ namespace ProjectRunner.ViewModel
 
                 Debug.WriteLine(StartDay.ToString());
                 Debug.WriteLine(StartTime.ToString());
-                var response = await server.Activities.CreateActivityAsync(StartDay, StartTime, MeetingLongitude, MeetingLatitude, MeetingAddress, MaxPlayers, Guests, Fee, SelectedSport, RequiredFeedback, sportDetails);
+                //TODO Remove 1 from default meeting point value
+                var response = await server.Activities.CreateActivityAsync(StartDay, StartTime, 1, MaxPlayers, Guests, Fee, SelectedSport, RequiredFeedback, sportDetails);
                 if(response.response == StatusCodes.OK)
                 {
                     dialogs.ShowAlert("Activity created", "Activity creation");
@@ -264,5 +275,16 @@ namespace ProjectRunner.ViewModel
                 }
             }
             );
+
+        public class SportItem
+        {
+            public Sports SportEnumValue { get; }
+            public string SportName { get; }
+            public SportItem(Sports e, string n)
+            {
+                SportEnumValue = e;
+                SportName = n;
+            }
+        }
     }
 }
