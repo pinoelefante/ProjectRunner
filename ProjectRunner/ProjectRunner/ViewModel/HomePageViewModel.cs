@@ -18,18 +18,7 @@ namespace ProjectRunner.ViewModel
         }
         public RelayCommand TestCommand => new RelayCommand(async () =>
         {
-            var res = await server.Activities.MyActivitiesListAsync();
-            if(res.response == StatusCodes.OK)
-            {
-                foreach (var item in res.content)
-                {
-                    Debug.WriteLine(item.Id);
-                }
-            }
-            else
-            {
-                Debug.WriteLine("Errore");
-            }
+            
         });
     }
 }

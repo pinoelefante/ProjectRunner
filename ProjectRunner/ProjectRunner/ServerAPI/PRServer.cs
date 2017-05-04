@@ -63,6 +63,7 @@ namespace ProjectRunner.ServerAPI
                 if (response.IsSuccessStatusCode)
                 {
                     var output = await response.Content.ReadAsStringAsync();
+                    Debug.WriteLine(output);
                     var result = JsonConvert.DeserializeObject<Dictionary<string, string>>(output);
 
                     envelop.time = DateTime.Parse(result["time"], CultureInfo.InvariantCulture);
@@ -388,6 +389,50 @@ namespace ProjectRunner.ServerAPI
             });
             return await server.sendRequest<string>("/authentication.php?action=ModifyActivityField", postContent);
         }
+        public async Task<Envelop<List<MapAddress>>> ListAddressAsync()
+        {
+            return await server.sendRequestWithAction<List<MapAddress>, List<Dictionary<string, string>>>("/activities.php?action=ListAddress", (x) =>
+            {
+                if(x!=null && x.Any())
+                {
+                    List<MapAddress> addr = new List<MapAddress>(x.Count);
+                    foreach (var item in x)
+                    {
+                        addr.Add(MapAddress.ParseDictionary(item));
+                    }
+                    return addr;
+                }
+                return null;
+            });
+        }
+        public async Task<Envelop<string>> AddAddress(string name, float latitude, float longitude)
+        {
+            FormUrlEncodedContent postContent = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>()
+                {
+                    new KeyValuePair<string, string>(MapAddressDatabase.NAME, name),
+                    new KeyValuePair<string, string>(MapAddressDatabase.LATITUDE,latitude.ToString()),
+                    new KeyValuePair<string, string>(MapAddressDatabase.LONGITUDE, longitude.ToString()),
+                });
+            return await server.sendRequest<string>("/activities.php?action=AddAddress", postContent);
+        }
+        public async Task<Envelop<string>> AddAddressPoint(string name, double latitude, double longitude)
+        {
+            FormUrlEncodedContent postContent = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>()
+                {
+                    new KeyValuePair<string, string>(MapAddressDatabase.NAME, name),
+                    new KeyValuePair<string, string>(MapAddressDatabase.LATITUDE,latitude.ToString("N7")),
+                    new KeyValuePair<string, string>(MapAddressDatabase.LONGITUDE, longitude.ToString("N7")),
+                });
+            return await server.sendRequest<string>("/activities.php?action=AddAddressPoint", postContent);
+        }
+        public async Task<Envelop<string>> ReloadLocationInfoFromGoogleMaps(int locationId)
+        {
+            FormUrlEncodedContent postContent = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>()
+                {
+                    new KeyValuePair<string, string>(MapAddressDatabase.ID, locationId.ToString()),
+                });
+            return await server.sendRequest<string>("/activities.php?action=ReloadAddressInfoFromGoogleMaps", postContent);
+        }
     }
     public class PeopleAPI
     {
@@ -488,7 +533,7 @@ namespace ProjectRunner.ServerAPI
                 Province = dict[prefix + MapAddressDatabase.PROVINCE],
                 Region = dict[prefix + MapAddressDatabase.REGION],
                 Route = dict[prefix + MapAddressDatabase.ROUTE],
-                StreetNumber = Int32.Parse(dict[prefix + MapAddressDatabase.STREET_NUMBER])
+                StreetNumber = !string.IsNullOrEmpty(dict[prefix + MapAddressDatabase.STREET_NUMBER]) ? Int32.Parse(dict[prefix + MapAddressDatabase.STREET_NUMBER]) : -1
             };
             return mp;
         }

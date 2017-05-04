@@ -14,13 +14,12 @@ namespace ProjectRunner
         {
             InitializeComponent();
 
-            //MainPage = new NavigationPage(new Views.LoginPage());
-            //ViewModelLocator.NavigationService.Initialize(MainPage as NavigationPage, ViewModelLocator.HomePage);
+            MainPage = new NavigationPage(new Views.LoginPage());
+            ViewModelLocator.NavigationService.Initialize(MainPage as NavigationPage, ViewModelLocator.HomePage);
 
-            MainPage = new Views.MyMasterPage();
+            //MainPage = new Views.MyMasterPage();
             ViewModelLocator.RegisterPages();
         }
-
         protected override void OnStart()
         {
             // Handle when your app starts

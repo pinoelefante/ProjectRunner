@@ -4,95 +4,174 @@
                      xmlns:views="clr-namespace:ProjectRunner.Views"
                      x:Class="ProjectRunner.Views.CreateActivityPage"
                      Title="Create activity"
-                     BindingContext="{Binding CreateActivityViewModel, Source={StaticResource Locator}}">
-  <ScrollView Padding="0,0,10,0" Margin="10,0,0,0">
-    <StackLayout Orientation="Vertical">
-      <Label Text="Sport">
-        <Label.IsVisible>
-          <OnPlatform x:TypeArguments="x:Boolean">
-            <OnPlatform.iOS>true</OnPlatform.iOS>
-            <OnPlatform.Android>true</OnPlatform.Android>
-            <OnPlatform.WinPhone>false</OnPlatform.WinPhone>
-          </OnPlatform>
-        </Label.IsVisible>
-      </Label>
-      <Picker Title="Sport"
-              ItemsSource="{Binding SportsAvailable}"
-              ItemDisplayBinding="{Binding SportName}"
-              SelectedIndex="{Binding SelectedSportIndex, Mode=TwoWay}"/>
+                     BindingContext="{Binding CreateActivityViewModel, Source={StaticResource Locator}}"
+                     >
+  <!--NavigationPage.HasBackButton="False"-->
+  <Grid>
+    <ScrollView Padding="0,0,10,0" Margin="10,0,0,0" IsVisible="{Binding CurrentNavigation, ConverterParameter=1, Converter={StaticResource IntEquals}}">
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition/>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
-      <Label Text="Day"/>
-      <DatePicker Date="{Binding StartDay, Mode=TwoWay}"/>
-      <Label Text="at"/>
-      <TimePicker Time="{Binding StartTime, Mode=TwoWay}"/>
+        <StackLayout Orientation="Vertical">
 
-      <StackLayout Orientation="Vertical" IsVisible="{Binding SelectedSport, ConverterParameter=1, Converter={StaticResource SportEquals}}">
-        <!-- Running -->
-        <Label Text="Distance">
-          <Label.IsVisible>
-            <OnPlatform x:TypeArguments="x:Boolean">
-              <OnPlatform.iOS>true</OnPlatform.iOS>
-              <OnPlatform.Android>true</OnPlatform.Android>
-              <OnPlatform.WinPhone>false</OnPlatform.WinPhone>
-            </OnPlatform>
-          </Label.IsVisible>
-        </Label>
-        <Picker Title="Distance" ItemsSource="{Binding RunningDistances}" SelectedIndex="{Binding SelectedIndexDistanceRunning, Mode=TwoWay}"/>
+          <Label Text="General" FontSize="24" HorizontalOptions="Center" FontAttributes="Bold"/>
 
-        <StackLayout Orientation="Horizontal">
-          <Label Text="With fitness"/>
-          <Switch IsToggled="{Binding WithFitness, Mode=TwoWay}"/>
+          <Label Text="Sport">
+            <Label.IsVisible>
+              <OnPlatform x:TypeArguments="x:Boolean">
+                <OnPlatform.iOS>true</OnPlatform.iOS>
+                <OnPlatform.Android>true</OnPlatform.Android>
+                <OnPlatform.WinPhone>false</OnPlatform.WinPhone>
+              </OnPlatform>
+            </Label.IsVisible>
+          </Label>
+          <Picker Title="Sport"
+                  ItemsSource="{Binding SportsAvailable}"
+                  ItemDisplayBinding="{Binding SportName}"
+                  SelectedIndex="{Binding SelectedSportIndex, Mode=TwoWay}"/>
+
+          <Label Text="Day"/>
+          <DatePicker Date="{Binding StartDay, Mode=TwoWay}"/>
+          <Label Text="at"/>
+          <TimePicker Time="{Binding StartTime, Mode=TwoWay}"/>
+
+          <Label Text="Guest users" />
+          <Entry Placeholder="0" PlaceholderColor="Gray" Margin="0,0,0,10" Text="{Binding Guests, Mode=TwoWay}" Keyboard="Numeric" IsVisible="{Binding IsGuestListActive, Mode=TwoWay, Converter={StaticResource NotBoolean}}"/>
+          <Picker x:Name="listGuests" IsVisible="{Binding IsGuestListActive, Mode=TwoWay}" SelectedIndex="{Binding SelectedIndexGuestList,Mode=TwoWay}"/>
+
+          <Label Text="Max Players" IsVisible="{Binding IsMaxPlayerActive, Mode=TwoWay}"/>
+          <Entry Placeholder="0" PlaceholderColor="Gray" Margin="0,0,0,10" Text="{Binding MaxPlayers, Mode=TwoWay}" Keyboard="Numeric" IsEnabled="{Binding IsMaxPlayerActive, Mode=TwoWay}" IsVisible="{Binding IsMaxPlayerActive, Mode=TwoWay}"/>
+
+          <Label Text="Is free?"/>
+          <Switch IsToggled="{Binding IsGratis, Mode=TwoWay}"/>
+          <Label Text="Cost" IsVisible="{Binding IsGratis, Converter={StaticResource NotBoolean}, Mode=TwoWay}"/>
+          <Entry Text="{Binding Fee, Mode=TwoWay}" IsVisible="{Binding IsGratis, Converter={StaticResource NotBoolean}, Mode=TwoWay}" Keyboard="Numeric"/>
+
+          <!-- Running -->
+          <StackLayout Orientation="Vertical" IsVisible="{Binding SelectedSport, ConverterParameter=1, Converter={StaticResource SportEquals}}">
+            <Label Text="Running" FontSize="24" HorizontalOptions="Center" FontAttributes="Bold"/>
+            <Label Text="Distance">
+              <Label.IsVisible>
+                <OnPlatform x:TypeArguments="x:Boolean">
+                  <OnPlatform.iOS>true</OnPlatform.iOS>
+                  <OnPlatform.Android>true</OnPlatform.Android>
+                  <OnPlatform.WinPhone>false</OnPlatform.WinPhone>
+                </OnPlatform>
+              </Label.IsVisible>
+            </Label>
+            <Picker Title="Distance" ItemsSource="{Binding RunningDistances}" SelectedIndex="{Binding SelectedIndexDistanceRunning, Mode=TwoWay}"/>
+
+            <Label Text="With fitness"/>
+            <Switch IsToggled="{Binding WithFitness, Mode=TwoWay}"/>
+          </StackLayout>
+
+          <!-- Football -->
+          <StackLayout Orientation="Vertical" IsVisible="{Binding SelectedSport, ConverterParameter=2, Converter={StaticResource SportEquals}}">
+            <Label Text="Football" FontSize="24" HorizontalOptions="Center" FontAttributes="Bold"/>
+            <Label Text="Players per team">
+              <Label.IsVisible>
+                <OnPlatform x:TypeArguments="x:Boolean">
+                  <OnPlatform.iOS>true</OnPlatform.iOS>
+                  <OnPlatform.Android>true</OnPlatform.Android>
+                  <OnPlatform.WinPhone>false</OnPlatform.WinPhone>
+                </OnPlatform>
+              </Label.IsVisible>
+            </Label>
+            <Picker Title="Players per team"
+                    ItemsSource="{Binding FootballPlayersPerTeam}"
+                    SelectedIndex="{Binding SelectedIndexPlayerPerTeam, Mode=TwoWay}"
+                    Margin="0,0,0,10"/>
+
+          </StackLayout>
+
+          <!-- Bicycle -->
+          <StackLayout Orientation="Vertical" IsVisible="{Binding SelectedSport, ConverterParameter=3, Converter={StaticResource SportEquals}}">
+            <Label Text="Bicycle" FontSize="24" HorizontalOptions="Center" FontAttributes="Bold"/>
+            <Label Text="Distance">
+              <Label.IsVisible>
+                <OnPlatform x:TypeArguments="x:Boolean">
+                  <OnPlatform.iOS>true</OnPlatform.iOS>
+                  <OnPlatform.Android>true</OnPlatform.Android>
+                  <OnPlatform.WinPhone>false</OnPlatform.WinPhone>
+                </OnPlatform>
+              </Label.IsVisible>
+            </Label>
+            <Picker Title="Distance" ItemsSource="{Binding BicycleDistances}" SelectedIndex="{Binding SelectedIndexDistanceBicycle, Mode=TwoWay}"/>
+          </StackLayout>
+
+          <!-- Tennis -->
+          <StackLayout Orientation="Vertical" IsVisible="{Binding SelectedSport, ConverterParameter=4, Converter={StaticResource SportEquals}}">
+            <Label Text="Tennis" FontSize="24" HorizontalOptions="Center" FontAttributes="Bold"/>
+            <Label Text="Double"/>
+            <Switch IsToggled="{Binding IsDouble, Mode=TwoWay}" />
+          </StackLayout>
         </StackLayout>
-      </StackLayout>
 
-      <StackLayout Orientation="Vertical" IsVisible="{Binding SelectedSport, ConverterParameter=2, Converter={StaticResource SportEquals}}">
-        <!-- Football -->
-        <Label Text="Players per team">
-          <Label.IsVisible>
-            <OnPlatform x:TypeArguments="x:Boolean">
-              <OnPlatform.iOS>true</OnPlatform.iOS>
-              <OnPlatform.Android>true</OnPlatform.Android>
-              <OnPlatform.WinPhone>false</OnPlatform.WinPhone>
-            </OnPlatform>
-          </Label.IsVisible>
-        </Label>
-        <Picker Title="Players per team"
-                ItemsSource="{Binding FootballPlayersPerTeam}"
-                SelectedIndex="{Binding SelectedIndexPlayerPerTeam, Mode=TwoWay}"
-                Margin="0,0,0,10"/>
+        <Button Grid.Row="1" Text="Next" Command="{Binding GoToLocation}" />
+      </Grid>
+      
+    </ScrollView>
+    
+    <!-- LOCATION -->
+    <ScrollView Padding="0,0,10,0" Margin="10,0,0,0"  IsVisible="{Binding CurrentNavigation, ConverterParameter=2, Converter={StaticResource IntEquals}}">
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="*"/>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
-      </StackLayout>
+        <StackLayout Grid.Row="0">
+          <Label Text="Choose location" FontSize="24" HorizontalOptions="Center" FontAttributes="Bold"/>
+          
+          <Picker ItemsSource="{Binding KnownAddress}" SelectedIndex="{Binding SelectedIndexAddress,Mode=TwoWay}" ItemDisplayBinding="{Binding Name}"/>
 
-      <StackLayout Orientation="Vertical" IsVisible="{Binding SelectedSport, ConverterParameter=3, Converter={StaticResource SportEquals}}">
-        <!-- Bicycle -->
-        <Label Text="Distance">
-          <Label.IsVisible>
-            <OnPlatform x:TypeArguments="x:Boolean">
-              <OnPlatform.iOS>true</OnPlatform.iOS>
-              <OnPlatform.Android>true</OnPlatform.Android>
-              <OnPlatform.WinPhone>false</OnPlatform.WinPhone>
-            </OnPlatform>
-          </Label.IsVisible>
-        </Label>
-        <Picker Title="Distance" ItemsSource="{Binding BicycleDistances}" SelectedIndex="{Binding SelectedIndexDistanceBicycle, Mode=TwoWay}"/>
-      </StackLayout>
-
-      <StackLayout Orientation="Vertical" IsVisible="{Binding SelectedSport, ConverterParameter=4, Converter={StaticResource SportEquals}}">
-        <!-- Tennis -->
-        <StackLayout Orientation="Horizontal">
-          <Label Text="Double"/>
-          <Switch IsToggled="{Binding IsDouble, Mode=TwoWay}" HorizontalOptions="End"/>
+          <Label FontSize="12" Text="La località non è presente nell'elenco? Clicca qui per aggiungerla" TextColor="Blue" HorizontalOptions="Center" Margin="0,10">
+            <Label.GestureRecognizers>
+              <TapGestureRecognizer Command="{Binding GoToAddLocation}"/>
+            </Label.GestureRecognizers>
+          </Label>
         </StackLayout>
-      </StackLayout>
 
-      <Label Text="Guest users" />
-      <Entry Placeholder="0" PlaceholderColor="Gray" Margin="0,0,0,10" Text="{Binding Guests, Mode=TwoWay}" Keyboard="Numeric" IsVisible="{Binding IsGuestListActive, Mode=TwoWay, Converter={StaticResource NotBoolean}}"/>
-      <Picker x:Name="listGuests" IsVisible="{Binding IsGuestListActive, Mode=TwoWay}" SelectedIndex="{Binding SelectedIndexGuestList,Mode=TwoWay}"/>
 
-      <Label Text="Max Players" />
-      <Entry Placeholder="0" PlaceholderColor="Gray" Margin="0,0,0,10" Text="{Binding MaxPlayers, Mode=TwoWay}" Keyboard="Numeric" IsEnabled="{Binding IsMaxPlayerActive, Mode=TwoWay}"/>
+        <Button Grid.Row="1" Text="Next" Command="{Binding GoToConfirm}" />
+      </Grid>
+    </ScrollView>
 
-      <Button Text="Create activity" Command="{Binding CreateActivityCommand}" />
-    </StackLayout>
-  </ScrollView>
+    <!-- ADD LOCATION -->
+    <ScrollView Padding="0,0,10,0" Margin="10,0,0,0"  IsVisible="{Binding CurrentNavigation, ConverterParameter=3, Converter={StaticResource IntEquals}}">
+      <Grid>
+        <Grid.RowDefinitions>
+          
+        </Grid.RowDefinitions>
+
+        <StackLayout Grid.Row="0">
+          <Label Text="Add location" FontSize="24" HorizontalOptions="Center" FontAttributes="Bold"/>
+        </StackLayout>
+        
+
+        <Button Grid.Row="1" Text="OK" />
+      </Grid>
+    </ScrollView>
+
+    <!-- CONFIRM -->
+    <ScrollView Padding="0,0,10,0" Margin="10,0,0,0"  IsVisible="{Binding CurrentNavigation, ConverterParameter=4, Converter={StaticResource IntEquals}}">
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="*"/>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackLayout>
+          <Label Text="Confirm" FontSize="24" HorizontalOptions="Center" FontAttributes="Bold"/>
+
+        </StackLayout>
+
+        <Button Grid.Row="1" Text="CONFIRM"/>
+      </Grid>
+      
+    </ScrollView>
+  </Grid>
 </views:MyContentPage>
