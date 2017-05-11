@@ -25,7 +25,7 @@ namespace ProjectRunner.ViewModel
             dialogs = d;
         }
         private string _username, _pass1, _pass2, _firstName, _lastName, _email, _phone;
-        private DateTime _birth;
+        private DateTime _birth = DateTime.Now;
         public string Username { get { return _username; } set { Set(ref _username, value); } }
         public string Password { get { return _pass1; } set { Set(ref _pass1, value); } }
         public string Password2 { get { return _pass2; } set { Set(ref _pass2, value); } }

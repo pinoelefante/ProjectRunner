@@ -106,7 +106,6 @@ namespace ProjectRunner.Services
                     {
                         if (MainPageKey != null && pageKey.CompareTo(MainPageKey) == 0)
                             ClearBackstack();
-                        //Debug.WriteLine("Backstack size: " + _navigation.Navigation.NavigationStack.Count);
                     });
                 }
                 else

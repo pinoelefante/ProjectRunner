@@ -5,6 +5,9 @@
              Title="Project Runners">
     <ContentPage.Content>
         <StackLayout VerticalOptions="FillAndExpand">
+            <StackLayout.Margin>
+                <OnPlatform x:TypeArguments="Thickness" Android="0,24,0,0"/>
+            </StackLayout.Margin>
             <ListView x:Name="listView" VerticalOptions="FillAndExpand" SeparatorVisibility="None" ListView.RowHeight="40">
                 <ListView.ItemTemplate>
                     <DataTemplate>

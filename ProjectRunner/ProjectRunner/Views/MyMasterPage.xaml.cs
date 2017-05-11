@@ -24,7 +24,8 @@ namespace ProjectRunner.Views
         {
             var item = e.Item as MasterPageItem;
             VM.Navigate(item.PageKey);
-            IsPresented = false;
+            if(Device.Idiom != TargetIdiom.Desktop)
+                IsPresented = false;
         }
     }
 }

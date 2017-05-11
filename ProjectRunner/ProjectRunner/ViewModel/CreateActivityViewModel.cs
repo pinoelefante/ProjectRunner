@@ -30,6 +30,8 @@ namespace ProjectRunner.ViewModel
         public override void NavigatedTo(object parameter = null)
         {
             base.NavigatedTo(parameter);
+            VerifyGeneral();
+            VerifyLocation();
             //rilevare gps
             //load my locations
             LoadMyAddressesAsync();
@@ -37,26 +39,26 @@ namespace ProjectRunner.ViewModel
         public override void NavigatedFrom()
         {
             base.NavigatedFrom();
-            //Reset(true);
         }
         
         public override bool OnBackPressed()
         {
             return true;
         }
-        private void Reset(bool sport = false)
+        private void Reset()
         {
-            if (sport)
-                SelectedSportIndex = 0;
+            SelectedSportIndex = 0;
             SelectedIndexDistanceBicycle = 0;
             SelectedIndexDistanceRunning = 0;
             SelectedIndexGuestList = 0;
             SelectedIndexPlayerPerTeam = 0;
+            SelectedIndexLocation = -1;
             Fee = 0f;
             Guests = 0;
             MaxPlayers = 1;
             WithFitness = false;
             IsDouble = false;
+            KnownAddress.Clear();
         }
         #endregion
 
@@ -64,9 +66,9 @@ namespace ProjectRunner.ViewModel
         private float _fee = 0, _distance = 0;
         private int _guests, _maxPlayers, _requiredFeedback, _playersTeam;
         private int _indexSport, _indexPlayerPerTeam, _indexDistanceRunning, _indexDistanceBicycle, _indexGuestList;
-        private bool _fitness, _isDouble, _isGratis = true, _hasGps;
+        private bool _fitness, _isDouble, _isGratis = true;
         private DateTime _startDay = DateTime.Now;
-        private TimeSpan _startTime = DateTime.Now.TimeOfDay;
+        private TimeSpan _startTime = DateTime.Now.TimeOfDay.Add(TimeSpan.FromHours(1));
 
         public float Fee { get { return _fee; } set { Set(ref _fee, value); VerifyGeneral(); } }
 
@@ -105,7 +107,7 @@ namespace ProjectRunner.ViewModel
         public bool IsDouble { get { return _isDouble; } set { Set(ref _isDouble, value); CalculateMaxPlayers(); VerifyGeneral(); } }
         private void CalculateMaxPlayers()
         {
-            switch (SelectedSport.SportEnumValue)
+            switch (SelectedSport?.SportEnumValue)
             {
                 case Sports.RUNNING:
                 case Sports.BICYCLE:
@@ -151,12 +153,10 @@ namespace ProjectRunner.ViewModel
             get { return _indexSport; }
             set
             {
-                Reset();
                 Set(ref _indexSport, value);
-
-                RaisePropertyChanged(() => SelectedSport);
-                RaisePropertyChanged(() => IsMaxPlayerActive);
-                RaisePropertyChanged(() => IsGuestListActive);
+                    RaisePropertyChanged(() => SelectedSport);
+                    RaisePropertyChanged(() => IsMaxPlayerActive);
+                    RaisePropertyChanged(() => IsGuestListActive);
             }
         }
 
@@ -186,7 +186,7 @@ namespace ProjectRunner.ViewModel
         {
             get
             {
-                switch (SelectedSport.SportEnumValue)
+                switch (SelectedSport?.SportEnumValue)
                 {
                     case Sports.RUNNING:
                     case Sports.BICYCLE:
@@ -202,7 +202,7 @@ namespace ProjectRunner.ViewModel
         {
             get
             {
-                switch (SelectedSport.SportEnumValue)
+                switch (SelectedSport?.SportEnumValue)
                 {
                     case Sports.BICYCLE:
                         return false;
@@ -230,7 +230,14 @@ namespace ProjectRunner.ViewModel
         {
             if (SelectedSportIndex >= 0)
             {
-                if (StartDay.CompareTo(DateTime.Now) < 0)
+                var today = DateTime.Now;
+                if(StartDay.Year<today.Year || (StartDay.Year==today.Year && StartDay.Month<today.Month) || (StartDay.Year==today.Year && StartDay.Month == today.Month && StartDay.Day<today.Day))
+                if (StartDay.CompareTo(today) < 0)
+                {
+                    IsNextGeneralEnabled = false;
+                    return;
+                }
+                if(StartTime.CompareTo(today.TimeOfDay)<=0)
                 {
                     IsNextGeneralEnabled = false;
                     return;
@@ -250,23 +257,25 @@ namespace ProjectRunner.ViewModel
                     IsNextGeneralEnabled = false;
                     return;
                 }
+                switch (SelectedSport?.SportEnumValue)
+                {
+                    case Sports.BICYCLE:
+                    case Sports.RUNNING:
+                        IsNextGeneralEnabled = Distance > 0;
+                        return;
+                    case Sports.FOOTBALL:
+                        IsNextGeneralEnabled = PlayersPerTeam >= 5;
+                        return;
+                    case Sports.TENNIS:
+                        IsNextGeneralEnabled = true;
+                        return;
+                    default:
+                        IsNextGeneralEnabled = false;
+                        return;
+                }
             }
-            switch (SelectedSport.SportEnumValue)
-            {
-                case Sports.BICYCLE:
-                case Sports.RUNNING:
-                    IsNextGeneralEnabled = Distance > 0;
-                    return;
-                case Sports.FOOTBALL:
-                    IsNextGeneralEnabled = PlayersPerTeam >= 5;
-                    return;
-                case Sports.TENNIS:
-                    IsNextGeneralEnabled = true;
-                    return;
-                default:
-                    IsNextGeneralEnabled = false;
-                    return;
-            }
+            else
+                IsNextGeneralEnabled = false;
         }
 
         private RelayCommand _goLocationCmd, _goToConfirmCmd;
@@ -276,16 +285,14 @@ namespace ProjectRunner.ViewModel
             {
                 navigation.NavigateTo(ViewModelLocator.CreateActivityChooseLocation);
             }));
-
-
-
         #endregion
 
         #region Choose location
-        public bool HasGPS { get { return _hasGps; } set { Set(ref _hasGps, value); } }
         public ObservableCollection<MapAddress> KnownAddress { get; } = new ObservableCollection<MapAddress>();
-        private async Task LoadMyAddressesAsync()
+        private async Task LoadMyAddressesAsync(bool force = false)
         {
+            if (!force && KnownAddress.Any())
+                return;
             var addr = await server.Activities.ListAddressAsync();
             if (addr.response == StatusCodes.OK)
             {
@@ -293,30 +300,40 @@ namespace ProjectRunner.ViewModel
                 foreach (var item in addr.content)
                     KnownAddress.Add(item);
                 RaisePropertyChanged(() => KnownAddress);
-            }
-
-            foreach (var item in KnownAddress)
-            {
-                Debug.WriteLine(item.Name);
+                if (SelectedIndexLocation < 0 && KnownAddress.Any())
+                    SelectedIndexLocation = 0;
             }
         }
-        private int _selectedIndexLocation;
-        public int SelectedIndexLocation { get { return _selectedIndexLocation; } set { Set(ref _selectedIndexLocation, value); RaisePropertyChanged(()=> SelectedLocation); } }
+        private int _selectedIndexLocation = -1;
+        public int SelectedIndexLocation { get { return _selectedIndexLocation; } set { Set(ref _selectedIndexLocation, value); VerifyLocation(); RaisePropertyChanged(()=> SelectedLocation); } }
         public MapAddress SelectedLocation { get { if (_selectedIndexLocation >= 0 && KnownAddress.Count() > _selectedIndexLocation) return KnownAddress[_selectedIndexLocation]; return null; } }
+        private RelayCommand _deleteLocationCmd;
+        public RelayCommand DeleteLocationCommand =>
+            _deleteLocationCmd ??
+            (_deleteLocationCmd = new RelayCommand(async () =>
+            {
+                var address = KnownAddress[SelectedIndexLocation];
+                var res = await server.Activities.RemoveAddress(address.Id);
+                if(res.response == StatusCodes.OK)
+                {
+                    KnownAddress.Remove(address);
+                    RaisePropertyChanged(() => SelectedLocation);
+                    address = null;
+                }
+            }));
         public RelayCommand GoToConfirm =>
             _goToConfirmCmd ??
             (_goToConfirmCmd = new RelayCommand(() =>
             {
                 navigation.NavigateTo(ViewModelLocator.CreateActivityConfirm);
             }));
-        public RelayCommand TestLocation =>
-            new RelayCommand(() =>
-            {
-                if (SelectedLocation != null)
-                    Debug.WriteLine(SelectedLocation);
-                else
-                    Debug.WriteLine("Location non selezionata");
-            });
+        
+        private bool _nextLocationEnabled = false;
+        public bool IsNextLocationEnabled { get { return _nextLocationEnabled; } set { Set(ref _nextLocationEnabled, value); } }
+        private void VerifyLocation()
+        {
+            IsNextLocationEnabled = SelectedIndexLocation >= 0 && SelectedIndexLocation < KnownAddress.Count;
+        }
         #endregion
 
         #region Add Location
@@ -337,6 +354,7 @@ namespace ProjectRunner.ViewModel
         public string AddressZipCode { get { return _mpZipCode; } set { Set(ref _mpZipCode, value); } }
         public double AddressLatitude { get { return _mpLatitude; } set { Set(ref _mpLatitude, value); } }
         public double AddressLongitude { get { return _mpLongitude; } set { Set(ref _mpLongitude, value); } }
+        public bool HasGPS { get { return CrossGeolocator.Current.IsGeolocationAvailable; } }
 
         private RelayCommand _findCoordinatesCmd, _addLocationCmd, _getMyPositionCmd;
         public RelayCommand FindCoordinatesCommand =>
@@ -354,7 +372,7 @@ namespace ProjectRunner.ViewModel
                 var res = await server.Activities.AddAddressPoint(AddressName, AddressLatitude, AddressLongitude);
                 if(res.response == StatusCodes.OK)
                 {
-                    await LoadMyAddressesAsync();
+                    await LoadMyAddressesAsync(true);
                     navigation.GoBack();
                 }
                 else
@@ -408,16 +426,19 @@ namespace ProjectRunner.ViewModel
                     dialogs.ShowAlert("Your device doesn't have a location sensor or is disabled", "Location sensor not found");
                 }
             }));
+
         #endregion
 
         #region Confirm activity
-
-        public RelayCommand CreateActivityCommand => new RelayCommand(
+        private RelayCommand _createActivityCmd;
+        public RelayCommand CreateActivityCommand =>
+            _createActivityCmd ?? 
+            (_createActivityCmd = new RelayCommand(
             async () =>
             {
 
                 Dictionary<string, string> sportDetails = null;
-                switch (SelectedSport.SportEnumValue)
+                switch (SelectedSport?.SportEnumValue)
                 {
                     case Sports.BICYCLE:
                         sportDetails = BicycleActivity.CreateDetailsDictionary(Distance);
@@ -441,13 +462,13 @@ namespace ProjectRunner.ViewModel
                 {
                     dialogs.ShowAlert("Activity created", "Activity creation");
                     navigation.NavigateTo(ViewModelLocator.HomePage);
+                    Reset();
                 }
                 else
                 {
                     dialogs.ShowAlert("An error occurred while creating the activity", "Activity creation");
                 }
-            }
-            );
+            }));
         #endregion
         private bool _nextGeneralEnabled = false;
         public bool IsNextGeneralEnabled { get { return _nextGeneralEnabled; } set { Set(ref _nextGeneralEnabled, value); } }

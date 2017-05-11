@@ -15,7 +15,7 @@
             <StackLayout Grid.Row="0">
                 <Label Text="Add location" FontSize="24" HorizontalOptions="Center" FontAttributes="Bold"/>
 
-                <Button Text="Get GPS" Command="{Binding GetMyGPSPositionCommand}"/>
+                <Button Text="Get GPS" Command="{Binding GetMyGPSPositionCommand}" IsEnabled="{Binding HasGPS}" IsVisible="{Binding HasGPS}"/>
 
                 <Label Text="Name"/>
                 <Entry Placeholder="Location name" Text="{Binding AddressName, Mode=TwoWay}"/>

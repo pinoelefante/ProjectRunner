@@ -27,7 +27,8 @@ namespace ProjectRunner.ServerAPI
     public class CommonServerAPI
     {
         private HttpClient http;
-        private static readonly string SERVER_ADDRESS = /*"http://localhost";*/"http://gestioneserietv.altervista.org";
+        //private static readonly string SERVER_ADDRESS = "http://localhost";
+        private static readonly string SERVER_ADDRESS = "http://gestioneserietv.altervista.org";
         private static readonly string SERVER_ENDPOINT = $"{SERVER_ADDRESS}/prserver";
 
         public CommonServerAPI()
@@ -424,6 +425,15 @@ namespace ProjectRunner.ServerAPI
                     new KeyValuePair<string, string>(MapAddressDatabase.LONGITUDE, longitude.ToString("N7").Replace(',','.')),
                 });
             return await server.sendRequest<string>("/activities.php?action=AddAddressPoint", postContent);
+        }
+        //
+        public async Task<Envelop<string>> RemoveAddress(int locationId)
+        {
+            FormUrlEncodedContent postContent = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>()
+                {
+                    new KeyValuePair<string, string>(MapAddressDatabase.ID, locationId.ToString())
+                });
+            return await server.sendRequest<string>("/activities.php?action=RemoveAddress", postContent);
         }
         public async Task<Envelop<string>> ReloadLocationInfoFromGoogleMaps(int locationId)
         {

@@ -17,9 +17,8 @@ namespace ProjectRunner.Views
         public CreateActivityPage()
         {
             InitializeComponent();
-            viewModel.PropertyChanged += ViewModel_PropertyChanged;
+            
         }
-
         private void ViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             switch(e.PropertyName)
@@ -31,13 +30,22 @@ namespace ProjectRunner.Views
                     break;
             }
         }
-
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            viewModel.PropertyChanged += ViewModel_PropertyChanged;
+        }
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            viewModel.PropertyChanged -= ViewModel_PropertyChanged;
+        }
         private CreateActivityViewModel viewModel => this.BindingContext as CreateActivityViewModel;
         private void PopulateGuestList()
         {
             var lastIndex = viewModel.SelectedIndexGuestList;
             int maxPlayers = 0;
-            switch(viewModel.SelectedSport.SportEnumValue)
+            switch(viewModel.SelectedSport?.SportEnumValue)
             {
                 case Sports.FOOTBALL:
                     maxPlayers = (viewModel.PlayersPerTeam * 2) - 1;

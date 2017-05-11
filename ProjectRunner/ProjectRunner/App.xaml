@@ -14,6 +14,7 @@
             <vm:ViewModelLocator x:Key="Locator" />
             <converters:SportToBooleanConverter x:Key="SportEquals"/>
             <converters:SportToBooleanConverter x:Key="IntEquals"/>
+            <converters:GreaterThan x:Key="IntGreaterThan"/>
             <converters:NotBoolean x:Key="NotBoolean"/>
         </ResourceDictionary>  
       

@@ -34,4 +34,18 @@ namespace ProjectRunner.Views.Converters
             return !(bool)value;
         }
     }
+    public class GreaterThan : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var param = System.Convert.ToInt32(parameter);
+            var val = System.Convert.ToInt32(value);
+            return val > param;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
