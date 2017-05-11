@@ -18,9 +18,11 @@ namespace ProjectRunner.ViewModel
             LoginPage = "LoginPage",
             RegisterPage = "RegisterPage",
             ForgotPassword = "ForgotPasswordPage",
-            CreateActivity = "CreateActivityPage";
+            CreateActivity = "CreateActivityPage",
+            CreateActivityChooseLocation = "CreateActivityChooseLocation",
+            CreateActivityAddLocation = "CreateActivityAddLocation",
+            CreateActivityConfirm = "CreateActivityConfirm";
         
-
         private static NavigationService nav;
         static ViewModelLocator()
         {
@@ -43,7 +45,11 @@ namespace ProjectRunner.ViewModel
             nav.Configure(LoginPage, typeof(Views.LoginPage));
             nav.Configure(RegisterPage, typeof(Views.RegisterPage));
             nav.Configure(HomePage, typeof(Views.HomePage));
+
             nav.Configure(CreateActivity, typeof(Views.CreateActivityPage));
+            nav.Configure(CreateActivityAddLocation, typeof(Views.CreateActivityAddLocation));
+            nav.Configure(CreateActivityChooseLocation, typeof(Views.CreateActivityChooseLocation));
+            nav.Configure(CreateActivityConfirm, typeof(Views.CreateActivityConfirmPage));
         }
         public static T GetService<T>() => ServiceLocator.Current.GetInstance<T>();
         public static NavigationService NavigationService { get { return nav; } }

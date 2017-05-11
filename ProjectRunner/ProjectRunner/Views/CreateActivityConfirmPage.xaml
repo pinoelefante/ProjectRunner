@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProjectRunner.Views.CreateActivityConfirmPage"
+             xmlns:views="clr-namespace:ProjectRunner.Views"
+             Title="Create activity"
+             BindingContext="{Binding CreateActivityViewModel, Source={StaticResource Locator}}">
+    <ScrollView Padding="0,0,10,0" Margin="10,0,0,0"  IsVisible="{Binding CurrentNavigation, ConverterParameter=4, Converter={StaticResource IntEquals}}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <StackLayout>
+                <Label Text="Confirm" FontSize="24" HorizontalOptions="Center" FontAttributes="Bold"/>
+
+                <Label Text="Selected sport: "/>
+                <Label Text="{Binding SelectedSport.SportName}" FontAttributes="Bold"/>
+                <Label Text="Day: "/>
+                <Label Text="{Binding StartDayString}" FontAttributes="Bold"/>
+                <Label Text="at: "/>
+                <Label Text="{Binding StartTimeString}" FontAttributes="Bold"/>
+                <Label Text="To: "/>
+                <Label Text="{Binding SelectedLocation.Name}" FontAttributes="Bold"/>
+                <Label Text="Guests: "/>
+                <Label Text="{Binding Guests}" FontAttributes="Bold"/>
+                <Label Text="Total players: "/>
+                <Label Text="{Binding MaxPlayers}" FontAttributes="Bold"/>
+                <Label Text="Fee"/>
+                <Label Text="{Binding Fee}" FontAttributes="Bold"/>
+
+                <!-- Running -->
+                <StackLayout IsVisible="{Binding SelectedSport.SportEnumValue, ConverterParameter=1, Converter={StaticResource SportEquals}}">
+                    <Label Text="Distance"/>
+                    <Label Text="{Binding Distance}" FontAttributes="Bold"/>
+                    <Label Text="With fitness"/>
+                    <Label Text="{Binding WithFitness}" FontAttributes="Bold"/>
+                </StackLayout>
+
+                <!-- Football -->
+                <StackLayout IsVisible="{Binding SelectedSport.SportEnumValue, ConverterParameter=2, Converter={StaticResource SportEquals}}">
+                    <!-- useless to see players per team -->
+                </StackLayout>
+                <!-- Bicycle -->
+                <StackLayout IsVisible="{Binding SelectedSport.SportEnumValue, ConverterParameter=3, Converter={StaticResource SportEquals}}">
+                    <Label Text="Distance"/>
+                    <Label Text="{Binding Distance}" FontAttributes="Bold"/>
+                </StackLayout>
+
+                <!-- Tennis -->
+                <StackLayout IsVisible="{Binding SelectedSport.SportEnumValue, ConverterParameter=4, Converter={StaticResource SportEquals}}">
+                    <Label Text="Is double: "/>
+                    <Label Text="{Binding }" FontAttributes="Bold"/>
+                </StackLayout>
+            </StackLayout>
+
+            <Button Grid.Row="1" Text="CONFIRM"/>
+        </Grid>
+
+    </ScrollView>
+</ContentPage>

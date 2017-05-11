@@ -37,7 +37,7 @@ namespace ProjectRunner.Views
         {
             var lastIndex = viewModel.SelectedIndexGuestList;
             int maxPlayers = 0;
-            switch(viewModel.SelectedSport)
+            switch(viewModel.SelectedSport.SportEnumValue)
             {
                 case Sports.FOOTBALL:
                     maxPlayers = (viewModel.PlayersPerTeam * 2) - 1;

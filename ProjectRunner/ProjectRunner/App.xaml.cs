@@ -18,6 +18,7 @@ namespace ProjectRunner
             ViewModelLocator.NavigationService.Initialize(MainPage as NavigationPage, ViewModelLocator.HomePage);
 
             //MainPage = new Views.MyMasterPage();
+
             ViewModelLocator.RegisterPages();
         }
         protected override void OnStart()

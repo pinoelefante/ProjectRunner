@@ -27,7 +27,7 @@ namespace ProjectRunner.ServerAPI
     public class CommonServerAPI
     {
         private HttpClient http;
-        private static readonly string SERVER_ADDRESS = "http://localhost"; /*"http://gestioneserietv.altervista.org";*/
+        private static readonly string SERVER_ADDRESS = /*"http://localhost";*/"http://gestioneserietv.altervista.org";
         private static readonly string SERVER_ENDPOINT = $"{SERVER_ADDRESS}/prserver";
 
         public CommonServerAPI()
@@ -410,8 +410,8 @@ namespace ProjectRunner.ServerAPI
             FormUrlEncodedContent postContent = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>()
                 {
                     new KeyValuePair<string, string>(MapAddressDatabase.NAME, name),
-                    new KeyValuePair<string, string>(MapAddressDatabase.LATITUDE,latitude.ToString()),
-                    new KeyValuePair<string, string>(MapAddressDatabase.LONGITUDE, longitude.ToString()),
+                    new KeyValuePair<string, string>(MapAddressDatabase.LATITUDE,latitude.ToString("N7").Replace(',','.')),
+                    new KeyValuePair<string, string>(MapAddressDatabase.LONGITUDE, longitude.ToString("N7").Replace(',','.')),
                 });
             return await server.sendRequest<string>("/activities.php?action=AddAddress", postContent);
         }
@@ -420,8 +420,8 @@ namespace ProjectRunner.ServerAPI
             FormUrlEncodedContent postContent = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>()
                 {
                     new KeyValuePair<string, string>(MapAddressDatabase.NAME, name),
-                    new KeyValuePair<string, string>(MapAddressDatabase.LATITUDE,latitude.ToString("N7")),
-                    new KeyValuePair<string, string>(MapAddressDatabase.LONGITUDE, longitude.ToString("N7")),
+                    new KeyValuePair<string, string>(MapAddressDatabase.LATITUDE,latitude.ToString("N7").Replace(',','.')),
+                    new KeyValuePair<string, string>(MapAddressDatabase.LONGITUDE, longitude.ToString("N7").Replace(',','.')),
                 });
             return await server.sendRequest<string>("/activities.php?action=AddAddressPoint", postContent);
         }
@@ -536,6 +536,12 @@ namespace ProjectRunner.ServerAPI
                 StreetNumber = !string.IsNullOrEmpty(dict[prefix + MapAddressDatabase.STREET_NUMBER]) ? Int32.Parse(dict[prefix + MapAddressDatabase.STREET_NUMBER]) : -1
             };
             return mp;
+        }
+        public override string ToString()
+        {
+            if(!string.IsNullOrEmpty(Name))
+                return Name;
+            return $"{Latitude} {Longitude}";
         }
     }
     class MapAddressDatabase

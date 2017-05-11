@@ -1,13 +1,16 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
+using Plugin.Geolocator;
 using ProjectRunner.ServerAPI;
 using ProjectRunner.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ProjectRunner.ViewModel
@@ -34,37 +37,15 @@ namespace ProjectRunner.ViewModel
         public override void NavigatedFrom()
         {
             base.NavigatedFrom();
-            Reset(true);
+            //Reset(true);
         }
-        private Stack<int> navigationStack = new Stack<int>();
-        public int CurrentNavigation
-        {
-            get
-            {
-                if (navigationStack.Count == 0)
-                    return 1;
-                return navigationStack.Peek();
-            }
-        }
+        
         public override bool OnBackPressed()
         {
-            if (CurrentNavigation == 1)
-            {
-                navigationStack.Clear();
-                return false;
-            }
-            else
-            {
-                navigationStack.Pop();
-                RaisePropertyChanged(() => CurrentNavigation);
-                return true;
-            }
+            return true;
         }
         private void Reset(bool sport = false)
         {
-            navigationStack.Clear();
-            navigationStack.Push(1);
-            RaisePropertyChanged(() => CurrentNavigation);
             if (sport)
                 SelectedSportIndex = 0;
             SelectedIndexDistanceBicycle = 0;
@@ -86,7 +67,6 @@ namespace ProjectRunner.ViewModel
         private bool _fitness, _isDouble, _isGratis = true, _hasGps;
         private DateTime _startDay = DateTime.Now;
         private TimeSpan _startTime = DateTime.Now.TimeOfDay;
-        private Sports _selectedSport;
 
         public float Fee { get { return _fee; } set { Set(ref _fee, value); VerifyGeneral(); } }
 
@@ -125,7 +105,7 @@ namespace ProjectRunner.ViewModel
         public bool IsDouble { get { return _isDouble; } set { Set(ref _isDouble, value); CalculateMaxPlayers(); VerifyGeneral(); } }
         private void CalculateMaxPlayers()
         {
-            switch (SelectedSport)
+            switch (SelectedSport.SportEnumValue)
             {
                 case Sports.RUNNING:
                 case Sports.BICYCLE:
@@ -161,8 +141,10 @@ namespace ProjectRunner.ViewModel
         }
         public int RequiredFeedback { get { return _requiredFeedback; } set { Set(ref _requiredFeedback, value); VerifyGeneral(); } }
         public bool WithFitness { get { return _fitness; } set { Set(ref _fitness, value); VerifyGeneral(); } }
-        public DateTime StartDay { get { return _startDay; } set { Set(ref _startDay, value); VerifyGeneral(); } }
-        public TimeSpan StartTime { get { return _startTime; } set { Set(ref _startTime, value); VerifyGeneral(); } }
+        public DateTime StartDay { get { return _startDay; } set { Set(ref _startDay, value); VerifyGeneral(); RaisePropertyChanged(() => StartDayString); } }
+        public string StartDayString { get { return StartDay.ToString("d"); } }
+        public TimeSpan StartTime { get { return _startTime; } set { Set(ref _startTime, value); VerifyGeneral(); RaisePropertyChanged(() => StartTimeString); } }
+        public string StartTimeString { get { return $"{StartTime.Hours.ToString("D2")}:{StartTime.Minutes.ToString("D2")}"; } }
         public bool IsGratis { get { return _isGratis; } set { Set(ref _isGratis, value); Fee = value ? 0.0f : 1.0f; VerifyGeneral(); } }
         public int SelectedSportIndex
         {
@@ -171,8 +153,6 @@ namespace ProjectRunner.ViewModel
             {
                 Reset();
                 Set(ref _indexSport, value);
-                if (value >= 0)
-                    SelectedSport = SportsAvailable[value].SportEnumValue;
 
                 RaisePropertyChanged(() => SelectedSport);
                 RaisePropertyChanged(() => IsMaxPlayerActive);
@@ -180,7 +160,7 @@ namespace ProjectRunner.ViewModel
             }
         }
 
-        public Sports SelectedSport { get { return _selectedSport; } set { Set(ref _selectedSport, value); VerifyGeneral(); } }
+        public SportItem SelectedSport { get { if (_indexSport >= 0) return SportsAvailable[_indexSport]; return null; } }
         public ObservableCollection<SportItem> SportsAvailable { get; } = new ObservableCollection<SportItem>()
         {
             new SportItem(Sports.RUNNING, "Corsa"),
@@ -206,7 +186,7 @@ namespace ProjectRunner.ViewModel
         {
             get
             {
-                switch (SelectedSport)
+                switch (SelectedSport.SportEnumValue)
                 {
                     case Sports.RUNNING:
                     case Sports.BICYCLE:
@@ -222,7 +202,7 @@ namespace ProjectRunner.ViewModel
         {
             get
             {
-                switch (SelectedSport)
+                switch (SelectedSport.SportEnumValue)
                 {
                     case Sports.BICYCLE:
                         return false;
@@ -271,7 +251,7 @@ namespace ProjectRunner.ViewModel
                     return;
                 }
             }
-            switch (SelectedSport)
+            switch (SelectedSport.SportEnumValue)
             {
                 case Sports.BICYCLE:
                 case Sports.RUNNING:
@@ -294,8 +274,7 @@ namespace ProjectRunner.ViewModel
             _goLocationCmd ??
             (_goLocationCmd = new RelayCommand(() =>
             {
-                navigationStack.Push(2);
-                RaisePropertyChanged(() => CurrentNavigation);
+                navigation.NavigateTo(ViewModelLocator.CreateActivityChooseLocation);
             }));
 
 
@@ -321,14 +300,23 @@ namespace ProjectRunner.ViewModel
                 Debug.WriteLine(item.Name);
             }
         }
+        private int _selectedIndexLocation;
+        public int SelectedIndexLocation { get { return _selectedIndexLocation; } set { Set(ref _selectedIndexLocation, value); RaisePropertyChanged(()=> SelectedLocation); } }
+        public MapAddress SelectedLocation { get { if (_selectedIndexLocation >= 0 && KnownAddress.Count() > _selectedIndexLocation) return KnownAddress[_selectedIndexLocation]; return null; } }
         public RelayCommand GoToConfirm =>
             _goToConfirmCmd ??
             (_goToConfirmCmd = new RelayCommand(() =>
             {
-                navigationStack.Push(4);
-                RaisePropertyChanged(() => CurrentNavigation);
+                navigation.NavigateTo(ViewModelLocator.CreateActivityConfirm);
             }));
-
+        public RelayCommand TestLocation =>
+            new RelayCommand(() =>
+            {
+                if (SelectedLocation != null)
+                    Debug.WriteLine(SelectedLocation);
+                else
+                    Debug.WriteLine("Location non selezionata");
+            });
         #endregion
 
         #region Add Location
@@ -337,8 +325,88 @@ namespace ProjectRunner.ViewModel
             _goAddLocationCmd ??
             (_goAddLocationCmd = new RelayCommand(()=> 
             {
-                navigationStack.Push(3);
-                RaisePropertyChanged(() => CurrentNavigation);
+                navigation.NavigateTo(ViewModelLocator.CreateActivityAddLocation);
+            }));
+        private string _mpName, _mpStreet, _mpCity, _mpZipCode;
+        private int _mpCivicNumber;
+        private double _mpLatitude, _mpLongitude;
+        public string AddressName { get { return _mpName; } set { Set(ref _mpName, value); } }
+        public string AddressStreet { get { return _mpStreet; } set { Set(ref _mpStreet, value); } }
+        public string AddressCity { get { return _mpCity; } set { Set(ref _mpCity, value); } }
+        public int AddressCivicNumber { get { return _mpCivicNumber; } set { Set(ref _mpCivicNumber, value); } }
+        public string AddressZipCode { get { return _mpZipCode; } set { Set(ref _mpZipCode, value); } }
+        public double AddressLatitude { get { return _mpLatitude; } set { Set(ref _mpLatitude, value); } }
+        public double AddressLongitude { get { return _mpLongitude; } set { Set(ref _mpLongitude, value); } }
+
+        private RelayCommand _findCoordinatesCmd, _addLocationCmd, _getMyPositionCmd;
+        public RelayCommand FindCoordinatesCommand =>
+            _findCoordinatesCmd ??
+            (_findCoordinatesCmd = new RelayCommand(() =>
+            {
+                //TODO find coordinates Xamarin.Geolocation
+                
+            }));
+        public RelayCommand AddLocationCommand =>
+            _addLocationCmd ??
+            (_addLocationCmd = new RelayCommand(async () =>
+            {
+                //TODO verify all fields aren't empty
+                var res = await server.Activities.AddAddressPoint(AddressName, AddressLatitude, AddressLongitude);
+                if(res.response == StatusCodes.OK)
+                {
+                    await LoadMyAddressesAsync();
+                    navigation.GoBack();
+                }
+                else
+                {
+                    dialogs.ShowAlert("An error occurred while adding the address. Retry later");
+                    Debug.WriteLine("Error while adding address");
+                }
+            }));
+        public RelayCommand GetMyGPSPositionCommand =>
+            _getMyPositionCmd ??
+            (_getMyPositionCmd = new RelayCommand(async () =>
+            {
+                var locator = CrossGeolocator.Current;
+                if (locator.IsGeolocationAvailable && locator.IsGeolocationEnabled)
+                {
+                    CancellationToken ct = new CancellationToken();
+                    try
+                    {
+                        var position = await locator.GetPositionAsync(TimeSpan.FromSeconds(5), ct);
+                        if (position != null)
+                        {
+                            AddressLatitude = position.Latitude;
+                            AddressLongitude = position.Longitude;
+
+                            var addresses = await locator.GetAddressesForPositionAsync(position);
+                            var address = addresses.FirstOrDefault();
+                            if (address != null)
+                            {
+                                var country = address.CountryCode;
+                                AddressZipCode = address.PostalCode;
+                                AddressCity = address.Locality;
+                                AddressStreet = address.Thoroughfare;
+                            }
+                            else
+                            {
+                                AddressCity = string.Empty;
+                                AddressCivicNumber = 0;
+                                AddressStreet = string.Empty;
+                                AddressZipCode = string.Empty;
+                                dialogs.ShowAlert("Address not found", "");
+                            }
+                        }
+                    }
+                    catch(Exception e)
+                    {
+                        dialogs.ShowAlert("An error occurred while retrieving location");
+                    }
+                }
+                else
+                {
+                    dialogs.ShowAlert("Your device doesn't have a location sensor or is disabled", "Location sensor not found");
+                }
             }));
         #endregion
 
@@ -349,7 +417,7 @@ namespace ProjectRunner.ViewModel
             {
 
                 Dictionary<string, string> sportDetails = null;
-                switch (SelectedSport)
+                switch (SelectedSport.SportEnumValue)
                 {
                     case Sports.BICYCLE:
                         sportDetails = BicycleActivity.CreateDetailsDictionary(Distance);
@@ -367,8 +435,8 @@ namespace ProjectRunner.ViewModel
 
                 Debug.WriteLine(StartDay.ToString());
                 Debug.WriteLine(StartTime.ToString());
-                //TODO Remove 1 from default meeting point value
-                var response = await server.Activities.CreateActivityAsync(StartDay, StartTime, 1, MaxPlayers, Guests, Fee, SelectedSport, RequiredFeedback, sportDetails);
+
+                var response = await server.Activities.CreateActivityAsync(StartDay, StartTime, SelectedLocation.Id, MaxPlayers, Guests, Fee, SelectedSport.SportEnumValue, RequiredFeedback, sportDetails);
                 if (response.response == StatusCodes.OK)
                 {
                     dialogs.ShowAlert("Activity created", "Activity creation");
