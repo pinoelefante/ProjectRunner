@@ -16,6 +16,7 @@
             <converters:SportToBooleanConverter x:Key="IntEquals"/>
             <converters:GreaterThan x:Key="IntGreaterThan"/>
             <converters:NotBoolean x:Key="NotBoolean"/>
+            <converters:ItemTappedEventArgsConverter x:Key="ItemTappedConverter"/>
         </ResourceDictionary>  
       
     </Application.Resources>

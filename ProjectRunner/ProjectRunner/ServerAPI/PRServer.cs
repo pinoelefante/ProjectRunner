@@ -531,20 +531,20 @@ namespace ProjectRunner.ServerAPI
 
         public static MapAddress ParseDictionary(Dictionary<string, string> dict, string prefix = "")
         {
-            MapAddress mp = new MapAddress()
-            {
-                Id = Int32.Parse(dict[prefix+MapAddressDatabase.ID]),
-                City = dict[prefix + MapAddressDatabase.CITY],
-                Country = dict[prefix + MapAddressDatabase.COUNTRY],
-                Latitude = float.Parse(dict[prefix + MapAddressDatabase.LATITUDE]),
-                Longitude = float.Parse(dict[prefix + MapAddressDatabase.LONGITUDE]),
-                Name = dict[prefix + MapAddressDatabase.NAME],
-                PostalCode = dict[prefix + MapAddressDatabase.POSTAL_CODE],
-                Province = dict[prefix + MapAddressDatabase.PROVINCE],
-                Region = dict[prefix + MapAddressDatabase.REGION],
-                Route = dict[prefix + MapAddressDatabase.ROUTE],
-                StreetNumber = !string.IsNullOrEmpty(dict[prefix + MapAddressDatabase.STREET_NUMBER]) ? Int32.Parse(dict[prefix + MapAddressDatabase.STREET_NUMBER]) : -1
-            };
+            MapAddress mp = new MapAddress();
+            //{
+            mp.Id = Int32.Parse(dict[prefix + MapAddressDatabase.ID]);
+            mp.City = dict[prefix + MapAddressDatabase.CITY];
+            mp.Country = dict[prefix + MapAddressDatabase.COUNTRY];
+            mp.Latitude = float.Parse(dict[prefix + MapAddressDatabase.LATITUDE]);
+            mp.Longitude = float.Parse(dict[prefix + MapAddressDatabase.LONGITUDE]);
+            mp.Name = dict[prefix + MapAddressDatabase.NAME];
+            mp.PostalCode = dict[prefix + MapAddressDatabase.POSTAL_CODE];
+            mp.Province = dict[prefix + MapAddressDatabase.PROVINCE];
+            mp.Region = dict[prefix + MapAddressDatabase.REGION];
+            mp.Route = dict[prefix + MapAddressDatabase.ROUTE];
+            mp.StreetNumber = !string.IsNullOrEmpty(dict[prefix + MapAddressDatabase.STREET_NUMBER]) ? Int32.Parse(dict[prefix + MapAddressDatabase.STREET_NUMBER]) : -1;
+            //};
             return mp;
         }
         public override string ToString()
@@ -614,6 +614,8 @@ namespace ProjectRunner.ServerAPI
         {
             BicycleActivity act = new BicycleActivity();
             ParseDictionary(act, dict);
+            act.Distance = float.Parse(dict[BicycleDatabase.DISTANCE]);
+            act.Traveled = float.Parse(dict[BicycleDatabase.TRAVELED]);
             return act;
         }
         public static Dictionary<string, string> CreateDetailsDictionary(float? distance = null, float? traveled = null)
@@ -629,11 +631,12 @@ namespace ProjectRunner.ServerAPI
     public class FootballActivity : Activity
     {
         public int PlayersPerTeam { get; set; }
-        private FootballActivity() { }
+        public FootballActivity() { }
         public static Activity ParseDictionary(Dictionary<string, string> dict)
         {
             FootballActivity act = new FootballActivity();
             ParseDictionary(act, dict);
+            act.PlayersPerTeam = Int32.Parse(dict[FootballDatabase.PLAYERSPERTEAM]);
             return act;
         }
         public static Dictionary<string, string> CreateDetailsDictionary(int? playersTeam = null)
@@ -654,6 +657,9 @@ namespace ProjectRunner.ServerAPI
         {
             RunningActivity act = new RunningActivity();
             ParseDictionary(act, dict);
+            act.Distance = float.Parse(dict[RunningDatabase.DISTANCE]);
+            act.Traveled = float.Parse(dict[RunningDatabase.TRAVELED]);
+            act.WithFitness = Int32.Parse(dict[RunningDatabase.FITNESS]) == 0 ? false : true;
             return act;
         }
         public static Dictionary<string, string> CreateDetailsDictionary(float? distance = null, float? traveled = null, bool? fitness = null)
@@ -676,6 +682,7 @@ namespace ProjectRunner.ServerAPI
         {
             TennisActivity act = new TennisActivity();
             ParseDictionary(act, dict);
+            act.IsDouble = Int32.Parse(dict[TennisDatabase.DOUBLE]) == 0 ? false : true;
             return act;
         }
         public static Dictionary<string, string> CreateDetailsDictionary(bool? _double = null)

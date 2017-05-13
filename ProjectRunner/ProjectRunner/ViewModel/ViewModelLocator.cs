@@ -18,6 +18,7 @@ namespace ProjectRunner.ViewModel
             LoginPage = "LoginPage",
             RegisterPage = "RegisterPage",
             ForgotPassword = "ForgotPasswordPage",
+            Activities = "ActivitiesPage",
             CreateActivity = "CreateActivityPage",
             CreateActivityChooseLocation = "CreateActivityChooseLocation",
             CreateActivityAddLocation = "CreateActivityAddLocation",
@@ -36,6 +37,7 @@ namespace ProjectRunner.ViewModel
             SimpleIoc.Default.Register<RegisterPageViewModel>();
             SimpleIoc.Default.Register<ForgotPasswordViewModel>();
             SimpleIoc.Default.Register<MyMasterDetailViewModel>();
+            SimpleIoc.Default.Register<ActivitiesListViewModel>();
             SimpleIoc.Default.Register<CreateActivityViewModel>();
             SimpleIoc.Default.Register<HomePageViewModel>();
         }
@@ -46,6 +48,7 @@ namespace ProjectRunner.ViewModel
             nav.Configure(RegisterPage, typeof(Views.RegisterPage));
             nav.Configure(HomePage, typeof(Views.HomePage));
 
+            nav.Configure(Activities, typeof(Views.Activities));
             nav.Configure(CreateActivity, typeof(Views.CreateActivityPage));
             nav.Configure(CreateActivityAddLocation, typeof(Views.CreateActivityAddLocation));
             nav.Configure(CreateActivityChooseLocation, typeof(Views.CreateActivityChooseLocation));
@@ -60,5 +63,6 @@ namespace ProjectRunner.ViewModel
         public MyMasterDetailViewModel MyMasterDetailViewModel => GetService<MyMasterDetailViewModel>();
         public CreateActivityViewModel CreateActivityViewModel => GetService<CreateActivityViewModel>();
         public HomePageViewModel HomePageViewModel => GetService<HomePageViewModel>();
+        public ActivitiesListViewModel ActivitiesListViewModel => GetService<ActivitiesListViewModel>();
     }
 }

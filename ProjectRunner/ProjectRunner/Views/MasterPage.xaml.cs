@@ -27,8 +27,8 @@ namespace ProjectRunner.Views
                 },
                 new MasterPageItem()
                 {
-                    Title = "Create Activity",
-                    PageKey = ViewModelLocator.CreateActivity
+                    Title = "Activities",
+                    PageKey = ViewModelLocator.Activities
                 }
             };
         }

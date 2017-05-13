@@ -25,7 +25,7 @@ namespace ProjectRunner.ViewModel
          */
         public virtual bool OnBackPressed()
         {
-            return true;
+            return false;
         }
     }
 }

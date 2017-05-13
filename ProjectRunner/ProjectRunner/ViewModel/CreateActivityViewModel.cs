@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight.Views;
 using Plugin.Geolocator;
 using ProjectRunner.ServerAPI;
 using ProjectRunner.Services;
+using ProjectRunner.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Xamarin.Forms.Maps;
 
 namespace ProjectRunner.ViewModel
 {
@@ -40,11 +42,6 @@ namespace ProjectRunner.ViewModel
         {
             base.NavigatedFrom();
         }
-        
-        public override bool OnBackPressed()
-        {
-            return true;
-        }
         private void Reset()
         {
             SelectedSportIndex = 0;
@@ -63,7 +60,7 @@ namespace ProjectRunner.ViewModel
         #endregion
 
         #region SportSelection
-        private float _fee = 0, _distance = 0;
+        private float _fee = 0;
         private int _guests, _maxPlayers, _requiredFeedback, _playersTeam;
         private int _indexSport, _indexPlayerPerTeam, _indexDistanceRunning, _indexDistanceBicycle, _indexGuestList;
         private bool _fitness, _isDouble, _isGratis = true;
@@ -71,8 +68,6 @@ namespace ProjectRunner.ViewModel
         private TimeSpan _startTime = DateTime.Now.TimeOfDay.Add(TimeSpan.FromHours(1));
 
         public float Fee { get { return _fee; } set { Set(ref _fee, value); VerifyGeneral(); } }
-
-        public float Distance { get { return _distance; } set { Set(ref _distance, value); VerifyGeneral(); } }
         public ObservableCollection<int> RunningDistances { get; } = new ObservableCollection<int>()
         {
             3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,42
@@ -83,8 +78,7 @@ namespace ProjectRunner.ViewModel
             set
             {
                 Set(ref _indexDistanceRunning, value);
-                if (value >= 0)
-                    Distance = RunningDistances[value];
+                RaisePropertyChanged(() => Distance);
             }
         }
         public ObservableCollection<int> BicycleDistances { get; } = new ObservableCollection<int>()
@@ -97,8 +91,21 @@ namespace ProjectRunner.ViewModel
             set
             {
                 Set(ref _indexDistanceBicycle, value);
-                if (value >= 0)
-                    Distance = BicycleDistances[value];
+                RaisePropertyChanged(() => Distance);
+            }
+        }
+        public int Distance
+        {
+            get
+            {
+                switch(SelectedSport?.SportEnumValue)
+                {
+                    case Sports.BICYCLE:
+                        return BicycleDistances[SelectedIndexDistanceBicycle];
+                    case Sports.RUNNING:
+                        return RunningDistances[SelectedIndexDistanceRunning];
+                }
+                return 0;
             }
         }
 
@@ -260,8 +267,10 @@ namespace ProjectRunner.ViewModel
                 switch (SelectedSport?.SportEnumValue)
                 {
                     case Sports.BICYCLE:
+                        IsNextGeneralEnabled = SelectedIndexDistanceBicycle >= 0;
+                        return;
                     case Sports.RUNNING:
-                        IsNextGeneralEnabled = Distance > 0;
+                        IsNextGeneralEnabled = SelectedIndexDistanceRunning >= 0;
                         return;
                     case Sports.FOOTBALL:
                         IsNextGeneralEnabled = PlayersPerTeam >= 5;
@@ -362,6 +371,7 @@ namespace ProjectRunner.ViewModel
             (_findCoordinatesCmd = new RelayCommand(() =>
             {
                 //TODO find coordinates Xamarin.Geolocation
+                //var geo = new Geocoder();
                 
             }));
         public RelayCommand AddLocationCommand =>
@@ -394,6 +404,12 @@ namespace ProjectRunner.ViewModel
                         var position = await locator.GetPositionAsync(TimeSpan.FromSeconds(5), ct);
                         if (position != null)
                         {
+                            var geo = new Geocoder();
+                            var addrs = await geo.GetAddressesForPositionAsync(new Position(position.Latitude, position.Longitude));
+                            var addr = addrs.FirstOrDefault();
+                            if(addr!=null)
+                                dialogs.ShowAlert(addr + $"\nTrovati {addrs.Count()} indirizzi");
+
                             AddressLatitude = position.Latitude;
                             AddressLongitude = position.Longitude;
 
@@ -418,7 +434,7 @@ namespace ProjectRunner.ViewModel
                     }
                     catch(Exception e)
                     {
-                        dialogs.ShowAlert("An error occurred while retrieving location");
+                        dialogs.ShowAlert("An error occurred while retrieving location.\n"+e.Message);
                     }
                 }
                 else
@@ -461,7 +477,7 @@ namespace ProjectRunner.ViewModel
                 if (response.response == StatusCodes.OK)
                 {
                     dialogs.ShowAlert("Activity created", "Activity creation");
-                    navigation.NavigateTo(ViewModelLocator.HomePage);
+                    navigation.NavigateTo(ViewModelLocator.Activities);
                     Reset();
                 }
                 else
@@ -472,16 +488,5 @@ namespace ProjectRunner.ViewModel
         #endregion
         private bool _nextGeneralEnabled = false;
         public bool IsNextGeneralEnabled { get { return _nextGeneralEnabled; } set { Set(ref _nextGeneralEnabled, value); } }
-        
-        public class SportItem
-        {
-            public Sports SportEnumValue { get; }
-            public string SportName { get; }
-            public SportItem(Sports e, string n)
-            {
-                SportEnumValue = e;
-                SportName = n;
-            }
-        }
     }
 }
