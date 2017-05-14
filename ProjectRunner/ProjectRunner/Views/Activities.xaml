@@ -2,7 +2,7 @@
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProjectRunner.Views.Activities"
-             xmlns:views="clr-namespace:ProjectRunner.Views"
+             xmlns:views="clr-namespace:ProjectRunner.Views;assembly=ProjectRunner"
             xmlns:selectors="clr-namespace:ProjectRunner.Views.Selectors"
              Title="Activities"
             BindingContext="{Binding ActivitiesListViewModel, Source={StaticResource Locator}}">
