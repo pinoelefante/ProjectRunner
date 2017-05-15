@@ -56,7 +56,7 @@ namespace ProjectRunner.Services
         {
             NavigateTo(pageKey, null);
         }
-
+        private static object objtype = new object();
         public void NavigateTo(string pageKey, object parameter)
         {
             lock (_pagesByKey)
@@ -86,13 +86,13 @@ namespace ProjectRunner.Services
                                 {
                                     var p = c.GetParameters();
                                     return p.Count() == 1
-                                           && p[0].ParameterType == parameter.GetType();
+                                           && p[0].ParameterType == objtype.GetType();  /*parameter.GetType();*/
                                 });
 
                         parameters = new[]
                         {
-                        parameter
-                    };
+                            parameter
+                        };
                     }
 
                     if (constructor == null)

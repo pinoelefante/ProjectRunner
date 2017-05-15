@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProjectRunner.Views.ActivityDetailsOverview"
+             Title="Overview">
+    <ScrollView>
+        <Grid Padding="10">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <StackLayout Grid.Row="0">
+                
+            </StackLayout>
+
+            <StackLayout Grid.Row="1" Orientation="Horizontal">
+                <Button Image="gps_location.png" Command="{Binding OpenMapCommand}" BackgroundColor="Transparent" HeightRequest="60"/>
+                <!--<Button Image="gps_location.png" Command="{Binding OpenMapCommand}" BackgroundColor="Transparent" HeightRequest="60"/>-->
+                <Button Image="leave.png" Command="{Binding LeaveActivityCommand}" BackgroundColor="Transparent" HeightRequest="60"/>
+            </StackLayout>
+        </Grid>
+    </ScrollView>
+</ContentPage>

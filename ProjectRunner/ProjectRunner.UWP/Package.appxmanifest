@@ -3,7 +3,7 @@
   <Identity Name="a34aa7d9-2b14-436f-a3d1-43fe65eb1732" Publisher="CN=pinoe" Version="1.0.0.0" />
   <mp:PhoneIdentity PhoneProductId="a34aa7d9-2b14-436f-a3d1-43fe65eb1732" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>ProjectRunner.UWP</DisplayName>
+    <DisplayName>Project Runner</DisplayName>
     <PublisherDisplayName>pinoe</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -15,7 +15,7 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="ProjectRunner.UWP.App">
-      <uap:VisualElements DisplayName="ProjectRunner.UWP" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="ProjectRunner.UWP" BackgroundColor="transparent">
+      <uap:VisualElements DisplayName="Project Runner" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="Project Runner" BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png">
         </uap:DefaultTile>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />

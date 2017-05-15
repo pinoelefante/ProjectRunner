@@ -15,27 +15,46 @@
             <StackLayout>
                 <Label Text="Confirm" FontSize="24" HorizontalOptions="Center" FontAttributes="Bold"/>
 
-                <Label Text="Selected sport: "/>
-                <Label Text="{Binding SelectedSport.SportName}" FontAttributes="Bold"/>
-                <Label Text="Day: "/>
-                <Label Text="{Binding StartDayString}" FontAttributes="Bold"/>
-                <Label Text="at: "/>
-                <Label Text="{Binding StartTimeString}" FontAttributes="Bold"/>
-                <Label Text="To: "/>
-                <Label Text="{Binding SelectedLocation.Name}" FontAttributes="Bold"/>
-                <Label Text="Guests: "/>
-                <Label Text="{Binding Guests}" FontAttributes="Bold"/>
-                <Label Text="Total players: "/>
-                <Label Text="{Binding MaxPlayers}" FontAttributes="Bold"/>
-                <Label Text="Fee"/>
-                <Label Text="{Binding Fee}" FontAttributes="Bold"/>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Selected sport: "/>
+                    <Label Text="{Binding SelectedSport.SportName}" FontAttributes="Bold"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Day: "/>
+                    <Label Text="{Binding StartDayString}" FontAttributes="Bold"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="at: "/>
+                    <Label Text="{Binding StartTimeString}" FontAttributes="Bold"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="To: "/>
+                    <Label Text="{Binding SelectedLocation.Name}" FontAttributes="Bold"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Guests: "/>
+                    <Label Text="{Binding Guests}" FontAttributes="Bold"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Total players: "/>
+                    <Label Text="{Binding MaxPlayers}" FontAttributes="Bold"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Fee"/>
+                    <Label Text="{Binding Fee}" FontAttributes="Bold"/>
+                </StackLayout>
 
                 <!-- Running -->
                 <StackLayout IsVisible="{Binding SelectedSport.SportEnumValue, ConverterParameter=1, Converter={StaticResource SportEquals}}">
-                    <Label Text="Distance"/>
-                    <Label Text="{Binding Distance}" FontAttributes="Bold"/>
-                    <Label Text="With fitness"/>
-                    <Label Text="{Binding WithFitness}" FontAttributes="Bold"/>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Distance"/>
+                        <Label Text="{Binding Distance}" FontAttributes="Bold"/>
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="With fitness" VerticalOptions="Center"/>
+                        <Image Source="{Binding WithFitness, Converter={StaticResource BoolImage}}" HeightRequest="16"/>
+                    </StackLayout>
                 </StackLayout>
 
                 <!-- Football -->
@@ -44,14 +63,18 @@
                 </StackLayout>
                 <!-- Bicycle -->
                 <StackLayout IsVisible="{Binding SelectedSport.SportEnumValue, ConverterParameter=3, Converter={StaticResource SportEquals}}">
-                    <Label Text="Distance"/>
-                    <Label Text="{Binding Distance}" FontAttributes="Bold"/>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Distance"/>
+                        <Label Text="{Binding Distance}" FontAttributes="Bold"/>
+                    </StackLayout>
                 </StackLayout>
 
                 <!-- Tennis -->
                 <StackLayout IsVisible="{Binding SelectedSport.SportEnumValue, ConverterParameter=4, Converter={StaticResource SportEquals}}">
-                    <Label Text="Is double: "/>
-                    <Label Text="{Binding }" FontAttributes="Bold"/>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Is double: " VerticalOptions="Center"/>
+                        <Image Source="{Binding IsDouble,Converter={StaticResource BoolImage}}" HeightRequest="16"/>
+                    </StackLayout>
                 </StackLayout>
             </StackLayout>
 

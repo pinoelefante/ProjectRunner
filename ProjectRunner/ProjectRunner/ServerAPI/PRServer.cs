@@ -581,6 +581,7 @@ namespace ProjectRunner.ServerAPI
         public Sports Sport { get; set; }
         public float Fee { get; set; }
         public int RequiredFeedback { get; set; }
+        public bool IsMine { get; set; }
 
         public int NumberOfPlayers
         {
@@ -603,6 +604,7 @@ namespace ProjectRunner.ServerAPI
             act.StartTime = DateTime.Parse(dict[ActivityDatabase.STARTTIME], CultureInfo.InvariantCulture);
             act.Status = (ActivityStatus)Enum.Parse(typeof(ActivityStatus), dict[ActivityDatabase.STATUS]);
             act.MeetingPoint = MapAddress.ParseDictionary(dict, "mp_");
+            act.IsMine = dict.ContainsKey("is_mine") ? (Int32.Parse(dict["is_mine"]) != 0 ? true: false) : false;
         }
     }
     public class BicycleActivity : Activity

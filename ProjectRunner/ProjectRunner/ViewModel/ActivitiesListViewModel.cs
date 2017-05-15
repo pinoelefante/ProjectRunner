@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace ProjectRunner.ViewModel
 {
@@ -32,25 +33,25 @@ namespace ProjectRunner.ViewModel
             LoadMyListAsync();
         }
 
-        public ObservableCollection<Activity> ListActivities { get; } = new ObservableCollection<Activity>();
+        public List<Activity> ListActivities { get; } = new List<Activity>();
         public List<Activity> ListPendingActivities { get { return ListActivities.Where(x => x.Status == ActivityStatus.PENDING).ToList(); } }
+        public List<Activity> ListMyActivities { get { return ListActivities.Where(x => x.IsMine).ToList(); } }
+
         private async Task LoadMyListAsync()
         {
             var res = await server.Activities.MyActivitiesListAsync();
             if(res.response == StatusCodes.OK)
             {
                 ListActivities.Clear();
-                foreach (var item in res.content)
-                    ListActivities.Add(item);
+                ListActivities.AddRange(res.content);
+
                 RaisePropertyChanged(() => ListPendingActivities);
-                Debug.WriteLine(ListActivities.Count + " activities. " + ListPendingActivities + " pending");
+                RaisePropertyChanged(() => ListMyActivities);
             }
         }
 
-
-
-        private RelayCommand _addActivityCmd;
-        private RelayCommand<Activity>_itemTappedCmd;
+        private RelayCommand _addActivityCmd, _searchActivityCmd;
+        private RelayCommand<Activity>_itemTappedCmd, _itemMyTappedCmd;
         public RelayCommand AddActivityCommand =>
             _addActivityCmd ??
             (_addActivityCmd = new RelayCommand(() =>
@@ -60,6 +61,18 @@ namespace ProjectRunner.ViewModel
         public RelayCommand<Activity> OpenActivityCommand =>
             _itemTappedCmd ??
             (_itemTappedCmd = new RelayCommand<Activity>((x) =>
+            {
+                navigation.NavigateTo(ViewModelLocator.ActivityDetails, (object)x);
+            }));
+        public RelayCommand<Activity> OpenMyActivityCommand =>
+            _itemMyTappedCmd ??
+            (_itemMyTappedCmd = new RelayCommand<Activity>((x) =>
+            {
+
+            }));
+        public RelayCommand SearchActivityCommand =>
+            _searchActivityCmd ??
+            (_searchActivityCmd = new RelayCommand(() =>
             {
 
             }));

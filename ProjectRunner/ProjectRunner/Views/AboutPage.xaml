@@ -4,5 +4,6 @@
              x:Class="ProjectRunner.Views.AboutPage">
     <Grid>
         <Label Text="Icons by flaticon.com"/>
+        <Label Text="Icons by freepik.com"/>
     </Grid>
 </ContentPage>

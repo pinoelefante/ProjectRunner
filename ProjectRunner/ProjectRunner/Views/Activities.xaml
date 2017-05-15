@@ -14,15 +14,26 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition />
+                            <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <Image Grid.Column="0" Source="running.png" VerticalOptions="Center" Aspect="AspectFit" HeightRequest="40"/>
 
                         <StackLayout Grid.Column="1" Orientation="Vertical">
                             <Label Grid.Row="0" Grid.Column="1" Text="Running" FontAttributes="Bold"/>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="Distance: "/>
+                                <Label Text="Distance:"/>
                                 <Label Text="{Binding Distance}" FontAttributes="Bold"/>
+                                <Label Text="km" FontAttributes="Bold"/>
                             </StackLayout>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Fitness:" VerticalOptions="Center"/>
+                                <Image Source="{Binding WithFitness, Converter={StaticResource BoolImage}}" HeightRequest="16"/>
+                            </StackLayout>
+                        </StackLayout>
+
+                        <StackLayout Grid.Column="2">
+                            <Label Text="{Binding StartTime}" FontAttributes="Italic" FontSize="12" />
+                            <Label Text="{Binding StartTime, Converter={StaticResource TimeDifferenceNow}}"/>
                         </StackLayout>
                     </Grid>
                 </ViewCell>
@@ -34,12 +45,21 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition />
+                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <Image Grid.Column="0" Source="football.png" VerticalOptions="Center" Aspect="AspectFit" HeightRequest="40"/>
 
                             <StackLayout Grid.Column="1" Orientation="Vertical">
                                 <Label Grid.Row="0" Grid.Column="1" Text="Football" FontAttributes="Bold"/>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Players:"/>
+                                    <Label Text="{Binding MaxPlayers}" FontAttributes="Bold"/>
+                                </StackLayout>
+                            </StackLayout>
 
+                            <StackLayout Grid.Column="2">
+                                <Label Text="{Binding StartTime}" FontAttributes="Italic" FontSize="12" />
+                                <Label Text="{Binding StartTime, Converter={StaticResource TimeDifferenceNow}}"/>
                             </StackLayout>
                         </Grid>
                     </Grid>
@@ -52,15 +72,22 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition />
+                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <Image Grid.Column="0" Source="bicycle.png" VerticalOptions="Center" Aspect="AspectFit" HeightRequest="40"/>
 
                             <StackLayout Grid.Column="1" Orientation="Vertical">
                                 <Label Grid.Row="0" Grid.Column="1" Text="Bicycle" FontAttributes="Bold"/>
                                 <StackLayout Orientation="Horizontal">
-                                    <Label Text="Distance: "/>
+                                    <Label Text="Distance:"/>
                                     <Label Text="{Binding Distance}" FontAttributes="Bold"/>
+                                    <Label Text="km" FontAttributes="Bold"/>
                                 </StackLayout>
+                            </StackLayout>
+
+                            <StackLayout Grid.Column="2">
+                                <Label Text="{Binding StartTime}" FontAttributes="Italic" FontSize="12" />
+                                <Label Text="{Binding StartTime, Converter={StaticResource TimeDifferenceNow}}"/>
                             </StackLayout>
                         </Grid>
                     </Grid>
@@ -73,12 +100,21 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition />
+                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <Image Grid.Column="0" Source="tennis.png" VerticalOptions="Center" Aspect="AspectFit" HeightRequest="40"/>
 
                             <StackLayout Grid.Column="1" Orientation="Vertical">
                                 <Label Grid.Row="0" Grid.Column="1" Text="Tennis" FontAttributes="Bold"/>
-                                
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Double:" VerticalOptions="Center"/>
+                                    <Image Source="{Binding IsDouble, Converter={StaticResource BoolImage}}" HeightRequest="16"/>
+                                </StackLayout>
+                            </StackLayout>
+
+                            <StackLayout Grid.Column="2">
+                                <Label Text="{Binding StartTime}" FontAttributes="Italic" FontSize="12" />
+                                <Label Text="{Binding StartTime, Converter={StaticResource TimeDifferenceNow}}"/>
                             </StackLayout>
                         </Grid>
                     </Grid>
@@ -95,7 +131,7 @@
     <ContentPage Title="Pending" Padding="0,0,0,0">
         <Grid>
             <Label Text="There are no pending activities" HorizontalOptions="Center" IsVisible="{Binding ListPendingActivities.Count, Converter={StaticResource IntEquals}, ConverterParameter=0}" />
-            <ListView ItemsSource="{Binding ListPendingActivities}" ItemTemplate="{StaticResource sportSelector}" IsVisible="{Binding ListPendingActivities.Count, Converter={StaticResource IntGreaterThan}, ConverterParameter=0}">
+            <ListView ItemsSource="{Binding ListPendingActivities}" HasUnevenRows="True" ItemTemplate="{StaticResource sportSelector}" IsVisible="{Binding ListPendingActivities.Count, Converter={StaticResource IntGreaterThan}, ConverterParameter=0}" CachingStrategy="RecycleElement">
                 <ListView.Behaviors>
                     <views:EventToCommandBehavior EventName="ItemTapped" Command="{Binding OpenActivityCommand}" EventArgsConverter="{StaticResource ItemTappedConverter}" />
                 </ListView.Behaviors>
@@ -104,23 +140,24 @@
             <Button HorizontalOptions="End"
                     VerticalOptions="End"
                     Margin="10,10,10,10"
-                    Text="+"
-                    FontSize="24"
+                    FontSize="32"
                     FontAttributes="Bold"
                     BackgroundColor="LightGreen"
                     TextColor="White"
                     BorderRadius="25"
                     WidthRequest="60"
                     HeightRequest="60"
-                    BorderColor="Black"
-                    Command="{Binding AddActivityCommand}"/>
+                    Image="search.png"
+                    BorderColor="White"
+                    Command="{Binding SearchActivityCommand}"/>
         </Grid>
     </ContentPage>
     <ContentPage Title="My activities">
         <Grid>
-            <ListView ItemTemplate="{StaticResource sportSelector}">
+            <Label Text="You have not created activities" HorizontalOptions="Center" IsVisible="{Binding ListMyActivities.Count, Converter={StaticResource IntEquals}, ConverterParameter=0}" />
+            <ListView ItemsSource="{Binding ListMyActivities}" ItemTemplate="{StaticResource sportSelector}" HasUnevenRows="True" IsVisible="{Binding ListMyActivities.Count, Converter={StaticResource IntGreaterThan}, ConverterParameter=0}" CachingStrategy="RecycleElement">
                 <ListView.Behaviors>
-                    <views:EventToCommandBehavior EventName="ItemTapped" Command="{Binding OpenActivityCommand}" EventArgsConverter="{StaticResource ItemTappedConverter}" />
+                    <views:EventToCommandBehavior EventName="ItemTapped" Command="{Binding OpenMyActivityCommand}" EventArgsConverter="{StaticResource ItemTappedConverter}" />
                 </ListView.Behaviors>
             </ListView>
 
@@ -128,7 +165,7 @@
                     VerticalOptions="End"
                     Margin="10,10,10,10"
                     Text="+"
-                    FontSize="24"
+                    FontSize="32"
                     FontAttributes="Bold"
                     BackgroundColor="LightGreen"
                     TextColor="White"

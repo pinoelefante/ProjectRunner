@@ -8,9 +8,9 @@ using Xamarin.Forms;
 
 namespace ProjectRunner.Views
 {
-    public class MyContentPage : ContentPage
+    public class MyTabbedPage : TabbedPage
     {
-        public MyContentPage(object parameter = null)
+        public MyTabbedPage(object parameter = null)
         {
             navigationParameter = parameter;
         }
@@ -25,12 +25,6 @@ namespace ProjectRunner.Views
         {
             base.OnDisappearing();
             VM.NavigatedFrom();
-        }
-        protected override bool OnBackButtonPressed()
-        {
-            if(!VM.OnBackPressed())
-                return base.OnBackButtonPressed();
-            return true;
         }
     }
 }

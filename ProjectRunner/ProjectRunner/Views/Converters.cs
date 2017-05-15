@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjectRunner.ServerAPI;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -57,6 +58,36 @@ namespace ProjectRunner.Views.Converters
                 throw new ArgumentException("Expected TappedEventArgs as value", "value");
 
             return eventArgs.Item;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+    public class BoolImageConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return (bool)value ? "true_image.png" : "false_image.png";
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+    public class TimeDifferenceString : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            DateTime time = (DateTime)value;
+            TimeSpan diff = DateTime.Now.Subtract(time);
+            if(diff.TotalSeconds > 0)
+            {
+                return "";
+            }
+            return $"{Math.Abs(diff.Days)}d {Math.Abs(diff.Hours).ToString("D2")}h {Math.Abs(diff.Minutes).ToString("D2")}m";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
