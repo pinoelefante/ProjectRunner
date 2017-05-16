@@ -19,6 +19,7 @@
             <converters:ItemTappedEventArgsConverter x:Key="ItemTappedConverter"/>
             <converters:BoolImageConverter x:Key="BoolImage"/>
             <converters:TimeDifferenceString x:Key="TimeDifferenceNow"/>
+            <converters:EditModeIcon x:Key="EditModeIcon"/>
         </ResourceDictionary>  
       
     </Application.Resources>

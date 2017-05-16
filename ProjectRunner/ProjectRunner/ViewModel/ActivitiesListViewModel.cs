@@ -17,10 +17,12 @@ namespace ProjectRunner.ViewModel
     {
         private INavigationService navigation;
         private PRServer server;
-        public ActivitiesListViewModel(INavigationService n, PRServer s)
+        private PRCache cache;
+        public ActivitiesListViewModel(INavigationService n, PRServer s, PRCache c)
         {
             navigation = n;
             server = s;
+            cache = c;
         }
         public override bool OnBackPressed()
         {
@@ -35,23 +37,38 @@ namespace ProjectRunner.ViewModel
 
         public List<Activity> ListActivities { get; } = new List<Activity>();
         public List<Activity> ListPendingActivities { get { return ListActivities.Where(x => x.Status == ActivityStatus.PENDING).ToList(); } }
-        public List<Activity> ListMyActivities { get { return ListActivities.Where(x => x.IsMine).ToList(); } }
+        public List<Activity> ListMyActivities { get { return ListActivities.Where(x => x.CreatedBy == cache.MyUserId).ToList(); } }
 
-        private async Task LoadMyListAsync()
+        private async Task LoadMyListAsync(bool forced = false)
         {
-            var res = await server.Activities.MyActivitiesListAsync();
-            if(res.response == StatusCodes.OK)
+            if (!cache.ListActivities.Any() || forced)
             {
-                ListActivities.Clear();
-                ListActivities.AddRange(res.content);
+                IsBusyActive = true;
+                Debug.WriteLine("Loading activities from web");
+                var res = await server.Activities.MyActivitiesListAsync();
+                if (res.response == StatusCodes.OK)
+                {
+                    ListActivities.Clear();
+                    ListActivities.AddRange(res.content);
 
-                RaisePropertyChanged(() => ListPendingActivities);
-                RaisePropertyChanged(() => ListMyActivities);
+                    cache.ListActivities.Clear();
+                    cache.ListActivities.AddRange(res.content);
+
+                    RaisePropertyChanged(() => ListPendingActivities);
+                    RaisePropertyChanged(() => ListMyActivities);
+                }
+                IsBusyActive = false;
+            }
+            else
+            {
+                Debug.WriteLine("Loading activities from cache");
+                ListActivities.Clear();
+                ListActivities.AddRange(cache.ListActivities);
             }
         }
 
-        private RelayCommand _addActivityCmd, _searchActivityCmd;
-        private RelayCommand<Activity>_itemTappedCmd, _itemMyTappedCmd;
+        private RelayCommand _addActivityCmd, _searchActivityCmd, _refreshActivitiesCmd;
+        private RelayCommand<Activity>_itemTappedCmd;
         public RelayCommand AddActivityCommand =>
             _addActivityCmd ??
             (_addActivityCmd = new RelayCommand(() =>
@@ -64,17 +81,17 @@ namespace ProjectRunner.ViewModel
             {
                 navigation.NavigateTo(ViewModelLocator.ActivityDetails, (object)x);
             }));
-        public RelayCommand<Activity> OpenMyActivityCommand =>
-            _itemMyTappedCmd ??
-            (_itemMyTappedCmd = new RelayCommand<Activity>((x) =>
-            {
-
-            }));
         public RelayCommand SearchActivityCommand =>
             _searchActivityCmd ??
             (_searchActivityCmd = new RelayCommand(() =>
             {
 
+            }));
+        public RelayCommand RefreshActivitiesCommand =>
+            _refreshActivitiesCmd ??
+            (_refreshActivitiesCmd = new RelayCommand(async () =>
+            {
+                await LoadMyListAsync(true);
             }));
     }
 }

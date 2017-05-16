@@ -32,6 +32,7 @@ namespace ProjectRunner.ViewModel
             nav = new NavigationService();
             SimpleIoc.Default.Register<INavigationService>(()=>nav);
             SimpleIoc.Default.Register<PRServer>();
+            SimpleIoc.Default.Register<PRCache>();
             SimpleIoc.Default.Register<UserDialogsService>();
 
             SimpleIoc.Default.Register<LoginPageViewModel>();

@@ -17,12 +17,14 @@ namespace ProjectRunner.ViewModel
     {
         private INavigationService navigation;
         private PRServer server;
+        private PRCache cache;
         private UserDialogsService dialogs;
-        public LoginPageViewModel(INavigationService nav, PRServer s, UserDialogsService d)
+        public LoginPageViewModel(INavigationService nav, PRServer s, UserDialogsService d, PRCache c)
         {
             navigation = nav;
             server = s;
             dialogs = d;
+            cache = c;
         }
 
         private string _username = "pinoelefante", _password = "elefante";
@@ -36,6 +38,7 @@ namespace ProjectRunner.ViewModel
                 var result = await server.Authentication.LoginAsync(Username, Password);
                 if(result.response == StatusCodes.OK)
                 {
+                    cache.MyUserId = Int32.Parse(result.content);
                     Application.Current.MainPage = new Views.MyMasterPage();
                 }
                 else

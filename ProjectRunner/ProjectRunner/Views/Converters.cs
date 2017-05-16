@@ -95,4 +95,17 @@ namespace ProjectRunner.Views.Converters
             throw new NotImplementedException();
         }
     }
+    public class EditModeIcon : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var v = (bool)value;
+            return v ? "unlocked.png" : "locked.png";
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

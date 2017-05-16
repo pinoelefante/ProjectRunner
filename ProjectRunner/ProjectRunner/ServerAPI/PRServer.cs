@@ -16,12 +16,14 @@ namespace ProjectRunner.ServerAPI
         private CommonServerAPI commonApi { get; }
         public AuthenticationAPI Authentication { get; private set; }
         public ActivityAPI Activities { get; private set; }
-        public PRServer()
+        private PRCache cache;
+        public PRServer(PRCache c)
         {
+            cache = c;
             commonApi = new CommonServerAPI();
             Authentication = new AuthenticationAPI(commonApi);
             commonApi.SilentLoginAction = () => { return Authentication.SilentLoginAsync().Result; };
-            Activities = new ActivityAPI(commonApi);
+            Activities = new ActivityAPI(commonApi, cache);
         }
     }
     public class CommonServerAPI
@@ -39,14 +41,14 @@ namespace ProjectRunner.ServerAPI
             http.BaseAddress = new Uri(SERVER_ENDPOINT);
             http.DefaultRequestHeaders.Add("User-Agent", "ProjectRunnerUA");
         }
-        
+
         public bool IsLogged { get; set; } = false;
         public Func<bool> SilentLoginAction { get; set; }
         public Action OnAccessCodeError { get; set; }
         public async Task<Envelop<T>> sendRequest<T>(string url, HttpContent postContent = null, bool loginRequired = true)
         {
             Envelop<T> envelop = new Envelop<T>();
-            
+
             if (loginRequired && !IsLogged)
             {
                 if (!SilentLoginAction.Invoke())
@@ -55,7 +57,7 @@ namespace ProjectRunner.ServerAPI
                     return envelop;
                 }
             }
-            
+
             try
             {
                 Debug.WriteLine(await postContent.ReadAsStringAsync());
@@ -214,9 +216,11 @@ namespace ProjectRunner.ServerAPI
     public class ActivityAPI
     {
         private CommonServerAPI server;
-        public ActivityAPI(CommonServerAPI s)
+        private PRCache cache;
+        public ActivityAPI(CommonServerAPI s, PRCache c)
         {
             server = s;
+            cache = c;
         }
 
         public async Task<Envelop<string>> CreateActivityAsync(DateTime startDay, TimeSpan startTime, int mpPoint, int maxPlayers, int guests, float fee, Sports sport, int feedback, Dictionary<string, string> sportDetails)
@@ -232,7 +236,7 @@ namespace ProjectRunner.ServerAPI
                 new KeyValuePair<string, string>(ActivityDatabase.FEEDBACK, feedback.ToString()),
             };
 
-            switch(sport)
+            switch (sport)
             {
                 case Sports.BICYCLE:
                     content.AddRange(GetBicycleDetails(sportDetails));
@@ -250,7 +254,7 @@ namespace ProjectRunner.ServerAPI
             FormUrlEncodedContent postContent = new FormUrlEncodedContent(content);
             return await server.sendRequest<string>("/activities.php?action=CreateActivity", postContent);
         }
-        private IEnumerable<KeyValuePair<string,string>> GetBicycleDetails(Dictionary<string, string> details)
+        private IEnumerable<KeyValuePair<string, string>> GetBicycleDetails(Dictionary<string, string> details)
         {
             var cont = new List<KeyValuePair<string, string>>()
             {
@@ -305,25 +309,25 @@ namespace ProjectRunner.ServerAPI
             {
                 new KeyValuePair<string, string>(ActivityDatabase.ID, activityId.ToString())
             });
-            return await server.sendRequestWithAction<Activity, Dictionary<string, string>>("/activities.php?action=InfoActivity",(x)=>
-            {
-                if(x!=null && x.ContainsKey(ActivityDatabase.SPORT))
-                {
-                    var sport = (Sports)Enum.Parse(typeof(Sports), x[ActivityDatabase.SPORT]);
-                    switch(sport)
-                    {
-                        case Sports.BICYCLE:
-                            return BicycleActivity.ParseDictionary(x);
-                        case Sports.FOOTBALL:
-                            return FootballActivity.ParseDictionary(x);
-                        case Sports.RUNNING:
-                            return RunningActivity.ParseDictionary(x);
-                        case Sports.TENNIS:
-                            return TennisActivity.ParseDictionary(x);
-                    }
-                }
-                return null;
-            }, postContent);
+            return await server.sendRequestWithAction<Activity, Dictionary<string, string>>("/activities.php?action=InfoActivity", (x) =>
+             {
+                 if (x != null && x.ContainsKey(ActivityDatabase.SPORT))
+                 {
+                     var sport = (Sports)Enum.Parse(typeof(Sports), x[ActivityDatabase.SPORT]);
+                     switch (sport)
+                     {
+                         case Sports.BICYCLE:
+                             return BicycleActivity.ParseDictionary(x);
+                         case Sports.FOOTBALL:
+                             return FootballActivity.ParseDictionary(x);
+                         case Sports.RUNNING:
+                             return RunningActivity.ParseDictionary(x);
+                         case Sports.TENNIS:
+                             return TennisActivity.ParseDictionary(x);
+                     }
+                 }
+                 return null;
+             }, postContent);
         }
         public async Task<Envelop<List<Activity>>> MyActivitiesListAsync(Sports? sport = null, ActivityStatus? status = null)
         {
@@ -339,7 +343,7 @@ namespace ProjectRunner.ServerAPI
                 return ParseDictionaryListActivity(x);
             }, postContent);
         }
-        private List<Activity> ParseDictionaryListActivity(List<Dictionary<string,string>> x)
+        private List<Activity> ParseDictionaryListActivity(List<Dictionary<string, string>> x)
         {
             if (x == null)
                 return null;
@@ -394,7 +398,7 @@ namespace ProjectRunner.ServerAPI
         {
             return await server.sendRequestWithAction<List<MapAddress>, List<Dictionary<string, string>>>("/activities.php?action=ListAddress", (x) =>
             {
-                if(x!=null && x.Any())
+                if (x != null && x.Any())
                 {
                     List<MapAddress> addr = new List<MapAddress>(x.Count);
                     foreach (var item in x)
@@ -442,6 +446,62 @@ namespace ProjectRunner.ServerAPI
                     new KeyValuePair<string, string>(MapAddressDatabase.ID, locationId.ToString()),
                 });
             return await server.sendRequest<string>("/activities.php?action=ReloadAddressInfoFromGoogleMaps", postContent);
+        }
+        public async Task<Envelop<List<UserProfile>>> ListPeople(int activityId)
+        {
+            var postContent = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>(ActivityDatabase.ID, activityId.ToString())
+            });
+            return await server.sendRequestWithAction<List<UserProfile>, List<Dictionary<string, string>>>("/activities.php?action=ListPeople", (x) =>
+            {
+                if (x != null && x.Any())
+                {
+                    List<UserProfile> people = new List<UserProfile>(x.Count);
+                    foreach (var item in x)
+                        people.Add(UserProfile.parseDictionary(item));
+                    return people;
+                }
+                return null;
+            }, postContent);
+        }
+        public async Task<Envelop<string>> SendChatMessage(int activity, string text)
+        {
+            var postContent = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>(ChatDatabase.ID_ACTIVITY, activity.ToString()),
+                new KeyValuePair<string, string>(ChatDatabase.MESSAGE, text)
+            });
+            return await server.sendRequest<string>("/activities.php?action=SendChatMessage", postContent);
+        }
+        public async Task<Envelop<List<ChatMessage>>> ReadChatMessages(int activityId, long timestamp = 0)
+        {
+            var postContent = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>(ChatDatabase.ID_ACTIVITY, activityId.ToString()),
+                new KeyValuePair<string, string>(ChatDatabase.TIMESTAMP, timestamp.ToString())
+            });
+            return await server.sendRequestWithAction<List<ChatMessage>, List<Dictionary<string, string>>>("/activities.php?action=ReadChatMessages", (x) =>
+            {
+                if (x != null && x.Any())
+                {
+                    List<ChatMessage> list = new List<ChatMessage>(x.Count);
+                    foreach (var item in x)
+                    {
+                        //TODO
+                        ChatMessage message = new ChatMessage()
+                        {
+                            Message = item[ChatDatabase.MESSAGE],
+                            Timestamp = long.Parse(item[ChatDatabase.TIMESTAMP])
+                        };
+                        var idUser = int.Parse(item[ChatDatabase.ID_USER]);
+                        message.IsMine = cache.MyUserId == idUser;
+                        //TODO get UserProfile from cache for SentBy
+                    }
+                    return list;
+                }
+                return null;
+            }, postContent);
         }
     }
     public class PeopleAPI
@@ -500,18 +560,19 @@ namespace ProjectRunner.ServerAPI
 
         public static UserProfile parseDictionary(Dictionary<string, string> dictionary)
         {
-            UserProfile profile = new UserProfile()
-            {
-                Id = int.Parse(dictionary["id"]),
-                Username = dictionary["username"],
-                Birth = DateTime.Parse(dictionary["birth"], CultureInfo.InvariantCulture),
-                Email = dictionary["email"],
-                FirstName = dictionary["firstName"],
-                LastName = dictionary["lastName"],
-                Phone = dictionary["phone"],
-                LastUpdate = DateTime.Parse(dictionary["lastUpdate"], CultureInfo.InvariantCulture),
-                RegistrationTime = DateTime.Parse(dictionary["registration"], CultureInfo.InvariantCulture)
-            };
+            UserProfile profile = new UserProfile();
+            profile.Id = int.Parse(dictionary["id"]);
+            profile.Username = dictionary["username"];
+            if (dictionary.ContainsKey("birth"))
+                profile.Birth = DateTime.Parse(dictionary["birth"], CultureInfo.InvariantCulture);
+            profile.Email = dictionary.ContainsKey("email") ? dictionary["email"] : null;
+            profile.FirstName = dictionary.ContainsKey("firstName") ? dictionary["firstName"] : null;
+            profile.LastName = dictionary.ContainsKey("lastName") ? dictionary["lastName"] : null;
+            profile.Phone = dictionary.ContainsKey("phone") ? dictionary["phone"] : null;
+            if(dictionary.ContainsKey("lastUpdate"))
+                profile.LastUpdate = DateTime.Parse(dictionary["lastUpdate"], CultureInfo.InvariantCulture);
+            if (dictionary.ContainsKey("registration"))
+                profile.RegistrationTime = DateTime.Parse(dictionary["registration"], CultureInfo.InvariantCulture);
             return profile;
         }
     }
@@ -549,7 +610,7 @@ namespace ProjectRunner.ServerAPI
         }
         public override string ToString()
         {
-            if(!string.IsNullOrEmpty(Name))
+            if (!string.IsNullOrEmpty(Name))
                 return Name;
             return $"{Latitude} {Longitude}";
         }
@@ -573,7 +634,7 @@ namespace ProjectRunner.ServerAPI
         public int Id { get; set; }
         public int CreatedBy { get; set; }
         public DateTime StartTime { get; set; }
-        public MapAddress MeetingPoint {get;set;}
+        public MapAddress MeetingPoint { get; set; }
         public int GuestUsers { get; set; }
         public int MaxPlayers { get; set; }
         public int JoinedPlayers { get; set; }
@@ -581,13 +642,12 @@ namespace ProjectRunner.ServerAPI
         public Sports Sport { get; set; }
         public float Fee { get; set; }
         public int RequiredFeedback { get; set; }
-        public bool IsMine { get; set; }
 
         public int NumberOfPlayers
         {
             get
             {
-                return 1 + GuestUsers + JoinedPlayers;    
+                return 1 + GuestUsers + JoinedPlayers;
             }
         }
         protected Activity() { }
@@ -604,7 +664,6 @@ namespace ProjectRunner.ServerAPI
             act.StartTime = DateTime.Parse(dict[ActivityDatabase.STARTTIME], CultureInfo.InvariantCulture);
             act.Status = (ActivityStatus)Enum.Parse(typeof(ActivityStatus), dict[ActivityDatabase.STATUS]);
             act.MeetingPoint = MapAddress.ParseDictionary(dict, "mp_");
-            act.IsMine = dict.ContainsKey("is_mine") ? (Int32.Parse(dict["is_mine"]) != 0 ? true: false) : false;
         }
     }
     public class BicycleActivity : Activity
@@ -612,7 +671,7 @@ namespace ProjectRunner.ServerAPI
         public float Distance { get; set; }
         public float Traveled { get; set; }
         private BicycleActivity() { }
-        public static Activity ParseDictionary(Dictionary<string,string> dict)
+        public static Activity ParseDictionary(Dictionary<string, string> dict)
         {
             BicycleActivity act = new BicycleActivity();
             ParseDictionary(act, dict);
@@ -623,7 +682,7 @@ namespace ProjectRunner.ServerAPI
         public static Dictionary<string, string> CreateDetailsDictionary(float? distance = null, float? traveled = null)
         {
             Dictionary<string, string> details = new Dictionary<string, string>();
-            if(distance != null)
+            if (distance != null)
                 details.Add(BicycleDatabase.DISTANCE, distance.ToString());
             if (traveled != null)
                 details.Add(BicycleDatabase.TRAVELED, traveled.ToString());
@@ -695,6 +754,20 @@ namespace ProjectRunner.ServerAPI
             return details;
         }
     }
+    public class ChatMessage
+    {
+        public string Message { get; set; }
+        public UserProfile SentBy { get; set; }
+        public bool IsMine { get; set; }
+        public long Timestamp { get; set; }
+        public ChatMessageType MessageType { get; set; } = ChatMessageType.USER;
+
+        public enum ChatMessageType
+        {
+            SERVICE,
+            USER
+        }
+    }
     public enum Sports
     {
         RUNNING = 1,
@@ -745,5 +818,12 @@ namespace ProjectRunner.ServerAPI
     {
         public const string ID = "id_activity";
         public const string DOUBLE = "isDouble";
+    }
+    class ChatDatabase
+    {
+        public const string ID_ACTIVITY = "id_activity",
+            ID_USER = "id_user",
+            MESSAGE = "message",
+            TIMESTAMP = "timestamp";
     }
 }
