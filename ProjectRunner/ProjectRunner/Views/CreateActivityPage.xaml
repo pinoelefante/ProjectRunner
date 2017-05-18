@@ -6,93 +6,96 @@
                      Title="Create activity"
                      BindingContext="{Binding CreateActivityViewModel, Source={StaticResource Locator}}"
                      >
-  <ScrollView Padding="0,0,10,0" Margin="10,0,0,0">
-    <Grid>
-      <Grid.RowDefinitions>
-        <RowDefinition/>
-        <RowDefinition Height="Auto"/>
-      </Grid.RowDefinitions>
+    <ScrollView Padding="0,0,10,0" Margin="10,0,0,0">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-      <StackLayout Orientation="Vertical">
+            <StackLayout Orientation="Vertical">
 
-        <Label Text="General" FontSize="24" HorizontalOptions="Center" FontAttributes="Bold"/>
+                <Label Text="General" FontSize="24" HorizontalOptions="Center" FontAttributes="Bold"/>
 
-        <Label Text="Sport">
-          <Label.IsVisible>
-            <OnPlatform x:TypeArguments="x:Boolean" Android="true" iOS="true" WinPhone="false"/>
-          </Label.IsVisible>
-        </Label>
-        <Picker Title="Sport"
+                <Label Text="Sport">
+                    <Label.IsVisible>
+                        <OnPlatform x:TypeArguments="x:Boolean" Android="true" iOS="true" WinPhone="false"/>
+                    </Label.IsVisible>
+                </Label>
+                <Picker Title="Sport"
           ItemsSource="{Binding SportsAvailable}"
           ItemDisplayBinding="{Binding SportName}"
           SelectedIndex="{Binding SelectedSportIndex, Mode=TwoWay}"/>
 
-        <Label Text="Day"/>
-        <DatePicker Date="{Binding StartDay, Mode=TwoWay}"/>
-        <Label Text="at"/>
-        <TimePicker Time="{Binding StartTime, Mode=TwoWay}"/>
+                <Label Text="Day"/>
+                <DatePicker Date="{Binding StartDay, Mode=TwoWay}"/>
+                <Label Text="at"/>
+                <TimePicker Time="{Binding StartTime, Mode=TwoWay}"/>
 
-        <Label Text="Guest users" />
-        <Entry Placeholder="0" PlaceholderColor="Gray" Margin="0,0,0,10" Text="{Binding Guests, Mode=TwoWay}" Keyboard="Numeric" IsVisible="{Binding IsGuestListActive, Mode=OneWay, Converter={StaticResource NotBoolean}}"/>
-        <Picker x:Name="listGuests" IsVisible="{Binding IsGuestListActive, Mode=TwoWay}" SelectedIndex="{Binding SelectedIndexGuestList,Mode=TwoWay}"/>
+                <Label Text="Guest users" />
+                <Entry Placeholder="0" PlaceholderColor="Gray" Margin="0,0,0,10" Text="{Binding Guests, Mode=TwoWay}" Keyboard="Numeric" IsVisible="{Binding IsGuestListActive, Mode=OneWay, Converter={StaticResource NotBoolean}}"/>
+                <Picker x:Name="listGuests" IsVisible="{Binding IsGuestListActive, Mode=TwoWay}" SelectedIndex="{Binding SelectedIndexGuestList,Mode=TwoWay}"/>
 
-        <Label Text="Max Players" IsVisible="{Binding IsMaxPlayerActive, Mode=TwoWay}"/>
-        <Entry Placeholder="0" PlaceholderColor="Gray" Margin="0,0,0,10" Text="{Binding MaxPlayers, Mode=TwoWay}" Keyboard="Numeric" IsEnabled="{Binding IsMaxPlayerActive, Mode=OneWay}" IsVisible="{Binding IsMaxPlayerActive, Mode=TwoWay}"/>
+                <Label Text="Max Players" IsVisible="{Binding IsMaxPlayerActive, Mode=TwoWay}"/>
+                <Entry Placeholder="0" PlaceholderColor="Gray" Margin="0,0,0,10" Text="{Binding MaxPlayers, Mode=TwoWay}" Keyboard="Numeric" IsEnabled="{Binding IsMaxPlayerActive, Mode=OneWay}" IsVisible="{Binding IsMaxPlayerActive, Mode=TwoWay}"/>
 
-        <Label Text="Is free?"/>
-        <Switch IsToggled="{Binding IsGratis, Mode=TwoWay}"/>
-        <Label Text="Cost" IsVisible="{Binding IsGratis, Converter={StaticResource NotBoolean}, Mode=TwoWay}"/>
-        <Entry Text="{Binding Fee, Mode=TwoWay}" IsVisible="{Binding IsGratis, Converter={StaticResource NotBoolean}, Mode=TwoWay}" Keyboard="Numeric"/>
+                <Label Text="Is free?"/>
+                <Switch IsToggled="{Binding IsGratis, Mode=TwoWay}"/>
+                <Label Text="Cost" IsVisible="{Binding IsGratis, Converter={StaticResource NotBoolean}, Mode=TwoWay}"/>
+                <StackLayout Orientation="Horizontal" IsVisible="{Binding IsGratis, Converter={StaticResource NotBoolean}, Mode=TwoWay}">
+                    <Entry Text="{Binding Fee, Mode=TwoWay}" WidthRequest="50" Keyboard="Numeric"/>
+                    <Picker ItemsSource="{Binding CurrenciesList}" SelectedIndex="{Binding SelectedCurrencyIndex, Mode=TwoWay}"/>
+                </StackLayout>
 
-        <!-- Running -->
-        <StackLayout Orientation="Vertical" IsVisible="{Binding SelectedSport.SportEnumValue, ConverterParameter=1, Converter={StaticResource SportEquals}}">
-          <Label Text="Running" FontSize="24" HorizontalOptions="Center" FontAttributes="Bold"/>
-          <Label Text="Distance">
-            <Label.IsVisible>
-              <OnPlatform x:TypeArguments="x:Boolean" Android="true" iOS="true" WinPhone="false"/>
-            </Label.IsVisible>
-          </Label>
-          <Picker Title="Distance" ItemsSource="{Binding RunningDistances}" SelectedIndex="{Binding SelectedIndexDistanceRunning, Mode=TwoWay}"/>
+                <!-- Running -->
+                <StackLayout Orientation="Vertical" IsVisible="{Binding SelectedSport.SportEnumValue, ConverterParameter=1, Converter={StaticResource SportEquals}}">
+                    <Label Text="Running" FontSize="24" HorizontalOptions="Center" FontAttributes="Bold"/>
+                    <Label Text="Distance">
+                        <Label.IsVisible>
+                            <OnPlatform x:TypeArguments="x:Boolean" Android="true" iOS="true" WinPhone="false"/>
+                        </Label.IsVisible>
+                    </Label>
+                    <Picker Title="Distance" ItemsSource="{Binding RunningDistances}" SelectedIndex="{Binding SelectedIndexDistanceRunning, Mode=TwoWay}"/>
 
-          <Label Text="With fitness"/>
-          <Switch IsToggled="{Binding WithFitness, Mode=TwoWay}"/>
-        </StackLayout>
+                    <Label Text="With fitness"/>
+                    <Switch IsToggled="{Binding WithFitness, Mode=TwoWay}"/>
+                </StackLayout>
 
-        <!-- Football -->
-        <StackLayout Orientation="Vertical" IsVisible="{Binding SelectedSport.SportEnumValue, ConverterParameter=2, Converter={StaticResource SportEquals}}">
-          <Label Text="Football" FontSize="24" HorizontalOptions="Center" FontAttributes="Bold"/>
-          <Label Text="Players per team">
-            <Label.IsVisible>
-              <OnPlatform x:TypeArguments="x:Boolean" Android="true" iOS="true" WinPhone="false"/>
-            </Label.IsVisible>
-          </Label>
-          <Picker Title="Players per team"
+                <!-- Football -->
+                <StackLayout Orientation="Vertical" IsVisible="{Binding SelectedSport.SportEnumValue, ConverterParameter=2, Converter={StaticResource SportEquals}}">
+                    <Label Text="Football" FontSize="24" HorizontalOptions="Center" FontAttributes="Bold"/>
+                    <Label Text="Players per team">
+                        <Label.IsVisible>
+                            <OnPlatform x:TypeArguments="x:Boolean" Android="true" iOS="true" WinPhone="false"/>
+                        </Label.IsVisible>
+                    </Label>
+                    <Picker Title="Players per team"
           ItemsSource="{Binding FootballPlayersPerTeam}"
           SelectedIndex="{Binding SelectedIndexPlayerPerTeam, Mode=TwoWay}"
           Margin="0,0,0,10"/>
 
-        </StackLayout>
+                </StackLayout>
 
-        <!-- Bicycle -->
-        <StackLayout Orientation="Vertical" IsVisible="{Binding SelectedSport.SportEnumValue, ConverterParameter=3, Converter={StaticResource SportEquals}}">
-          <Label Text="Bicycle" FontSize="24" HorizontalOptions="Center" FontAttributes="Bold"/>
-          <Label Text="Distance">
-            <Label.IsVisible>
-              <OnPlatform x:TypeArguments="x:Boolean" Android="true" iOS="true" WinPhone="false"/>
-            </Label.IsVisible>
-          </Label>
-          <Picker Title="Distance" ItemsSource="{Binding BicycleDistances}" SelectedIndex="{Binding SelectedIndexDistanceBicycle, Mode=TwoWay}"/>
-        </StackLayout>
+                <!-- Bicycle -->
+                <StackLayout Orientation="Vertical" IsVisible="{Binding SelectedSport.SportEnumValue, ConverterParameter=3, Converter={StaticResource SportEquals}}">
+                    <Label Text="Bicycle" FontSize="24" HorizontalOptions="Center" FontAttributes="Bold"/>
+                    <Label Text="Distance">
+                        <Label.IsVisible>
+                            <OnPlatform x:TypeArguments="x:Boolean" Android="true" iOS="true" WinPhone="false"/>
+                        </Label.IsVisible>
+                    </Label>
+                    <Picker Title="Distance" ItemsSource="{Binding BicycleDistances}" SelectedIndex="{Binding SelectedIndexDistanceBicycle, Mode=TwoWay}"/>
+                </StackLayout>
 
-        <!-- Tennis -->
-        <StackLayout Orientation="Vertical" IsVisible="{Binding SelectedSport.SportEnumValue, ConverterParameter=4, Converter={StaticResource SportEquals}}">
-          <Label Text="Tennis" FontSize="24" HorizontalOptions="Center" FontAttributes="Bold"/>
-          <Label Text="Double"/>
-          <Switch IsToggled="{Binding IsDouble, Mode=TwoWay}" />
-        </StackLayout>
-      </StackLayout>
+                <!-- Tennis -->
+                <StackLayout Orientation="Vertical" IsVisible="{Binding SelectedSport.SportEnumValue, ConverterParameter=4, Converter={StaticResource SportEquals}}">
+                    <Label Text="Tennis" FontSize="24" HorizontalOptions="Center" FontAttributes="Bold"/>
+                    <Label Text="Double"/>
+                    <Switch IsToggled="{Binding IsDouble, Mode=TwoWay}" />
+                </StackLayout>
+            </StackLayout>
 
-      <Button Grid.Row="1" Text="Next" Command="{Binding GoToLocation}" IsEnabled="{Binding IsNextGeneralEnabled}" />
-    </Grid>
-  </ScrollView>
+            <Button Grid.Row="1" Text="Next" Command="{Binding GoToLocation}" IsEnabled="{Binding IsNextGeneralEnabled}" />
+        </Grid>
+    </ScrollView>
 </views:MyContentPage>

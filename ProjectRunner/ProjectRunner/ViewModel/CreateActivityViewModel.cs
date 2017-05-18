@@ -62,12 +62,19 @@ namespace ProjectRunner.ViewModel
         #region SportSelection
         private float _fee = 0;
         private int _guests, _maxPlayers, _requiredFeedback, _playersTeam;
-        private int _indexSport, _indexPlayerPerTeam, _indexDistanceRunning, _indexDistanceBicycle, _indexGuestList;
+        private int _indexSport, _indexPlayerPerTeam, _indexDistanceRunning, _indexDistanceBicycle, _indexGuestList, _indexCurrency;
         private bool _fitness, _isDouble, _isGratis = true;
         private DateTime _startDay = DateTime.Now;
         private TimeSpan _startTime = DateTime.Now.TimeOfDay.Add(TimeSpan.FromHours(1));
 
         public float Fee { get { return _fee; } set { Set(ref _fee, value); VerifyGeneral(); } }
+        public ObservableCollection<string> CurrenciesList { get; } = new ObservableCollection<string>()
+        {
+            "EUR", "USD", "GBP", "CNY", "JPY"
+        };
+        //TODO select preferred currency
+        public int SelectedCurrencyIndex { get { return _indexCurrency; } set { Set(ref _indexCurrency, value); RaisePropertyChanged(() => SelectedCurrency); } }
+        public string SelectedCurrency { get { if (SelectedCurrencyIndex < 0) return null; return CurrenciesList[SelectedCurrencyIndex]; } }
         public ObservableCollection<int> RunningDistances { get; } = new ObservableCollection<int>()
         {
             3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,42
@@ -473,7 +480,7 @@ namespace ProjectRunner.ViewModel
                 Debug.WriteLine(StartDay.ToString());
                 Debug.WriteLine(StartTime.ToString());
 
-                var response = await server.Activities.CreateActivityAsync(StartDay, StartTime, SelectedLocation.Id, MaxPlayers, Guests, Fee, SelectedSport.SportEnumValue, RequiredFeedback, sportDetails);
+                var response = await server.Activities.CreateActivityAsync(StartDay, StartTime, SelectedLocation.Id, MaxPlayers, Guests, Fee, SelectedCurrency, SelectedSport.SportEnumValue, RequiredFeedback, sportDetails);
                 if (response.response == StatusCodes.OK)
                 {
                     dialogs.ShowAlert("Activity created", "Activity creation");

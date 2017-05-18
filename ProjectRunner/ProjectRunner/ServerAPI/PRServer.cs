@@ -224,7 +224,7 @@ namespace ProjectRunner.ServerAPI
             cache = c;
         }
 
-        public async Task<Envelop<string>> CreateActivityAsync(DateTime startDay, TimeSpan startTime, int mpPoint, int maxPlayers, int guests, float fee, Sports sport, int feedback, Dictionary<string, string> sportDetails)
+        public async Task<Envelop<string>> CreateActivityAsync(DateTime startDay, TimeSpan startTime, int mpPoint, int maxPlayers, int guests, float fee, string currency, Sports sport, int feedback, Dictionary<string, string> sportDetails)
         {
             var content = new List<KeyValuePair<string, string>>()
             {
@@ -233,6 +233,7 @@ namespace ProjectRunner.ServerAPI
                 new KeyValuePair<string, string>(ActivityDatabase.MAXPLAYERS, maxPlayers.ToString()),
                 new KeyValuePair<string, string>(ActivityDatabase.GUESTUSERS, guests.ToString()),
                 new KeyValuePair<string, string>(ActivityDatabase.FEE, fee.ToString()),
+                new KeyValuePair<string, string>(ActivityDatabase.CURRENCY, currency),
                 new KeyValuePair<string, string>(ActivityDatabase.SPORT, ((int)sport).ToString()),
                 new KeyValuePair<string, string>(ActivityDatabase.FEEDBACK, feedback.ToString()),
             };
@@ -650,6 +651,10 @@ namespace ProjectRunner.ServerAPI
         public string Currency { get; set; } = "EUR";
         public int RequiredFeedback { get; set; }
 
+        //TODO for IAP
+        public bool IsPrivate { get; set; }
+        public bool OrganizerMode { get; set; }
+
         public int NumberOfPlayers
         {
             get
@@ -662,6 +667,7 @@ namespace ProjectRunner.ServerAPI
         {
             act.CreatedBy = Int32.Parse(dict[ActivityDatabase.CREATEDBY]);
             act.Fee = float.Parse(dict[ActivityDatabase.FEE]);
+            act.Currency = dict[ActivityDatabase.CURRENCY];
             act.RequiredFeedback = Int32.Parse(dict[ActivityDatabase.FEEDBACK]);
             act.GuestUsers = Int32.Parse(dict[ActivityDatabase.GUESTUSERS]);
             act.Id = Int32.Parse(dict[ActivityDatabase.ID]);
@@ -805,6 +811,7 @@ namespace ProjectRunner.ServerAPI
         public const string SPORT = "sport";
         public const string FEE = "fee";
         public const string FEEDBACK = "requiredFeedback";
+        public const string CURRENCY = "currency";
     }
     class BicycleDatabase
     {

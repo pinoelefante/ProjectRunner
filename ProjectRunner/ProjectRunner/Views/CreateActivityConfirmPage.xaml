@@ -42,6 +42,7 @@
                 <StackLayout Orientation="Horizontal">
                     <Label Text="Fee"/>
                     <Label Text="{Binding Fee}" FontAttributes="Bold"/>
+                    <Label Text="{Binding SelectedCurrency}" FontAttributes="Bold"/>
                 </StackLayout>
 
                 <!-- Running -->

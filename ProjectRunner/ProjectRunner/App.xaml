@@ -23,6 +23,7 @@
             <converters:UnixTimestampConverter x:Key="UnixTimestampConverter"/>
             <converters:ChatMessageUsername x:Key="ChatMessageUsername"/>
             <converters:SportNameConverter x:Key="SportNameConverter"/>
+            <converters:ActivityJoinedPlayerCalculator x:Key="ActivityJoinedPlayerCalculator"/>
         </ResourceDictionary>  
       
     </Application.Resources>

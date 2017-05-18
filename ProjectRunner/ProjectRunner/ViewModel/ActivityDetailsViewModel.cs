@@ -59,6 +59,8 @@ namespace ProjectRunner.ViewModel
             {
                 IsEditModeEnabled = !IsEditModeEnabled;
                 RaisePropertyChanged(() => IsEditModeEnabled);
+                if(IsEditModeEnabled)
+                    InitEditMode();
             }));
         public RelayCommand OpenMapCommand =>
             _openMapCmd ??
@@ -212,5 +214,17 @@ namespace ProjectRunner.ViewModel
             {
                 await LoadPeopleAsync(true);
             }));
+        public ObservableCollection<int> NewGuests { get; } = new ObservableCollection<int>();
+        private int _newGuestsIndex;
+        public int NewGuestsIndex { get { return _newGuestsIndex; } set { Set(ref _newGuestsIndex, value); } }
+        private void InitEditMode()
+        {
+            var remainingSpots = CurrentActivity.MaxPlayers - CurrentActivity.JoinedPlayers - (CurrentActivity.OrganizerMode ? 0 : 1);
+            NewGuests.Clear();
+            for (int i = 0; i <= remainingSpots; i++)
+                NewGuests.Add(i);
+            NewGuestsIndex = CurrentActivity.GuestUsers;
+            RaisePropertyChanged(() => NewGuests);
+        }
     }
 }

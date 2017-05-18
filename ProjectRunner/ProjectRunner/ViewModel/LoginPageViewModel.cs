@@ -37,7 +37,7 @@ namespace ProjectRunner.ViewModel
             }
         }
 
-        private string _username = "pinoelefante", _password = "elefante";
+        private string _username, _password;
         public string Username { get { return _username; } set { Set(ref _username, value); } }
         public string Password { get { return _password; } set { Set(ref _password, value); } }
 

@@ -16,5 +16,10 @@ namespace ProjectRunner.Views
         {
             InitializeComponent();
         }
+
+        private void UsernameEntry_Completed(object sender, EventArgs e)
+        {
+            passwordEntry.Focus();
+        }
     }
 }

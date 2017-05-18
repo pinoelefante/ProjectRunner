@@ -8,28 +8,28 @@
     <ScrollView>
         <StackLayout Padding="10" Orientation="Vertical">
             <Label Text="Username" Margin="10,0,10,0" />
-            <Entry Placeholder="doctor223" PlaceholderColor="Gray" Margin="10,0,10,10" Text="{Binding Username}"/>
+            <Entry x:Name="entryUsername" Placeholder="doctor223" PlaceholderColor="Gray" Margin="10,0,10,10" Text="{Binding Username}" />
 
             <Label Text="Password" Margin="10,0,10,0" />
-            <Entry Placeholder="****" PlaceholderColor="Gray" IsPassword="True" Margin="10,0,10,10" Text="{Binding Password}"/>
+            <Entry x:Name="entryPassword" Placeholder="****" PlaceholderColor="Gray" IsPassword="True" Margin="10,0,10,10" Text="{Binding Password}"/>
 
             <Label Text="Confirm Password" Margin="10,0,10,0" />
-            <Entry Placeholder="****" PlaceholderColor="Gray" IsPassword="True" Margin="10,0,10,10" Text="{Binding Password2}"/>
+            <Entry x:Name="entryPassword2" Placeholder="****" PlaceholderColor="Gray" IsPassword="True" Margin="10,0,10,10" Text="{Binding Password2}"/>
 
             <Label Text="First Name" Margin="10,0,10,0" />
-            <Entry Placeholder="John" PlaceholderColor="Gray" Margin="10,0,10,10" Text="{Binding FirstName}"/>
+            <Entry x:Name="entryFirstName" Placeholder="John" PlaceholderColor="Gray" Margin="10,0,10,10" Text="{Binding FirstName}"/>
 
             <Label Text="Last Name" Margin="10,0,10,0" />
-            <Entry Placeholder="Watson" PlaceholderColor="Gray" Margin="10,0,10,10" Text="{Binding LastName}"/>
+            <Entry x:Name="entryLastName" Placeholder="Watson" PlaceholderColor="Gray" Margin="10,0,10,10" Text="{Binding LastName}"/>
 
             <Label Text="Email" Margin="10,0,10,0" />
-            <Entry Placeholder="drwatson@bakerstreet.co.uk" PlaceholderColor="Gray" Margin="10,0,10,10" Text="{Binding Email}"/>
-
-            <Label Text="Birth" Margin="10,0,10,0" />
-            <DatePicker Date="{Binding Birth, Mode=TwoWay}" />
+            <Entry x:Name="entryMail" Placeholder="drwatson@bakerstreet.co.uk" PlaceholderColor="Gray" Margin="10,0,10,10" Text="{Binding Email}" Keyboard="Email"/>
 
             <Label Text="Phone number" Margin="10,0,10,0" />
-            <Entry Placeholder="+443482512365" PlaceholderColor="Gray" Margin="10,0,10,10" Text="{Binding Phone}"/>
+            <Entry x:Name="entryPhone" Placeholder="+443482512365" PlaceholderColor="Gray" Margin="10,0,10,10" Text="{Binding Phone}" Keyboard="Telephone"/>
+            
+            <Label Text="Birth" Margin="10,0,10,0" />
+            <DatePicker x:Name="entryBirth" Date="{Binding Birth, Mode=TwoWay}" />
 
             <Button Text="Register" Command="{Binding RegisterCommand}" />
         </StackLayout>

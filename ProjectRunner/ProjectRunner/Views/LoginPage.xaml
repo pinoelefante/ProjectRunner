@@ -24,9 +24,13 @@
 
             <StackLayout Grid.Row="1" Orientation="Vertical" HorizontalOptions="FillAndExpand">
                 <Label Text="Username" Margin="10,0,10,0" />
-                <Entry Placeholder="Username" PlaceholderColor="Gray" Margin="10,0,10,10" Text="{Binding Username}"/>
+                <Entry Placeholder="Username" PlaceholderColor="Gray" Margin="10,0,10,10" Text="{Binding Username}" Completed="UsernameEntry_Completed"/>
                 <Label Text="Password" Margin="10,0,10,0" />
-                <Entry Placeholder="********" PlaceholderColor="Gray" IsPassword="True" Margin="10,0,10,10" Text="{Binding Password}"/>
+                <Entry x:Name="passwordEntry" Placeholder="********" PlaceholderColor="Gray" IsPassword="True" Margin="10,0,10,10" Text="{Binding Password}">
+                    <Entry.Behaviors>
+                        <views:EventToCommandBehavior EventName="Completed" Command="{Binding LoginCommand}"/>
+                    </Entry.Behaviors>
+                </Entry>
                 <Label x:Name="registerLabel" FontSize="12" Text="I don't have an account" TextColor="Blue" HorizontalOptions="Center" Margin="0,10">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding RegisterCommand}"/>

@@ -163,4 +163,22 @@ namespace ProjectRunner.Views.Converters
             throw new NotImplementedException();
         }
     }
+    public class ActivityJoinedPlayerCalculator : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            Activity activity = value as Activity;
+            if (activity == null)
+                return 0;
+            var joined = activity.JoinedPlayers;
+            if (!activity.OrganizerMode)
+                joined++;
+            return joined;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
