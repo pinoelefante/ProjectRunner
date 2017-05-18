@@ -20,6 +20,9 @@
             <converters:BoolImageConverter x:Key="BoolImage"/>
             <converters:TimeDifferenceString x:Key="TimeDifferenceNow"/>
             <converters:EditModeIcon x:Key="EditModeIcon"/>
+            <converters:UnixTimestampConverter x:Key="UnixTimestampConverter"/>
+            <converters:ChatMessageUsername x:Key="ChatMessageUsername"/>
+            <converters:SportNameConverter x:Key="SportNameConverter"/>
         </ResourceDictionary>  
       
     </Application.Resources>

@@ -4,6 +4,7 @@
              xmlns:views="clr-namespace:ProjectRunner.Views"
              x:Class="ProjectRunner.Views.LoginPage"
              Title="Login"
+             IsBusy="{Binding IsBusyActive}"
              BindingContext="{Binding LoginPageViewModel, Source={StaticResource Locator}}">
     <ScrollView>
         <Grid>
@@ -49,7 +50,8 @@
                 HeightRequest="60"
                 BackgroundColor="Green"
                 TextColor="White"
-                Command="{Binding LoginCommand}"/>
+                Command="{Binding LoginCommand}"
+                IsEnabled="{Binding IsBusyActive, Converter={StaticResource NotBoolean}}"/>
         </Grid>
     </ScrollView>
 

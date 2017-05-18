@@ -27,4 +27,17 @@ namespace ProjectRunner.Views.Selectors
             return null;
         }
     }
+    public class ChatMessageTemplateSelector : DataTemplateSelector
+    {
+        public DataTemplate MyMessage { get; set; }
+        public DataTemplate UserMessage { get; set; }
+        public DataTemplate ServiceMessage { get; set; }
+        protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
+        {
+            var message = item as ChatMessage;
+            if (message.MessageType == ChatMessage.ChatMessageType.USER)
+                return message.IsMine ? MyMessage : UserMessage;
+            return ServiceMessage;
+        }
+    }
 }

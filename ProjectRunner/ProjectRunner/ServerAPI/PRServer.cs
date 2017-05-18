@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -488,15 +489,19 @@ namespace ProjectRunner.ServerAPI
                     List<ChatMessage> list = new List<ChatMessage>(x.Count);
                     foreach (var item in x)
                     {
-                        //TODO
                         ChatMessage message = new ChatMessage()
                         {
                             Message = item[ChatDatabase.MESSAGE],
-                            Timestamp = long.Parse(item[ChatDatabase.TIMESTAMP])
+                            Timestamp = long.Parse(item[ChatDatabase.TIMESTAMP]),
+                            ActivityId = activityId,
+                            UserId = Int32.Parse(item[ChatDatabase.ID_USER])
                         };
-                        var idUser = int.Parse(item[ChatDatabase.ID_USER]);
-                        message.IsMine = cache.MyUserId == idUser;
-                        //TODO get UserProfile from cache for SentBy
+                        message.IsMine = cache.MyUserId == message.UserId;
+                        var user = cache.GetUserProfile(message.UserId);
+                        message.SentBy = user != null ? user : new UserProfile() { Id = message.UserId };
+                        message.MessageType = ChatMessage.ChatMessageType.USER;
+
+                        list.Add(message);
                     }
                     return list;
                 }
@@ -546,6 +551,7 @@ namespace ProjectRunner.ServerAPI
     }
     public class UserProfile
     {
+        [PrimaryKey]
         public int Id { get; set; }
         public string Username { get; set; }
         public string FirstName { get; set; }
@@ -556,7 +562,7 @@ namespace ProjectRunner.ServerAPI
         public DateTime RegistrationTime { get; set; }
         public DateTime LastUpdate { get; set; }
 
-        private UserProfile() { }
+        public UserProfile() { }
 
         public static UserProfile parseDictionary(Dictionary<string, string> dictionary)
         {
@@ -641,6 +647,7 @@ namespace ProjectRunner.ServerAPI
         public ActivityStatus Status { get; set; }
         public Sports Sport { get; set; }
         public float Fee { get; set; }
+        public string Currency { get; set; } = "EUR";
         public int RequiredFeedback { get; set; }
 
         public int NumberOfPlayers
@@ -756,7 +763,10 @@ namespace ProjectRunner.ServerAPI
     }
     public class ChatMessage
     {
+        public int ActivityId { get; set; }
+        public int UserId { get; set; }
         public string Message { get; set; }
+        [Ignore]
         public UserProfile SentBy { get; set; }
         public bool IsMine { get; set; }
         public long Timestamp { get; set; }

@@ -17,12 +17,14 @@ namespace ProjectRunner.ViewModel
     {
         private INavigationService navigation;
         private PRServer server;
+        private PRCache cache;
         private UserDialogsService dialogs;
-        public RegisterPageViewModel(INavigationService n, PRServer s, UserDialogsService d)
+        public RegisterPageViewModel(INavigationService n, PRServer s, UserDialogsService d, PRCache c)
         {
             navigation = n;
             server = s;
             dialogs = d;
+            cache = c;
         }
         private string _username, _pass1, _pass2, _firstName, _lastName, _email, _phone;
         private DateTime _birth = DateTime.Now;
@@ -45,8 +47,11 @@ namespace ProjectRunner.ViewModel
                     return;
                 }
                 var response = await server.Authentication.RegisterAsync(Username, Password, Email, FirstName, LastName, Birth.ToString("yyyy-MM-dd"), Phone);
-                if(response.response == StatusCodes.OK)
+                if (response.response == StatusCodes.OK)
+                {
+                    cache.SaveCredentials(Username, Password);
                     Application.Current.MainPage = new Views.MyMasterPage();
+                }
                 else
                     dialogs.ShowAlert($"An error occurred while creating a new account: {response.response}");
             }));

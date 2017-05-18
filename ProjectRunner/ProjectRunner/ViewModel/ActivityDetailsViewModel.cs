@@ -32,12 +32,20 @@ namespace ProjectRunner.ViewModel
             if (parameter != null && parameter is Activity)
             {
                 IsEditModeEnabled = false;
-                CurrentActivity = parameter as Activity;
+                var activity = parameter as Activity;
+                if (CurrentActivity != null && activity.Id != CurrentActivity.Id)
+                {
+                    ActivityPeople.Clear();
+                    RaisePropertyChanged(() => ActivityPeople);
+                    ListMessages.Clear();
+                }
+                CurrentActivity = activity;
                 IsMyActivity = cache.MyUserId == CurrentActivity.CreatedBy;
                 RaisePropertyChanged(() => CurrentActivity);
                 RaisePropertyChanged(() => IsMyActivity);
                 RaisePropertyChanged(() => IsEditModeEnabled);
-                RefreshPeopleListCommand.Execute(null);
+                LoadPeopleAsync();
+                ReadChatMessagesAsync();
             }
             else
                 navigation.NavigateTo(ViewModelLocator.Activities);
@@ -121,20 +129,61 @@ namespace ProjectRunner.ViewModel
         public string ChatMessage { get { return _chatMessage; } set { Set(ref _chatMessage, value); } }
         public RelayCommand SendChatMessageCommand =>
             _sendChatMsgCmd ??
-            (_sendChatMsgCmd = new RelayCommand(() =>
+            (_sendChatMsgCmd = new RelayCommand(async () =>
             {
-                if(ChatMessage.Trim().Length > 0)
+                if (ChatMessage.Trim().Length > 0)
                 {
-                    //TODO send message
-                    ChatMessage = string.Empty;
+                    var res = await server.Activities.SendChatMessage(CurrentActivity.Id, ChatMessage.Trim());
+                    if (res.response == StatusCodes.OK)
+                    {
+                        await ReadChatMessagesAsync();
+                        ChatMessage = string.Empty;
+                    }
+                    else
+                        UserDialogs.Instance.Alert("Error while sending the message. Retry later", "Message not delivered", "OK");
                 }
             }));
-        public ObservableCollection<UserProfile> ActivityPeople { get; } = new ObservableCollection<UserProfile>();
-        public bool IsLoadingPeople { get; set; }
-        private RelayCommand _refreshPeopleListCmd;
-        public RelayCommand RefreshPeopleListCommand =>
-            _refreshPeopleListCmd ??
-            (_refreshPeopleListCmd = new RelayCommand(async () =>
+        public ObservableCollection<ChatMessage> ListMessages { get; } = new ObservableCollection<ChatMessage>();
+        public async Task ReadChatMessagesAsync()
+        {
+            if (!ListMessages.Any())
+            {
+                var messages = cache.GetChatMessages(CurrentActivity.Id);
+                if (messages != null)
+                    foreach (var item in messages)
+                        ListMessages.Add(item);
+                else
+                    cache.SetChatLastTimestamp(CurrentActivity.Id, 0);
+            }
+            var last_timestamp = cache.GetChatLastTimestamp(CurrentActivity.Id);
+            var res = await server.Activities.ReadChatMessages(CurrentActivity.Id, last_timestamp);
+            if(res.response == StatusCodes.OK)
+            {
+                if(res.content.Any())
+                {
+                    var placeholder = ListMessages.FirstOrDefault(x => x.MessageType == ServerAPI.ChatMessage.ChatMessageType.SERVICE);
+                    if (placeholder != null)
+                        ListMessages.Remove(placeholder);
+                    
+                    if(res.content.Count > 1)
+                    {
+                        ListMessages.Add(new ChatMessage()
+                        {
+                            Message = $"{res.content.Count} new messages",
+                            MessageType = ServerAPI.ChatMessage.ChatMessageType.SERVICE
+                        });
+                    }
+                    foreach (var item in res.content)
+                        ListMessages.Add(item);
+                    cache.SaveItemsDB<ChatMessage>(res.content);
+                    Debug.WriteLine("Last timestamp = " + res.content.Last().Timestamp);
+                    cache.SetChatLastTimestamp(CurrentActivity.Id, res.content.Last().Timestamp);
+                }
+            }
+        }
+        private async Task LoadPeopleAsync(bool force = false)
+        {
+            if (!ActivityPeople.Any() || force)
             {
                 IsLoadingPeople = true;
                 RaisePropertyChanged(() => IsLoadingPeople);
@@ -143,10 +192,25 @@ namespace ProjectRunner.ViewModel
                 {
                     ActivityPeople.Clear();
                     foreach (var item in res.content)
+                    {
                         ActivityPeople.Add(item);
+                        if (!cache.HasUserProfile(item.Id))
+                            cache.ListProfiles.Add(item);
+                    }
+                    cache.SaveItemsDB<UserProfile>(res.content);
                 }
                 IsLoadingPeople = false;
                 RaisePropertyChanged(() => IsLoadingPeople);
+            }
+        }
+        public ObservableCollection<UserProfile> ActivityPeople { get; } = new ObservableCollection<UserProfile>();
+        public bool IsLoadingPeople { get; set; }
+        private RelayCommand _refreshPeopleListCmd;
+        public RelayCommand RefreshPeopleListCommand =>
+            _refreshPeopleListCmd ??
+            (_refreshPeopleListCmd = new RelayCommand(async () =>
+            {
+                await LoadPeopleAsync(true);
             }));
     }
 }

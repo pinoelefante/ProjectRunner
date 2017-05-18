@@ -34,6 +34,8 @@ namespace ProjectRunner.ViewModel
             SimpleIoc.Default.Register<PRServer>();
             SimpleIoc.Default.Register<PRCache>();
             SimpleIoc.Default.Register<UserDialogsService>();
+            var dbService = DependencyService.Get<ISQLite>();
+            SimpleIoc.Default.Register<ISQLite>(() => dbService);
 
             SimpleIoc.Default.Register<LoginPageViewModel>();
             SimpleIoc.Default.Register<RegisterPageViewModel>();

@@ -108,4 +108,59 @@ namespace ProjectRunner.Views.Converters
             throw new NotImplementedException();
         }
     }
+    public class UnixTimestampConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var v = (System.Convert.ToInt64(value))/1000d;
+            DateTime date = new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(v);
+            return date.ToLocalTime();
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+    public class ChatMessageUsername : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            ChatMessage message = value as ChatMessage;
+            if (message == null)
+                return "???";
+            if (message.SentBy == null)
+                return $"USER_{message.UserId}";
+            return message.SentBy.Username;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+    public class SportNameConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            Sports sport = (Sports)value;
+            switch (sport)
+            {
+                case Sports.BICYCLE:
+                    return "Bicycle";
+                case Sports.FOOTBALL:
+                    return "Football";
+                case Sports.RUNNING:
+                    return "Running";
+                case Sports.TENNIS:
+                    return "Tennis";
+            }
+            return "Sport Unknown";
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

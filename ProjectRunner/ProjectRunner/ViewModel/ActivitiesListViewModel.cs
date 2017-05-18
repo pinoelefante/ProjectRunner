@@ -79,7 +79,7 @@ namespace ProjectRunner.ViewModel
             _itemTappedCmd ??
             (_itemTappedCmd = new RelayCommand<Activity>((x) =>
             {
-                navigation.NavigateTo(ViewModelLocator.ActivityDetails, (object)x);
+                navigation.NavigateTo(ViewModelLocator.ActivityDetails, x);
             }));
         public RelayCommand SearchActivityCommand =>
             _searchActivityCmd ??

@@ -9,8 +9,7 @@
     <pages:ActivityDetailsOverview/>
     
     <pages:ActivityDetailsPeople/>
-    
-    <pages:ActivityDetailsChat/>
 
+    <pages:ActivityDetailsChat/>
 
 </pages:MyTabbedPage>

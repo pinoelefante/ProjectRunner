@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Plugin.SecureStorage;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -62,6 +63,7 @@ namespace ProjectRunner.UWP
 
                 Xamarin.Forms.Forms.Init(e);
                 Xamarin.FormsMaps.Init();
+                WinSecureStorageBase.StoragePassword = "pdJSp5Xr";
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {

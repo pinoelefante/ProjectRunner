@@ -26,6 +26,16 @@ namespace ProjectRunner.ViewModel
             dialogs = d;
             cache = c;
         }
+        public override void NavigatedTo(object parameter = null)
+        {
+            if (cache.HasCredentials())
+            {
+                var credentials = cache.GetCredentials();
+                Username = credentials[0];
+                Password = credentials[1];
+                LoginCommand.Execute(null);
+            }
+        }
 
         private string _username = "pinoelefante", _password = "elefante";
         public string Username { get { return _username; } set { Set(ref _username, value); } }
@@ -35,16 +45,20 @@ namespace ProjectRunner.ViewModel
         public RelayCommand LoginCommand => _loginCommand ??
             (_loginCommand = new RelayCommand(async () =>
             {
+                IsBusyActive = true;
                 var result = await server.Authentication.LoginAsync(Username, Password);
                 if(result.response == StatusCodes.OK)
                 {
                     cache.MyUserId = Int32.Parse(result.content);
                     Application.Current.MainPage = new Views.MyMasterPage();
+                    if (!cache.HasCredentials())
+                        cache.SaveCredentials(Username, Password);
                 }
                 else
                 {
                     dialogs.ShowAlert("Username or password is wrong", "Login failed");
                 }
+                IsBusyActive = false;
             }));
         public RelayCommand RegisterCommand => _registerCommand ??
             (_registerCommand = new RelayCommand(() =>

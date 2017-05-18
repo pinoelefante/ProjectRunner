@@ -8,6 +8,7 @@ using Android.Widget;
 using Android.OS;
 using Plugin.Permissions;
 using Acr.UserDialogs;
+using Plugin.SecureStorage;
 
 namespace ProjectRunner.Droid
 {
@@ -24,6 +25,7 @@ namespace ProjectRunner.Droid
             global::Xamarin.Forms.Forms.Init(this, bundle);
             global::Xamarin.FormsMaps.Init(this, bundle);
             UserDialogs.Init(this);
+            SecureStorageImplementation.StoragePassword = "pdJSp5Xr";
 
             LoadApplication(new App());
         }
