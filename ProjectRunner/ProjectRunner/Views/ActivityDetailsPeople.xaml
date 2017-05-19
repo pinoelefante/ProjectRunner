@@ -6,6 +6,10 @@
              BindingContext="{Binding ActivityDetailsViewModel, Source={StaticResource Locator}}">
     
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
         <ListView ItemsSource="{Binding ActivityPeople}"
                   HasUnevenRows="True"
                   IsPullToRefreshEnabled="True"
@@ -21,5 +25,18 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <StackLayout Grid.Row="1">
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Guest users: "/>
+                <Label Text="{Binding CurrentActivity.GuestUsers}" FontAttributes="Bold"/>
+            </StackLayout>
+            
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Total: "/>
+                <Label Text="{Binding CurrentActivity, Converter={StaticResource ActivityJoinedPlayerCalculator}}" FontAttributes="Bold"/>
+                <Label Text="of"/>
+                <Label Text="{Binding CurrentActivity.MaxPlayers}" FontAttributes="Bold"/>
+            </StackLayout>
+        </StackLayout>
     </Grid>
 </ContentPage>

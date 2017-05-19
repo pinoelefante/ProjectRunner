@@ -14,17 +14,15 @@ namespace ProjectRunner.ServerAPI
 {
     public class PRServer
     {
-        private CommonServerAPI commonApi { get; }
+        private CommonServerAPI CommonApi { get; }
         public AuthenticationAPI Authentication { get; private set; }
         public ActivityAPI Activities { get; private set; }
-        private PRCache cache;
-        public PRServer(PRCache c)
+        public PRServer(PRCache cache)
         {
-            cache = c;
-            commonApi = new CommonServerAPI();
-            Authentication = new AuthenticationAPI(commonApi);
-            commonApi.SilentLoginAction = () => { return Authentication.SilentLoginAsync().Result; };
-            Activities = new ActivityAPI(commonApi, cache);
+            CommonApi = new CommonServerAPI();
+            Authentication = new AuthenticationAPI(CommonApi, cache);
+            CommonApi.SilentLoginAction = () => { return Authentication.SilentLoginAsync().Result; };
+            Activities = new ActivityAPI(CommonApi, cache);
         }
     }
     public class CommonServerAPI
@@ -46,7 +44,7 @@ namespace ProjectRunner.ServerAPI
         public bool IsLogged { get; set; } = false;
         public Func<bool> SilentLoginAction { get; set; }
         public Action OnAccessCodeError { get; set; }
-        public async Task<Envelop<T>> sendRequest<T>(string url, HttpContent postContent = null, bool loginRequired = true)
+        public async Task<Envelop<T>> SendRequest<T>(string url, HttpContent postContent = null, bool loginRequired = true)
         {
             Envelop<T> envelop = new Envelop<T>();
 
@@ -76,29 +74,34 @@ namespace ProjectRunner.ServerAPI
                     if (typeof(T) == typeof(string))
                         envelop.content = (T)(object)result["content"];
                     else
-                        envelop.content = JsonConvert.DeserializeObject<T>(result["content"]);
+                    {
+                        var json = result["content"].ToString();
+                        if(!string.IsNullOrEmpty(json))
+                            envelop.content = JsonConvert.DeserializeObject<T>(json);
+                    }
+                        
                     return envelop;
                 }
                 else
                 {
                     envelop.time = DateTime.Now;
-                    envelop.response = StatusCodes.ERRORE_SERVER;
+                    envelop.response = StatusCodes.SERVER_ERROR;
                 }
             }
             catch (Exception e)
             {
                 Debug.WriteLine($"ERRORE - {e.Message}");
                 envelop.time = DateTime.Now;
-                envelop.response = StatusCodes.ERRORE_CONNESSIONE;
+                envelop.response = StatusCodes.CONNECTION_ERROR;
             }
             return envelop;
         }
-        public async Task<Envelop<ContentType>> sendRequestWithAction<ContentType, ContentContainer>(string url, Func<ContentContainer, ContentType> parseAction, HttpContent postContent = null, bool loginRequired = true)
+        public async Task<Envelop<ContentType>> SendRequestWithAction<ContentType, ContentContainer>(string url, Func<ContentContainer, ContentType> parseAction, HttpContent postContent = null, bool loginRequired = true)
         {
             Envelop<ContentType> envelop = new Envelop<ContentType>();
 
             if (parseAction == null)
-                return await sendRequest<ContentType>(url, postContent, loginRequired);
+                return await SendRequest<ContentType>(url, postContent, loginRequired);
 
             if (loginRequired && !IsLogged)
             {
@@ -120,21 +123,25 @@ namespace ProjectRunner.ServerAPI
 
                     envelop.time = DateTime.Parse(result["time"].ToString(), CultureInfo.InvariantCulture);
                     envelop.response = (StatusCodes)Enum.ToObject(typeof(StatusCodes), Int32.Parse(result["response"].ToString()));
-                    var values = JsonConvert.DeserializeObject<ContentContainer>(result["content"].ToString());
-                    envelop.content = parseAction.Invoke(values);
+                    var json = result["content"].ToString();
+                    if(!string.IsNullOrEmpty(json))
+                    {
+                        var values = JsonConvert.DeserializeObject<ContentContainer>(json);
+                        envelop.content = parseAction.Invoke(values);
+                    }
                     return envelop;
                 }
                 else
                 {
                     envelop.time = DateTime.Now;
-                    envelop.response = StatusCodes.ERRORE_SERVER;
+                    envelop.response = StatusCodes.SERVER_ERROR;
                 }
             }
             catch (Exception e)
             {
-                Debug.WriteLine($"ERRORE - {e.Message}");
+                Debug.WriteLine($"ERROR - {e.Message}");
                 envelop.time = DateTime.Now;
-                envelop.response = StatusCodes.ERRORE_CONNESSIONE;
+                envelop.response = StatusCodes.CONNECTION_ERROR;
             }
             return envelop;
         }
@@ -142,16 +149,23 @@ namespace ProjectRunner.ServerAPI
     public class AuthenticationAPI
     {
         private CommonServerAPI server;
-        public AuthenticationAPI(CommonServerAPI client)
+        private PRCache cache;
+        public AuthenticationAPI(CommonServerAPI client, PRCache c)
         {
             server = client;
+            cache = c;
         }
         public async Task<bool> SilentLoginAsync()
         {
-            var username = "user_test";
-            var password = "pass_test";
-            var res = await LoginAsync(username, password);
-            return res.response == StatusCodes.OK;
+            var credentials = cache.GetCredentials();
+            if (credentials != null)
+            {
+                var res = await LoginAsync(credentials[0], credentials[1]);
+                credentials[0] = string.Empty;
+                credentials[1] = string.Empty;
+                return res.response == StatusCodes.OK;
+            }
+            return false;
         }
         public async Task<Envelop<string>> LoginAsync(string username, string password)
         {
@@ -160,7 +174,7 @@ namespace ProjectRunner.ServerAPI
                 new KeyValuePair<string, string>("username",username),
                 new KeyValuePair<string, string>("password", password)
             });
-            var response = await server.sendRequest<string>("/authentication.php?action=Login", postContent, false);
+            var response = await server.SendRequest<string>("/authentication.php?action=Login", postContent, false);
             server.IsLogged = response.response == StatusCodes.OK;
             return response;
         }
@@ -176,7 +190,7 @@ namespace ProjectRunner.ServerAPI
                 new KeyValuePair<string, string>("phone", phone),
                 new KeyValuePair<string, string>("email", email),
             });
-            var response = await server.sendRequest<string>("/authentication.php?action=Register", postContent, false);
+            var response = await server.SendRequest<string>("/authentication.php?action=Register", postContent, false);
             server.IsLogged = response.response == StatusCodes.OK;
             return response;
         }
@@ -187,15 +201,15 @@ namespace ProjectRunner.ServerAPI
                 new KeyValuePair<string, string>("field",field),
                 new KeyValuePair<string, string>("newValue", newValue)
             });
-            return await server.sendRequest<string>("/authentication.php?action=ModifyField", postContent);
+            return await server.SendRequest<string>("/authentication.php?action=ModifyField", postContent);
         }
         public async Task<Envelop<UserProfile>> GetProfileInfo()
         {
-            return await server.sendRequestWithAction<UserProfile, Dictionary<string, string>>("/authentication.php?action=GetProfileInfo", (x) =>
+            return await server.SendRequestWithAction<UserProfile, Dictionary<string, string>>("/authentication.php?action=GetProfileInfo", (x) =>
             {
                 if (x != null && x.Any())
                 {
-                    UserProfile user = UserProfile.parseDictionary(x);
+                    UserProfile user = UserProfile.ParseDictionary(x);
                     return user;
                 }
                 return null;
@@ -254,7 +268,7 @@ namespace ProjectRunner.ServerAPI
                     break;
             }
             FormUrlEncodedContent postContent = new FormUrlEncodedContent(content);
-            return await server.sendRequest<string>("/activities.php?action=CreateActivity", postContent);
+            return await server.SendRequest<string>("/activities.php?action=CreateActivity", postContent);
         }
         private IEnumerable<KeyValuePair<string, string>> GetBicycleDetails(Dictionary<string, string> details)
         {
@@ -295,7 +309,7 @@ namespace ProjectRunner.ServerAPI
             {
                 new KeyValuePair<string, string>(ActivityDatabase.ID, activityId.ToString())
             });
-            return await server.sendRequest<string>("/activities.php?action=JoinActivity", postContent);
+            return await server.SendRequest<string>("/activities.php?action=JoinActivity", postContent);
         }
         public async Task<Envelop<string>> LeaveActivityAsync(int activityId)
         {
@@ -303,7 +317,7 @@ namespace ProjectRunner.ServerAPI
             {
                 new KeyValuePair<string, string>(ActivityDatabase.ID, activityId.ToString())
             });
-            return await server.sendRequest<string>("/activities.php?action=LeaveActivity", postContent);
+            return await server.SendRequest<string>("/activities.php?action=LeaveActivity", postContent);
         }
         public async Task<Envelop<Activity>> InfoActivityAsync(int activityId)
         {
@@ -311,7 +325,7 @@ namespace ProjectRunner.ServerAPI
             {
                 new KeyValuePair<string, string>(ActivityDatabase.ID, activityId.ToString())
             });
-            return await server.sendRequestWithAction<Activity, Dictionary<string, string>>("/activities.php?action=InfoActivity", (x) =>
+            return await server.SendRequestWithAction<Activity, Dictionary<string, string>>("/activities.php?action=InfoActivity", (x) =>
              {
                  if (x != null && x.ContainsKey(ActivityDatabase.SPORT))
                  {
@@ -340,7 +354,7 @@ namespace ProjectRunner.ServerAPI
                 parameters.Add(new KeyValuePair<string, string>(ActivityDatabase.STATUS, ((int)status.Value).ToString()));
             var postContent = new FormUrlEncodedContent(parameters);
 
-            return await server.sendRequestWithAction<List<Activity>, List<Dictionary<string, string>>>("/activities.php?action=MyActivitiesList", (x) =>
+            return await server.SendRequestWithAction<List<Activity>, List<Dictionary<string, string>>>("/activities.php?action=MyActivitiesList", (x) =>
             {
                 return ParseDictionaryListActivity(x);
             }, postContent);
@@ -384,7 +398,7 @@ namespace ProjectRunner.ServerAPI
             {
                 new KeyValuePair<string, string>(ActivityDatabase.ID, activityId.ToString())
             });
-            return await server.sendRequest<string>("/activities.php?action=DeleteActivity", postContent);
+            return await server.SendRequest<string>("/activities.php?action=DeleteActivity", postContent);
         }
         public async Task<Envelop<string>> ModifyActivityFieldAsync(int activityId, string field, string newValue)
         {
@@ -394,11 +408,21 @@ namespace ProjectRunner.ServerAPI
                 new KeyValuePair<string, string>("field",field),
                 new KeyValuePair<string, string>("newValue", newValue)
             });
-            return await server.sendRequest<string>("/authentication.php?action=ModifyActivityField", postContent);
+            return await server.SendRequest<string>("/activities.php?action=ModifyActivityField", postContent);
+        }
+        public async Task<Envelop<string>> ModifyActivityAsync(int activityId, int newGuests, int newTotalPlayers)
+        {
+            FormUrlEncodedContent postContent = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>(ActivityDatabase.ID,activityId.ToString()),
+                new KeyValuePair<string, string>(ActivityDatabase.GUESTUSERS, newGuests.ToString()),
+                new KeyValuePair<string, string>(ActivityDatabase.MAXPLAYERS, newTotalPlayers.ToString())
+            });
+            return await server.SendRequest<string>("/activities.php?action=ModifyActivity", postContent);
         }
         public async Task<Envelop<List<MapAddress>>> ListAddressAsync()
         {
-            return await server.sendRequestWithAction<List<MapAddress>, List<Dictionary<string, string>>>("/activities.php?action=ListAddress", (x) =>
+            return await server.SendRequestWithAction<List<MapAddress>, List<Dictionary<string, string>>>("/activities.php?action=ListAddress", (x) =>
             {
                 if (x != null && x.Any())
                 {
@@ -420,7 +444,7 @@ namespace ProjectRunner.ServerAPI
                     new KeyValuePair<string, string>(MapAddressDatabase.LATITUDE,latitude.ToString("N7").Replace(',','.')),
                     new KeyValuePair<string, string>(MapAddressDatabase.LONGITUDE, longitude.ToString("N7").Replace(',','.')),
                 });
-            return await server.sendRequest<string>("/activities.php?action=AddAddress", postContent);
+            return await server.SendRequest<string>("/activities.php?action=AddAddress", postContent);
         }
         public async Task<Envelop<string>> AddAddressPoint(string name, double latitude, double longitude)
         {
@@ -430,7 +454,7 @@ namespace ProjectRunner.ServerAPI
                     new KeyValuePair<string, string>(MapAddressDatabase.LATITUDE,latitude.ToString("N7").Replace(',','.')),
                     new KeyValuePair<string, string>(MapAddressDatabase.LONGITUDE, longitude.ToString("N7").Replace(',','.')),
                 });
-            return await server.sendRequest<string>("/activities.php?action=AddAddressPoint", postContent);
+            return await server.SendRequest<string>("/activities.php?action=AddAddressPoint", postContent);
         }
         //
         public async Task<Envelop<string>> RemoveAddress(int locationId)
@@ -439,7 +463,7 @@ namespace ProjectRunner.ServerAPI
                 {
                     new KeyValuePair<string, string>(MapAddressDatabase.ID, locationId.ToString())
                 });
-            return await server.sendRequest<string>("/activities.php?action=RemoveAddress", postContent);
+            return await server.SendRequest<string>("/activities.php?action=RemoveAddress", postContent);
         }
         public async Task<Envelop<string>> ReloadLocationInfoFromGoogleMaps(int locationId)
         {
@@ -447,7 +471,7 @@ namespace ProjectRunner.ServerAPI
                 {
                     new KeyValuePair<string, string>(MapAddressDatabase.ID, locationId.ToString()),
                 });
-            return await server.sendRequest<string>("/activities.php?action=ReloadAddressInfoFromGoogleMaps", postContent);
+            return await server.SendRequest<string>("/activities.php?action=ReloadAddressInfoFromGoogleMaps", postContent);
         }
         public async Task<Envelop<List<UserProfile>>> ListPeople(int activityId)
         {
@@ -455,13 +479,13 @@ namespace ProjectRunner.ServerAPI
             {
                 new KeyValuePair<string, string>(ActivityDatabase.ID, activityId.ToString())
             });
-            return await server.sendRequestWithAction<List<UserProfile>, List<Dictionary<string, string>>>("/activities.php?action=ListPeople", (x) =>
+            return await server.SendRequestWithAction<List<UserProfile>, List<Dictionary<string, string>>>("/activities.php?action=ListPeople", (x) =>
             {
                 if (x != null && x.Any())
                 {
                     List<UserProfile> people = new List<UserProfile>(x.Count);
                     foreach (var item in x)
-                        people.Add(UserProfile.parseDictionary(item));
+                        people.Add(UserProfile.ParseDictionary(item));
                     return people;
                 }
                 return null;
@@ -474,7 +498,7 @@ namespace ProjectRunner.ServerAPI
                 new KeyValuePair<string, string>(ChatDatabase.ID_ACTIVITY, activity.ToString()),
                 new KeyValuePair<string, string>(ChatDatabase.MESSAGE, text)
             });
-            return await server.sendRequest<string>("/activities.php?action=SendChatMessage", postContent);
+            return await server.SendRequest<string>("/activities.php?action=SendChatMessage", postContent);
         }
         public async Task<Envelop<List<ChatMessage>>> ReadChatMessages(int activityId, long timestamp = 0)
         {
@@ -483,7 +507,7 @@ namespace ProjectRunner.ServerAPI
                 new KeyValuePair<string, string>(ChatDatabase.ID_ACTIVITY, activityId.ToString()),
                 new KeyValuePair<string, string>(ChatDatabase.TIMESTAMP, timestamp.ToString())
             });
-            return await server.sendRequestWithAction<List<ChatMessage>, List<Dictionary<string, string>>>("/activities.php?action=ReadChatMessages", (x) =>
+            return await server.SendRequestWithAction<List<ChatMessage>, List<Dictionary<string, string>>>("/activities.php?action=ReadChatMessages", (x) =>
             {
                 if (x != null && x.Any())
                 {
@@ -499,7 +523,7 @@ namespace ProjectRunner.ServerAPI
                         };
                         message.IsMine = cache.MyUserId == message.UserId;
                         var user = cache.GetUserProfile(message.UserId);
-                        message.SentBy = user != null ? user : new UserProfile() { Id = message.UserId };
+                        message.SentBy = user ?? new UserProfile() { Id = message.UserId };
                         message.MessageType = ChatMessage.ChatMessageType.USER;
 
                         list.Add(message);
@@ -565,17 +589,19 @@ namespace ProjectRunner.ServerAPI
 
         public UserProfile() { }
 
-        public static UserProfile parseDictionary(Dictionary<string, string> dictionary)
+        public static UserProfile ParseDictionary(Dictionary<string, string> dictionary)
         {
-            UserProfile profile = new UserProfile();
-            profile.Id = int.Parse(dictionary["id"]);
-            profile.Username = dictionary["username"];
+            UserProfile profile = new UserProfile()
+            {
+                Id = int.Parse(dictionary["id"]),
+                Username = dictionary["username"],
+                Email = dictionary.ContainsKey("email") ? dictionary["email"] : string.Empty,
+                FirstName = dictionary.ContainsKey("firstName") ? dictionary["firstName"] : string.Empty,
+                LastName = dictionary.ContainsKey("lastName") ? dictionary["lastName"] : string.Empty,
+                Phone = dictionary.ContainsKey("phone") ? dictionary["phone"] : string.Empty,
+            };
             if (dictionary.ContainsKey("birth"))
                 profile.Birth = DateTime.Parse(dictionary["birth"], CultureInfo.InvariantCulture);
-            profile.Email = dictionary.ContainsKey("email") ? dictionary["email"] : null;
-            profile.FirstName = dictionary.ContainsKey("firstName") ? dictionary["firstName"] : null;
-            profile.LastName = dictionary.ContainsKey("lastName") ? dictionary["lastName"] : null;
-            profile.Phone = dictionary.ContainsKey("phone") ? dictionary["phone"] : null;
             if(dictionary.ContainsKey("lastUpdate"))
                 profile.LastUpdate = DateTime.Parse(dictionary["lastUpdate"], CultureInfo.InvariantCulture);
             if (dictionary.ContainsKey("registration"))
@@ -599,20 +625,20 @@ namespace ProjectRunner.ServerAPI
 
         public static MapAddress ParseDictionary(Dictionary<string, string> dict, string prefix = "")
         {
-            MapAddress mp = new MapAddress();
-            //{
-            mp.Id = Int32.Parse(dict[prefix + MapAddressDatabase.ID]);
-            mp.City = dict[prefix + MapAddressDatabase.CITY];
-            mp.Country = dict[prefix + MapAddressDatabase.COUNTRY];
-            mp.Latitude = float.Parse(dict[prefix + MapAddressDatabase.LATITUDE]);
-            mp.Longitude = float.Parse(dict[prefix + MapAddressDatabase.LONGITUDE]);
-            mp.Name = dict[prefix + MapAddressDatabase.NAME];
-            mp.PostalCode = dict[prefix + MapAddressDatabase.POSTAL_CODE];
-            mp.Province = dict[prefix + MapAddressDatabase.PROVINCE];
-            mp.Region = dict[prefix + MapAddressDatabase.REGION];
-            mp.Route = dict[prefix + MapAddressDatabase.ROUTE];
-            mp.StreetNumber = !string.IsNullOrEmpty(dict[prefix + MapAddressDatabase.STREET_NUMBER]) ? Int32.Parse(dict[prefix + MapAddressDatabase.STREET_NUMBER]) : -1;
-            //};
+            MapAddress mp = new MapAddress()
+            {
+                Id = Int32.Parse(dict[prefix + MapAddressDatabase.ID]),
+                City = dict[prefix + MapAddressDatabase.CITY],
+                Country = dict[prefix + MapAddressDatabase.COUNTRY],
+                Latitude = float.Parse(dict[prefix + MapAddressDatabase.LATITUDE]),
+                Longitude = float.Parse(dict[prefix + MapAddressDatabase.LONGITUDE]),
+                Name = dict[prefix + MapAddressDatabase.NAME],
+                PostalCode = dict[prefix + MapAddressDatabase.POSTAL_CODE],
+                Province = dict[prefix + MapAddressDatabase.PROVINCE],
+                Region = dict[prefix + MapAddressDatabase.REGION],
+                Route = dict[prefix + MapAddressDatabase.ROUTE],
+                StreetNumber = !string.IsNullOrEmpty(dict[prefix + MapAddressDatabase.STREET_NUMBER]) ? Int32.Parse(dict[prefix + MapAddressDatabase.STREET_NUMBER]) : -1,
+            };
             return mp;
         }
         public override string ToString()

@@ -10,32 +10,40 @@
                 <RowDefinition/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-
+            
             <StackLayout Grid.Row="0">
+            
                 <Label Text="{Binding CurrentActivity.Sport, Converter={StaticResource SportNameConverter}}" XAlign="Center" FontAttributes="Bold"/>
 
-                <Label Text="Date" IsVisible="{Binding IsEditModeEnabled, Converter={StaticResource NotBoolean}}"/>
-                <Label Text="{Binding CurrentActivity.StartTime}" IsVisible="{Binding IsEditModeEnabled, Converter={StaticResource NotBoolean}}"/>
-
-                <Label Text="Guest users"/>
-                <Label Text="{Binding CurrentActivity.GuestUsers}" IsVisible="{Binding IsEditModeEnabled, Converter={StaticResource NotBoolean}}"/>
-                <Picker ItemsSource="{Binding NewGuests}" SelectedIndex="{Binding NewGuestsIndex, Mode=TwoWay}" IsVisible="{Binding IsEditModeEnabled}" IsEnabled="{Binding IsEditModeEnabled}"/>
-
-                <Label Text="Joined" IsVisible="{Binding IsEditModeEnabled, Converter={StaticResource NotBoolean}}"/>
-                <StackLayout Orientation="Horizontal" IsVisible="{Binding IsEditModeEnabled, Converter={StaticResource NotBoolean}}">
-                    <Label Text="{Binding CurrentActivity, Converter={StaticResource ActivityJoinedPlayerCalculator}}"/>
-                    <Label Text="of"/>
-                    <Label Text="{Binding CurrentActivity.MaxPlayers}" FontAttributes="Bold"/>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Status: " />
+                    <Label Text="{Binding CurrentActivity.Status, Converter={StaticResource ActivityStatusConverter}}" FontAttributes="Bold"/>
                 </StackLayout>
 
-                <Label Text="Fee" IsVisible="{Binding IsEditModeEnabled, Converter={StaticResource NotBoolean}}"/>
                 <StackLayout Orientation="Horizontal" IsVisible="{Binding IsEditModeEnabled, Converter={StaticResource NotBoolean}}">
-                    <Label Text="{Binding CurrentActivity.Fee}"/>
-                    <Label Text="{Binding CurrentActivity.Currency}"/>
+                    <Label Text="Date: " />
+                    <Label Text="{Binding CurrentActivity.StartTime}" FontAttributes="Bold"/>
                 </StackLayout>
+                
+                <StackLayout Orientation="Horizontal" IsVisible="{Binding IsEditModeEnabled, Converter={StaticResource NotBoolean}}">
+                    <Label Text="Fee: "/>
+                    <Label Text="{Binding CurrentActivity.Fee}" FontAttributes="Bold"/>
+                    <Label Text="{Binding CurrentActivity.Currency}" FontAttributes="Bold"/>
+                </StackLayout>
+
+                <StackLayout IsVisible="{Binding IsEditModeEnabled}">
+                    <Label Text="Guest users" IsEnabled="{Binding IsEditModeEnabled}"/>
+                    <Picker ItemsSource="{Binding NewGuests}" SelectedIndex="{Binding NewGuestsIndex, Mode=TwoWay}" IsEnabled="{Binding IsEditModeEnabled}"/>
+                </StackLayout>
+
+                <StackLayout IsVisible="{Binding IsEditModeEnabled}" IsEnabled="{Binding CurrentActivity.Sport, Converter={StaticResource SportMaxPlayerEditable}}">
+                    <Label Text="Max Players"/>
+                    <Entry Text="{Binding NewMaxPlayers, Mode=TwoWay}"/>
+                </StackLayout>
+               
             </StackLayout>
-
-            <Button Grid.Row="0" Command="{Binding ToogleEditModeCommand}" IsVisible="{Binding IsMyActivity}" HorizontalOptions="End" VerticalOptions="Start" Image="{Binding IsEditModeEnabled,Converter={StaticResource EditModeIcon}}" BorderRadius="25" BackgroundColor="White" />
+            
+            <Button Grid.Row="0" Command="{Binding ToogleEditModeCommand}" IsVisible="{Binding IsEditable}" HorizontalOptions="End" VerticalOptions="Start" Image="{Binding IsEditModeEnabled,Converter={StaticResource EditModeIcon}}" BorderRadius="25" BackgroundColor="White" />
 
             <StackLayout Grid.Row="1" Orientation="Horizontal" IsVisible="{Binding IsEditModeEnabled, Converter={StaticResource NotBoolean}}" HorizontalOptions="CenterAndExpand">
                 <Button Image="gps_location.png" Command="{Binding OpenMapCommand}" BackgroundColor="Transparent" HeightRequest="60"/>

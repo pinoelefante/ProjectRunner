@@ -21,13 +21,15 @@ namespace ProjectRunner.ViewModel
     {
         private INavigationService navigation;
         private PRServer server;
+        private PRCache cache;
         private UserDialogsService dialogs;
         #region General
-        public CreateActivityViewModel(INavigationService nav, PRServer s, UserDialogsService u)
+        public CreateActivityViewModel(INavigationService nav, PRServer s, UserDialogsService u, PRCache c)
         {
             navigation = nav;
             server = s;
             dialogs = u;
+            cache = c;
         }
         public override void NavigatedTo(object parameter = null)
         {
@@ -313,8 +315,10 @@ namespace ProjectRunner.ViewModel
             if (addr.response == StatusCodes.OK)
             {
                 KnownAddress.Clear();
+                cache.MyMapAddresses.Clear();
                 foreach (var item in addr.content)
                     KnownAddress.Add(item);
+                cache.MyMapAddresses.AddRange(addr.content);
                 RaisePropertyChanged(() => KnownAddress);
                 if (SelectedIndexLocation < 0 && KnownAddress.Any())
                     SelectedIndexLocation = 0;

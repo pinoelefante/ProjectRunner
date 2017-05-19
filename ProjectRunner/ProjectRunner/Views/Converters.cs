@@ -170,10 +170,55 @@ namespace ProjectRunner.Views.Converters
             Activity activity = value as Activity;
             if (activity == null)
                 return 0;
-            var joined = activity.JoinedPlayers;
+            var joined = activity.JoinedPlayers + activity.GuestUsers;
             if (!activity.OrganizerMode)
                 joined++;
             return joined;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+    public class ActivityStatusConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var status = (ActivityStatus)value;
+            switch(status)
+            {
+                case ActivityStatus.CANCELLED:
+                    return "Cancelled";
+                case ActivityStatus.DELETED:
+                    return "Deleted";
+                case ActivityStatus.ENDED:
+                    return "Ended";
+                case ActivityStatus.PENDING:
+                    return "Pending";
+                case ActivityStatus.STARTED:
+                    return "Started";
+            }
+            return "Unknown";
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+    public class SportMaxPlayerEditable : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var sport = (Sports)value;
+            switch(sport)
+            {
+                case Sports.BICYCLE:
+                case Sports.RUNNING:
+                    return true;
+            }
+            return false;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

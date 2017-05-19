@@ -16,7 +16,7 @@ namespace ProjectRunner.ViewModel
         {
             server = s;
         }
-        public RelayCommand TestCommand => new RelayCommand(async () =>
+        public RelayCommand TestCommand => new RelayCommand(() =>
         {
             
         });

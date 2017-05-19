@@ -24,6 +24,8 @@
             <converters:ChatMessageUsername x:Key="ChatMessageUsername"/>
             <converters:SportNameConverter x:Key="SportNameConverter"/>
             <converters:ActivityJoinedPlayerCalculator x:Key="ActivityJoinedPlayerCalculator"/>
+            <converters:ActivityStatusConverter x:Key="ActivityStatusConverter"/>
+            <converters:SportMaxPlayerEditable x:Key="SportMaxPlayerEditable"/>
         </ResourceDictionary>  
       
     </Application.Resources>

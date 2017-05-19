@@ -40,25 +40,39 @@ namespace ProjectRunner.ViewModel
                     ListMessages.Clear();
                 }
                 CurrentActivity = activity;
-                IsMyActivity = cache.MyUserId == CurrentActivity.CreatedBy;
                 RaisePropertyChanged(() => CurrentActivity);
-                RaisePropertyChanged(() => IsMyActivity);
-                RaisePropertyChanged(() => IsEditModeEnabled);
+                RaisePropertyChanged(() => IsEditable);
                 LoadPeopleAsync();
                 ReadChatMessagesAsync();
             }
             else
                 navigation.NavigateTo(ViewModelLocator.Activities);
         }
-        public bool IsMyActivity { get; set; }
-        public bool IsEditModeEnabled { get; set; }
+        public bool IsEditable
+        {
+            get
+            {
+                if(CurrentActivity!=null && CurrentActivity.CreatedBy == cache.MyUserId)
+                {
+                    switch(CurrentActivity.Sport)
+                    {
+                        case Sports.BICYCLE:
+                        case Sports.FOOTBALL:
+                        case Sports.RUNNING:
+                            return true;
+                    }
+                }
+                return false;
+            }
+        }
+        private bool _editMode;
+        public bool IsEditModeEnabled { get { return _editMode; } set { Set(ref _editMode, value); } }
         private RelayCommand _enableEditModeCmd, _saveChangesCmd, _openMapCmd, _leaveActivityCmd, _deleteActivityCmd, _sendChatMsgCmd;
         public RelayCommand ToogleEditModeCommand =>
             _enableEditModeCmd ??
             (_enableEditModeCmd = new RelayCommand(() =>
             {
                 IsEditModeEnabled = !IsEditModeEnabled;
-                RaisePropertyChanged(() => IsEditModeEnabled);
                 if(IsEditModeEnabled)
                     InitEditMode();
             }));
@@ -68,7 +82,10 @@ namespace ProjectRunner.ViewModel
             {
                 try
                 {
-                    var res = await CrossExternalMaps.Current.NavigateTo("Rendez-vous point", CurrentActivity.MeetingPoint.Latitude, CurrentActivity.MeetingPoint.Longitude);
+                    var mapName = "Rendez-vous point";
+                    if (CurrentActivity.CreatedBy == cache.MyUserId)
+                        mapName = CurrentActivity.MeetingPoint.Name;
+                    var res = await CrossExternalMaps.Current.NavigateTo(mapName, CurrentActivity.MeetingPoint.Latitude, CurrentActivity.MeetingPoint.Longitude);
                     if (!res)
                         Debug.WriteLine("Map error!");
                 }
@@ -80,9 +97,38 @@ namespace ProjectRunner.ViewModel
             }));
         public RelayCommand SaveChangesCommand =>
             _saveChangesCmd ??
-            (_saveChangesCmd = new RelayCommand(() =>
+            (_saveChangesCmd = new RelayCommand(async () =>
             {
-                //TODO
+                if(CurrentActivity.Sport == Sports.FOOTBALL)
+                    NewMaxPlayers = NewPlayersPerTeam * 2;
+
+                var currentPlayers = CurrentActivity.JoinedPlayers + CurrentActivity.GuestUsers + (CurrentActivity.OrganizerMode ? 0 : 1);
+                var totalNewGuests = CurrentActivity.JoinedPlayers + NewGuests[NewGuestsIndex] + (CurrentActivity.OrganizerMode ? 0 : 1);
+                if (NewMaxPlayers < currentPlayers)
+                {
+                    UserDialogs.Instance.Alert("Max players can't be less than people who joined the activity", "Modify cancelled", "OK");
+                    return;
+                }
+                
+                if(totalNewGuests > NewMaxPlayers)
+                {
+                    UserDialogs.Instance.Alert("New guest value should be smaller");
+                    return;
+                }
+                
+                var res = await server.Activities.ModifyActivityAsync(CurrentActivity.Id, NewGuests[NewGuestsIndex], NewMaxPlayers);
+                if(res.response == StatusCodes.OK)
+                {
+                    CurrentActivity.GuestUsers = NewGuests[NewGuestsIndex];
+                    CurrentActivity.MaxPlayers = NewMaxPlayers;
+                    IsEditModeEnabled = false;
+                    RaisePropertyChanged(() => CurrentActivity);
+                    UserDialogs.Instance.Alert("Activity modified successfully", "Modify activity", "OK");
+                }
+                else
+                {
+                    UserDialogs.Instance.Alert("It was not possible to update the activity", "Modify error", "OK");
+                }
             }));
         public RelayCommand DeleteActivityCommand =>
             _deleteActivityCmd ??
@@ -178,7 +224,6 @@ namespace ProjectRunner.ViewModel
                     foreach (var item in res.content)
                         ListMessages.Add(item);
                     cache.SaveItemsDB<ChatMessage>(res.content);
-                    Debug.WriteLine("Last timestamp = " + res.content.Last().Timestamp);
                     cache.SetChatLastTimestamp(CurrentActivity.Id, res.content.Last().Timestamp);
                 }
             }
@@ -215,8 +260,10 @@ namespace ProjectRunner.ViewModel
                 await LoadPeopleAsync(true);
             }));
         public ObservableCollection<int> NewGuests { get; } = new ObservableCollection<int>();
-        private int _newGuestsIndex;
+        private int _newGuestsIndex, _newMaxPlayers, _newPlayersPerTeam;
         public int NewGuestsIndex { get { return _newGuestsIndex; } set { Set(ref _newGuestsIndex, value); } }
+        public int NewMaxPlayers { get { return _newMaxPlayers; } set { Set(ref _newMaxPlayers, value); } }
+        public int NewPlayersPerTeam { get { return _newPlayersPerTeam; } set { Set(ref _newPlayersPerTeam, value); } }
         private void InitEditMode()
         {
             var remainingSpots = CurrentActivity.MaxPlayers - CurrentActivity.JoinedPlayers - (CurrentActivity.OrganizerMode ? 0 : 1);
@@ -225,6 +272,11 @@ namespace ProjectRunner.ViewModel
                 NewGuests.Add(i);
             NewGuestsIndex = CurrentActivity.GuestUsers;
             RaisePropertyChanged(() => NewGuests);
+
+            NewMaxPlayers = CurrentActivity.MaxPlayers;
+
+            if (CurrentActivity is FootballActivity)
+                NewPlayersPerTeam = (CurrentActivity as FootballActivity).PlayersPerTeam;
         }
     }
 }

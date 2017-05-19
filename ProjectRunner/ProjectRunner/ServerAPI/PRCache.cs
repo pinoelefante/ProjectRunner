@@ -24,6 +24,7 @@ namespace ProjectRunner.ServerAPI
         public int MyUserId { get; set; }
         public List<Activity> ListActivities { get; } = new List<Activity>();
         public List<UserProfile> ListProfiles { get; } = new List<UserProfile>();
+        public List<MapAddress> MyMapAddresses { get; } = new List<MapAddress>();
 
         public bool HasUserProfile(int id)
         {
