@@ -22,7 +22,7 @@ namespace ProjectRunner.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            VM.NavigatedTo();
+            VM.NavigatedToAsync();
         }
     }
 }

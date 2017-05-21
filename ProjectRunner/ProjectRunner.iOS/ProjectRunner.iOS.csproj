@@ -296,6 +296,12 @@
   <ItemGroup>
     <BundleResource Include="Resources\send_message%402x.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\join.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\join%402x.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

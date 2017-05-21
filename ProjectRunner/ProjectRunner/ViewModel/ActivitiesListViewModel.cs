@@ -29,9 +29,9 @@ namespace ProjectRunner.ViewModel
             navigation.NavigateTo(ViewModelLocator.HomePage);
             return true;
         }
-        public override void NavigatedTo(object parameter = null)
+        public override void NavigatedToAsync(object parameter = null)
         {
-            base.NavigatedTo(parameter);
+            base.NavigatedToAsync(parameter);
             LoadMyListAsync();
         }
 

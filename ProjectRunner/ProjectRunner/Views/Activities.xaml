@@ -53,6 +53,8 @@
                                 <Label Grid.Row="0" Grid.Column="1" Text="Football" FontAttributes="Bold"/>
                                 <StackLayout Orientation="Horizontal">
                                     <Label Text="Players:"/>
+                                    <Label Text="{Binding Converter={StaticResource ActivityJoinedPlayerCalculator}}" FontAttributes="Bold"/>
+                                    <Label Text="of"/>
                                     <Label Text="{Binding MaxPlayers}" FontAttributes="Bold"/>
                                 </StackLayout>
                             </StackLayout>

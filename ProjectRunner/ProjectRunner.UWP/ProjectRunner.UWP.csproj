@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ProjectRunner.UWP</RootNamespace>
     <AssemblyName>ProjectRunner.UWP</AssemblyName>
-    <DefaultLanguage>it-IT</DefaultLanguage>
+    <DefaultLanguage>en-us</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.10586.0</TargetPlatformMinVersion>
@@ -114,6 +114,7 @@
     <Content Include="false_image.png" />
     <Content Include="football.png" />
     <Content Include="gps_location.png" />
+    <Content Include="join.png" />
     <Content Include="leave.png" />
     <Content Include="locked.png" />
     <Content Include="Properties\Default.rd.xml" />

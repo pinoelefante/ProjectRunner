@@ -31,9 +31,9 @@ namespace ProjectRunner.ViewModel
             dialogs = u;
             cache = c;
         }
-        public override void NavigatedTo(object parameter = null)
+        public override void NavigatedToAsync(object parameter = null)
         {
-            base.NavigatedTo(parameter);
+            base.NavigatedToAsync(parameter);
             VerifyGeneral();
             VerifyLocation();
             //rilevare gps

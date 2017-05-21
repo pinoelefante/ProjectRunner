@@ -69,6 +69,11 @@ namespace ProjectRunner.ServerAPI
             }
             return messages;
         }
+        public void DeleteChatMessages(int activityId)
+        {
+            SetChatLastTimestamp(activityId, 0);
+            DeleteItemsDB<ChatMessage>(GetChatMessages(activityId));
+        }
         public void SaveItemDB<T>(T item)
         {
             try
@@ -125,6 +130,21 @@ namespace ProjectRunner.ServerAPI
             catch(Exception e)
             {
                 Debug.WriteLine(e.Message);
+            }
+        }
+        public void DeleteItemsDB<T>(IEnumerable<T> items)
+        {
+            try
+            {
+                using(var con = db.GetConnection())
+                {
+                    foreach (var item in items)
+                        con.Delete<T>(item);
+                }
+            }
+            catch
+            {
+
             }
         }
         public void SaveCredentials(string username, string password)

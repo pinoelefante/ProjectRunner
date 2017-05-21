@@ -25,7 +25,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <StackLayout Grid.Row="1">
+        <StackLayout Grid.Row="1" Padding="5,10">
             <StackLayout Orientation="Horizontal">
                 <Label Text="Guest users: "/>
                 <Label Text="{Binding CurrentActivity.GuestUsers}" FontAttributes="Bold"/>

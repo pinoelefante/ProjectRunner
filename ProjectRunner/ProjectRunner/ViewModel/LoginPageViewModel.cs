@@ -26,7 +26,7 @@ namespace ProjectRunner.ViewModel
             dialogs = d;
             cache = c;
         }
-        public override void NavigatedTo(object parameter = null)
+        public override void NavigatedToAsync(object parameter = null)
         {
             if (cache.HasCredentials())
             {

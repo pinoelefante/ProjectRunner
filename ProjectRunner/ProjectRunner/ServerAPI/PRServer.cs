@@ -662,6 +662,15 @@ namespace ProjectRunner.ServerAPI
         public const string POSTAL_CODE = "postal_code";
         public const string COUNTRY = "country";
     }
+    public interface TeamActivity
+    {
+        int PlayersPerTeam { get; set; }
+    }
+    public interface RoadActivity
+    {
+        float Distance { get; set; }
+        float Travelled { get; set; }
+    }
     public class Activity
     {
         public int Id { get; set; }
@@ -705,17 +714,18 @@ namespace ProjectRunner.ServerAPI
             act.MeetingPoint = MapAddress.ParseDictionary(dict, "mp_");
         }
     }
-    public class BicycleActivity : Activity
+    public class BicycleActivity : Activity, RoadActivity
     {
-        public float Distance { get; set; }
-        public float Traveled { get; set; }
+        public float Distance { get; set ; }
+        public float Travelled { get; set; }
+
         private BicycleActivity() { }
         public static Activity ParseDictionary(Dictionary<string, string> dict)
         {
             BicycleActivity act = new BicycleActivity();
             ParseDictionary(act, dict);
             act.Distance = float.Parse(dict[BicycleDatabase.DISTANCE]);
-            act.Traveled = float.Parse(dict[BicycleDatabase.TRAVELED]);
+            act.Travelled = float.Parse(dict[BicycleDatabase.TRAVELED]);
             return act;
         }
         public static Dictionary<string, string> CreateDetailsDictionary(float? distance = null, float? traveled = null)
@@ -728,7 +738,7 @@ namespace ProjectRunner.ServerAPI
             return details;
         }
     }
-    public class FootballActivity : Activity
+    public class FootballActivity : Activity, TeamActivity
     {
         public int PlayersPerTeam { get; set; }
         public FootballActivity() { }
@@ -747,18 +757,19 @@ namespace ProjectRunner.ServerAPI
             return details;
         }
     }
-    public class RunningActivity : Activity
+    public class RunningActivity : Activity, RoadActivity
     {
         public float Distance { get; set; }
-        public float Traveled { get; set; }
+        public float Travelled { get; set; }
         public bool WithFitness { get; set; }
+
         private RunningActivity() { }
         public static Activity ParseDictionary(Dictionary<string, string> dict)
         {
             RunningActivity act = new RunningActivity();
             ParseDictionary(act, dict);
             act.Distance = float.Parse(dict[RunningDatabase.DISTANCE]);
-            act.Traveled = float.Parse(dict[RunningDatabase.TRAVELED]);
+            act.Travelled = float.Parse(dict[RunningDatabase.TRAVELLED]);
             act.WithFitness = Int32.Parse(dict[RunningDatabase.FITNESS]) == 0 ? false : true;
             return act;
         }
@@ -768,7 +779,7 @@ namespace ProjectRunner.ServerAPI
             if (distance != null)
                 details.Add(RunningDatabase.DISTANCE, distance.ToString());
             if (traveled != null)
-                details.Add(RunningDatabase.TRAVELED, traveled.ToString());
+                details.Add(RunningDatabase.TRAVELLED, traveled.ToString());
             if (distance != null)
                 details.Add(RunningDatabase.FITNESS, (fitness == true ? "1" : "0"));
             return details;
@@ -854,7 +865,7 @@ namespace ProjectRunner.ServerAPI
     {
         public const string ID = "id_activity";
         public const string DISTANCE = "distance";
-        public const string TRAVELED = "traveled";
+        public const string TRAVELLED = "traveled";
         public const string FITNESS = "fitness";
     }
     class TennisDatabase

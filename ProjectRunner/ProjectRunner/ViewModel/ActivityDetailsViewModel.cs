@@ -27,7 +27,7 @@ namespace ProjectRunner.ViewModel
             cache = c;
         }
         public Activity CurrentActivity { get; private set; }
-        public override void NavigatedTo(object parameter = null)
+        public override void NavigatedToAsync(object parameter = null)
         {
             if (parameter != null && parameter is Activity)
             {
@@ -35,15 +35,17 @@ namespace ProjectRunner.ViewModel
                 var activity = parameter as Activity;
                 if (CurrentActivity != null && activity.Id != CurrentActivity.Id)
                 {
+                    IsPeopleListLoaded = false;
+                    UserJoinedActivity = false;
                     ActivityPeople.Clear();
                     RaisePropertyChanged(() => ActivityPeople);
                     ListMessages.Clear();
+
                 }
                 CurrentActivity = activity;
                 RaisePropertyChanged(() => CurrentActivity);
                 RaisePropertyChanged(() => IsEditable);
                 LoadPeopleAsync();
-                ReadChatMessagesAsync();
             }
             else
                 navigation.NavigateTo(ViewModelLocator.Activities);
@@ -67,7 +69,7 @@ namespace ProjectRunner.ViewModel
         }
         private bool _editMode;
         public bool IsEditModeEnabled { get { return _editMode; } set { Set(ref _editMode, value); } }
-        private RelayCommand _enableEditModeCmd, _saveChangesCmd, _openMapCmd, _leaveActivityCmd, _deleteActivityCmd, _sendChatMsgCmd;
+        private RelayCommand _enableEditModeCmd, _saveChangesCmd, _openMapCmd, _leaveActivityCmd, _deleteActivityCmd, _sendChatMsgCmd, _joinActivityCmd;
         public RelayCommand ToogleEditModeCommand =>
             _enableEditModeCmd ??
             (_enableEditModeCmd = new RelayCommand(() =>
@@ -100,7 +102,7 @@ namespace ProjectRunner.ViewModel
             (_saveChangesCmd = new RelayCommand(async () =>
             {
                 if(CurrentActivity.Sport == Sports.FOOTBALL)
-                    NewMaxPlayers = NewPlayersPerTeam * 2;
+                    NewMaxPlayers = NewPlayersPerTeam[NewPlayersPerTeamIndex] * 2;
 
                 var currentPlayers = CurrentActivity.JoinedPlayers + CurrentActivity.GuestUsers + (CurrentActivity.OrganizerMode ? 0 : 1);
                 var totalNewGuests = CurrentActivity.JoinedPlayers + NewGuests[NewGuestsIndex] + (CurrentActivity.OrganizerMode ? 0 : 1);
@@ -121,14 +123,14 @@ namespace ProjectRunner.ViewModel
                 {
                     CurrentActivity.GuestUsers = NewGuests[NewGuestsIndex];
                     CurrentActivity.MaxPlayers = NewMaxPlayers;
+                    if(CurrentActivity is TeamActivity)
+                        (CurrentActivity as TeamActivity).PlayersPerTeam = NewPlayersPerTeam[NewPlayersPerTeamIndex];
                     IsEditModeEnabled = false;
                     RaisePropertyChanged(() => CurrentActivity);
                     UserDialogs.Instance.Alert("Activity modified successfully", "Modify activity", "OK");
                 }
                 else
-                {
                     UserDialogs.Instance.Alert("It was not possible to update the activity", "Modify error", "OK");
-                }
             }));
         public RelayCommand DeleteActivityCommand =>
             _deleteActivityCmd ??
@@ -166,11 +168,41 @@ namespace ProjectRunner.ViewModel
                         var res = await server.Activities.LeaveActivityAsync(CurrentActivity.Id);
                         if (res.response == StatusCodes.OK)
                         {
-                            if (cache.ListActivities.Remove(CurrentActivity))
+                            if (cache.ListActivities.Remove(cache.ListActivities.First(x=>x.Id == CurrentActivity.Id)))
                                 Debug.WriteLine("Item removed from cache");
-                            navigation.GoBack();
+                            UserJoinedActivity = false;
+                            ListMessages.Clear();
+                            cache.DeleteChatMessages(CurrentActivity.Id);
                         }
                     }
+                }
+            }));
+        public RelayCommand JoinActivityCommand =>
+            _joinActivityCmd ??
+            (_joinActivityCmd = new RelayCommand(async () =>
+            {
+                var totalJoined = CurrentActivity.JoinedPlayers + CurrentActivity.GuestUsers + (CurrentActivity.OrganizerMode ? 0 : 1);
+                if (CurrentActivity.Status == ActivityStatus.PENDING && totalJoined < CurrentActivity.MaxPlayers)
+                {
+                    var res = await server.Activities.JoinActivityAsync(CurrentActivity.Id);
+                    if (res.response == StatusCodes.OK)
+                    {
+                        UserJoinedActivity = true;
+                        await LoadPeopleAsync(true);
+                        if(cache.ListActivities.Find(x => x.Id == CurrentActivity.Id)==null)
+                            cache.ListActivities.Add(CurrentActivity);
+                    }
+                    else
+                    {
+                        UserDialogs.Instance.Alert("An error occurred while joining the activity: " + res.response);
+                    }
+                }
+                else
+                {
+                    if (CurrentActivity.Status != ActivityStatus.PENDING)
+                        UserDialogs.Instance.Alert("You can join only pending activities", "");
+                    else
+                        UserDialogs.Instance.Alert("You can't join this activity", "The activity is full");
                 }
             }));
         private string _chatMessage;
@@ -179,7 +211,7 @@ namespace ProjectRunner.ViewModel
             _sendChatMsgCmd ??
             (_sendChatMsgCmd = new RelayCommand(async () =>
             {
-                if (ChatMessage.Trim().Length > 0)
+                if (ChatMessage?.Trim().Length > 0)
                 {
                     var res = await server.Activities.SendChatMessage(CurrentActivity.Id, ChatMessage.Trim());
                     if (res.response == StatusCodes.OK)
@@ -230,6 +262,7 @@ namespace ProjectRunner.ViewModel
         }
         private async Task LoadPeopleAsync(bool force = false)
         {
+            IsPeopleListLoaded = false;
             if (!ActivityPeople.Any() || force)
             {
                 IsLoadingPeople = true;
@@ -249,7 +282,16 @@ namespace ProjectRunner.ViewModel
                 IsLoadingPeople = false;
                 RaisePropertyChanged(() => IsLoadingPeople);
             }
+            if(ActivityPeople.FirstOrDefault(x=>x.Id == cache.MyUserId) != null)
+            {
+                UserJoinedActivity = true;
+                ReadChatMessagesAsync();
+            }
+            IsPeopleListLoaded = true;
         }
+        private bool _isPeopleListLoaded, _joinedActivity;
+        public bool IsPeopleListLoaded { get { return _isPeopleListLoaded; } set { Set(ref _isPeopleListLoaded, value); } }
+        public bool UserJoinedActivity { get { return _joinedActivity; } set { Set(ref _joinedActivity, value); } }
         public ObservableCollection<UserProfile> ActivityPeople { get; } = new ObservableCollection<UserProfile>();
         public bool IsLoadingPeople { get; set; }
         private RelayCommand _refreshPeopleListCmd;
@@ -260,10 +302,11 @@ namespace ProjectRunner.ViewModel
                 await LoadPeopleAsync(true);
             }));
         public ObservableCollection<int> NewGuests { get; } = new ObservableCollection<int>();
-        private int _newGuestsIndex, _newMaxPlayers, _newPlayersPerTeam;
+        private int _newGuestsIndex, _newMaxPlayers, _newPlayersTeamIndex;
         public int NewGuestsIndex { get { return _newGuestsIndex; } set { Set(ref _newGuestsIndex, value); } }
         public int NewMaxPlayers { get { return _newMaxPlayers; } set { Set(ref _newMaxPlayers, value); } }
-        public int NewPlayersPerTeam { get { return _newPlayersPerTeam; } set { Set(ref _newPlayersPerTeam, value); } }
+        public ObservableCollection<int> NewPlayersPerTeam { get; } = new ObservableCollection<int>();
+        public int NewPlayersPerTeamIndex { get { return _newPlayersTeamIndex; } set { Set(ref _newPlayersTeamIndex, value); } }
         private void InitEditMode()
         {
             var remainingSpots = CurrentActivity.MaxPlayers - CurrentActivity.JoinedPlayers - (CurrentActivity.OrganizerMode ? 0 : 1);
@@ -276,7 +319,14 @@ namespace ProjectRunner.ViewModel
             NewMaxPlayers = CurrentActivity.MaxPlayers;
 
             if (CurrentActivity is FootballActivity)
-                NewPlayersPerTeam = (CurrentActivity as FootballActivity).PlayersPerTeam;
+            {
+                NewPlayersPerTeam.Clear();
+                var minPlayers = (CurrentActivity.JoinedPlayers + CurrentActivity.GuestUsers + 1)/2;
+                for(int i = (minPlayers < 5 ? 5 : minPlayers); i<=11;i++)
+                    NewPlayersPerTeam.Add(i);
+                var currPpt = (CurrentActivity as FootballActivity).PlayersPerTeam;
+                NewPlayersPerTeamIndex = (minPlayers < 5) ? currPpt - 5 : currPpt - minPlayers;
+            }
         }
     }
 }

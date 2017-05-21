@@ -57,7 +57,7 @@
                     <views:EventToCommandBehavior EventName="Completed" Command="{Binding SendChatMessageCommand}" />
                 </Entry.Behaviors>
             </Entry>
-            <Button Grid.Column="1" HorizontalOptions="End" Image="send_message.png" Command="{Binding SendChatMessageCommand}" BackgroundColor="Transparent" BorderColor="Transparent"/>
+            <Button Grid.Column="1" HorizontalOptions="End" Image="send_message.png" Command="{Binding SendChatMessageCommand}" BackgroundColor="Transparent" BorderColor="Transparent" IsEnabled="{Binding UserJoinedActivity}"/>
         </Grid>
     </Grid>
 </ContentPage>

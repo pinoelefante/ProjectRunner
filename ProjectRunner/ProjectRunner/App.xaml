@@ -26,6 +26,9 @@
             <converters:ActivityJoinedPlayerCalculator x:Key="ActivityJoinedPlayerCalculator"/>
             <converters:ActivityStatusConverter x:Key="ActivityStatusConverter"/>
             <converters:SportMaxPlayerEditable x:Key="SportMaxPlayerEditable"/>
+            <converters:SportWithTeam x:Key="SportWithTeam"/>
+            <converters:IsRoadActivityConverter x:Key="IsRoadActivityConverter"/>
+            <converters:IsTeamActivityConverter x:Key="IsTeamActivityConverter"/>
         </ResourceDictionary>  
       
     </Application.Resources>
