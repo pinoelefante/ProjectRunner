@@ -129,6 +129,10 @@ namespace ProjectRunner.ServerAPI
                         var values = JsonConvert.DeserializeObject<ContentContainer>(json);
                         envelop.content = parseAction.Invoke(values);
                     }
+                    else
+                    {
+                    
+                    }
                     return envelop;
                 }
                 else
@@ -400,6 +404,7 @@ namespace ProjectRunner.ServerAPI
             });
             return await server.SendRequest<string>("/activities.php?action=DeleteActivity", postContent);
         }
+        /*
         public async Task<Envelop<string>> ModifyActivityFieldAsync(int activityId, string field, string newValue)
         {
             FormUrlEncodedContent postContent = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>()
@@ -410,6 +415,7 @@ namespace ProjectRunner.ServerAPI
             });
             return await server.SendRequest<string>("/activities.php?action=ModifyActivityField", postContent);
         }
+        */
         public async Task<Envelop<string>> ModifyActivityAsync(int activityId, int newGuests, int newTotalPlayers)
         {
             FormUrlEncodedContent postContent = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>()
@@ -531,6 +537,18 @@ namespace ProjectRunner.ServerAPI
                     return list;
                 }
                 return null;
+            }, postContent);
+        }
+        public async Task<Envelop<List<Activity>>> SearchActivities(Sports sport)
+        {
+            var postContent = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>(ActivityDatabase.STATUS, ((int)ActivityStatus.PENDING).ToString()),
+                new KeyValuePair<string, string>(ActivityDatabase.SPORT, ((int)sport).ToString())
+            });
+            return await server.SendRequestWithAction<List<Activity>, List<Dictionary<string, string>>>("/activities.php?action=SearchActivities", (x)=> 
+            {
+                return ParseDictionaryListActivity(x);
             }, postContent);
         }
     }

@@ -55,6 +55,7 @@
     <Compile Include="ViewModel\MyMasterDetailViewModel.cs" />
     <Compile Include="ViewModel\MyViewModel.cs" />
     <Compile Include="ViewModel\RegisterPageViewModel.cs" />
+    <Compile Include="ViewModel\SearchActivityViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="Views\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
@@ -109,6 +110,12 @@
     <Compile Include="Views\MyTabbedPage.cs" />
     <Compile Include="Views\RegisterPage.xaml.cs">
       <DependentUpon>RegisterPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SearchActivity.xaml.cs">
+      <DependentUpon>SearchActivity.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SearchActivityResults.xaml.cs">
+      <DependentUpon>SearchActivityResults.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Wrappers.cs" />
   </ItemGroup>
@@ -287,6 +294,18 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\ActivityDetailsChat.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\SearchActivity.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\SearchActivityResults.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

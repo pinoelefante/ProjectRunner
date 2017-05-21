@@ -85,7 +85,7 @@ namespace ProjectRunner.ViewModel
             _searchActivityCmd ??
             (_searchActivityCmd = new RelayCommand(() =>
             {
-
+                navigation.NavigateTo(ViewModelLocator.ActivitySearch);
             }));
         public RelayCommand RefreshActivitiesCommand =>
             _refreshActivitiesCmd ??
