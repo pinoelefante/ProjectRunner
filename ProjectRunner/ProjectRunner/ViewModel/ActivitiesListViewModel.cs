@@ -49,11 +49,12 @@ namespace ProjectRunner.ViewModel
                 if (res.response == StatusCodes.OK)
                 {
                     ListActivities.Clear();
-                    ListActivities.AddRange(res.content);
-
                     cache.ListActivities.Clear();
-                    cache.ListActivities.AddRange(res.content);
-
+                    if (res.content != null)
+                    {
+                        ListActivities.AddRange(res.content);
+                        cache.ListActivities.AddRange(res.content);
+                    }
                     RaisePropertyChanged(() => ListPendingActivities);
                     RaisePropertyChanged(() => ListMyActivities);
                 }
