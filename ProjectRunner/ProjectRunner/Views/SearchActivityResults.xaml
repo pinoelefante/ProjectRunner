@@ -1,5 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ProjectRunner.Views.SearchActivityResults">
+             x:Class="ProjectRunner.Views.SearchActivityResults"
+             Title="Search results"
+             xmlns:views="clr-namespace:ProjectRunner.Views"
+             BindingContext="{Binding SearchActivityViewModel, Source={StaticResource Locator}}">
+    <StackLayout>
+        <ListView ItemsSource="{Binding SearchResults}" ItemTemplate="{StaticResource sportSelector}" HasUnevenRows="True">
+            <ListView.Behaviors>
+                <views:EventToCommandBehavior EventName="ItemTapped" Command="{Binding OpenActivityCommand}" EventArgsConverter="{StaticResource ItemTappedConverter}" />
+            </ListView.Behaviors>
+        </ListView>
+
+
+    </StackLayout>
 </ContentPage>

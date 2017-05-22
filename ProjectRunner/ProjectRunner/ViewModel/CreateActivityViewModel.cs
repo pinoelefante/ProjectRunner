@@ -159,8 +159,7 @@ namespace ProjectRunner.ViewModel
         }
         public int RequiredFeedback { get { return _requiredFeedback; } set { Set(ref _requiredFeedback, value); VerifyGeneral(); } }
         public bool WithFitness { get { return _fitness; } set { Set(ref _fitness, value); VerifyGeneral(); } }
-        public DateTime StartDay { get { return _startDay; } set { Set(ref _startDay, value); VerifyGeneral(); RaisePropertyChanged(() => StartDayString); } }
-        public string StartDayString { get { return StartDay.ToString("d"); } }
+        public DateTime StartDay { get { return _startDay; } set { Set(ref _startDay, value); VerifyGeneral(); } }
         public TimeSpan StartTime { get { return _startTime; } set { Set(ref _startTime, value); VerifyGeneral(); RaisePropertyChanged(() => StartTimeString); } }
         public string StartTimeString { get { return $"{StartTime.Hours.ToString("D2")}:{StartTime.Minutes.ToString("D2")}"; } }
         public bool IsGratis { get { return _isGratis; } set { Set(ref _isGratis, value); Fee = value ? 0.0f : 1.0f; VerifyGeneral(); } }

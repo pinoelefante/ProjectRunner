@@ -22,7 +22,7 @@
 
                 <StackLayout Orientation="Horizontal" IsVisible="{Binding IsEditModeEnabled, Converter={StaticResource NotBoolean}}">
                     <Label Text="Date: " />
-                    <Label Text="{Binding CurrentActivity.StartTime}" FontAttributes="Bold"/>
+                    <Label Text="{Binding CurrentActivity.StartTime, Converter={StaticResource DateTimeStringConverter}}" FontAttributes="Bold"/>
                 </StackLayout>
                 
                 <StackLayout Orientation="Horizontal" IsVisible="{Binding IsEditModeEnabled, Converter={StaticResource NotBoolean}}">
@@ -51,7 +51,7 @@
                     </StackLayout>
 
                     <!-- Running -->
-                    <StackLayout IsVisible="{Binding CurrentActivity.Sport, ConverterParameter=1, Converter={StaticResource SportEquals}}">
+                    <StackLayout IsVisible="{Binding CurrentActivity.Sport, ConverterParameter=1, Converter={StaticResource IntEquals}}">
                         <StackLayout Orientation="Horizontal">
                             <Label Text="Fitness: " VerticalOptions="Center"/>
                             <Image Source="{Binding CurrentActivity.WithFitness,Converter={StaticResource BoolImage}}" HeightRequest="16"/>
@@ -59,19 +59,19 @@
                     </StackLayout>
 
                     <!-- Football 
-                    <StackLayout IsVisible="{Binding SelectedSport.SportEnumValue, ConverterParameter=2, Converter={StaticResource SportEquals}}">
+                    <StackLayout IsVisible="{Binding SelectedSport.SportEnumValue, ConverterParameter=2, Converter={StaticResource IntEquals}}">
 
                     </StackLayout>
                     -->
                     
                     <!-- Bicycle
-                    <StackLayout IsVisible="{Binding SelectedSport.SportEnumValue, ConverterParameter=3, Converter={StaticResource SportEquals}}">
+                    <StackLayout IsVisible="{Binding SelectedSport.SportEnumValue, ConverterParameter=3, Converter={StaticResource IntEquals}}">
 
                     </StackLayout>
                      -->
                     
                     <!-- Tennis -->
-                    <StackLayout IsVisible="{Binding CurrentActivity.Sport, ConverterParameter=4, Converter={StaticResource SportEquals}}">
+                    <StackLayout IsVisible="{Binding CurrentActivity.Sport, ConverterParameter=4, Converter={StaticResource IntEquals}}">
                         <StackLayout Orientation="Horizontal">
                             <Label Text="Double: " VerticalOptions="Center"/>
                             <Image Source="{Binding CurrentActivity.IsDouble,Converter={StaticResource BoolImage}}" HeightRequest="16"/>
@@ -115,17 +115,17 @@
 
                 <!-- user not joined activity-->
                 <StackLayout IsVisible="{Binding UserJoinedActivity, Converter={StaticResource NotBoolean}}">
-                    <StackLayout Orientation="Horizontal">
-                        <Button Image="join.png" BackgroundColor="Transparent" HeightRequest="60"/>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                        <Button Image="join.png" Command="{Binding JoinActivityCommand}" BackgroundColor="Transparent" HeightRequest="60"/>
                     </StackLayout>
                 </StackLayout>
             </StackLayout>
             
 
-            <StackLayout Grid.Row="1" Orientation="Vertical" IsVisible="{Binding IsEditModeEnabled}" HorizontalOptions="CenterAndExpand">
-                <Button Image="save.png" Command="{Binding SaveChangesCommand}" BackgroundColor="Transparent" HeightRequest="60"/>
-                <Label Text="{Binding CurrentActivity.Id}" FontSize="Micro" XAlign="End" TextColor="LightGray" YAlign="End"/>
-            </StackLayout>
+            <Grid Grid.Row="1" IsVisible="{Binding IsEditModeEnabled}">
+                <Button Image="save.png" Command="{Binding SaveChangesCommand}" BackgroundColor="Transparent" HeightRequest="60" HorizontalOptions="Center"/>
+                <Label Text="{Binding CurrentActivity.Id}" FontSize="Micro" TextColor="LightGray" HorizontalOptions="End" YAlign="End"/>
+            </Grid>
         </Grid>
     </ScrollView>
 </ContentPage>

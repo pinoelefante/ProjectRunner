@@ -5,40 +5,6 @@
              xmlns:selectors="clr-namespace:ProjectRunner.Views.Selectors"
              xmlns:views="clr-namespace:ProjectRunner.Views"
              Title="Chat">
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <DataTemplate x:Key="MyMessage">
-                <ViewCell>
-                    <StackLayout Margin="80,10,5,0" BackgroundColor="LightGreen" Padding="5">
-                        <Label Text="You" XAlign="Start" FontSize="10" />
-                        <Label Text="{Binding Message}"/>
-                        <Label Text="{Binding Timestamp, Converter={StaticResource UnixTimestampConverter}}" XAlign="End" Margin="0,5,0,5" FontSize="10"/>
-                    </StackLayout>
-                </ViewCell>
-            </DataTemplate>
-            <DataTemplate x:Key="OthersMessage">
-                <ViewCell>
-                    <StackLayout Margin="5,10,80,0" BackgroundColor="WhiteSmoke" Padding="5">
-                        <Label Text="{Binding Converter={StaticResource ChatMessageUsername}}" XAlign="Start" FontSize="10" />
-                        <Label Text="{Binding Message}"/>
-                        <Label Text="{Binding Timestamp, Converter={StaticResource UnixTimestampConverter}}" XAlign="End" Margin="0,5,0,5" FontSize="10"/>
-                    </StackLayout>
-                </ViewCell>
-            </DataTemplate>
-            <DataTemplate x:Key="ServiceMessage">
-                <ViewCell>
-                    <StackLayout BackgroundColor="Beige" Margin="0,10,0,10" Padding="5">
-                        <Label Text="{Binding Message}" XAlign="Center"/>
-                    </StackLayout>
-                </ViewCell>
-            </DataTemplate>
-            <selectors:ChatMessageTemplateSelector x:Key="ChatMessageSelector"
-                                                   ServiceMessage="{StaticResource ServiceMessage}"
-                                                   MyMessage="{StaticResource MyMessage}"
-                                                   UserMessage="{StaticResource OthersMessage}"/>
-        </ResourceDictionary>
-        
-    </ContentPage.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -52,7 +18,7 @@
                 <ColumnDefinition/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Entry Grid.Column="0" Text="{Binding ChatMessage, Mode=TwoWay}">
+            <Entry Grid.Column="0" Text="{Binding ChatMessage, Mode=TwoWay}" IsEnabled="{Binding UserJoinedActivity}">
                 <Entry.Behaviors>
                     <views:EventToCommandBehavior EventName="Completed" Command="{Binding SendChatMessageCommand}" />
                 </Entry.Behaviors>

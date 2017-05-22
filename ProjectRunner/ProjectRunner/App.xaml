@@ -7,14 +7,14 @@
              xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:ProjectRunner.ViewModel;assembly=ProjectRunner"
              xmlns:views="clr-namespace:ProjectRunner.Views"
-             xmlns:converters="clr-namespace:ProjectRunner.Views.Converters">
+             xmlns:converters="clr-namespace:ProjectRunner.Views.Converters"
+             xmlns:selectors="clr-namespace:ProjectRunner.Views.Selectors">
   <Application.Resources>
     <!-- Application resource dictionary -->
         <ResourceDictionary>
             <vm:ViewModelLocator x:Key="Locator" />
-            <converters:SportToBooleanConverter x:Key="SportEquals"/>
-            <converters:SportToBooleanConverter x:Key="IntEquals"/>
-            <converters:GreaterThan x:Key="IntGreaterThan"/>
+            <converters:IntEqualsConverter x:Key="IntEquals"/>
+            <converters:IntGreaterThan x:Key="IntGreaterThan"/>
             <converters:NotBoolean x:Key="NotBoolean"/>
             <converters:ItemTappedEventArgsConverter x:Key="ItemTappedConverter"/>
             <converters:BoolImageConverter x:Key="BoolImage"/>
@@ -29,6 +29,158 @@
             <converters:SportWithTeam x:Key="SportWithTeam"/>
             <converters:IsRoadActivityConverter x:Key="IsRoadActivityConverter"/>
             <converters:IsTeamActivityConverter x:Key="IsTeamActivityConverter"/>
+            <converters:DateTimeStringConverter x:Key="DateTimeStringConverter"/>
+
+
+            <DataTemplate x:Key="runningTemplate">
+                <ViewCell>
+                    <Grid Padding="5,10,5,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0" Source="running.png" VerticalOptions="Center" Aspect="AspectFit" HeightRequest="40"/>
+
+                        <StackLayout Grid.Column="1" Orientation="Vertical">
+                            <Label Grid.Row="0" Grid.Column="1" Text="Running" FontAttributes="Bold"/>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Distance:"/>
+                                <Label Text="{Binding Distance}" FontAttributes="Bold"/>
+                                <Label Text="km" FontAttributes="Bold"/>
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Fitness:" VerticalOptions="Center"/>
+                                <Image Source="{Binding WithFitness, Converter={StaticResource BoolImage}}" HeightRequest="16"/>
+                            </StackLayout>
+                        </StackLayout>
+
+                        <StackLayout Grid.Column="2">
+                            <Label Text="{Binding StartTime, Converter={StaticResource DateTimeStringConverter}}" FontAttributes="Italic" FontSize="12" />
+                            <Label Text="{Binding StartTime, Converter={StaticResource TimeDifferenceNow}}"/>
+                        </StackLayout>
+                    </Grid>
+                </ViewCell>
+            </DataTemplate>
+            <DataTemplate x:Key="footballTemplate">
+                <ViewCell>
+                    <Grid>
+                        <Grid Padding="5,10,5,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Column="0" Source="football.png" VerticalOptions="Center" Aspect="AspectFit" HeightRequest="40"/>
+
+                            <StackLayout Grid.Column="1" Orientation="Vertical">
+                                <Label Grid.Row="0" Grid.Column="1" Text="Football" FontAttributes="Bold"/>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Players:"/>
+                                    <Label Text="{Binding Converter={StaticResource ActivityJoinedPlayerCalculator}}" FontAttributes="Bold"/>
+                                    <Label Text="of"/>
+                                    <Label Text="{Binding MaxPlayers}" FontAttributes="Bold"/>
+                                </StackLayout>
+                            </StackLayout>
+
+                            <StackLayout Grid.Column="2">
+                                <Label Text="{Binding StartTime, Converter={StaticResource DateTimeStringConverter}}" FontAttributes="Italic" FontSize="12" />
+                                <Label Text="{Binding StartTime, Converter={StaticResource TimeDifferenceNow}}"/>
+                            </StackLayout>
+                        </Grid>
+                    </Grid>
+                </ViewCell>
+            </DataTemplate>
+            <DataTemplate x:Key="bicycleTemplate">
+                <ViewCell>
+                    <Grid>
+                        <Grid Padding="5,10,5,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Column="0" Source="bicycle.png" VerticalOptions="Center" Aspect="AspectFit" HeightRequest="40"/>
+
+                            <StackLayout Grid.Column="1" Orientation="Vertical">
+                                <Label Grid.Row="0" Grid.Column="1" Text="Bicycle" FontAttributes="Bold"/>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Distance:"/>
+                                    <Label Text="{Binding Distance}" FontAttributes="Bold"/>
+                                    <Label Text="km" FontAttributes="Bold"/>
+                                </StackLayout>
+                            </StackLayout>
+
+                            <StackLayout Grid.Column="2">
+                                <Label Text="{Binding StartTime, Converter={StaticResource DateTimeStringConverter}}" FontAttributes="Italic" FontSize="12" />
+                                <Label Text="{Binding StartTime, Converter={StaticResource TimeDifferenceNow}}"/>
+                            </StackLayout>
+                        </Grid>
+                    </Grid>
+                </ViewCell>
+            </DataTemplate>
+            <DataTemplate x:Key="tennisTemplate">
+                <ViewCell>
+                    <Grid>
+                        <Grid Padding="5,10,5,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Column="0" Source="tennis.png" VerticalOptions="Center" Aspect="AspectFit" HeightRequest="40"/>
+
+                            <StackLayout Grid.Column="1" Orientation="Vertical">
+                                <Label Grid.Row="0" Grid.Column="1" Text="Tennis" FontAttributes="Bold"/>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Double:" VerticalOptions="Center"/>
+                                    <Image Source="{Binding IsDouble, Converter={StaticResource BoolImage}}" HeightRequest="16"/>
+                                </StackLayout>
+                            </StackLayout>
+
+                            <StackLayout Grid.Column="2">
+                                <Label Text="{Binding StartTime, Converter={StaticResource DateTimeStringConverter}}" FontAttributes="Italic" FontSize="12" />
+                                <Label Text="{Binding StartTime, Converter={StaticResource TimeDifferenceNow}}"/>
+                            </StackLayout>
+                        </Grid>
+                    </Grid>
+                </ViewCell>
+            </DataTemplate>
+            <selectors:SportTemplateSelector x:Key="sportSelector"
+                                             BicycleTemplate="{StaticResource bicycleTemplate}"
+                                             FootballTemplate="{StaticResource footballTemplate}"
+                                             RunningTemplate="{StaticResource runningTemplate}"
+                                             TennisTemplate="{StaticResource tennisTemplate}"/>
+
+            <DataTemplate x:Key="MyMessage">
+                <ViewCell>
+                    <StackLayout Margin="80,10,5,0" BackgroundColor="LightGreen" Padding="5">
+                        <Label Text="You" XAlign="Start" FontSize="10" />
+                        <Label Text="{Binding Message}"/>
+                        <Label Text="{Binding Timestamp, Converter={StaticResource UnixTimestampConverter}}" XAlign="Start" Margin="0,5,0,5" FontSize="10"/>
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+            <DataTemplate x:Key="OthersMessage">
+                <ViewCell>
+                    <StackLayout Margin="5,10,80,0" BackgroundColor="WhiteSmoke" Padding="5">
+                        <Label Text="{Binding Converter={StaticResource ChatMessageUsername}}" XAlign="Start" FontSize="10" />
+                        <Label Text="{Binding Message}"/>
+                        <Label Text="{Binding Timestamp, Converter={StaticResource UnixTimestampConverter}}" XAlign="Start" Margin="0,5,0,5" FontSize="10"/>
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+            <DataTemplate x:Key="ServiceMessage">
+                <ViewCell>
+                    <StackLayout BackgroundColor="Beige" Margin="0,10,0,10" Padding="5">
+                        <Label Text="{Binding Message}" XAlign="Center"/>
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+            <selectors:ChatMessageTemplateSelector x:Key="ChatMessageSelector"
+                                                   ServiceMessage="{StaticResource ServiceMessage}"
+                                                   MyMessage="{StaticResource MyMessage}"
+                                                   UserMessage="{StaticResource OthersMessage}"/>
         </ResourceDictionary>  
       
     </Application.Resources>

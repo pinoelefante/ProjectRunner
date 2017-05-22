@@ -38,9 +38,15 @@ namespace ProjectRunner.ViewModel
                 if (res.response == StatusCodes.OK)
                 {
                     SearchResults.Clear();
-                    if(res.content!=null)
+                    if (res.content != null)
+                    {
                         SearchResults.AddRange(res.content);
-                    UserDialogs.Instance.Alert($"Found {SearchResults.Count} activities","Search results","OK");
+                        RaisePropertyChanged(() => SearchResults);
+                    }
+                    if (SearchResults.Count > 0)
+                        navigation.NavigateTo(ViewModelLocator.ActivitySearchResults);
+                    else
+                        UserDialogs.Instance.Alert($"I have found nothing", "Search results", "OK");
                 }
                 else
                 {
@@ -48,5 +54,12 @@ namespace ProjectRunner.ViewModel
                 }
             }));
         public List<Activity> SearchResults { get; } = new List<Activity>();
+        private RelayCommand<Activity> _openActivityCmd;
+        public RelayCommand<Activity> OpenActivityCommand =>
+            _openActivityCmd ??
+            (_openActivityCmd = new RelayCommand<Activity>((x) =>
+            {
+                navigation.NavigateTo(ViewModelLocator.ActivityDetails, x);
+            }));
     }
 }

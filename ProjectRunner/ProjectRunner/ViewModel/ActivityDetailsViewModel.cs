@@ -40,7 +40,6 @@ namespace ProjectRunner.ViewModel
                     ActivityPeople.Clear();
                     RaisePropertyChanged(() => ActivityPeople);
                     ListMessages.Clear();
-
                 }
                 CurrentActivity = activity;
                 RaisePropertyChanged(() => CurrentActivity);
@@ -48,13 +47,13 @@ namespace ProjectRunner.ViewModel
                 LoadPeopleAsync();
             }
             else
-                navigation.NavigateTo(ViewModelLocator.Activities);
+                navigation.GoBack();
         }
         public bool IsEditable
         {
             get
             {
-                if(CurrentActivity!=null && CurrentActivity.CreatedBy == cache.MyUserId)
+                if(CurrentActivity!=null && CurrentActivity.CreatedBy == cache.MyUserId && CurrentActivity.Status == ActivityStatus.PENDING)
                 {
                     switch(CurrentActivity.Sport)
                     {
@@ -144,6 +143,10 @@ namespace ProjectRunner.ViewModel
                     {
                         if (cache.ListActivities.Remove(CurrentActivity))
                             Debug.WriteLine("Item removed from cache");
+                        cache.DeleteChatMessages(CurrentActivity.Id);
+                        ListMessages.Clear();
+                        ActivityPeople.Clear();
+                        UserJoinedActivity = false;
                         navigation.GoBack();
                     }
                 }
@@ -173,6 +176,9 @@ namespace ProjectRunner.ViewModel
                             UserJoinedActivity = false;
                             ListMessages.Clear();
                             cache.DeleteChatMessages(CurrentActivity.Id);
+                            CurrentActivity.JoinedPlayers--;
+                            ActivityPeople.Clear();
+                            RaisePropertyChanged(() => CurrentActivity);
                         }
                     }
                 }
@@ -191,6 +197,9 @@ namespace ProjectRunner.ViewModel
                         await LoadPeopleAsync(true);
                         if(cache.ListActivities.Find(x => x.Id == CurrentActivity.Id)==null)
                             cache.ListActivities.Add(CurrentActivity);
+                        CurrentActivity.JoinedPlayers++;
+
+                        RaisePropertyChanged(() => CurrentActivity);
                     }
                     else
                     {
@@ -211,6 +220,8 @@ namespace ProjectRunner.ViewModel
             _sendChatMsgCmd ??
             (_sendChatMsgCmd = new RelayCommand(async () =>
             {
+                if (!UserJoinedActivity)
+                    return;
                 if (ChatMessage?.Trim().Length > 0)
                 {
                     var res = await server.Activities.SendChatMessage(CurrentActivity.Id, ChatMessage.Trim());
@@ -271,13 +282,16 @@ namespace ProjectRunner.ViewModel
                 if (res.response == StatusCodes.OK)
                 {
                     ActivityPeople.Clear();
-                    foreach (var item in res.content)
+                    if(res.content!=null)
                     {
-                        ActivityPeople.Add(item);
-                        if (!cache.HasUserProfile(item.Id))
-                            cache.ListProfiles.Add(item);
+                        foreach (var item in res.content)
+                        {
+                            ActivityPeople.Add(item);
+                            if (!cache.HasUserProfile(item.Id))
+                                cache.ListProfiles.Add(item);
+                        }
+                        cache.SaveItemsDB<UserProfile>(res?.content);
                     }
-                    cache.SaveItemsDB<UserProfile>(res.content);
                 }
                 IsLoadingPeople = false;
                 RaisePropertyChanged(() => IsLoadingPeople);

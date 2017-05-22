@@ -21,7 +21,7 @@
                 </StackLayout>
                 <StackLayout Orientation="Horizontal">
                     <Label Text="Day: "/>
-                    <Label Text="{Binding StartDayString}" FontAttributes="Bold"/>
+                    <Label Text="{Binding StartDay, Converter={StaticResource DateTimeStringConverter}, ConverterParameter=Date}" FontAttributes="Bold"/>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal">
                     <Label Text="at: "/>
@@ -40,38 +40,38 @@
                     <Label Text="{Binding MaxPlayers}" FontAttributes="Bold"/>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal">
-                    <Label Text="Fee"/>
+                    <Label Text="Fee: "/>
                     <Label Text="{Binding Fee}" FontAttributes="Bold"/>
                     <Label Text="{Binding SelectedCurrency}" FontAttributes="Bold"/>
                 </StackLayout>
 
                 <!-- Running -->
-                <StackLayout IsVisible="{Binding SelectedSport.SportEnumValue, ConverterParameter=1, Converter={StaticResource SportEquals}}">
+                <StackLayout IsVisible="{Binding SelectedSport.SportEnumValue, ConverterParameter=1, Converter={StaticResource IntEquals}}">
                     <StackLayout Orientation="Horizontal">
-                        <Label Text="Distance"/>
+                        <Label Text="Distance: "/>
                         <Label Text="{Binding Distance}" FontAttributes="Bold"/>
                     </StackLayout>
 
                     <StackLayout Orientation="Horizontal">
-                        <Label Text="With fitness" VerticalOptions="Center"/>
+                        <Label Text="With fitness: " VerticalOptions="Center"/>
                         <Image Source="{Binding WithFitness, Converter={StaticResource BoolImage}}" HeightRequest="16"/>
                     </StackLayout>
                 </StackLayout>
 
                 <!-- Football -->
-                <StackLayout IsVisible="{Binding SelectedSport.SportEnumValue, ConverterParameter=2, Converter={StaticResource SportEquals}}">
+                <StackLayout IsVisible="{Binding SelectedSport.SportEnumValue, ConverterParameter=2, Converter={StaticResource IntEquals}}">
                     <!-- useless to see players per team -->
                 </StackLayout>
                 <!-- Bicycle -->
-                <StackLayout IsVisible="{Binding SelectedSport.SportEnumValue, ConverterParameter=3, Converter={StaticResource SportEquals}}">
+                <StackLayout IsVisible="{Binding SelectedSport.SportEnumValue, ConverterParameter=3, Converter={StaticResource IntEquals}}">
                     <StackLayout Orientation="Horizontal">
-                        <Label Text="Distance"/>
+                        <Label Text="Distance: "/>
                         <Label Text="{Binding Distance}" FontAttributes="Bold"/>
                     </StackLayout>
                 </StackLayout>
 
                 <!-- Tennis -->
-                <StackLayout IsVisible="{Binding SelectedSport.SportEnumValue, ConverterParameter=4, Converter={StaticResource SportEquals}}">
+                <StackLayout IsVisible="{Binding SelectedSport.SportEnumValue, ConverterParameter=4, Converter={StaticResource IntEquals}}">
                     <StackLayout Orientation="Horizontal">
                         <Label Text="Is double: " VerticalOptions="Center"/>
                         <Image Source="{Binding IsDouble,Converter={StaticResource BoolImage}}" HeightRequest="16"/>
@@ -79,7 +79,7 @@
                 </StackLayout>
             </StackLayout>
 
-            <Button Grid.Row="1" Text="CONFIRM" Command="{Binding CreateActivityCommand}"/>
+            <Button Grid.Row="1" Text="CONFIRM" Command="{Binding CreateActivityCommand}" HeightRequest="60"/>
         </Grid>
 
     </ScrollView>

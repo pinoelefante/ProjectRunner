@@ -9,7 +9,7 @@ using Xamarin.Forms;
 
 namespace ProjectRunner.Views.Converters
 {
-    public class SportToBooleanConverter : IValueConverter
+    public class IntEqualsConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -35,7 +35,7 @@ namespace ProjectRunner.Views.Converters
             return !(bool)value;
         }
     }
-    public class GreaterThan : IValueConverter
+    public class IntGreaterThan : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -114,7 +114,7 @@ namespace ProjectRunner.Views.Converters
         {
             var v = (System.Convert.ToInt64(value))/1000d;
             DateTime date = new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(v);
-            return date.ToLocalTime();
+            return date.ToString();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -261,6 +261,29 @@ namespace ProjectRunner.Views.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return value is TeamActivity;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+    public class DateTimeStringConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            DateTime dateTime = (DateTime)value;
+            string field = parameter == null ? "All" : parameter.ToString();
+            switch(field)
+            {
+                case "All":
+                    return dateTime.ToString();
+                case "Date":
+                    return dateTime.ToString("d");
+                case "Time":
+                    return dateTime.ToString("t");
+            }
+            return null;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
