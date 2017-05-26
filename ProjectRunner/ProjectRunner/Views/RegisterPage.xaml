@@ -31,6 +31,14 @@
             <Label Text="Birth" Margin="10,0,10,0" />
             <DatePicker x:Name="entryBirth" Date="{Binding Birth, Mode=TwoWay}" />
 
+            <Label Text="Timezone" Margin="10,0"/>
+            <Grid>
+                <Picker Grid.Column="0" ItemsSource="{Binding TimezonesContinent}" SelectedIndex="{Binding TimezonesContinentIndex, Mode=TwoWay}"/>
+                <Picker Grid.Column="1" ItemsSource="{Binding CurrentNationsList}" SelectedIndex="{Binding TimezonesNationIndex, Mode=TwoWay}"/>
+                <Picker Grid.Column="2" ItemsSource="{Binding CurrentNationCities}" SelectedIndex="{Binding TimezonesCityIndex, Mode=TwoWay}"/>
+            </Grid>
+            <Button Text="TimeZone" Command="{Binding TimeZoneTest}" />
+
             <Button Text="Register" Command="{Binding RegisterCommand}" />
         </StackLayout>
     </ScrollView>

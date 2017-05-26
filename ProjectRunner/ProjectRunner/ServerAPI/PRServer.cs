@@ -695,6 +695,7 @@ namespace ProjectRunner.ServerAPI
         public int CreatedBy { get; set; }
         public DateTime StartTime { get; set; }
         public MapAddress MeetingPoint { get; set; }
+        public float MPDistance { get; set; }
         public int GuestUsers { get; set; }
         public int MaxPlayers { get; set; }
         public int JoinedPlayers { get; set; }
@@ -703,7 +704,7 @@ namespace ProjectRunner.ServerAPI
         public float Fee { get; set; }
         public string Currency { get; set; } = "EUR";
         public int RequiredFeedback { get; set; }
-
+        
         //TODO for IAP
         public bool IsPrivate { get; set; }
         public bool OrganizerMode { get; set; }
@@ -730,6 +731,7 @@ namespace ProjectRunner.ServerAPI
             act.StartTime = DateTime.Parse(dict[ActivityDatabase.STARTTIME], CultureInfo.InvariantCulture);
             act.Status = (ActivityStatus)Enum.Parse(typeof(ActivityStatus), dict[ActivityDatabase.STATUS]);
             act.MeetingPoint = MapAddress.ParseDictionary(dict, "mp_");
+            act.MPDistance = dict.ContainsKey("mp_distance") ? float.Parse(dict["mp_distance"]) : 0f;
         }
     }
     public class BicycleActivity : Activity, RoadActivity
