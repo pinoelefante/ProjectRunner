@@ -58,6 +58,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TimezonesLocations.resx</DependentUpon>
     </Compile>
+    <Compile Include="Strings\TimezonesLocations.it.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TimezonesLocations.it.resx</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\ActivitiesListViewModel.cs" />
     <Compile Include="ViewModel\ActivityDetailsViewModel.cs" />
     <Compile Include="ViewModel\CreateActivityViewModel.cs" />
@@ -138,6 +143,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Strings\TimezonesLocations.it.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TimezonesLocations.it.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Strings\TimezonesLocations.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>TimezonesLocations.Designer.cs</LastGenOutput>
@@ -327,7 +336,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <XliffResource Include="MultilingualResources\ProjectRunner.it.xlf" />
+    <XliffResource Include="MultilingualResources\ProjectRunner.it.xlf">
+      <SubType>Designer</SubType>
+    </XliffResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

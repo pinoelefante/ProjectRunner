@@ -182,7 +182,7 @@ namespace ProjectRunner.ServerAPI
             server.IsLogged = response.response == StatusCodes.OK;
             return response;
         }
-        public async Task<Envelop<string>> RegisterAsync(string username, string password, string email, string firstName, string lastName, string birth, string phone)
+        public async Task<Envelop<string>> RegisterAsync(string username, string password, string email, string firstName, string lastName, string birth, string phone, string timezone)
         {
             FormUrlEncodedContent postContent = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>()
             {
@@ -193,6 +193,7 @@ namespace ProjectRunner.ServerAPI
                 new KeyValuePair<string, string>("birth", birth),
                 new KeyValuePair<string, string>("phone", phone),
                 new KeyValuePair<string, string>("email", email),
+                new KeyValuePair<string, string>("timezone", timezone)
             });
             var response = await server.SendRequest<string>("/authentication.php?action=Register", postContent, false);
             server.IsLogged = response.response == StatusCodes.OK;
@@ -648,8 +649,8 @@ namespace ProjectRunner.ServerAPI
                 Id = Int32.Parse(dict[prefix + MapAddressDatabase.ID]),
                 City = dict[prefix + MapAddressDatabase.CITY],
                 Country = dict[prefix + MapAddressDatabase.COUNTRY],
-                Latitude = float.Parse(dict[prefix + MapAddressDatabase.LATITUDE]),
-                Longitude = float.Parse(dict[prefix + MapAddressDatabase.LONGITUDE]),
+                Latitude = float.Parse(dict[prefix + MapAddressDatabase.LATITUDE].Replace(',','.'), CultureInfo.InvariantCulture),
+                Longitude = float.Parse(dict[prefix + MapAddressDatabase.LONGITUDE].Replace(',', '.'), CultureInfo.InvariantCulture),
                 Name = dict[prefix + MapAddressDatabase.NAME],
                 PostalCode = dict[prefix + MapAddressDatabase.POSTAL_CODE],
                 Province = dict[prefix + MapAddressDatabase.PROVINCE],
@@ -720,7 +721,7 @@ namespace ProjectRunner.ServerAPI
         protected static void ParseDictionary(Activity act, Dictionary<string, string> dict)
         {
             act.CreatedBy = Int32.Parse(dict[ActivityDatabase.CREATEDBY]);
-            act.Fee = float.Parse(dict[ActivityDatabase.FEE]);
+            act.Fee = float.Parse(dict[ActivityDatabase.FEE].Replace(',', '.'), CultureInfo.InvariantCulture);
             act.Currency = dict[ActivityDatabase.CURRENCY];
             act.RequiredFeedback = Int32.Parse(dict[ActivityDatabase.FEEDBACK]);
             act.GuestUsers = Int32.Parse(dict[ActivityDatabase.GUESTUSERS]);
@@ -731,7 +732,7 @@ namespace ProjectRunner.ServerAPI
             act.StartTime = DateTime.Parse(dict[ActivityDatabase.STARTTIME], CultureInfo.InvariantCulture);
             act.Status = (ActivityStatus)Enum.Parse(typeof(ActivityStatus), dict[ActivityDatabase.STATUS]);
             act.MeetingPoint = MapAddress.ParseDictionary(dict, "mp_");
-            act.MPDistance = dict.ContainsKey("mp_distance") ? float.Parse(dict["mp_distance"]) : 0f;
+            act.MPDistance = dict.ContainsKey("mp_distance") ? float.Parse(dict["mp_distance"].Replace(',', '.'), CultureInfo.InvariantCulture) : 0f;
         }
     }
     public class BicycleActivity : Activity, RoadActivity
@@ -744,8 +745,8 @@ namespace ProjectRunner.ServerAPI
         {
             BicycleActivity act = new BicycleActivity();
             ParseDictionary(act, dict);
-            act.Distance = float.Parse(dict[BicycleDatabase.DISTANCE]);
-            act.Travelled = float.Parse(dict[BicycleDatabase.TRAVELED]);
+            act.Distance = float.Parse(dict[BicycleDatabase.DISTANCE].Replace(',', '.'), CultureInfo.InvariantCulture);
+            act.Travelled = float.Parse(dict[BicycleDatabase.TRAVELED].Replace(',', '.'), CultureInfo.InvariantCulture);
             return act;
         }
         public static Dictionary<string, string> CreateDetailsDictionary(float? distance = null, float? traveled = null)
@@ -788,8 +789,8 @@ namespace ProjectRunner.ServerAPI
         {
             RunningActivity act = new RunningActivity();
             ParseDictionary(act, dict);
-            act.Distance = float.Parse(dict[RunningDatabase.DISTANCE]);
-            act.Travelled = float.Parse(dict[RunningDatabase.TRAVELLED]);
+            act.Distance = float.Parse(dict[RunningDatabase.DISTANCE].Replace(',', '.'), CultureInfo.InvariantCulture);
+            act.Travelled = float.Parse(dict[RunningDatabase.TRAVELLED].Replace(',', '.'), CultureInfo.InvariantCulture);
             act.WithFitness = Int32.Parse(dict[RunningDatabase.FITNESS]) == 0 ? false : true;
             return act;
         }

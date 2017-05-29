@@ -49,7 +49,7 @@ namespace ProjectRunner.ViewModel
                     dialogs.ShowAlert("Invalid password");
                     return;
                 }
-                var response = await server.Authentication.RegisterAsync(Username, Password, Email, FirstName, LastName, Birth.ToString("yyyy-MM-dd"), Phone);
+                var response = await server.Authentication.RegisterAsync(Username, Password, Email, FirstName, LastName, Birth.ToString("yyyy-MM-dd"), Phone, SelectedTimezone);
                 if (response.response == StatusCodes.OK)
                 {
                     cache.SaveCredentials(Username, Password);
@@ -99,6 +99,15 @@ namespace ProjectRunner.ViewModel
                 var list = (from kvp in TimeZones[TimezonesContinentIndex].Value[TimezonesNationIndex].Value select kvp.Key).ToList();
                 TimezonesCityIndex = 0;
                 return list;
+            }
+        }
+        public string SelectedTimezone
+        {
+            get
+            {
+                if(TimezonesContinentIndex >= 0 && TimezonesNationIndex >=0 && TimezonesCityIndex >= 0)
+                    return TimeZones[TimezonesContinentIndex].Value[TimezonesNationIndex].Value[TimezonesCityIndex].Value;
+                return "Europe/London";
             }
         }
         public List<KeyValuePair<string, List<KeyValuePair<string, List<KeyValuePair<string, string>>>>>> TimeZones { get; } = new List<KeyValuePair<string, List<KeyValuePair<string, List<KeyValuePair<string, string>>>>>>();
