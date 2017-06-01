@@ -21,7 +21,7 @@ namespace ProjectRunner.ServerAPI
 
             InitDB();
         }
-        public int MyUserId { get; set; }
+        public UserProfile CurrentUser { get; set; }
         public List<Activity> ListActivities { get; } = new List<Activity>();
         public List<UserProfile> ListProfiles { get; } = new List<UserProfile>();
         public List<MapAddress> MyMapAddresses { get; } = new List<MapAddress>();

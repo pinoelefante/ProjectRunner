@@ -305,7 +305,7 @@ namespace ProjectRunner.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to MOLDOVA.
+        ///   Looks up a localized string similar to Moldova.
         /// </summary>
         public static string EUROPE_MOLDOVA {
             get {

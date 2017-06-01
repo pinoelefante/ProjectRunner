@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using ProjectRunner.ViewModel;
 using SQLite;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace ProjectRunner.ServerAPI
 {
@@ -21,7 +23,12 @@ namespace ProjectRunner.ServerAPI
         {
             CommonApi = new CommonServerAPI();
             Authentication = new AuthenticationAPI(CommonApi, cache);
-            CommonApi.SilentLoginAction = () => { return Authentication.SilentLoginAsync().Result; };
+            CommonApi.SilentLoginAction = () => { return Authentication.SilentLogin(); };
+            CommonApi.OnAccessCodeError = () => 
+            {
+                Application.Current.MainPage = new Views.LoginPage();
+                ViewModelLocator.NavigationService.Initialize(Application.Current.MainPage as NavigationPage, ViewModelLocator.HomePage);
+            };
             Activities = new ActivityAPI(CommonApi, cache);
         }
     }
@@ -39,6 +46,7 @@ namespace ProjectRunner.ServerAPI
             http = new HttpClient(handler);
             http.BaseAddress = new Uri(SERVER_ENDPOINT);
             http.DefaultRequestHeaders.Add("User-Agent", "ProjectRunnerUA");
+            http.Timeout = TimeSpan.FromSeconds(10);
         }
 
         public bool IsLogged { get; set; } = false;
@@ -59,18 +67,26 @@ namespace ProjectRunner.ServerAPI
 
             try
             {
+#if DEBUG
                 Debug.WriteLine(await postContent.ReadAsStringAsync());
-                var response = await http.PostAsync($"{SERVER_ENDPOINT}{url}", postContent);
+#endif
+                var response = http.PostAsync($"{SERVER_ENDPOINT}{url}", postContent).Result;
+#if DEBUG
                 Debug.WriteLine($"REQUEST at {url} - {response.StatusCode}");
+#endif
                 if (response.IsSuccessStatusCode)
                 {
                     var output = await response.Content.ReadAsStringAsync();
+#if DEBUG
                     Debug.WriteLine(output);
+#endif
                     var result = JsonConvert.DeserializeObject<Dictionary<string, string>>(output);
 
                     envelop.time = DateTime.Parse(result["time"], CultureInfo.InvariantCulture);
                     envelop.response = (StatusCodes)Enum.ToObject(typeof(StatusCodes), Int32.Parse(result["response"]));
+#if DEBUG
                     Debug.WriteLine("STAUS CODE: " + envelop.response);
+#endif
                     if (typeof(T) == typeof(string))
                         envelop.content = (T)(object)result["content"];
                     else
@@ -90,7 +106,7 @@ namespace ProjectRunner.ServerAPI
             }
             catch (Exception e)
             {
-                Debug.WriteLine($"ERRORE - {e.Message}");
+                Debug.WriteLine($"ERROR SendRequest - {e.Message}");
                 envelop.time = DateTime.Now;
                 envelop.response = StatusCodes.CONNECTION_ERROR;
             }
@@ -113,12 +129,16 @@ namespace ProjectRunner.ServerAPI
             }
             try
             {
-                var response = await http.PostAsync($"{SERVER_ENDPOINT}{url}", postContent);
+                var response = http.PostAsync($"{SERVER_ENDPOINT}{url}", postContent).Result;
+#if DEBUG
                 Debug.WriteLine($"REQUEST at {url} - {response.StatusCode}");
+#endif
                 if (response.IsSuccessStatusCode)
                 {
                     var output = await response.Content.ReadAsStringAsync();
+#if DEBUG
                     Debug.WriteLine(output);
+#endif
                     var result = JsonConvert.DeserializeObject<Dictionary<string, object>>(output);
 
                     envelop.time = DateTime.Parse(result["time"].ToString(), CultureInfo.InvariantCulture);
@@ -143,7 +163,7 @@ namespace ProjectRunner.ServerAPI
             }
             catch (Exception e)
             {
-                Debug.WriteLine($"ERROR - {e.Message}");
+                Debug.WriteLine($"SendRequestWithAction ERROR - {e.Message}");
                 envelop.time = DateTime.Now;
                 envelop.response = StatusCodes.CONNECTION_ERROR;
             }
@@ -159,12 +179,12 @@ namespace ProjectRunner.ServerAPI
             server = client;
             cache = c;
         }
-        public async Task<bool> SilentLoginAsync()
+        public bool SilentLogin()
         {
             var credentials = cache.GetCredentials();
             if (credentials != null)
             {
-                var res = await LoginAsync(credentials[0], credentials[1]);
+                var res = LoginAsync(credentials[0], credentials[1]).Result;
                 credentials[0] = string.Empty;
                 credentials[1] = string.Empty;
                 return res.response == StatusCodes.OK;
@@ -178,7 +198,13 @@ namespace ProjectRunner.ServerAPI
                 new KeyValuePair<string, string>("username",username),
                 new KeyValuePair<string, string>("password", password)
             });
-            var response = await server.SendRequest<string>("/authentication.php?action=Login", postContent, false);
+
+            var response = await server.SendRequestWithAction<string, Dictionary<string,string>>("/authentication.php?action=Login", (x)=>
+            {
+                if (x != null)
+                    cache.CurrentUser = UserProfile.ParseDictionary(x);
+                return string.Empty;
+            }, postContent, false);
             server.IsLogged = response.response == StatusCodes.OK;
             return response;
         }
@@ -528,7 +554,7 @@ namespace ProjectRunner.ServerAPI
                             ActivityId = activityId,
                             UserId = Int32.Parse(item[ChatDatabase.ID_USER])
                         };
-                        message.IsMine = cache.MyUserId == message.UserId;
+                        message.IsMine = cache.CurrentUser.Id == message.UserId;
                         var user = cache.GetUserProfile(message.UserId);
                         message.SentBy = user ?? new UserProfile() { Id = message.UserId };
                         message.MessageType = ChatMessage.ChatMessageType.USER;
@@ -540,12 +566,16 @@ namespace ProjectRunner.ServerAPI
                 return null;
             }, postContent);
         }
-        public async Task<Envelop<List<Activity>>> SearchActivities(Sports sport)
+        public async Task<Envelop<List<Activity>>> SearchActivities(Sports sport, double userLatitude, double userLongitude, int mpDistance = 5)
         {
+            mpDistance = mpDistance > 50 || mpDistance < -50 ? 50 : mpDistance;
             var postContent = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>()
             {
                 new KeyValuePair<string, string>(ActivityDatabase.STATUS, ((int)ActivityStatus.PENDING).ToString()),
-                new KeyValuePair<string, string>(ActivityDatabase.SPORT, ((int)sport).ToString())
+                new KeyValuePair<string, string>(ActivityDatabase.SPORT, ((int)sport).ToString()),
+                new KeyValuePair<string, string>("currentLatitude", userLatitude.ToString()),
+                new KeyValuePair<string, string>("currentLongitude", userLongitude.ToString()),
+                new KeyValuePair<string, string>("mpDistance", mpDistance.ToString())
             });
             return await server.SendRequestWithAction<List<Activity>, List<Dictionary<string, string>>>("/activities.php?action=SearchActivities", (x)=> 
             {
@@ -605,6 +635,8 @@ namespace ProjectRunner.ServerAPI
         public string Phone { get; set; }
         public DateTime RegistrationTime { get; set; }
         public DateTime LastUpdate { get; set; }
+        public int DefaultUserLocation { get; set; }
+        public bool NotifyNearbyActivities { get; set; }
 
         public UserProfile() { }
 
@@ -618,6 +650,8 @@ namespace ProjectRunner.ServerAPI
                 FirstName = dictionary.ContainsKey("firstName") ? dictionary["firstName"] : string.Empty,
                 LastName = dictionary.ContainsKey("lastName") ? dictionary["lastName"] : string.Empty,
                 Phone = dictionary.ContainsKey("phone") ? dictionary["phone"] : string.Empty,
+                DefaultUserLocation = dictionary.ContainsKey("defaultLocation") && dictionary["defaultLocation"] != null ? Int32.Parse(dictionary["defaultLocation"]) : 0,
+                NotifyNearbyActivities = dictionary.ContainsKey("notifyNearbyActivities") ? (Int32.Parse(dictionary["notifyNearbyActivities"]) == 1 ? true : false) : false, 
             };
             if (dictionary.ContainsKey("birth"))
                 profile.Birth = DateTime.Parse(dictionary["birth"], CultureInfo.InvariantCulture);
@@ -625,6 +659,7 @@ namespace ProjectRunner.ServerAPI
                 profile.LastUpdate = DateTime.Parse(dictionary["lastUpdate"], CultureInfo.InvariantCulture);
             if (dictionary.ContainsKey("registration"))
                 profile.RegistrationTime = DateTime.Parse(dictionary["registration"], CultureInfo.InvariantCulture);
+
             return profile;
         }
     }

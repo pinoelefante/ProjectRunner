@@ -53,7 +53,7 @@ namespace ProjectRunner.ViewModel
         {
             get
             {
-                if(CurrentActivity!=null && CurrentActivity.CreatedBy == cache.MyUserId && CurrentActivity.Status == ActivityStatus.PENDING)
+                if(CurrentActivity!=null && CurrentActivity.CreatedBy == cache.CurrentUser.Id && CurrentActivity.Status == ActivityStatus.PENDING)
                 {
                     switch(CurrentActivity.Sport)
                     {
@@ -84,7 +84,7 @@ namespace ProjectRunner.ViewModel
                 try
                 {
                     var mapName = "Rendez-vous point";
-                    if (CurrentActivity.CreatedBy == cache.MyUserId)
+                    if (CurrentActivity.CreatedBy == cache.CurrentUser.Id)
                         mapName = CurrentActivity.MeetingPoint.Name;
                     var res = await CrossExternalMaps.Current.NavigateTo(mapName, CurrentActivity.MeetingPoint.Latitude, CurrentActivity.MeetingPoint.Longitude);
                     if (!res)
@@ -156,7 +156,7 @@ namespace ProjectRunner.ViewModel
             _leaveActivityCmd ??
             (_leaveActivityCmd = new RelayCommand(async () =>
             {
-                if (CurrentActivity.CreatedBy == cache.MyUserId)
+                if (CurrentActivity.CreatedBy == cache.CurrentUser.Id)
                 {
                     var confirm = await UserDialogs.Instance.ConfirmAsync("If you leave, the activity will deleted. Do you want continue?", "Delete activity", "Yes", "No");
                     Debug.WriteLine("Confirm: " + confirm);
@@ -296,7 +296,7 @@ namespace ProjectRunner.ViewModel
                 IsLoadingPeople = false;
                 RaisePropertyChanged(() => IsLoadingPeople);
             }
-            if(ActivityPeople.FirstOrDefault(x=>x.Id == cache.MyUserId) != null)
+            if(ActivityPeople.FirstOrDefault(x=>x.Id == cache.CurrentUser.Id) != null)
             {
                 UserJoinedActivity = true;
                 ReadChatMessagesAsync();

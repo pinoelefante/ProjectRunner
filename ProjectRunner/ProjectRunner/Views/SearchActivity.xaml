@@ -3,11 +3,34 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProjectRunner.Views.SearchActivity"
              BindingContext="{Binding SearchActivityViewModel, Source={StaticResource Locator}}">
-    <StackLayout>
-        <Picker ItemsSource="{Binding SportsAvailable}"
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackLayout>
+            <Label Text="Sport">
+                <Label.IsVisible>
+                    <OnPlatform x:TypeArguments="x:Boolean" Android="True" iOS="True" WinPhone="False"/>
+                </Label.IsVisible>
+            </Label>
+            <Picker ItemsSource="{Binding SportsAvailable}"
                 SelectedIndex="{Binding SelectedSportIndex, Mode=TwoWay}"
-                ItemDisplayBinding="{Binding Converter={StaticResource SportNameConverter}}"/>
-        <Button Text="Search" Command="{Binding SearchCommand}" HorizontalOptions="Center"/>
-
-    </StackLayout>
+                ItemDisplayBinding="{Binding Converter={StaticResource SportNameConverter}}"
+                Title="Sport"/>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Use GPS location"/>
+                <Switch IsToggled="{Binding UseGPSLocation, Mode=TwoWay}"/>
+            </StackLayout>
+            <Label Text="Distance from your position">
+                <Label.IsVisible>
+                    <OnPlatform x:TypeArguments="x:Boolean" Android="True" iOS="True" WinPhone="False"/>
+                </Label.IsVisible>
+            </Label>
+            <Picker ItemsSource="{Binding Distances}"
+                SelectedIndex="{Binding SelectedDistanceIndex}"
+                Title="Distance from your position"/>
+        </StackLayout>
+        <Button Text="Search" Command="{Binding SearchCommand}" HeightRequest="60" BackgroundColor="Green"/>
+    </Grid>
 </ContentPage>

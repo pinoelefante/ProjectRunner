@@ -1,4 +1,5 @@
-﻿using ProjectRunner.ViewModel;
+﻿using ProjectRunner.ServerAPI;
+using ProjectRunner.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,13 +14,16 @@ namespace ProjectRunner
         public App()
         {
             InitializeComponent();
-
-            MainPage = new NavigationPage(new Views.LoginPage());
-            ViewModelLocator.NavigationService.Initialize(MainPage as NavigationPage, ViewModelLocator.HomePage);
-
-            //MainPage = new Views.MyMasterPage();
-
             ViewModelLocator.RegisterPages();
+
+            var cache = ViewModelLocator.GetService<PRCache>();
+            if (cache.HasCredentials())
+                MainPage = new Views.LoadingPage();
+            else
+            {
+                MainPage = new NavigationPage(new Views.LoginPage());
+                ViewModelLocator.NavigationService.Initialize(MainPage as NavigationPage, ViewModelLocator.HomePage);
+            }
         }
         protected override void OnStart()
         {

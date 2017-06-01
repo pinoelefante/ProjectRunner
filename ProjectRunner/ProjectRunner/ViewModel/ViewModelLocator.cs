@@ -48,6 +48,7 @@ namespace ProjectRunner.ViewModel
             SimpleIoc.Default.Register<HomePageViewModel>();
             SimpleIoc.Default.Register<ActivityDetailsViewModel>();
             SimpleIoc.Default.Register<SearchActivityViewModel>();
+            SimpleIoc.Default.Register<LoadingViewModel>();
         }
         public static void RegisterPages()
         {
@@ -78,5 +79,6 @@ namespace ProjectRunner.ViewModel
         public ActivitiesListViewModel ActivitiesListViewModel => GetService<ActivitiesListViewModel>();
         public ActivityDetailsViewModel ActivityDetailsViewModel => GetService<ActivityDetailsViewModel>();
         public SearchActivityViewModel SearchActivityViewModel => GetService<SearchActivityViewModel>();
+        public LoadingViewModel LoadingViewModel => GetService<LoadingViewModel>();
     }
 }

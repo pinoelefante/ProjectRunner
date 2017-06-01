@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:MyContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProjectRunner.Views.LoadingPage"
+             xmlns:views="clr-namespace:ProjectRunner.Views"
+             Title="Loading"
+             BindingContext="{Binding LoadingViewModel, Source={StaticResource Locator}}">
+    <Grid>
+        <Image Opacity=".9" Source="background.png"/>
+
+        <StackLayout VerticalOptions="End" Orientation="Vertical" Margin="20">
+            <ProgressBar VerticalOptions="End" MinimumHeightRequest="30" BackgroundColor="LightGreen" Progress="{Binding Progress}" />
+            <Label Text="{Binding ProgressText}" HorizontalOptions="Center"/>
+        </StackLayout>
+        
+    </Grid>
+</views:MyContentPage>

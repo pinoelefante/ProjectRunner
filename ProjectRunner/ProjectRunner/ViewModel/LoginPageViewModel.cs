@@ -49,8 +49,7 @@ namespace ProjectRunner.ViewModel
                 var result = await server.Authentication.LoginAsync(Username, Password);
                 if(result.response == StatusCodes.OK)
                 {
-                    cache.MyUserId = Int32.Parse(result.content);
-                    Application.Current.MainPage = new Views.MyMasterPage();
+                    Application.Current.MainPage = new Views.LoadingPage();
                     if (!cache.HasCredentials())
                         cache.SaveCredentials(Username, Password);
                 }

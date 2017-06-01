@@ -8,191 +8,192 @@
       <group id="PROJECTRUNNER/STRINGS/TIMEZONESLOCATIONS.RESX" datatype="resx">
         <trans-unit id="CONTINENT_EUROPE" translate="yes" xml:space="preserve">
           <source>Europe</source>
-          <target state="new">Europe</target>
+          <target state="translated">Europa</target>
         </trans-unit>
         <trans-unit id="EUROPE_ALBANIA" translate="yes" xml:space="preserve">
           <source>Albania</source>
-          <target state="new">Albania</target>
+          <target state="translated">Albania</target>
         </trans-unit>
         <trans-unit id="EUROPE_ANDORRA" translate="yes" xml:space="preserve">
           <source>Andorra</source>
-          <target state="new">Andorra</target>
+          <target state="translated">Andorra</target>
         </trans-unit>
         <trans-unit id="EUROPE_AUSTRIA" translate="yes" xml:space="preserve">
           <source>Austria</source>
-          <target state="new">Austria</target>
+          <target state="translated">Austria</target>
         </trans-unit>
         <trans-unit id="EUROPE_BELARUS" translate="yes" xml:space="preserve">
           <source>Belarus</source>
-          <target state="new">Belarus</target>
+          <target state="translated">Bielorussia</target>
         </trans-unit>
         <trans-unit id="EUROPE_BOSNIA" translate="yes" xml:space="preserve">
           <source>Bosnia and Herzegovina</source>
-          <target state="new">Bosnia and Herzegovina</target>
+          <target state="translated">Bosnia ed Erzegovina</target>
         </trans-unit>
         <trans-unit id="EUROPE_BRUSSELS" translate="yes" xml:space="preserve">
           <source>Brussels</source>
-          <target state="new">Brussels</target>
+          <target state="translated">Bruxelles</target>
         </trans-unit>
         <trans-unit id="EUROPE_BULGARIA" translate="yes" xml:space="preserve">
           <source>Bulgaria</source>
-          <target state="new">Bulgaria</target>
+          <target state="translated">Bulgaria</target>
         </trans-unit>
         <trans-unit id="EUROPE_CROATIA" translate="yes" xml:space="preserve">
           <source>Croatia</source>
-          <target state="new">Croatia</target>
+          <target state="translated">Croazia</target>
         </trans-unit>
         <trans-unit id="EUROPE_CYPRUS" translate="yes" xml:space="preserve">
           <source>Cyprus</source>
-          <target state="new">Cyprus</target>
+          <target state="translated">Cipro</target>
         </trans-unit>
         <trans-unit id="EUROPE_CZECH" translate="yes" xml:space="preserve">
           <source>Czech Republic</source>
-          <target state="new">Czech Republic</target>
+          <target state="translated">Repubblica Ceca</target>
         </trans-unit>
         <trans-unit id="EUROPE_DENMARK" translate="yes" xml:space="preserve">
           <source>Denmark</source>
-          <target state="new">Denmark</target>
+          <target state="translated">Danimarca</target>
         </trans-unit>
         <trans-unit id="EUROPE_ESTONIA" translate="yes" xml:space="preserve">
           <source>Estonia</source>
-          <target state="new">Estonia</target>
+          <target state="translated">Estonia</target>
         </trans-unit>
         <trans-unit id="EUROPE_FINLAND" translate="yes" xml:space="preserve">
           <source>Finland</source>
-          <target state="new">Finland</target>
+          <target state="translated">Finlandia</target>
         </trans-unit>
         <trans-unit id="EUROPE_FRANCE" translate="yes" xml:space="preserve">
           <source>France</source>
-          <target state="new">France</target>
+          <target state="translated">Francia</target>
         </trans-unit>
         <trans-unit id="EUROPE_GERMANY" translate="yes" xml:space="preserve">
           <source>Germany</source>
-          <target state="new">Germany</target>
+          <target state="translated">Germania</target>
         </trans-unit>
         <trans-unit id="EUROPE_GREECE" translate="yes" xml:space="preserve">
           <source>Greece</source>
-          <target state="new">Greece</target>
+          <target state="translated">Grecia</target>
         </trans-unit>
         <trans-unit id="EUROPE_HOLLAND" translate="yes" xml:space="preserve">
           <source>Holland</source>
-          <target state="new">Holland</target>
+          <target state="translated">Olanda</target>
         </trans-unit>
         <trans-unit id="EUROPE_HUNGARY" translate="yes" xml:space="preserve">
           <source>Hungary</source>
-          <target state="new">Hungary</target>
+          <target state="translated">Ungheria</target>
         </trans-unit>
         <trans-unit id="EUROPE_IRELAND" translate="yes" xml:space="preserve">
           <source>Ireland</source>
-          <target state="new">Ireland</target>
+          <target state="translated">Irlanda</target>
         </trans-unit>
         <trans-unit id="EUROPE_ITALY" translate="yes" xml:space="preserve">
           <source>Italy</source>
-          <target state="new">Italy</target>
+          <target state="translated">Italia</target>
         </trans-unit>
         <trans-unit id="EUROPE_LATVIA" translate="yes" xml:space="preserve">
           <source>Latvia</source>
-          <target state="new">Latvia</target>
+          <target state="translated">Lettonia</target>
         </trans-unit>
         <trans-unit id="EUROPE_LIECHTENSTEIN" translate="yes" xml:space="preserve">
           <source>Liechtenstein</source>
-          <target state="new">Liechtenstein</target>
+          <target state="translated">Liechtenstein</target>
         </trans-unit>
         <trans-unit id="EUROPE_LITHUANIA" translate="yes" xml:space="preserve">
           <source>Lithuania</source>
-          <target state="new">Lithuania</target>
+          <target state="translated">Lituania</target>
         </trans-unit>
         <trans-unit id="EUROPE_LUXEMBOURG" translate="yes" xml:space="preserve">
           <source>Luxembourg</source>
-          <target state="new">Luxembourg</target>
+          <target state="translated">Lussemburgo</target>
         </trans-unit>
         <trans-unit id="EUROPE_MACEDONIA" translate="yes" xml:space="preserve">
           <source>Macedonia</source>
-          <target state="new">Macedonia</target>
+          <target state="translated">Macedonia</target>
         </trans-unit>
         <trans-unit id="EUROPE_MALTA" translate="yes" xml:space="preserve">
           <source>Malta</source>
-          <target state="new">Malta</target>
+          <target state="translated">Malta</target>
         </trans-unit>
         <trans-unit id="EUROPE_MOLDOVA" translate="yes" xml:space="preserve">
-          <source>MOLDOVA</source>
-          <target state="new">MOLDOVA</target>
+          <source>Moldova</source>
+          <target state="needs-review-translation">Moldavia</target>
+          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
         </trans-unit>
         <trans-unit id="EUROPE_MONACO" translate="yes" xml:space="preserve">
           <source>Monaco</source>
-          <target state="new">Monaco</target>
+          <target state="translated">Principato di Monaco</target>
         </trans-unit>
         <trans-unit id="EUROPE_MONTENEGRO" translate="yes" xml:space="preserve">
           <source>Montenegro</source>
-          <target state="new">Montenegro</target>
+          <target state="translated">Montenegro</target>
         </trans-unit>
         <trans-unit id="EUROPE_NORWAY" translate="yes" xml:space="preserve">
           <source>Norway</source>
-          <target state="new">Norway</target>
+          <target state="translated">Norvegia</target>
         </trans-unit>
         <trans-unit id="EUROPE_POLAND" translate="yes" xml:space="preserve">
           <source>Poland</source>
-          <target state="new">Poland</target>
+          <target state="translated">Polonia</target>
         </trans-unit>
         <trans-unit id="EUROPE_PORTUGAL" translate="yes" xml:space="preserve">
           <source>Portugal</source>
-          <target state="new">Portugal</target>
+          <target state="translated">Portogallo</target>
         </trans-unit>
         <trans-unit id="EUROPE_ROMANIA" translate="yes" xml:space="preserve">
           <source>Romania</source>
-          <target state="new">Romania</target>
+          <target state="translated">Romania</target>
         </trans-unit>
         <trans-unit id="EUROPE_RUSSIA" translate="yes" xml:space="preserve">
           <source>Russia</source>
-          <target state="new">Russia</target>
+          <target state="translated">Russia</target>
         </trans-unit>
         <trans-unit id="EUROPE_SAN_MARINO" translate="yes" xml:space="preserve">
           <source>San Marino</source>
-          <target state="new">San Marino</target>
+          <target state="translated">San Marino</target>
         </trans-unit>
         <trans-unit id="EUROPE_SERBIA" translate="yes" xml:space="preserve">
           <source>Serbia</source>
-          <target state="new">Serbia</target>
+          <target state="translated">Serbia</target>
         </trans-unit>
         <trans-unit id="EUROPE_SLOVAKIA" translate="yes" xml:space="preserve">
           <source>Slovakia</source>
-          <target state="new">Slovakia</target>
+          <target state="translated">Slovacchia</target>
         </trans-unit>
         <trans-unit id="EUROPE_SLOVENIA" translate="yes" xml:space="preserve">
           <source>Slovenia</source>
-          <target state="new">Slovenia</target>
+          <target state="translated">Slovenia</target>
         </trans-unit>
         <trans-unit id="EUROPE_SPAIN" translate="yes" xml:space="preserve">
           <source>Spain</source>
-          <target state="new">Spain</target>
+          <target state="translated">Spagna</target>
         </trans-unit>
         <trans-unit id="EUROPE_SWEDEN" translate="yes" xml:space="preserve">
           <source>Sweden</source>
-          <target state="new">Sweden</target>
+          <target state="translated">Svezia</target>
         </trans-unit>
         <trans-unit id="EUROPE_SWITZERLAND" translate="yes" xml:space="preserve">
           <source>Switzerland</source>
-          <target state="new">Switzerland</target>
+          <target state="translated">Svizzera</target>
         </trans-unit>
         <trans-unit id="EUROPE_TURKEY" translate="yes" xml:space="preserve">
           <source>Turkey</source>
-          <target state="new">Turkey</target>
+          <target state="translated">Turchia</target>
         </trans-unit>
         <trans-unit id="EUROPE_UK" translate="yes" xml:space="preserve">
           <source>United Kingdom</source>
-          <target state="new">United Kingdom</target>
+          <target state="translated">Regno Unito</target>
         </trans-unit>
         <trans-unit id="EUROPE_UKRAIN" translate="yes" xml:space="preserve">
           <source>Ukraine</source>
-          <target state="new">Ukraine</target>
+          <target state="translated">Ucraina</target>
         </trans-unit>
         <trans-unit id="EUROPE_VATICAN" translate="yes" xml:space="preserve">
           <source>Vatican City</source>
-          <target state="new">Vatican City</target>
+          <target state="translated">Città del Vaticano</target>
         </trans-unit>
         <trans-unit id="HUNGARY_BUDAPEST" translate="yes" xml:space="preserve">
           <source>Budapest</source>
-          <target state="new">Budapest</target>
+          <target state="translated">Budapest</target>
         </trans-unit>
       </group>
     </body>

@@ -37,7 +37,7 @@ namespace ProjectRunner.ViewModel
 
         public List<Activity> ListActivities { get; } = new List<Activity>();
         public List<Activity> ListPendingActivities { get { return ListActivities.Where(x => x.Status == ActivityStatus.PENDING).ToList(); } }
-        public List<Activity> ListMyActivities { get { return ListActivities.Where(x => x.CreatedBy == cache.MyUserId).ToList(); } }
+        public List<Activity> ListMyActivities { get { return ListActivities.Where(x => x.CreatedBy == cache.CurrentUser.Id).ToList(); } }
 
         private async Task LoadMyListAsync(bool forced = false)
         {
@@ -55,8 +55,6 @@ namespace ProjectRunner.ViewModel
                         ListActivities.AddRange(res.content);
                         cache.ListActivities.AddRange(res.content);
                     }
-                    RaisePropertyChanged(() => ListPendingActivities);
-                    RaisePropertyChanged(() => ListMyActivities);
                 }
                 IsBusyActive = false;
             }
@@ -66,6 +64,8 @@ namespace ProjectRunner.ViewModel
                 ListActivities.Clear();
                 ListActivities.AddRange(cache.ListActivities);
             }
+            RaisePropertyChanged(() => ListPendingActivities);
+            RaisePropertyChanged(() => ListMyActivities);
         }
 
         private RelayCommand _addActivityCmd, _searchActivityCmd, _refreshActivitiesCmd;
