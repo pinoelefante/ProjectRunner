@@ -132,6 +132,20 @@ namespace ProjectRunner.ServerAPI
                 Debug.WriteLine(e.Message);
             }
         }
+        public void DeleteItemsFromTable<T>()
+        {
+            try
+            {
+                using (var con = db.GetConnection())
+                {
+                    con.DeleteAll<T>();
+                }
+            }
+            catch
+            {
+                Debug.WriteLine("Delete db error");
+            }
+        }
         public void DeleteItemsDB<T>(IEnumerable<T> items)
         {
             try
@@ -144,7 +158,7 @@ namespace ProjectRunner.ServerAPI
             }
             catch
             {
-
+                Debug.WriteLine("Delete db error");
             }
         }
         public void SaveCredentials(string username, string password)
@@ -166,6 +180,24 @@ namespace ProjectRunner.ServerAPI
         public bool HasCredentials()
         {
             return storage.HasKey("pr_username") && storage.HasKey("pr_password");
+        }
+        public void DestroyAll()
+        {
+            storage.DeleteKey("pr_username");
+            storage.DeleteKey("pr_password");
+            DeleteItemsFromTable<Activity>();
+            DeleteItemsFromTable<ChatMessage>();
+            DeleteItemsFromTable<MapAddress>();
+        }
+        public void DeleteActivity(int id)
+        {
+            DeleteChatMessages(id);
+            var activity = ListActivities.Find(X => X.Id == id);
+            if(activity!=null)
+            {
+                ListActivities.Remove(activity);
+                //TODO delete activity from database
+            }
         }
     }
 }

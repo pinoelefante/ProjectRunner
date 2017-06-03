@@ -51,10 +51,7 @@ namespace ProjectRunner.ViewModel
                 }
                 var response = await server.Authentication.RegisterAsync(Username, Password, Email, FirstName, LastName, Birth.ToString("yyyy-MM-dd"), Phone, SelectedTimezone);
                 if (response.response == StatusCodes.OK)
-                {
-                    cache.SaveCredentials(Username, Password);
                     Application.Current.MainPage = new Views.MyMasterPage();
-                }
                 else
                     dialogs.ShowAlert($"An error occurred while creating a new account: {response.response}");
             }));

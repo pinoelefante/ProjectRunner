@@ -93,7 +93,7 @@ namespace ProjectRunner.ViewModel
                 catch(Exception e)
                 {
                     Debug.WriteLine(e.Message);
-                    Device.OpenUri(new Uri($"https://www.google.com/maps/@{CurrentActivity.MeetingPoint.Latitude},{CurrentActivity.MeetingPoint.Longitude},17z"));   
+                    Device.OpenUri(new Uri($"https://www.google.com/maps/@{CurrentActivity.MeetingPoint.Latitude.ToString().Replace(',', '.')},{CurrentActivity.MeetingPoint.Longitude.ToString().Replace(',', '.')},17z"));   
                 }
             }));
         public RelayCommand SaveChangesCommand =>
@@ -141,9 +141,6 @@ namespace ProjectRunner.ViewModel
                     var res = await server.Activities.DeleteActivityAsync(CurrentActivity.Id);
                     if (res.response == StatusCodes.OK)
                     {
-                        if (cache.ListActivities.Remove(CurrentActivity))
-                            Debug.WriteLine("Item removed from cache");
-                        cache.DeleteChatMessages(CurrentActivity.Id);
                         ListMessages.Clear();
                         ActivityPeople.Clear();
                         UserJoinedActivity = false;
@@ -171,11 +168,8 @@ namespace ProjectRunner.ViewModel
                         var res = await server.Activities.LeaveActivityAsync(CurrentActivity.Id);
                         if (res.response == StatusCodes.OK)
                         {
-                            if (cache.ListActivities.Remove(cache.ListActivities.First(x=>x.Id == CurrentActivity.Id)))
-                                Debug.WriteLine("Item removed from cache");
                             UserJoinedActivity = false;
                             ListMessages.Clear();
-                            cache.DeleteChatMessages(CurrentActivity.Id);
                             CurrentActivity.JoinedPlayers--;
                             ActivityPeople.Clear();
                             RaisePropertyChanged(() => CurrentActivity);

@@ -33,7 +33,6 @@ namespace ProjectRunner.ViewModel
                 var credentials = cache.GetCredentials();
                 Username = credentials[0];
                 Password = credentials[1];
-                LoginCommand.Execute(null);
             }
         }
 
@@ -48,15 +47,9 @@ namespace ProjectRunner.ViewModel
                 IsBusyActive = true;
                 var result = await server.Authentication.LoginAsync(Username, Password);
                 if(result.response == StatusCodes.OK)
-                {
                     Application.Current.MainPage = new Views.LoadingPage();
-                    if (!cache.HasCredentials())
-                        cache.SaveCredentials(Username, Password);
-                }
                 else
-                {
                     dialogs.ShowAlert("Username or password is wrong", "Login failed");
-                }
                 IsBusyActive = false;
             }));
         public RelayCommand RegisterCommand => _registerCommand ??

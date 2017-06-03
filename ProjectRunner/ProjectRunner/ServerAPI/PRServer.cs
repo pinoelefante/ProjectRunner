@@ -206,6 +206,8 @@ namespace ProjectRunner.ServerAPI
                 return string.Empty;
             }, postContent, false);
             server.IsLogged = response.response == StatusCodes.OK;
+            if (server.IsLogged)
+                cache.SaveCredentials(username, password);
             return response;
         }
         public async Task<Envelop<string>> RegisterAsync(string username, string password, string email, string firstName, string lastName, string birth, string phone, string timezone)
@@ -223,6 +225,8 @@ namespace ProjectRunner.ServerAPI
             });
             var response = await server.SendRequest<string>("/authentication.php?action=Register", postContent, false);
             server.IsLogged = response.response == StatusCodes.OK;
+            if (server.IsLogged)
+                cache.SaveCredentials(username, password);
             return response;
         }
         public async Task<Envelop<string>> ModifyField(string field, string newValue)
@@ -348,7 +352,11 @@ namespace ProjectRunner.ServerAPI
             {
                 new KeyValuePair<string, string>(ActivityDatabase.ID, activityId.ToString())
             });
-            return await server.SendRequest<string>("/activities.php?action=LeaveActivity", postContent);
+            
+            var response = await server.SendRequest<string>("/activities.php?action=LeaveActivity", postContent);
+            if (response.response == StatusCodes.OK)
+                cache.DeleteActivity(activityId);
+            return response;
         }
         public async Task<Envelop<Activity>> InfoActivityAsync(int activityId)
         {
@@ -429,7 +437,10 @@ namespace ProjectRunner.ServerAPI
             {
                 new KeyValuePair<string, string>(ActivityDatabase.ID, activityId.ToString())
             });
-            return await server.SendRequest<string>("/activities.php?action=DeleteActivity", postContent);
+            var response = await server.SendRequest<string>("/activities.php?action=DeleteActivity", postContent);
+            if(response.response == StatusCodes.OK)
+                cache.DeleteActivity(activityId);
+            return response;
         }
         /*
         public async Task<Envelop<string>> ModifyActivityFieldAsync(int activityId, string field, string newValue)
