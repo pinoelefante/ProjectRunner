@@ -480,7 +480,7 @@ namespace ProjectRunner.ServerAPI
                 return null;
             });
         }
-        public async Task<Envelop<string>> AddAddress(string name, float latitude, float longitude)
+        public async Task<Envelop<MapAddress>> AddAddress(string name, float latitude, float longitude)
         {
             FormUrlEncodedContent postContent = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>()
                 {
@@ -488,9 +488,15 @@ namespace ProjectRunner.ServerAPI
                     new KeyValuePair<string, string>(MapAddressDatabase.LATITUDE,latitude.ToString("N7").Replace(',','.')),
                     new KeyValuePair<string, string>(MapAddressDatabase.LONGITUDE, longitude.ToString("N7").Replace(',','.')),
                 });
-            return await server.SendRequest<string>("/activities.php?action=AddAddress", postContent);
+            var result = await server.SendRequestWithAction<MapAddress, Dictionary<string, string>>("/activities.php?action=AddAddress", (x) =>
+            {
+                return x != null && x.Any() ? MapAddress.ParseDictionary(x) : null;
+            });
+            if (result.response == StatusCodes.OK)
+                cache.MyMapAddresses.Add(result.content);
+            return result;
         }
-        public async Task<Envelop<string>> AddAddressPoint(string name, double latitude, double longitude)
+        public async Task<Envelop<MapAddress>> AddAddressPoint(string name, double latitude, double longitude)
         {
             FormUrlEncodedContent postContent = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>()
                 {
@@ -498,16 +504,28 @@ namespace ProjectRunner.ServerAPI
                     new KeyValuePair<string, string>(MapAddressDatabase.LATITUDE,latitude.ToString("N7").Replace(',','.')),
                     new KeyValuePair<string, string>(MapAddressDatabase.LONGITUDE, longitude.ToString("N7").Replace(',','.')),
                 });
-            return await server.SendRequest<string>("/activities.php?action=AddAddressPoint", postContent);
+            var result = await server.SendRequestWithAction<MapAddress, Dictionary<string, string>>("/activities.php?action=AddAddressPoint", (x)=>
+            {
+                return x != null && x.Any() ? MapAddress.ParseDictionary(x) : null;
+            });
+            if (result.response == StatusCodes.OK)
+                cache.MyMapAddresses.Add(result.content);
+            return result;
         }
-        //
         public async Task<Envelop<string>> RemoveAddress(int locationId)
         {
             FormUrlEncodedContent postContent = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>()
                 {
                     new KeyValuePair<string, string>(MapAddressDatabase.ID, locationId.ToString())
                 });
-            return await server.SendRequest<string>("/activities.php?action=RemoveAddress", postContent);
+            var resp = await server.SendRequest<string>("/activities.php?action=RemoveAddress", postContent);
+            if (resp.response == StatusCodes.OK)
+            {
+                var address = cache.MyMapAddresses.Find(x => x.Id == locationId);
+                if(address!=null)
+                    cache.MyMapAddresses.Remove(address); 
+            }
+            return resp;
         }
         public async Task<Envelop<string>> ReloadLocationInfoFromGoogleMaps(int locationId)
         {

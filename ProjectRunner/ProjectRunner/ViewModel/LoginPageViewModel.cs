@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight;
+﻿using Acr.UserDialogs;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
 using ProjectRunner.ServerAPI;
@@ -18,12 +19,10 @@ namespace ProjectRunner.ViewModel
         private INavigationService navigation;
         private PRServer server;
         private PRCache cache;
-        private UserDialogsService dialogs;
-        public LoginPageViewModel(INavigationService nav, PRServer s, UserDialogsService d, PRCache c)
+        public LoginPageViewModel(INavigationService nav, PRServer s, PRCache c)
         {
             navigation = nav;
             server = s;
-            dialogs = d;
             cache = c;
         }
         public override void NavigatedToAsync(object parameter = null)
@@ -49,7 +48,7 @@ namespace ProjectRunner.ViewModel
                 if(result.response == StatusCodes.OK)
                     Application.Current.MainPage = new Views.LoadingPage();
                 else
-                    dialogs.ShowAlert("Username or password is wrong", "Login failed");
+                    UserDialogs.Instance.Alert("Username or password is wrong", "Login failed");
                 IsBusyActive = false;
             }));
         public RelayCommand RegisterCommand => _registerCommand ??

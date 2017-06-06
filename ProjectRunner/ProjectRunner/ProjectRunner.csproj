@@ -52,7 +52,6 @@
     <Compile Include="ServerAPI\PRSettings.cs" />
     <Compile Include="Services\ISQLite.cs" />
     <Compile Include="Services\NavigationService.cs" />
-    <Compile Include="Services\UserDialogsService.cs" />
     <Compile Include="Strings\TimezonesLocations.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -65,6 +64,7 @@
     </Compile>
     <Compile Include="ViewModel\ActivitiesListViewModel.cs" />
     <Compile Include="ViewModel\ActivityDetailsViewModel.cs" />
+    <Compile Include="ViewModel\AddLocationViewModel.cs" />
     <Compile Include="ViewModel\CreateActivityViewModel.cs" />
     <Compile Include="ViewModel\ForgotPasswordViewModel.cs" />
     <Compile Include="ViewModel\HomePageViewModel.cs" />
@@ -93,10 +93,10 @@
     <Compile Include="Views\ActivityDetailsPeople.xaml.cs">
       <DependentUpon>ActivityDetailsPeople.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Converters.cs" />
-    <Compile Include="Views\CreateActivityAddLocation.xaml.cs">
-      <DependentUpon>CreateActivityAddLocation.xaml</DependentUpon>
+    <Compile Include="Views\AddLocationPage.xaml.cs">
+      <DependentUpon>AddLocationPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Converters.cs" />
     <Compile Include="Views\CreateActivityChooseLocation.xaml.cs">
       <DependentUpon>CreateActivityChooseLocation.xaml</DependentUpon>
     </Compile>
@@ -198,12 +198,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\CreateActivityChooseLocation.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Views\CreateActivityAddLocation.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -346,6 +340,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\LoadingPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\AddLocationPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

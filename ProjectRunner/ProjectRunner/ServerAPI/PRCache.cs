@@ -196,6 +196,7 @@ namespace ProjectRunner.ServerAPI
             if(activity!=null)
             {
                 ListActivities.Remove(activity);
+                DeleteChatMessages(id);
                 //TODO delete activity from database
             }
         }

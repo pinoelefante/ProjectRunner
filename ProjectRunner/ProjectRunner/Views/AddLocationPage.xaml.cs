@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace ProjectRunner.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class CreateActivityAddLocation : ContentPage
+    public partial class AddLocationPage : ContentPage
     {
-        public CreateActivityAddLocation()
+        public AddLocationPage()
         {
             InitializeComponent();
         }

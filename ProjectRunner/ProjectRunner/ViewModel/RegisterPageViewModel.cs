@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight;
+﻿using Acr.UserDialogs;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
 using ProjectRunner.ServerAPI;
@@ -19,12 +20,10 @@ namespace ProjectRunner.ViewModel
         private INavigationService navigation;
         private PRServer server;
         private PRCache cache;
-        private UserDialogsService dialogs;
-        public RegisterPageViewModel(INavigationService n, PRServer s, UserDialogsService d, PRCache c)
+        public RegisterPageViewModel(INavigationService n, PRServer s, PRCache c)
         {
             navigation = n;
             server = s;
-            dialogs = d;
             cache = c;
             if(!TimeZones.Any())
                 InitTimezones();
@@ -46,14 +45,14 @@ namespace ProjectRunner.ViewModel
             {
                 if (string.IsNullOrEmpty(Password) || Password.CompareTo(Password2) != 0)
                 {
-                    dialogs.ShowAlert("Invalid password");
+                    UserDialogs.Instance.Alert("Invalid password");
                     return;
                 }
                 var response = await server.Authentication.RegisterAsync(Username, Password, Email, FirstName, LastName, Birth.ToString("yyyy-MM-dd"), Phone, SelectedTimezone);
                 if (response.response == StatusCodes.OK)
                     Application.Current.MainPage = new Views.MyMasterPage();
                 else
-                    dialogs.ShowAlert($"An error occurred while creating a new account: {response.response}");
+                    UserDialogs.Instance.Alert($"An error occurred while creating a new account: {response.response}");
             }));
 
         public RelayCommand TimeZoneTest =>

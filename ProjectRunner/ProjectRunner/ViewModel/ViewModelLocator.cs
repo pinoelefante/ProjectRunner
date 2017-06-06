@@ -21,7 +21,7 @@ namespace ProjectRunner.ViewModel
             Activities = "ActivitiesPage",
             CreateActivity = "CreateActivityPage",
             CreateActivityChooseLocation = "CreateActivityChooseLocation",
-            CreateActivityAddLocation = "CreateActivityAddLocation",
+            AddLocation = "AddLocation",
             CreateActivityConfirm = "CreateActivityConfirm",
             ActivityDetails = "ActivityDetailsPage",
             ActivitySearch = "SearchActivity",
@@ -35,7 +35,6 @@ namespace ProjectRunner.ViewModel
             SimpleIoc.Default.Register<INavigationService>(()=>nav);
             SimpleIoc.Default.Register<PRServer>();
             SimpleIoc.Default.Register<PRCache>();
-            SimpleIoc.Default.Register<UserDialogsService>();
             var dbService = DependencyService.Get<ISQLite>();
             SimpleIoc.Default.Register<ISQLite>(() => dbService);
 
@@ -59,7 +58,7 @@ namespace ProjectRunner.ViewModel
 
             nav.Configure(Activities, typeof(Views.Activities));
             nav.Configure(CreateActivity, typeof(Views.CreateActivityPage));
-            nav.Configure(CreateActivityAddLocation, typeof(Views.CreateActivityAddLocation));
+            nav.Configure(AddLocation, typeof(Views.AddLocationPage));
             nav.Configure(CreateActivityChooseLocation, typeof(Views.CreateActivityChooseLocation));
             nav.Configure(CreateActivityConfirm, typeof(Views.CreateActivityConfirmPage));
 
@@ -80,5 +79,6 @@ namespace ProjectRunner.ViewModel
         public ActivityDetailsViewModel ActivityDetailsViewModel => GetService<ActivityDetailsViewModel>();
         public SearchActivityViewModel SearchActivityViewModel => GetService<SearchActivityViewModel>();
         public LoadingViewModel LoadingViewModel => GetService<LoadingViewModel>();
+        public AddLocationViewModel AddLocationViewModel => GetService<AddLocationViewModel>();
     }
 }
