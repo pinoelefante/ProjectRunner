@@ -4,16 +4,15 @@
                      xmlns:views="clr-namespace:ProjectRunner.Views"
                      x:Class="ProjectRunner.Views.CreateActivityPage"
                      Title="Create activity"
-                     BindingContext="{Binding CreateActivityViewModel, Source={StaticResource Locator}}"
-                     >
-    <ScrollView Padding="0,0,10,0" Margin="10,0,0,0">
+                     BindingContext="{Binding CreateActivityViewModel, Source={StaticResource Locator}}">
+    <ScrollView>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <StackLayout Orientation="Vertical">
+            <StackLayout Orientation="Vertical" Padding="10,0,10,0">
 
                 <Label Text="General" FontSize="24" HorizontalOptions="Center" FontAttributes="Bold"/>
 
@@ -23,9 +22,9 @@
                     </Label.IsVisible>
                 </Label>
                 <Picker Title="Sport"
-          ItemsSource="{Binding SportsAvailable}"
-          ItemDisplayBinding="{Binding SportName}"
-          SelectedIndex="{Binding SelectedSportIndex, Mode=TwoWay}"/>
+                        ItemsSource="{Binding SportsAvailable}"
+                        ItemDisplayBinding="{Binding SportName}"
+                        SelectedIndex="{Binding SelectedSportIndex, Mode=TwoWay}"/>
 
                 <Label Text="Day"/>
                 <DatePicker Date="{Binding StartDay, Mode=TwoWay}"/>

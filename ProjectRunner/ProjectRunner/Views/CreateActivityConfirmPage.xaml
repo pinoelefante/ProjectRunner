@@ -5,14 +5,14 @@
              xmlns:views="clr-namespace:ProjectRunner.Views"
              Title="Create activity"
              BindingContext="{Binding CreateActivityViewModel, Source={StaticResource Locator}}">
-    <ScrollView Padding="0,0,10,0" Margin="10,0,0,0"  IsVisible="{Binding CurrentNavigation, ConverterParameter=4, Converter={StaticResource IntEquals}}">
+    <ScrollView>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <StackLayout>
+            <StackLayout Padding="10,0">
                 <Label Text="Confirm" FontSize="24" HorizontalOptions="Center" FontAttributes="Bold"/>
 
                 <StackLayout Orientation="Horizontal">
