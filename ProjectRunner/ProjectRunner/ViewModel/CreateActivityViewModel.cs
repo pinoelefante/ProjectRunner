@@ -14,6 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 
 namespace ProjectRunner.ViewModel
@@ -35,9 +36,8 @@ namespace ProjectRunner.ViewModel
             base.NavigatedToAsync(parameter);
             VerifyGeneral();
             VerifyLocation();
-            //rilevare gps
-            //load my locations
             RaisePropertyChanged(() => KnownAddress);
+            RaisePropertyChanged(() => SelectedIndexLocation);
         }
         public override void NavigatedFrom()
         {
@@ -303,9 +303,9 @@ namespace ProjectRunner.ViewModel
         #endregion
 
         #region Choose location
-        public List<MapAddress> KnownAddress { get { return cache.MyMapAddresses; } }
+        public List<MapAddress> KnownAddress { get { return cache.MyMapAddresses.OrderBy(x => x.Name).ToList(); } }
         
-        private int _selectedIndexLocation = -1;
+        private int _selectedIndexLocation = 0;
         public int SelectedIndexLocation { get { return _selectedIndexLocation; } set { Set(ref _selectedIndexLocation, value); VerifyLocation(); RaisePropertyChanged(()=> SelectedLocation); } }
         public MapAddress SelectedLocation { get { if (_selectedIndexLocation >= 0 && KnownAddress.Count() > _selectedIndexLocation) return KnownAddress[_selectedIndexLocation]; return null; } }
         private RelayCommand _deleteLocationCmd;
@@ -317,7 +317,7 @@ namespace ProjectRunner.ViewModel
                 var res = await server.Activities.RemoveAddress(address.Id);
                 if(res.response == StatusCodes.OK)
                 {
-                    KnownAddress.Remove(address);
+                    RaisePropertyChanged(() => KnownAddress);
                     RaisePropertyChanged(() => SelectedLocation);
                     address = null;
                 }

@@ -18,7 +18,7 @@ namespace ProjectRunner.ViewModel
         }
         public RelayCommand TestCommand => new RelayCommand(() =>
         {
-            
+            //server.GoogleMaps.GetCoordinatesFromAddress("Santa Maria la Carità", "Via Visitazione", "290", "80050");
         });
     }
 }

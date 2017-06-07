@@ -26,24 +26,38 @@
                     <Entry Placeholder="" Text="{Binding AddressLongitude, Mode=TwoWay}" IsEnabled="False"/>
                 </StackLayout>
 
-                <Button Grid.Row="1" Text="OK" Command="{Binding AddLocationCommand}" />
+                <Button Grid.Row="1" Text="Add" Command="{Binding AddLocationCommand}" />
             </Grid>
         </ScrollView>
     </ContentPage>
 
     <ContentPage Title="By address">
-        <Label Text="City"/>
-        <Entry Placeholder="New York" Text="{Binding AddressCity, Mode=TwoWay}"/>
+        <ScrollView>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
 
-        <Label Text="Street"/>
-        <Entry Placeholder="" Text="{Binding AddressStreet, Mode=TwoWay}"/>
+                <StackLayout>
+                    <Label Text="Name"/>
+                    <Entry Placeholder="Location name" Text="{Binding AddressName, Mode=TwoWay}"/>
+                    
+                    <Label Text="City"/>
+                    <Entry Placeholder="New York" Text="{Binding AddressCity, Mode=TwoWay}"/>
 
-        <Label Text="Civic number"/>
-        <Entry Placeholder="" Text="{Binding AddressCivicNumber, Mode=TwoWay}" Keyboard="Numeric"/>
+                    <Label Text="Street"/>
+                    <Entry Placeholder="" Text="{Binding AddressStreet, Mode=TwoWay}"/>
 
-        <Label Text="Zip Code"/>
-        <Entry Placeholder="" Text="{Binding AddressZipCode, Mode=TwoWay}" Keyboard="Numeric"/>
+                    <Label Text="Civic number"/>
+                    <Entry Placeholder="" Text="{Binding AddressCivicNumber, Mode=TwoWay}" Keyboard="Numeric"/>
 
-        <Button Text="Find coordinates" Command="{Binding FindCoordinatesCommand}"/>
+                    <Label Text="Postal Code"/>
+                    <Entry Placeholder="" Text="{Binding AddressZipCode, Mode=TwoWay}" Keyboard="Numeric"/>
+                </StackLayout>
+                
+                <Button Grid.Row="1" Text="Add" Command="{Binding AddALocationByAddressCommand}"/>
+            </Grid>
+        </ScrollView>
     </ContentPage>
 </TabbedPage>

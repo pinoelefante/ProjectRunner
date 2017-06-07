@@ -4,11 +4,19 @@
              x:Class="ProjectRunner.Views.MasterPage"
              Title="Project Runners">
     <ContentPage.Content>
-        <StackLayout VerticalOptions="FillAndExpand">
-            <StackLayout.Margin>
+        <Grid VerticalOptions="FillAndExpand">
+            <Grid.Margin>
                 <OnPlatform x:TypeArguments="Thickness" Android="0,24,0,0"/>
-            </StackLayout.Margin>
-            <ListView x:Name="listView" VerticalOptions="FillAndExpand" SeparatorVisibility="None" ListView.RowHeight="40">
+            </Grid.Margin>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition />
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <StackLayout Grid.Row="0">
+                <!-- user profile here -->
+            </StackLayout>
+            <ListView Grid.Row="1" x:Name="listView" VerticalOptions="FillAndExpand" SeparatorVisibility="None" ListView.RowHeight="40">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -22,6 +30,10 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-        </StackLayout>
+
+            <Grid Grid.Row="2">
+                <Button Text="Logout" Clicked="Logout_Command"/>
+            </Grid>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

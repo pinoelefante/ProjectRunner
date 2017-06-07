@@ -23,33 +23,57 @@ namespace ProjectRunner.ViewModel
             navigation = nav;
             server = s;
         }
-        private string _mpName, _mpStreet, _mpCity, _mpZipCode;
-        private int _mpCivicNumber;
+        private string _mpName = string.Empty, _mpStreet, _mpCity, _mpZipCode;
+        private string _mpCivicNumber;
         private double _mpLatitude, _mpLongitude;
         public string AddressName { get { return _mpName; } set { Set(ref _mpName, value); } }
         public string AddressStreet { get { return _mpStreet; } set { Set(ref _mpStreet, value); } }
         public string AddressCity { get { return _mpCity; } set { Set(ref _mpCity, value); } }
-        public int AddressCivicNumber { get { return _mpCivicNumber; } set { Set(ref _mpCivicNumber, value); } }
+        public string AddressCivicNumber { get { return _mpCivicNumber; } set { Set(ref _mpCivicNumber, value); } }
         public string AddressZipCode { get { return _mpZipCode; } set { Set(ref _mpZipCode, value); } }
         public double AddressLatitude { get { return _mpLatitude; } set { Set(ref _mpLatitude, value); } }
         public double AddressLongitude { get { return _mpLongitude; } set { Set(ref _mpLongitude, value); } }
         public bool HasGPS { get { return CrossGeolocator.Current.IsGeolocationAvailable; } }
 
-        private RelayCommand _findCoordinatesCmd, _addLocationCmd, _getMyPositionCmd;
-        public RelayCommand FindCoordinatesCommand =>
-            _findCoordinatesCmd ??
-            (_findCoordinatesCmd = new RelayCommand(() =>
+        private RelayCommand _addLocationByAddressCommand, _addLocationCmd, _getMyPositionCmd;
+        public RelayCommand AddALocationByAddressCommand =>
+            _addLocationByAddressCommand ??
+            (_addLocationByAddressCommand = new RelayCommand(async () =>
             {
-                //TODO find coordinates Xamarin.Geolocation
-                //var geo = new Geocoder();
-
+                var location = server.GoogleMaps.GetCoordinatesFromAddress(AddressCity, AddressStreet, AddressCivicNumber, AddressZipCode);
+                if (location != null)
+                {
+                    var response = await server.Activities.AddAddressPoint(AddressName, location.lat, location.lng);
+                    if(response.response == StatusCodes.OK)
+                    {
+                        UserDialogs.Instance.Alert("Location added successfully");
+                        navigation.GoBack();
+                    }
+                    else
+                    {
+                        UserDialogs.Instance.Alert("An error occurred while adding the address. Retry later");
+                        Debug.WriteLine("Error while adding address");
+                    }
+                }
+                else
+                    UserDialogs.Instance.Alert("It was not possible retrieve coordinates");
             }));
         public RelayCommand AddLocationCommand =>
             _addLocationCmd ??
             (_addLocationCmd = new RelayCommand(async () =>
             {
-                //TODO verify all fields aren't empty
-                var res = await server.Activities.AddAddressPoint(AddressName, AddressLatitude, AddressLongitude);
+                if (string.IsNullOrEmpty(AddressName.Trim()))
+                {
+                    UserDialogs.Instance.Alert("You must give a name to the location");
+                    return;
+                }
+                if(AddressLatitude == 0 && AddressLongitude == 0)
+                {
+                    UserDialogs.Instance.Alert("You must search gps coordinates");
+                    return;
+                }
+
+                var res = await server.Activities.AddAddressPoint(AddressName.Trim(), AddressLatitude, AddressLongitude);
                 if (res.response == StatusCodes.OK)
                 {
                     UserDialogs.Instance.Alert("Location added successfully");

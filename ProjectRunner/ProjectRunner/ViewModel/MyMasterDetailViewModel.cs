@@ -22,15 +22,9 @@ namespace ProjectRunner.ViewModel
         {
             navigation.NavigateTo(pageKey);
         }
-
-        private bool _navigationConf = false;
         public void ConfigureNavigation(NavigationPage navPage)
         {
-            if (!_navigationConf)
-            {
-                (navigation as NavigationService).Initialize(navPage, ViewModelLocator.HomePage);
-                _navigationConf = true;
-            }
+            (navigation as NavigationService).Initialize(navPage, ViewModelLocator.HomePage);
         }
     }
 }

@@ -17,8 +17,9 @@ namespace ProjectRunner.ServerAPI
     public class PRServer
     {
         private CommonServerAPI CommonApi { get; }
-        public AuthenticationAPI Authentication { get; private set; }
-        public ActivityAPI Activities { get; private set; }
+        public AuthenticationAPI Authentication { get; }
+        public ActivityAPI Activities { get; }
+        public GoogleMapsAPI GoogleMaps { get; }
         public PRServer(PRCache cache)
         {
             CommonApi = new CommonServerAPI();
@@ -30,6 +31,7 @@ namespace ProjectRunner.ServerAPI
                 ViewModelLocator.NavigationService.Initialize(Application.Current.MainPage as NavigationPage, ViewModelLocator.HomePage);
             };
             Activities = new ActivityAPI(CommonApi, cache);
+            GoogleMaps = new GoogleMapsAPI(CommonApi);
         }
     }
     public class CommonServerAPI
@@ -67,42 +69,23 @@ namespace ProjectRunner.ServerAPI
 
             try
             {
-#if DEBUG
-                Debug.WriteLine(await postContent.ReadAsStringAsync());
-#endif
-                var response = http.PostAsync($"{SERVER_ENDPOINT}{url}", postContent).Result;
-#if DEBUG
-                Debug.WriteLine($"REQUEST at {url} - {response.StatusCode}");
-#endif
-                if (response.IsSuccessStatusCode)
-                {
-                    var output = await response.Content.ReadAsStringAsync();
-#if DEBUG
-                    Debug.WriteLine(output);
-#endif
-                    var result = JsonConvert.DeserializeObject<Dictionary<string, string>>(output);
+                var output = await SendSimpleRequest($"{SERVER_ENDPOINT}{url}", postContent);
+                var result = JsonConvert.DeserializeObject<Dictionary<string, string>>(output);
 
-                    envelop.time = DateTime.Parse(result["time"], CultureInfo.InvariantCulture);
-                    envelop.response = (StatusCodes)Enum.ToObject(typeof(StatusCodes), Int32.Parse(result["response"]));
+                envelop.time = DateTime.Parse(result["time"], CultureInfo.InvariantCulture);
+                envelop.response = (StatusCodes)Enum.ToObject(typeof(StatusCodes), Int32.Parse(result["response"]));
 #if DEBUG
-                    Debug.WriteLine("STAUS CODE: " + envelop.response);
+                Debug.WriteLine("STAUS CODE: " + envelop.response);
 #endif
-                    if (typeof(T) == typeof(string))
-                        envelop.content = (T)(object)result["content"];
-                    else
-                    {
-                        var json = result["content"].ToString();
-                        if(!string.IsNullOrEmpty(json))
-                            envelop.content = JsonConvert.DeserializeObject<T>(json);
-                    }
-                        
-                    return envelop;
-                }
+                if (typeof(T) == typeof(string))
+                    envelop.content = (T)(object)result["content"];
                 else
                 {
-                    envelop.time = DateTime.Now;
-                    envelop.response = StatusCodes.SERVER_ERROR;
+                    var json = result["content"].ToString();
+                    if (!string.IsNullOrEmpty(json))
+                        envelop.content = JsonConvert.DeserializeObject<T>(json);
                 }
+                return envelop;
             }
             catch (Exception e)
             {
@@ -129,36 +112,15 @@ namespace ProjectRunner.ServerAPI
             }
             try
             {
-                var response = http.PostAsync($"{SERVER_ENDPOINT}{url}", postContent).Result;
-#if DEBUG
-                Debug.WriteLine($"REQUEST at {url} - {response.StatusCode}");
-#endif
-                if (response.IsSuccessStatusCode)
+                var output = await SendSimpleRequest($"{SERVER_ENDPOINT}{url}", postContent);
+                var result = JsonConvert.DeserializeObject<Dictionary<string, object>>(output);
+                envelop.time = DateTime.Parse(result["time"].ToString(), CultureInfo.InvariantCulture);
+                envelop.response = (StatusCodes)Enum.ToObject(typeof(StatusCodes), Int32.Parse(result["response"].ToString()));
+                var json = result["content"].ToString();
+                if (!string.IsNullOrEmpty(json))
                 {
-                    var output = await response.Content.ReadAsStringAsync();
-#if DEBUG
-                    Debug.WriteLine(output);
-#endif
-                    var result = JsonConvert.DeserializeObject<Dictionary<string, object>>(output);
-
-                    envelop.time = DateTime.Parse(result["time"].ToString(), CultureInfo.InvariantCulture);
-                    envelop.response = (StatusCodes)Enum.ToObject(typeof(StatusCodes), Int32.Parse(result["response"].ToString()));
-                    var json = result["content"].ToString();
-                    if(!string.IsNullOrEmpty(json))
-                    {
-                        var values = JsonConvert.DeserializeObject<ContentContainer>(json);
-                        envelop.content = parseAction.Invoke(values);
-                    }
-                    else
-                    {
-                    
-                    }
-                    return envelop;
-                }
-                else
-                {
-                    envelop.time = DateTime.Now;
-                    envelop.response = StatusCodes.SERVER_ERROR;
+                    var values = JsonConvert.DeserializeObject<ContentContainer>(json);
+                    envelop.content = parseAction.Invoke(values);
                 }
             }
             catch (Exception e)
@@ -168,6 +130,33 @@ namespace ProjectRunner.ServerAPI
                 envelop.response = StatusCodes.CONNECTION_ERROR;
             }
             return envelop;
+        }
+        public async Task<string> SendSimpleRequest(string url, HttpContent content = null)
+        {
+            try
+            {
+#if DEBUG
+                if(content!=null)
+                    Debug.WriteLine(await content.ReadAsStringAsync());
+#endif
+                var response = http.PostAsync(url, content).Result;
+#if DEBUG
+                Debug.WriteLine($"REQUEST at {url} - {response.StatusCode}");
+#endif
+                if (response.IsSuccessStatusCode)
+                {
+                    var output = response.Content.ReadAsStringAsync().Result;
+#if DEBUG
+                    Debug.WriteLine(output);
+#endif
+                    return output;
+                }
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
+            throw new HttpRequestException();
         }
     }
     public class AuthenticationAPI
@@ -256,7 +245,10 @@ namespace ProjectRunner.ServerAPI
         }
         public async Task<Envelop<string>> Logout()
         {
-            throw new NotImplementedException();
+            var res = await server.SendRequest<string>("/authentication.php?action=Logout");
+            if(res.response == StatusCodes.OK)
+                cache.DestroyAll();
+            return res;
         }
         public async Task<Envelop<string>> RecoverPassword()
         {
@@ -491,7 +483,7 @@ namespace ProjectRunner.ServerAPI
             var result = await server.SendRequestWithAction<MapAddress, Dictionary<string, string>>("/activities.php?action=AddAddress", (x) =>
             {
                 return x != null && x.Any() ? MapAddress.ParseDictionary(x) : null;
-            });
+            }, postContent);
             if (result.response == StatusCodes.OK)
                 cache.MyMapAddresses.Add(result.content);
             return result;
@@ -507,7 +499,7 @@ namespace ProjectRunner.ServerAPI
             var result = await server.SendRequestWithAction<MapAddress, Dictionary<string, string>>("/activities.php?action=AddAddressPoint", (x)=>
             {
                 return x != null && x.Any() ? MapAddress.ParseDictionary(x) : null;
-            });
+            }, postContent);
             if (result.response == StatusCodes.OK)
                 cache.MyMapAddresses.Add(result.content);
             return result;
@@ -690,6 +682,85 @@ namespace ProjectRunner.ServerAPI
                 profile.RegistrationTime = DateTime.Parse(dictionary["registration"], CultureInfo.InvariantCulture);
 
             return profile;
+        }
+    }
+    public class GoogleMapsAPI
+    {
+        private CommonServerAPI comm;
+        public GoogleMapsAPI(CommonServerAPI c)
+        {
+            comm = c;
+        }
+        private static readonly string GOOGLEMAPS_API_KEY = "AIzaSyDVPJKCj8wPi50f1x3BV_rUrOKRaDI6ZXM";
+        public Location GetCoordinatesFromAddress(string city, string street, string streetNo, string postalCode)
+        {
+            var address = (!string.IsNullOrEmpty(street) ? street : "") + (!string.IsNullOrEmpty(streetNo) ? ","+streetNo : "")+
+                ", "+(!string.IsNullOrEmpty(postalCode) ? postalCode + " " : "") + (!string.IsNullOrEmpty(city) ? city : "");
+            var endpoint = $"https://maps.googleapis.com/maps/api/geocode/json?address={address}&key={GOOGLEMAPS_API_KEY}";
+            try
+            {
+                var output = comm.SendSimpleRequest(endpoint).Result;
+                var result = JsonConvert.DeserializeObject<GoogleMapsGeocode>(output);
+                if(result.status=="OK" && result.results.Any())
+                    return result.results[0].geometry.location;
+            }
+            catch
+            {
+                Debug.WriteLine("exception catched");
+            }
+            return null;
+        }
+        public class AddressComponent
+        {
+            public string long_name { get; set; }
+            public string short_name { get; set; }
+            public List<string> types { get; set; }
+        }
+
+        public class Location
+        {
+            public double lat { get; set; }
+            public double lng { get; set; }
+        }
+
+        public class Northeast
+        {
+            public double lat { get; set; }
+            public double lng { get; set; }
+        }
+
+        public class Southwest
+        {
+            public double lat { get; set; }
+            public double lng { get; set; }
+        }
+
+        public class Viewport
+        {
+            public Northeast northeast { get; set; }
+            public Southwest southwest { get; set; }
+        }
+
+        public class Geometry
+        {
+            public Location location { get; set; }
+            public string location_type { get; set; }
+            public Viewport viewport { get; set; }
+        }
+
+        public class Result
+        {
+            public List<AddressComponent> address_components { get; set; }
+            public string formatted_address { get; set; }
+            public Geometry geometry { get; set; }
+            public string place_id { get; set; }
+            public List<string> types { get; set; }
+        }
+
+        public class GoogleMapsGeocode
+        {
+            public List<Result> results { get; set; }
+            public string status { get; set; }
         }
     }
     public class MapAddress

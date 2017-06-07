@@ -183,11 +183,16 @@ namespace ProjectRunner.ServerAPI
         }
         public void DestroyAll()
         {
+            
             storage.DeleteKey("pr_username");
             storage.DeleteKey("pr_password");
-            DeleteItemsFromTable<Activity>();
+            //DeleteItemsFromTable<Activity>();
             DeleteItemsFromTable<ChatMessage>();
             DeleteItemsFromTable<MapAddress>();
+            ListActivities.Clear();
+            ListProfiles.Clear();
+            MyMapAddresses.Clear();
+            CurrentUser = null;
         }
         public void DeleteActivity(int id)
         {

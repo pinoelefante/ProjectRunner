@@ -10,7 +10,7 @@ using Xamarin.Forms.Xaml;
 namespace ProjectRunner.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class CreateActivityChooseLocation : ContentPage
+    public partial class CreateActivityChooseLocation : MyContentPage
     {
         public CreateActivityChooseLocation()
         {

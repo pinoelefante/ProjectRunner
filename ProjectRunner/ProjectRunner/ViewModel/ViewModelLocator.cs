@@ -48,6 +48,7 @@ namespace ProjectRunner.ViewModel
             SimpleIoc.Default.Register<ActivityDetailsViewModel>();
             SimpleIoc.Default.Register<SearchActivityViewModel>();
             SimpleIoc.Default.Register<LoadingViewModel>();
+            SimpleIoc.Default.Register<AddLocationViewModel>();
         }
         public static void RegisterPages()
         {
