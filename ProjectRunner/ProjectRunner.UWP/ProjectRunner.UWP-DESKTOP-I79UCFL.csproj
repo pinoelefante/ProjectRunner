@@ -113,13 +113,11 @@
     <Content Include="background.png" />
     <Content Include="bicycle.png" />
     <Content Include="false_image.png" />
-    <Content Include="female.png" />
     <Content Include="football.png" />
     <Content Include="gps_location.png" />
     <Content Include="join.png" />
     <Content Include="leave.png" />
     <Content Include="locked.png" />
-    <Content Include="male.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-100.png" />
     <Content Include="Assets\LockScreenLogo.scale-125.png" />
@@ -180,6 +178,9 @@
   <ItemGroup>
     <SDKReference Include="Microsoft.VCLibs, Version=14.0">
       <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
+    </SDKReference>
+    <SDKReference Include="Microsoft.VCLibs.120, Version=14.0">
+      <Name>Microsoft Visual C++ 2013 Runtime Package for Windows Universal</Name>
     </SDKReference>
     <SDKReference Include="SQLite.UWP.2015, Version=3.19.3">
       <Name>SQLite for Universal Windows Platform %28SQLite.UWP.2015, Version=3.19.3%29</Name>

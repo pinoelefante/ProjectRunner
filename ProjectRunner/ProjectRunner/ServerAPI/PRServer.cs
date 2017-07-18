@@ -8,7 +8,6 @@ using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -37,8 +36,9 @@ namespace ProjectRunner.ServerAPI
     public class CommonServerAPI
     {
         private HttpClient http;
-        //private static readonly string SERVER_ADDRESS = "http://localhost";
-        private static readonly string SERVER_ADDRESS = "http://gestioneserietv.altervista.org";
+
+        private static readonly string SERVER_ADDRESS = "http://localhost";
+        //private static readonly string SERVER_ADDRESS = "http://gestioneserietv.altervista.org";
         private static readonly string SERVER_ENDPOINT = $"{SERVER_ADDRESS}/prserver";
 
         public CommonServerAPI()
@@ -658,6 +658,8 @@ namespace ProjectRunner.ServerAPI
         public DateTime LastUpdate { get; set; }
         public int DefaultUserLocation { get; set; }
         public bool NotifyNearbyActivities { get; set; }
+        public int Sex { get; set; }
+        public string Image { get; set; }
 
         public UserProfile() { }
 
@@ -671,6 +673,7 @@ namespace ProjectRunner.ServerAPI
                 FirstName = dictionary.ContainsKey("firstName") ? dictionary["firstName"] : string.Empty,
                 LastName = dictionary.ContainsKey("lastName") ? dictionary["lastName"] : string.Empty,
                 Phone = dictionary.ContainsKey("phone") ? dictionary["phone"] : string.Empty,
+                Sex = dictionary.ContainsKey("sex") ? Int32.Parse(dictionary["sex"]) : 0,
                 DefaultUserLocation = dictionary.ContainsKey("defaultLocation") && dictionary["defaultLocation"] != null ? Int32.Parse(dictionary["defaultLocation"]) : 0,
                 NotifyNearbyActivities = dictionary.ContainsKey("notifyNearbyActivities") ? (Int32.Parse(dictionary["notifyNearbyActivities"]) == 1 ? true : false) : false, 
             };

@@ -40,4 +40,21 @@ namespace ProjectRunner.Views.Selectors
             return ServiceMessage;
         }
     }
+    public class ActivityUserProfileImageSelector : DataTemplateSelector
+    {
+        public DataTemplate AnonMale { get; set; }
+        public DataTemplate AnonFemale { get; set; }
+        public DataTemplate ImageProfile { get; set; }
+        protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
+        {
+            UserProfile profile = item as UserProfile;
+            if (!string.IsNullOrEmpty(profile.Image))
+                return ImageProfile;
+
+            if (profile.Sex == 0)
+                return AnonMale;
+            else
+                return AnonFemale;
+        }
+    }
 }

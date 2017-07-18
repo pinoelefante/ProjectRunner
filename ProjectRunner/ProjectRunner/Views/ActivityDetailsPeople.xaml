@@ -14,17 +14,9 @@
                   HasUnevenRows="True"
                   IsPullToRefreshEnabled="True"
                   IsRefreshing="{Binding IsLoadingPeople}"
-                  RefreshCommand="{Binding RefreshPeopleListCommand}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <StackLayout MinimumHeightRequest="24" Padding="5">
-                            <Label Text="{Binding Username}"/>
-                        </StackLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+                  RefreshCommand="{Binding RefreshPeopleListCommand}"
+                  ItemTemplate="{StaticResource ActivityUserProfileImageSelector}" />
+
         <StackLayout Grid.Row="1" Padding="5,10">
             <StackLayout Orientation="Horizontal">
                 <Label Text="Guest users: "/>

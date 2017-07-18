@@ -291,5 +291,17 @@ namespace ProjectRunner.Views.Converters
             throw new NotImplementedException();
         }
     }
+    public class UserImageConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            int sex = System.Convert.ToInt32(value);
+            return sex == 0 ? "male.png" : "female.png";
+        }
 
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

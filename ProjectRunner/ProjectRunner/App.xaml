@@ -30,7 +30,7 @@
             <converters:IsRoadActivityConverter x:Key="IsRoadActivityConverter"/>
             <converters:IsTeamActivityConverter x:Key="IsTeamActivityConverter"/>
             <converters:DateTimeStringConverter x:Key="DateTimeStringConverter"/>
-
+            <converters:UserImageConverter x:Key="UserImageConverter" />
 
             <DataTemplate x:Key="runningTemplate">
                 <ViewCell>
@@ -181,6 +181,35 @@
                                                    ServiceMessage="{StaticResource ServiceMessage}"
                                                    MyMessage="{StaticResource MyMessage}"
                                                    UserMessage="{StaticResource OthersMessage}"/>
+
+            <DataTemplate x:Key="ActivityUserProfileAnonyMale">
+                <ViewCell>
+                    <StackLayout MinimumHeightRequest="24" Padding="5" Orientation="Horizontal">
+                        <Image Source="male.png" WidthRequest="32" HeightRequest="32"/>
+                        <Label Text="{Binding Username}" VerticalOptions="Center"/>
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+            <DataTemplate x:Key="ActivityUserProfileAnonyFemale">
+                <ViewCell>
+                    <StackLayout MinimumHeightRequest="24" Padding="5" Orientation="Horizontal">
+                        <Image Source="female.png" WidthRequest="32" HeightRequest="32"/>
+                        <Label Text="{Binding Username}" VerticalOptions="Center"/>
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+            <DataTemplate x:Key="ActivityUserProfileWithImage">
+                <ViewCell>
+                    <StackLayout MinimumHeightRequest="24" Padding="5" Orientation="Horizontal">
+                        <Image Source="{Binding Image}" WidthRequest="32" HeightRequest="32"/>
+                        <Label Text="{Binding Username}" VerticalOptions="Center"/>
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+            <selectors:ActivityUserProfileImageSelector x:Key="ActivityUserProfileImageSelector" 
+                                                        AnonFemale="{StaticResource ActivityUserProfileAnonyFemale}"
+                                                        AnonMale="{StaticResource ActivityUserProfileAnonyMale}"
+                                                        ImageProfile="{StaticResource ActivityUserProfileWithImage}"/>
         </ResourceDictionary>  
       
     </Application.Resources>
