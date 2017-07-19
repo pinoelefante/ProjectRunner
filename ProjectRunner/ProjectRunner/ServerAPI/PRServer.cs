@@ -19,6 +19,7 @@ namespace ProjectRunner.ServerAPI
         public AuthenticationAPI Authentication { get; }
         public ActivityAPI Activities { get; }
         public GoogleMapsAPI GoogleMaps { get; }
+        public PeopleAPI People { get; }
         public PRServer(PRCache cache)
         {
             CommonApi = new CommonServerAPI();
@@ -31,6 +32,7 @@ namespace ProjectRunner.ServerAPI
             };
             Activities = new ActivityAPI(CommonApi, cache);
             GoogleMaps = new GoogleMapsAPI(CommonApi);
+            People = new PeopleAPI(CommonApi);
         }
     }
     public class CommonServerAPI
@@ -39,7 +41,7 @@ namespace ProjectRunner.ServerAPI
 
         private static readonly string SERVER_ADDRESS = "http://localhost";
         //private static readonly string SERVER_ADDRESS = "http://gestioneserietv.altervista.org";
-        private static readonly string SERVER_ENDPOINT = $"{SERVER_ADDRESS}/prserver";
+        public static readonly string SERVER_ENDPOINT = $"{SERVER_ADDRESS}/prserver";
 
         public CommonServerAPI()
         {
@@ -212,7 +214,13 @@ namespace ProjectRunner.ServerAPI
                 new KeyValuePair<string, string>("email", email),
                 new KeyValuePair<string, string>("timezone", timezone)
             });
-            var response = await server.SendRequest<string>("/authentication.php?action=Register", postContent, false);
+
+            var response = await server.SendRequestWithAction<string, Dictionary<string, string>>("/authentication.php?action=Register", (x) =>
+            {
+                if (x != null)
+                    cache.CurrentUser = UserProfile.ParseDictionary(x);
+                return string.Empty;
+            }, postContent, false);
             server.IsLogged = response.response == StatusCodes.OK;
             if (server.IsLogged)
                 cache.SaveCredentials(username, password);
@@ -613,23 +621,43 @@ namespace ProjectRunner.ServerAPI
         }
         public async Task<Envelop<string>> RequestFriendship(int userId)
         {
-            throw new NotImplementedException();
+            var postContent = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>(FriendshipDatabase.REQUEST_FRIEND, userId.ToString())
+            });
+            return await server.SendRequest<string>("/people.php?action=RequestFriendship", postContent);
         }
         public async Task<Envelop<string>> AcceptFriendship(int userId)
         {
-            throw new NotImplementedException();
+            var postContent = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>(FriendshipDatabase.REQUEST_FRIEND, userId.ToString())
+            });
+            return await server.SendRequest<string>("/people.php?action=AcceptFriendship", postContent);
         }
         public async Task<Envelop<string>> RejectFriendship(int userId)
         {
-            throw new NotImplementedException();
+            var postContent = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>(FriendshipDatabase.REQUEST_FRIEND, userId.ToString())
+            });
+            return await server.SendRequest<string>("/people.php?action=RejectFriendship", postContent);
         }
         public async Task<Envelop<string>> RemoveFriend(int userId)
         {
-            throw new NotImplementedException();
+            var postContent = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>(FriendshipDatabase.FRIEND, userId.ToString())
+            });
+            return await server.SendRequest<string>("/people.php?action=RemoveFriend", postContent);
         }
         public async Task<Envelop<bool>> IsFriend(int userId)
         {
-            throw new NotImplementedException();
+            var postContent = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>(FriendshipDatabase.FRIEND, userId.ToString())
+            });
+            return await server.SendRequest<bool>("/people.php?action=IsFriend", postContent);
         }
         public async Task<Envelop<List<UserProfile>>> FriendList()
         {
@@ -642,6 +670,22 @@ namespace ProjectRunner.ServerAPI
         public async Task<Envelop<List<UserProfile>>> FriendshipReceived()
         {
             throw new NotImplementedException();
+        }
+        public async Task<Envelop<Dictionary<string, object>>> GetProfileInfo(int userId)
+        {
+            var postContent = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("id", userId.ToString())
+            });
+            return await server.SendRequestWithAction<Dictionary<string,object>, Dictionary<string, string>>("/people.php?action=GetProfileInfo", (x) =>
+            {
+                Dictionary<string, object> dic = new Dictionary<string, object>(4);
+                dic.Add("user", UserProfile.ParseDictionary(x));
+                dic.Add("friendsCount", Int32.Parse(x["friendsCount"]));
+                dic.Add("isFriend", Int32.Parse(x["isFriend"]) == 0 ? false : true);
+                dic.Add("friendRequest", Int32.Parse(x["friendRequest"]) == 0 ? false : true);
+                return dic;
+            }, postContent);
         }
     }
     public class UserProfile
@@ -852,7 +896,7 @@ namespace ProjectRunner.ServerAPI
         {
             get
             {
-                return 1 + GuestUsers + JoinedPlayers;
+                return GuestUsers + JoinedPlayers;
             }
         }
         protected Activity() { }
@@ -1038,5 +1082,10 @@ namespace ProjectRunner.ServerAPI
             ID_USER = "id_user",
             MESSAGE = "message",
             TIMESTAMP = "timestamp";
+    }
+    class FriendshipDatabase
+    {
+        public const string USER = "user_id", FRIEND = "friend_id",
+            REQUEST_USER = "user_id", REQUEST_FRIEND = "friend_id";
     }
 }

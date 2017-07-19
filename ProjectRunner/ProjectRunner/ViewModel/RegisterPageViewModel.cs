@@ -55,10 +55,6 @@ namespace ProjectRunner.ViewModel
                     UserDialogs.Instance.Alert($"An error occurred while creating a new account: {response.response}");
             }));
 
-        public RelayCommand TimeZoneTest =>
-            new RelayCommand(() =>
-            {
-            });
         private int _timezonesContinentIndex = 0, _selectedNation = 0, _cityIndex = 0;
         public int TimezonesContinentIndex { get { return _timezonesContinentIndex; } set { Set(ref _timezonesContinentIndex, value); RaisePropertyChanged(() => CurrentNationsList); } }
         public int TimezonesNationIndex { get { return _selectedNation; } set { Set(ref _selectedNation, value); RaisePropertyChanged(() => CurrentNationCities); } }

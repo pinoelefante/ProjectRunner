@@ -69,6 +69,7 @@ namespace ProjectRunner.ViewModel
         private bool _editMode;
         public bool IsEditModeEnabled { get { return _editMode; } set { Set(ref _editMode, value); } }
         private RelayCommand _enableEditModeCmd, _saveChangesCmd, _openMapCmd, _leaveActivityCmd, _deleteActivityCmd, _sendChatMsgCmd, _joinActivityCmd;
+        private RelayCommand<UserProfile> _viewUserProfile;
         public RelayCommand ToogleEditModeCommand =>
             _enableEditModeCmd ??
             (_enableEditModeCmd = new RelayCommand(() =>
@@ -207,6 +208,12 @@ namespace ProjectRunner.ViewModel
                     else
                         UserDialogs.Instance.Alert("You can't join this activity", "The activity is full");
                 }
+            }));
+        public RelayCommand<UserProfile> ViewUserProfileCommand =>
+            _viewUserProfile ??
+            (_viewUserProfile = new RelayCommand<UserProfile>((p) =>
+            {
+                navigation.NavigateTo(ViewModelLocator.ViewUserProfile, p.Id);
             }));
         private string _chatMessage;
         public string ChatMessage { get { return _chatMessage; } set { Set(ref _chatMessage, value); } }

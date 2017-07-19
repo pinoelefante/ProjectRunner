@@ -30,7 +30,8 @@
             <converters:IsRoadActivityConverter x:Key="IsRoadActivityConverter"/>
             <converters:IsTeamActivityConverter x:Key="IsTeamActivityConverter"/>
             <converters:DateTimeStringConverter x:Key="DateTimeStringConverter"/>
-            <converters:UserImageConverter x:Key="UserImageConverter" />
+            <converters:UserProfileImageConverter x:Key="UserProfileImageConverter" />
+            <converters:UserImageConverter x:Key="UserImageConverter"/>
 
             <DataTemplate x:Key="runningTemplate">
                 <ViewCell>
@@ -201,7 +202,7 @@
             <DataTemplate x:Key="ActivityUserProfileWithImage">
                 <ViewCell>
                     <StackLayout MinimumHeightRequest="24" Padding="5" Orientation="Horizontal">
-                        <Image Source="{Binding Image}" WidthRequest="32" HeightRequest="32"/>
+                        <Image Source="{Binding Image, Converter={StaticResource UserProfileImageConverter}}" WidthRequest="32" HeightRequest="32"/>
                         <Label Text="{Binding Username}" VerticalOptions="Center"/>
                     </StackLayout>
                 </ViewCell>

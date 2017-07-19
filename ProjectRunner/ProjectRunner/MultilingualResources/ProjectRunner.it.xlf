@@ -116,8 +116,7 @@
         </trans-unit>
         <trans-unit id="EUROPE_MOLDOVA" translate="yes" xml:space="preserve">
           <source>Moldova</source>
-          <target state="needs-review-translation">Moldavia</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">Moldavia</target>
         </trans-unit>
         <trans-unit id="EUROPE_MONACO" translate="yes" xml:space="preserve">
           <source>Monaco</source>

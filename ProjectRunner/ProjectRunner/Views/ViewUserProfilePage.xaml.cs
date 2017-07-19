@@ -1,5 +1,4 @@
-﻿using ProjectRunner.ServerAPI;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace ProjectRunner.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ActivityDetails : MyTabbedPage
+    public partial class ViewUserProfilePage : MyContentPage
     {
-        public ActivityDetails(object parameter = null) : base(parameter)
+        public ViewUserProfilePage(object parameter = null) : base(parameter)
         {
             InitializeComponent();
         }

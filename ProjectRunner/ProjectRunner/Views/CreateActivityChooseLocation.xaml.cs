@@ -12,7 +12,7 @@ namespace ProjectRunner.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CreateActivityChooseLocation : MyContentPage
     {
-        public CreateActivityChooseLocation()
+        public CreateActivityChooseLocation() : base()
         {
             InitializeComponent();
         }

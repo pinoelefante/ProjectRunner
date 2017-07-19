@@ -25,7 +25,8 @@ namespace ProjectRunner.ViewModel
             CreateActivityConfirm = "CreateActivityConfirm",
             ActivityDetails = "ActivityDetailsPage",
             ActivitySearch = "SearchActivity",
-            ActivitySearchResults = "ActivitySearchResults";
+            ActivitySearchResults = "ActivitySearchResults",
+            ViewUserProfile = "ViewUserProfile";
         
         private static NavigationService nav;
         static ViewModelLocator()
@@ -49,6 +50,7 @@ namespace ProjectRunner.ViewModel
             SimpleIoc.Default.Register<SearchActivityViewModel>();
             SimpleIoc.Default.Register<LoadingViewModel>();
             SimpleIoc.Default.Register<AddLocationViewModel>();
+            SimpleIoc.Default.Register<ViewUserProfileViewModel>();
         }
         public static void RegisterPages()
         {
@@ -66,6 +68,8 @@ namespace ProjectRunner.ViewModel
             nav.Configure(ActivityDetails, typeof(Views.ActivityDetails));
             nav.Configure(ActivitySearch, typeof(Views.SearchActivity));
             nav.Configure(ActivitySearchResults, typeof(Views.SearchActivityResults));
+
+            nav.Configure(ViewUserProfile, typeof(Views.ViewUserProfilePage));
         }
         public static T GetService<T>() => ServiceLocator.Current.GetInstance<T>();
         public static NavigationService NavigationService { get { return nav; } }
@@ -81,5 +85,6 @@ namespace ProjectRunner.ViewModel
         public SearchActivityViewModel SearchActivityViewModel => GetService<SearchActivityViewModel>();
         public LoadingViewModel LoadingViewModel => GetService<LoadingViewModel>();
         public AddLocationViewModel AddLocationViewModel => GetService<AddLocationViewModel>();
+        public ViewUserProfileViewModel ViewUserProfileViewModel => GetService<ViewUserProfileViewModel>();
     }
 }

@@ -37,9 +37,8 @@
                 <Picker Grid.Column="1" ItemsSource="{Binding CurrentNationsList}" SelectedIndex="{Binding TimezonesNationIndex, Mode=TwoWay}"/>
                 <Picker Grid.Column="2" ItemsSource="{Binding CurrentNationCities}" SelectedIndex="{Binding TimezonesCityIndex, Mode=TwoWay}"/>
             </Grid>
-            <Button Text="TimeZone" Command="{Binding TimeZoneTest}" />
 
-            <Button Text="Register" Command="{Binding RegisterCommand}" />
+            <Button Text="Register" Command="{Binding RegisterCommand}" HeightRequest="60"/>
         </StackLayout>
     </ScrollView>
 </views:MyContentPage>
