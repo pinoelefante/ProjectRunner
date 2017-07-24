@@ -8,6 +8,8 @@ using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -52,7 +54,11 @@ namespace ProjectRunner.ServerAPI
             http.DefaultRequestHeaders.Add("User-Agent", "ProjectRunnerUA");
             http.Timeout = TimeSpan.FromSeconds(10);
         }
-
+        public void SetAuthorization(string username, string password)
+        {
+            http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic",
+                            Convert.ToBase64String(Encoding.UTF8.GetBytes($"{username}:{password}")));
+        }
         public bool IsLogged { get; set; } = false;
         public Func<bool> SilentLoginAction { get; set; }
         public Action OnAccessCodeError { get; set; }
@@ -169,6 +175,10 @@ namespace ProjectRunner.ServerAPI
         {
             server = client;
             cache = c;
+
+            var credentials = cache.GetCredentials();
+            if (credentials != null)
+                server.SetAuthorization(credentials[0], credentials[1]);
         }
         public bool SilentLogin()
         {
