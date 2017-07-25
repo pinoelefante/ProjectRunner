@@ -175,10 +175,6 @@ namespace ProjectRunner.ServerAPI
         {
             server = client;
             cache = c;
-
-            var credentials = cache.GetCredentials();
-            if (credentials != null)
-                server.SetAuthorization(credentials[0], credentials[1]);
         }
         public bool SilentLogin()
         {
@@ -194,6 +190,7 @@ namespace ProjectRunner.ServerAPI
         }
         public async Task<Envelop<string>> LoginAsync(string username, string password)
         {
+            server.SetAuthorization(username, password);
             FormUrlEncodedContent postContent = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>()
             {
                 new KeyValuePair<string, string>("username",username),
@@ -225,7 +222,7 @@ namespace ProjectRunner.ServerAPI
                 new KeyValuePair<string, string>("timezone", timezone)
             });
 
-            var response = await server.SendRequestWithAction<string, Dictionary<string, string>>("/authentication.php?action=Register", (x) =>
+            var response = await server.SendRequestWithAction<string, Dictionary<string, string>>("/registration.php", (x) =>
             {
                 if (x != null)
                     cache.CurrentUser = UserProfile.ParseDictionary(x);
@@ -233,7 +230,10 @@ namespace ProjectRunner.ServerAPI
             }, postContent, false);
             server.IsLogged = response.response == StatusCodes.OK;
             if (server.IsLogged)
+            {
                 cache.SaveCredentials(username, password);
+                server.SetAuthorization(username, password);
+            }
             return response;
         }
         public async Task<Envelop<string>> ModifyField(string field, string newValue)
