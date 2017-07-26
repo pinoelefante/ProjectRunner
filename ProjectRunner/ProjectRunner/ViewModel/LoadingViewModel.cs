@@ -1,4 +1,5 @@
 ﻿using ProjectRunner.ServerAPI;
+using ProjectRunner.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,11 +28,17 @@ namespace ProjectRunner.ViewModel
             {
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    Application.Current.MainPage = new Views.MyMasterPage();
+                    if (x.Result)
+                        Application.Current.MainPage = new Views.MyMasterPage();
+                    else
+                    {
+                        Application.Current.MainPage = new NavigationPage(new Views.LoginPage());
+                        ViewModelLocator.NavigationService.Initialize(Application.Current.MainPage as NavigationPage, ViewModelLocator.HomePage);
+                    }
                 });
             });
         }
-        private async Task DoLoadingAsync()
+        private async Task<bool> DoLoadingAsync()
         {
             Device.BeginInvokeOnMainThread(() =>
             {
@@ -40,8 +47,10 @@ namespace ProjectRunner.ViewModel
             });
             
             var resAddr = await server.Activities.ListAddressAsync();
-            if (resAddr.response == StatusCodes.OK && resAddr.content!=null)
+            if (resAddr.response == StatusCodes.OK && resAddr.content != null)
                 cache.MyMapAddresses.AddRange(resAddr.content);
+            else if (resAddr.response == StatusCodes.LOGIN_ERROR)
+                return false;
 
             Device.BeginInvokeOnMainThread(() =>
             {
@@ -69,6 +78,7 @@ namespace ProjectRunner.ViewModel
                 ProgressText = "Loading completed";
             });
             await Task.Delay(250);
+            return true;
         }
     }
 }

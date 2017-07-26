@@ -177,6 +177,11 @@ namespace ProjectRunner.ServerAPI
             }
             return credentials;
         }
+        public void DeleteCredentials()
+        {
+            storage.DeleteKey("pr_username");
+            storage.DeleteKey("pr_password");
+        }
         public bool HasCredentials()
         {
             return storage.HasKey("pr_username") && storage.HasKey("pr_password");

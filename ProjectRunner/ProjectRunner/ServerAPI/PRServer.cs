@@ -26,11 +26,14 @@ namespace ProjectRunner.ServerAPI
         {
             CommonApi = new CommonServerAPI();
             Authentication = new AuthenticationAPI(CommonApi, cache);
-            CommonApi.SilentLoginAction = () => { return Authentication.SilentLogin(); };
             CommonApi.OnAccessCodeError = () => 
             {
-                Application.Current.MainPage = new Views.LoginPage();
-                ViewModelLocator.NavigationService.Initialize(Application.Current.MainPage as NavigationPage, ViewModelLocator.HomePage);
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    cache.DeleteCredentials();
+                    Application.Current.MainPage = new NavigationPage(new Views.LoginPage());
+                    ViewModelLocator.NavigationService.Initialize(Application.Current.MainPage as NavigationPage, ViewModelLocator.HomePage);
+                });
             };
             Activities = new ActivityAPI(CommonApi, cache);
             GoogleMaps = new GoogleMapsAPI(CommonApi);
@@ -56,25 +59,16 @@ namespace ProjectRunner.ServerAPI
         }
         public void SetAuthorization(string username, string password)
         {
-            http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic",
-                            Convert.ToBase64String(Encoding.UTF8.GetBytes($"{username}:{password}")));
+            if (string.IsNullOrEmpty(username) && string.IsNullOrEmpty(password))
+                http.DefaultRequestHeaders.Authorization = null;
+            else
+                http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic",
+                                Convert.ToBase64String(Encoding.UTF8.GetBytes($"{username}:{password}")));
         }
-        public bool IsLogged { get; set; } = false;
-        public Func<bool> SilentLoginAction { get; set; }
         public Action OnAccessCodeError { get; set; }
-        public async Task<Envelop<T>> SendRequest<T>(string url, HttpContent postContent = null, bool loginRequired = true)
+        public async Task<Envelop<T>> SendRequest<T>(string url, HttpContent postContent = null)
         {
             Envelop<T> envelop = new Envelop<T>();
-
-            if (loginRequired && !IsLogged)
-            {
-                if (!SilentLoginAction.Invoke())
-                {
-                    OnAccessCodeError?.Invoke();
-                    return envelop;
-                }
-            }
-
             try
             {
                 var output = await SendSimpleRequest($"{SERVER_ENDPOINT}{url}", postContent);
@@ -85,6 +79,9 @@ namespace ProjectRunner.ServerAPI
 #if DEBUG
                 Debug.WriteLine("STAUS CODE: " + envelop.response);
 #endif
+                if(envelop.response == StatusCodes.LOGIN_ERROR)
+                    OnAccessCodeError?.Invoke();
+
                 if (typeof(T) == typeof(string))
                     envelop.content = (T)(object)result["content"];
                 else
@@ -103,27 +100,23 @@ namespace ProjectRunner.ServerAPI
             }
             return envelop;
         }
-        public async Task<Envelop<ContentType>> SendRequestWithAction<ContentType, ContentContainer>(string url, Func<ContentContainer, ContentType> parseAction, HttpContent postContent = null, bool loginRequired = true)
+        public async Task<Envelop<ContentType>> SendRequestWithAction<ContentType, ContentContainer>(string url, Func<ContentContainer, ContentType> parseAction, HttpContent postContent = null)
         {
             Envelop<ContentType> envelop = new Envelop<ContentType>();
-
             if (parseAction == null)
-                return await SendRequest<ContentType>(url, postContent, loginRequired);
-
-            if (loginRequired && !IsLogged)
-            {
-                if (!SilentLoginAction.Invoke())
-                {
-                    OnAccessCodeError?.Invoke();
-                    return envelop;
-                }
-            }
+                return await SendRequest<ContentType>(url, postContent);
+            
             try
             {
                 var output = await SendSimpleRequest($"{SERVER_ENDPOINT}{url}", postContent);
                 var result = JsonConvert.DeserializeObject<Dictionary<string, object>>(output);
                 envelop.time = DateTime.Parse(result["time"].ToString(), CultureInfo.InvariantCulture);
                 envelop.response = (StatusCodes)Enum.ToObject(typeof(StatusCodes), Int32.Parse(result["response"].ToString()));
+                if (envelop.response == StatusCodes.LOGIN_ERROR)
+                {
+                    OnAccessCodeError?.Invoke();
+                    return envelop;
+                }
                 var json = result["content"].ToString();
                 if (!string.IsNullOrEmpty(json))
                 {
@@ -175,36 +168,23 @@ namespace ProjectRunner.ServerAPI
         {
             server = client;
             cache = c;
-        }
-        public bool SilentLogin()
-        {
-            var credentials = cache.GetCredentials();
-            if (credentials != null)
+            if(cache.HasCredentials())
             {
-                var res = LoginAsync(credentials[0], credentials[1]).Result;
-                credentials[0] = string.Empty;
-                credentials[1] = string.Empty;
-                return res.response == StatusCodes.OK;
+                var cred = cache.GetCredentials();
+                server.SetAuthorization(cred[0], cred[1]);
             }
-            return false;
         }
         public async Task<Envelop<string>> LoginAsync(string username, string password)
         {
             server.SetAuthorization(username, password);
-            FormUrlEncodedContent postContent = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>()
-            {
-                new KeyValuePair<string, string>("username",username),
-                new KeyValuePair<string, string>("password", password)
-            });
 
             var response = await server.SendRequestWithAction<string, Dictionary<string,string>>("/authentication.php?action=Login", (x)=>
             {
                 if (x != null)
                     cache.CurrentUser = UserProfile.ParseDictionary(x);
                 return string.Empty;
-            }, postContent, false);
-            server.IsLogged = response.response == StatusCodes.OK;
-            if (server.IsLogged)
+            });
+            if(response.response == StatusCodes.OK)
                 cache.SaveCredentials(username, password);
             return response;
         }
@@ -227,9 +207,8 @@ namespace ProjectRunner.ServerAPI
                 if (x != null)
                     cache.CurrentUser = UserProfile.ParseDictionary(x);
                 return string.Empty;
-            }, postContent, false);
-            server.IsLogged = response.response == StatusCodes.OK;
-            if (server.IsLogged)
+            }, postContent);
+            if (response.response == StatusCodes.OK)
             {
                 cache.SaveCredentials(username, password);
                 server.SetAuthorization(username, password);
@@ -264,8 +243,11 @@ namespace ProjectRunner.ServerAPI
         public async Task<Envelop<string>> Logout()
         {
             var res = await server.SendRequest<string>("/authentication.php?action=Logout");
-            if(res.response == StatusCodes.OK)
+            if (res.response == StatusCodes.OK)
+            {
                 cache.DestroyAll();
+                server.SetAuthorization(null, null);
+            }
             return res;
         }
         public async Task<Envelop<string>> RecoverPassword()
