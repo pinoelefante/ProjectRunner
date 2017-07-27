@@ -30,6 +30,11 @@ namespace ProjectRunner.Views
                 {
                     Title = "Activities",
                     PageKey = ViewModelLocator.Activities
+                },
+                new MasterPageItem()
+                {
+                    Title = "Friends",
+                    PageKey = ViewModelLocator.FriendsPage
                 }
             };
         }

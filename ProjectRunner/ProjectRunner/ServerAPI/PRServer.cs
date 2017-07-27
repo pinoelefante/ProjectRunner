@@ -44,12 +44,16 @@ namespace ProjectRunner.ServerAPI
     {
         private HttpClient http;
 
+#if WINDOWS_UWP
         private static readonly string SERVER_ADDRESS = "http://localhost";
-        //private static readonly string SERVER_ADDRESS = "http://gestioneserietv.altervista.org";
+#else
+        private static readonly string SERVER_ADDRESS = "http://gestioneserietv.altervista.org";
+#endif
         public static readonly string SERVER_ENDPOINT = $"{SERVER_ADDRESS}/prserver";
 
         public CommonServerAPI()
         {
+            Debug.WriteLine("Server Address: " + SERVER_ADDRESS);
             var cookieContainer = new CookieContainer();
             var handler = new HttpClientHandler() { CookieContainer = cookieContainer, UseCookies = true, AllowAutoRedirect = false };
             http = new HttpClient(handler);

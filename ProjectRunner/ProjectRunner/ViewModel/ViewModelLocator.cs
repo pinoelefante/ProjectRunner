@@ -26,7 +26,8 @@ namespace ProjectRunner.ViewModel
             ActivityDetails = "ActivityDetailsPage",
             ActivitySearch = "SearchActivity",
             ActivitySearchResults = "ActivitySearchResults",
-            ViewUserProfile = "ViewUserProfile";
+            ViewUserProfile = "ViewUserProfile",
+            FriendsPage = "FriendsPage";
         
         private static NavigationService nav;
         static ViewModelLocator()
@@ -51,6 +52,7 @@ namespace ProjectRunner.ViewModel
             SimpleIoc.Default.Register<LoadingViewModel>();
             SimpleIoc.Default.Register<AddLocationViewModel>();
             SimpleIoc.Default.Register<ViewUserProfileViewModel>();
+            SimpleIoc.Default.Register<FriendsViewModel>();
         }
         public static void RegisterPages()
         {
@@ -70,6 +72,7 @@ namespace ProjectRunner.ViewModel
             nav.Configure(ActivitySearchResults, typeof(Views.SearchActivityResults));
 
             nav.Configure(ViewUserProfile, typeof(Views.ViewUserProfilePage));
+            nav.Configure(FriendsPage, typeof(Views.FriendsPage));
         }
         public static T GetService<T>() => ServiceLocator.Current.GetInstance<T>();
         public static NavigationService NavigationService { get { return nav; } }
@@ -86,5 +89,6 @@ namespace ProjectRunner.ViewModel
         public LoadingViewModel LoadingViewModel => GetService<LoadingViewModel>();
         public AddLocationViewModel AddLocationViewModel => GetService<AddLocationViewModel>();
         public ViewUserProfileViewModel ViewUserProfileViewModel => GetService<ViewUserProfileViewModel>();
+        public FriendsViewModel FriendsViewModel => GetService<FriendsViewModel>();
     }
 }

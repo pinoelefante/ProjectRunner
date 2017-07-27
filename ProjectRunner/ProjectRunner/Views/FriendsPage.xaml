@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:MyTabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            x:Class="ProjectRunner.Views.FriendsPage"
+            xmlns:views="clr-namespace:ProjectRunner.Views"
+            BindingContext="{Binding FriendsViewModel, Source={StaticResource Locator}}">
+    <!--Pages can be added as references or inline-->
+    <ContentPage Title="Friends" />
+
+    <TabbedPage Title="Requests">
+        <ContentPage Title="Received"/>
+        <ContentPage Title="Sent"/>
+    </TabbedPage>
+</views:MyTabbedPage>

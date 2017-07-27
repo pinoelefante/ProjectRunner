@@ -41,7 +41,6 @@ namespace ProjectRunner.ViewModel
             _openProfile ??
             (_openProfile = new RelayCommand(() =>
             {
-                Debug.WriteLine("Tapping");
                 navigation.NavigateTo(ViewModelLocator.ViewUserProfile, User.Id);
             }));
     }

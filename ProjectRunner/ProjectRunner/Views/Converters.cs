@@ -171,8 +171,6 @@ namespace ProjectRunner.Views.Converters
             if (activity == null)
                 return 0;
             var joined = activity.JoinedPlayers + activity.GuestUsers;
-            if (!activity.OrganizerMode)
-                joined++;
             return joined;
         }
 
