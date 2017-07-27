@@ -890,6 +890,7 @@ namespace ProjectRunner.ServerAPI
         //TODO for IAP
         public bool IsPrivate { get; set; }
         public bool OrganizerMode { get; set; }
+        public int Credits { get; private set; }
 
         public int NumberOfPlayers
         {

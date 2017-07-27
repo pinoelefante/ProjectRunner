@@ -104,8 +104,8 @@ namespace ProjectRunner.ViewModel
                 if(CurrentActivity.Sport == Sports.FOOTBALL)
                     NewMaxPlayers = NewPlayersPerTeam[NewPlayersPerTeamIndex] * 2;
 
-                var currentPlayers = CurrentActivity.JoinedPlayers + CurrentActivity.GuestUsers + (CurrentActivity.OrganizerMode ? 0 : 1);
-                var totalNewGuests = CurrentActivity.JoinedPlayers + NewGuests[NewGuestsIndex] + (CurrentActivity.OrganizerMode ? 0 : 1);
+                var currentPlayers = CurrentActivity.JoinedPlayers + CurrentActivity.GuestUsers;
+                var totalNewGuests = CurrentActivity.JoinedPlayers + NewGuests[NewGuestsIndex];
                 if (NewMaxPlayers < currentPlayers)
                 {
                     UserDialogs.Instance.Alert("Max players can't be less than people who joined the activity", "Modify cancelled", "OK");
@@ -182,7 +182,7 @@ namespace ProjectRunner.ViewModel
             _joinActivityCmd ??
             (_joinActivityCmd = new RelayCommand(async () =>
             {
-                var totalJoined = CurrentActivity.JoinedPlayers + CurrentActivity.GuestUsers + (CurrentActivity.OrganizerMode ? 0 : 1);
+                var totalJoined = CurrentActivity.JoinedPlayers + CurrentActivity.GuestUsers;
                 if (CurrentActivity.Status == ActivityStatus.PENDING && totalJoined < CurrentActivity.MaxPlayers)
                 {
                     var res = await server.Activities.JoinActivityAsync(CurrentActivity.Id);
@@ -324,7 +324,7 @@ namespace ProjectRunner.ViewModel
         public int NewPlayersPerTeamIndex { get { return _newPlayersTeamIndex; } set { Set(ref _newPlayersTeamIndex, value); } }
         private void InitEditMode()
         {
-            var remainingSpots = CurrentActivity.MaxPlayers - CurrentActivity.JoinedPlayers - (CurrentActivity.OrganizerMode ? 0 : 1);
+            var remainingSpots = CurrentActivity.MaxPlayers - CurrentActivity.JoinedPlayers;
             NewGuests.Clear();
             for (int i = 0; i <= remainingSpots; i++)
                 NewGuests.Add(i);
