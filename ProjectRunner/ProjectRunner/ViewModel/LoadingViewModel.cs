@@ -45,12 +45,13 @@ namespace ProjectRunner.ViewModel
                 Progress = 0.1f;
                 ProgressText = "Loading addresses";
             });
-            
+            var loginRes = await server.Authentication.LoginAsync();
+            if(loginRes.response == StatusCodes.LOGIN_ERROR)
+                return false;
+
             var resAddr = await server.Activities.ListAddressAsync();
             if (resAddr.response == StatusCodes.OK && resAddr.content != null)
                 cache.MyMapAddresses.AddRange(resAddr.content);
-            else if (resAddr.response == StatusCodes.LOGIN_ERROR)
-                return false;
 
             Device.BeginInvokeOnMainThread(() =>
             {

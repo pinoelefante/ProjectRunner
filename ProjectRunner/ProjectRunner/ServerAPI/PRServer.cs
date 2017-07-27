@@ -174,9 +174,10 @@ namespace ProjectRunner.ServerAPI
                 server.SetAuthorization(cred[0], cred[1]);
             }
         }
-        public async Task<Envelop<string>> LoginAsync(string username, string password)
+        public async Task<Envelop<string>> LoginAsync(string username = null, string password = null)
         {
-            server.SetAuthorization(username, password);
+            if(!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))
+                server.SetAuthorization(username, password);
 
             var response = await server.SendRequestWithAction<string, Dictionary<string,string>>("/authentication.php?action=Login", (x)=>
             {
@@ -184,7 +185,7 @@ namespace ProjectRunner.ServerAPI
                     cache.CurrentUser = UserProfile.ParseDictionary(x);
                 return string.Empty;
             });
-            if(response.response == StatusCodes.OK)
+            if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password) && response.response == StatusCodes.OK)
                 cache.SaveCredentials(username, password);
             return response;
         }
@@ -696,6 +697,8 @@ namespace ProjectRunner.ServerAPI
         public bool NotifyNearbyActivities { get; set; }
         public int Sex { get; set; }
         public string Image { get; set; }
+        [Ignore]
+        public FriendshipStatus Status { get; set; }
 
         public UserProfile() { }
 

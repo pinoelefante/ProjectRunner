@@ -12,10 +12,10 @@ using Xamarin.Forms.Xaml;
 namespace ProjectRunner.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MasterPage : ContentPage
+    public partial class MasterPage : MyContentPage
     {
         public ListView ListView { get { return listView; } }
-        public MasterPage()
+        public MasterPage() : base()
         {
             InitializeComponent();
             ListView.ItemsSource = new List<MasterPageItem>()

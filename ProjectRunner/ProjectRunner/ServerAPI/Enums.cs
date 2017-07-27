@@ -33,4 +33,12 @@ namespace ProjectRunner.ServerAPI
         IOS = 2,
         WINDOWS_UWP = 3
     }
+    public enum FriendshipStatus
+    {
+        USER_ACCOUNT = 0,
+        IS_FRIEND = 1,
+        REQUESTED = 2,
+        RECEIVED = 3,
+        STRANGER = 4
+    }
 }
