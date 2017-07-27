@@ -43,12 +43,9 @@ namespace ProjectRunner.ServerAPI
     public class CommonServerAPI
     {
         private HttpClient http;
-
-#if WINDOWS_UWP
+        
         private static readonly string SERVER_ADDRESS = "http://localhost";
-#else
-        private static readonly string SERVER_ADDRESS = "http://gestioneserietv.altervista.org";
-#endif
+        //private static readonly string SERVER_ADDRESS = "http://gestioneserietv.altervista.org";
         public static readonly string SERVER_ENDPOINT = $"{SERVER_ADDRESS}/prserver";
 
         public CommonServerAPI()
@@ -660,28 +657,15 @@ namespace ProjectRunner.ServerAPI
         {
             throw new NotImplementedException();
         }
-        public async Task<Envelop<List<UserProfile>>> FriendshipRequested()
-        {
-            throw new NotImplementedException();
-        }
-        public async Task<Envelop<List<UserProfile>>> FriendshipReceived()
-        {
-            throw new NotImplementedException();
-        }
-        public async Task<Envelop<Dictionary<string, object>>> GetProfileInfo(int userId)
+        public async Task<Envelop<UserProfile>> GetProfileInfo(int userId)
         {
             var postContent = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>()
             {
                 new KeyValuePair<string, string>("id", userId.ToString())
             });
-            return await server.SendRequestWithAction<Dictionary<string,object>, Dictionary<string, string>>("/people.php?action=GetProfileInfo", (x) =>
+            return await server.SendRequestWithAction<UserProfile, Dictionary<string, string>>("/people.php?action=GetProfileInfo", (x) =>
             {
-                Dictionary<string, object> dic = new Dictionary<string, object>(4);
-                dic.Add("user", UserProfile.ParseDictionary(x));
-                dic.Add("friendsCount", Int32.Parse(x["friendsCount"]));
-                dic.Add("isFriend", Int32.Parse(x["isFriend"]) == 0 ? false : true);
-                dic.Add("friendRequest", Int32.Parse(x["friendRequest"]) == 0 ? false : true);
-                return dic;
+                return UserProfile.ParseDictionary(x);
             }, postContent);
         }
     }
@@ -726,6 +710,8 @@ namespace ProjectRunner.ServerAPI
                 profile.LastUpdate = DateTime.Parse(dictionary["lastUpdate"], CultureInfo.InvariantCulture);
             if (dictionary.ContainsKey("registration"))
                 profile.RegistrationTime = DateTime.Parse(dictionary["registration"], CultureInfo.InvariantCulture);
+            if (dictionary.ContainsKey("status"))
+                profile.Status = (FriendshipStatus)Enum.Parse(typeof(FriendshipStatus), dictionary["status"]);
 
             return profile;
         }

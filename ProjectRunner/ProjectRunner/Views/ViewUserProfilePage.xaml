@@ -17,10 +17,11 @@
                 <Label Text="{Binding User.Username}" HorizontalOptions="Center"/>
             </StackLayout>
 
-            <StackLayout Grid.Row="2" IsVisible="{Binding IsCurrentUser, Converter={StaticResource NotBoolean}}">
-                <Button Text="Add friend" IsVisible="{Binding IsFriend, Converter={StaticResource NotBoolean}}"/>
-                <Button Text="Remove friend" IsVisible="{Binding IsFriend}"/>
-                <Button Text="Richiesta inviata" IsVisible="{Binding IsFriendshipRequested}"/>
+            <StackLayout Grid.Row="2" IsVisible="{Binding User.Status, Converter={StaticResource IntNotEquals}, ConverterParameter=0}">
+                <Button Text="Aggiungi amico" Command="{Binding AddFriendCommand}" IsVisible="{Binding User.Status, Converter={StaticResource IntEquals}, ConverterParameter=4}"/>
+                <Button Text="Rimuovi amico" Command="{Binding RemoveFriendCommand}" IsVisible="{Binding User.Status, Converter={StaticResource IntEquals}, ConverterParameter=1}"/>
+                <Button Text="Richiesta inviata" Command="{Binding RemoveFriendshipRequestCommand}" IsVisible="{Binding User.Status, Converter={StaticResource IntEquals}, ConverterParameter=2}"/>
+                <Button Text="Accetta richiesta" Command="{Binding AcceptFriendshipRequest}" IsVisible="{Binding User.Status, Converter={StaticResource IntEquals}, ConverterParameter=3}"/>
             </StackLayout>
             
         </Grid>

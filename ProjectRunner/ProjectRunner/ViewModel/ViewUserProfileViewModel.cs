@@ -1,4 +1,5 @@
-﻿using ProjectRunner.ServerAPI;
+﻿using GalaSoft.MvvmLight.Command;
+using ProjectRunner.ServerAPI;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -30,16 +31,55 @@ namespace ProjectRunner.ViewModel
                 var response = server.People.GetProfileInfo((int)parameter).Result;
                 if (response.response == StatusCodes.OK)
                 {
-                    User = response.content["user"] as UserProfile;
-                    FriendsCount = (int)response.content["friendsCount"];
-                    IsFriend = (bool)response.content["isFriend"];
-                    IsFriendshipRequested = (bool)response.content["friendRequest"];
+                    User = response.content;
                     RaisePropertyChanged(() => User);
-                    RaisePropertyChanged(() => FriendsCount);
-                    RaisePropertyChanged(() => IsFriend);
-                    RaisePropertyChanged(() => IsFriendshipRequested);
                 }
             }
         }
+        private RelayCommand _addFriendCmd, _remFriend, _remRequest, _acceptReqCmd;
+        public RelayCommand AddFriendCommand =>
+            _addFriendCmd ??
+            (_addFriendCmd = new RelayCommand(async () =>
+            {
+                var res = await server.People.RequestFriendship(User.Id);
+                if(res.response == StatusCodes.OK)
+                {
+                    User.Status = FriendshipStatus.REQUESTED;
+                    RaisePropertyChanged(() => User);
+                }
+            }));
+        public RelayCommand RemoveFriendCommand =>
+            _remFriend ??
+            (_remFriend = new RelayCommand(async () =>
+            {
+                var res = await server.People.RemoveFriend(User.Id);
+                if (res.response == StatusCodes.OK)
+                {
+                    User.Status = FriendshipStatus.STRANGER;
+                    RaisePropertyChanged(() => User);
+                }
+            }));
+        public RelayCommand RemoveFriendshipRequestCommand =>
+            _remRequest ??
+            (_remRequest = new RelayCommand(async () =>
+            {
+                var res = await server.People.RejectFriendship(User.Id);
+                if (res.response == StatusCodes.OK)
+                {
+                    User.Status = FriendshipStatus.STRANGER;
+                    RaisePropertyChanged(() => User);
+                }
+            }));
+        public RelayCommand AcceptFriendshipRequest =>
+            _acceptReqCmd ??
+            (_acceptReqCmd = new RelayCommand(async () =>
+            {
+                var res = await server.People.AcceptFriendship(User.Id);
+                if (res.response == StatusCodes.OK)
+                {
+                    User.Status = FriendshipStatus.IS_FRIEND;
+                    RaisePropertyChanged(() => User);
+                }
+            }));
     }
 }
