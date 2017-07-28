@@ -17,11 +17,38 @@
                 <Label Text="{Binding User.Username}" HorizontalOptions="Center"/>
             </StackLayout>
 
+            <ScrollView Grid.Row="1">
+                <Grid Padding="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Text="First Name" FontAttributes="Bold" Margin="0,10"/>
+                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding User.FirstName}" Margin="10"/>
+                    <Label Grid.Row="1" Grid.Column="0" Text="Last Name" FontAttributes="Bold" Margin="0,10"/>
+                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding User.LastName}" Margin="10"/>
+                    <Label Grid.Row="2" Grid.Column="0" Text="Sex" FontAttributes="Bold" Margin="0,10"/>
+                    <Label Grid.Row="2" Grid.Column="1" Text="{Binding User.Sex, Converter={StaticResource SexNameConverter}}" Margin="10"/>
+                    <Label Grid.Row="3" Grid.Column="0" Text="Age" FontAttributes="Bold" Margin="0,10"/>
+                    <Label Grid.Row="3" Grid.Column="1" Text="{Binding User.Birth, Converter={StaticResource AgeCalculationConverter}}" Margin="10"/>
+                </Grid>
+            </ScrollView>
+
             <StackLayout Grid.Row="2" IsVisible="{Binding User.Status, Converter={StaticResource IntNotEquals}, ConverterParameter=0}">
                 <Button Text="Aggiungi amico" Command="{Binding AddFriendCommand}" IsVisible="{Binding User.Status, Converter={StaticResource IntEquals}, ConverterParameter=4}"/>
                 <Button Text="Rimuovi amico" Command="{Binding RemoveFriendCommand}" IsVisible="{Binding User.Status, Converter={StaticResource IntEquals}, ConverterParameter=1}"/>
                 <Button Text="Richiesta inviata" Command="{Binding RemoveFriendshipRequestCommand}" IsVisible="{Binding User.Status, Converter={StaticResource IntEquals}, ConverterParameter=2}"/>
                 <Button Text="Accetta richiesta" Command="{Binding AcceptFriendshipRequest}" IsVisible="{Binding User.Status, Converter={StaticResource IntEquals}, ConverterParameter=3}"/>
+            </StackLayout>
+
+            <StackLayout Grid.Row="2" IsVisible="{Binding User.Status, Converter={StaticResource IntEquals}, ConverterParameter=0}">
+                <Button Text="Logout" Command="{Binding LogoutCommand}"/>
             </StackLayout>
             
         </Grid>

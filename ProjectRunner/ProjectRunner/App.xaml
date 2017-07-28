@@ -33,6 +33,9 @@
             <converters:DateTimeStringConverter x:Key="DateTimeStringConverter"/>
             <converters:UserProfileImageConverter x:Key="UserProfileImageConverter" />
             <converters:UserImageConverter x:Key="UserImageConverter"/>
+            <converters:SexNameConverter x:Key="SexNameConverter"/>
+            <converters:AgeCalculationConverter x:Key="AgeCalculationConverter"/>
+            <converters:SportImageConverter x:Key="SportImageConverter"/>
 
             <DataTemplate x:Key="runningTemplate">
                 <ViewCell>

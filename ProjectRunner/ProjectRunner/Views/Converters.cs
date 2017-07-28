@@ -337,4 +337,61 @@ namespace ProjectRunner.Views.Converters
             throw new NotImplementedException();
         }
     }
+    public class SexNameConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            int sex = (int)value;
+            return sex == 0 ? "Male" : "Female";
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+    public class AgeCalculationConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null)
+                return "Not available";
+            DateTime birth = (DateTime)value;
+            var diff = DateTime.Now.Subtract(birth);
+            var years = diff.TotalDays / 365.25;
+            return (int)years;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+    public class SportImageConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var act = value as Activity;
+            if (act != null)
+            {
+                switch (act.Sport)
+                {
+                    case Sports.BICYCLE:
+                        return "bicycle.png";
+                    case Sports.FOOTBALL:
+                        return "football.png";
+                    case Sports.RUNNING:
+                        return "running.png";
+                    case Sports.TENNIS:
+                        return "tennis.png";
+                }
+            }
+            return null;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

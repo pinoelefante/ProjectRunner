@@ -14,21 +14,21 @@ namespace ProjectRunner.Views
         {
             navigationParameter = parameter;
         }
-        private MyViewModel VM => this.BindingContext as MyViewModel;
+        protected MyViewModel ViewModel => this.BindingContext as MyViewModel;
         protected object navigationParameter = null;
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            VM.NavigatedToAsync(navigationParameter);
+            ViewModel.NavigatedToAsync(navigationParameter);
         }
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            VM.NavigatedFrom();
+            ViewModel.NavigatedFrom();
         }
         protected override bool OnBackButtonPressed()
         {
-            if(!VM.OnBackPressed())
+            if(!ViewModel.OnBackPressed())
                 return base.OnBackButtonPressed();
             return true;
         }

@@ -243,14 +243,13 @@ namespace ProjectRunner.ViewModel
         {
             if (SelectedSportIndex >= 0)
             {
-                var today = DateTime.Now;
-                if(StartDay.Year<today.Year || (StartDay.Year==today.Year && StartDay.Month<today.Month) || (StartDay.Year==today.Year && StartDay.Month == today.Month && StartDay.Day<today.Day))
-                if (StartDay.CompareTo(today) < 0)
+                if (StartDay.Date.CompareTo(DateTime.Now.Date) < 0)
                 {
                     IsNextGeneralEnabled = false;
                     return;
                 }
-                if(StartTime.CompareTo(today.TimeOfDay)<=0)
+                var timeStart = StartDay.Date.AddHours(StartTime.Hours).AddMinutes(StartTime.Minutes);
+                if(timeStart.CompareTo(DateTime.Now)<=0)
                 {
                     IsNextGeneralEnabled = false;
                     return;

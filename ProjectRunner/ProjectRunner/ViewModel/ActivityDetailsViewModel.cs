@@ -33,21 +33,40 @@ namespace ProjectRunner.ViewModel
             {
                 IsEditModeEnabled = false;
                 var activity = parameter as Activity;
-                if (CurrentActivity != null && activity.Id != CurrentActivity.Id)
-                {
-                    IsPeopleListLoaded = false;
-                    UserJoinedActivity = false;
-                    ActivityPeople.Clear();
-                    RaisePropertyChanged(() => ActivityPeople);
-                    ListMessages.Clear();
-                }
+
+                IsPeopleListLoaded = false;
+                UserJoinedActivity = false;
+                ActivityPeople?.Clear();
+                RaisePropertyChanged(() => ActivityPeople);
+                ListMessages?.Clear();
+
                 CurrentActivity = activity;
-                RaisePropertyChanged(() => CurrentActivity);
-                RaisePropertyChanged(() => IsEditable);
-                LoadPeopleAsync();
+
+                LoadActivityAsync(activity.Id);
             }
             else
+            {
+                Debug.WriteLine("Come hai raggiunto questo codice?");
                 navigation.GoBack();
+            }
+        }
+        private async Task LoadActivityAsync(int id)
+        {
+            var res = await server.Activities.InfoActivityAsync(id);
+            if(res.response == StatusCodes.OK)
+            {
+                var index = cache.ListActivities.IndexOf(CurrentActivity);
+                CurrentActivity = res.content;
+                cache.ListActivities[index] = CurrentActivity;
+
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    RaisePropertyChanged(() => CurrentActivity);
+                    RaisePropertyChanged(() => IsEditable);
+                });
+
+                LoadPeopleAsync();
+            }
         }
         public bool IsEditable
         {
@@ -221,7 +240,8 @@ namespace ProjectRunner.ViewModel
             _sendChatMsgCmd ??
             (_sendChatMsgCmd = new RelayCommand(async () =>
             {
-                if (!UserJoinedActivity)
+                //non ha joinato l'attività o non è l'organizzatore
+                if (!UserJoinedActivity || CurrentActivity.CreatedBy!=cache.CurrentUser.Id)
                     return;
                 if (ChatMessage?.Trim().Length > 0)
                 {
@@ -275,29 +295,27 @@ namespace ProjectRunner.ViewModel
         private async Task LoadPeopleAsync(bool force = false)
         {
             IsPeopleListLoaded = false;
-            if (!ActivityPeople.Any() || force)
+            IsLoadingPeople = true;
+            RaisePropertyChanged(() => IsLoadingPeople);
+            var res = await server.Activities.ListPeople(CurrentActivity.Id);
+            if (res.response == StatusCodes.OK)
             {
-                IsLoadingPeople = true;
-                RaisePropertyChanged(() => IsLoadingPeople);
-                var res = await server.Activities.ListPeople(CurrentActivity.Id);
-                if (res.response == StatusCodes.OK)
+                ActivityPeople.Clear();
+                if (res.content != null)
                 {
-                    ActivityPeople.Clear();
-                    if(res.content!=null)
+                    foreach (var item in res.content)
                     {
-                        foreach (var item in res.content)
-                        {
-                            ActivityPeople.Add(item);
-                            if (!cache.HasUserProfile(item.Id))
-                                cache.ListProfiles.Add(item);
-                        }
-                        cache.SaveItemsDB<UserProfile>(res?.content);
+                        ActivityPeople.Add(item);
+                        if (!cache.HasUserProfile(item.Id))
+                            cache.ListProfiles.Add(item);
                     }
+                    cache.SaveItemsDB<UserProfile>(res?.content);
                 }
-                IsLoadingPeople = false;
-                RaisePropertyChanged(() => IsLoadingPeople);
             }
-            if(ActivityPeople.FirstOrDefault(x=>x.Id == cache.CurrentUser.Id) != null)
+            IsLoadingPeople = false;
+            RaisePropertyChanged(() => IsLoadingPeople);
+
+            if (ActivityPeople.FirstOrDefault(x=>x.Id == cache.CurrentUser.Id) != null)
             {
                 UserJoinedActivity = true;
                 ReadChatMessagesAsync();

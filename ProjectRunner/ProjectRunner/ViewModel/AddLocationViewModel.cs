@@ -40,7 +40,7 @@ namespace ProjectRunner.ViewModel
             _addLocationByAddressCommand ??
             (_addLocationByAddressCommand = new RelayCommand(async () =>
             {
-                var location = server.GoogleMaps.GetCoordinatesFromAddress(AddressCity, AddressStreet, AddressCivicNumber, AddressZipCode);
+                var location = await server.GoogleMaps.GetCoordinatesFromAddressAsync(AddressCity, AddressStreet, AddressCivicNumber, AddressZipCode);
                 if (location != null)
                 {
                     var response = await server.Activities.AddAddressPoint(AddressName, location.lat, location.lng);

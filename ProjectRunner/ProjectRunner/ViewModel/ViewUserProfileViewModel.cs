@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace ProjectRunner.ViewModel
 {
@@ -36,7 +37,7 @@ namespace ProjectRunner.ViewModel
                 }
             }
         }
-        private RelayCommand _addFriendCmd, _remFriend, _remRequest, _acceptReqCmd;
+        private RelayCommand _addFriendCmd, _remFriend, _remRequest, _acceptReqCmd, _logoutCmd;
         public RelayCommand AddFriendCommand =>
             _addFriendCmd ??
             (_addFriendCmd = new RelayCommand(async () =>
@@ -79,6 +80,17 @@ namespace ProjectRunner.ViewModel
                 {
                     User.Status = FriendshipStatus.IS_FRIEND;
                     RaisePropertyChanged(() => User);
+                }
+            }));
+        public RelayCommand LogoutCommand =>
+            _logoutCmd ??
+            (_logoutCmd = new RelayCommand(() =>
+            {
+                var res = server.Authentication.Logout().Result;
+                if (res.response == StatusCodes.OK)
+                {
+                    Application.Current.MainPage = new NavigationPage(new Views.LoginPage());
+                    ViewModelLocator.NavigationService.Initialize(Application.Current.MainPage as NavigationPage, ViewModelLocator.HomePage);
                 }
             }));
     }

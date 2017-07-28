@@ -37,11 +37,13 @@ namespace ProjectRunner.ViewModel
             (navigation as NavigationService).Initialize(navPage, ViewModelLocator.HomePage);
         }
         private RelayCommand _openProfile;
+        public RelayCommand CloseMasterPage { get; set; }
         public RelayCommand OpenUserProfile =>
             _openProfile ??
             (_openProfile = new RelayCommand(() =>
             {
                 navigation.NavigateTo(ViewModelLocator.ViewUserProfile, User.Id);
+                CloseMasterPage?.Execute(null);
             }));
     }
 }

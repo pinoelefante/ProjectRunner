@@ -1,4 +1,5 @@
-﻿using ProjectRunner.ServerAPI;
+﻿using GalaSoft.MvvmLight.Command;
+using ProjectRunner.ServerAPI;
 using ProjectRunner.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace ProjectRunner.Views
     public partial class MasterPage : MyContentPage
     {
         public ListView ListView { get { return listView; } }
+        public MasterDetailPage MasterDetails { get; set; }
         public MasterPage() : base()
         {
             InitializeComponent();
@@ -37,17 +39,12 @@ namespace ProjectRunner.Views
                     PageKey = ViewModelLocator.FriendsPage
                 }
             };
-        }
 
-        private void Logout_Command(object sender, EventArgs e)
-        {
-            var server = ViewModelLocator.GetService<PRServer>();
-            var res = server.Authentication.Logout().Result;
-            if(res.response == StatusCodes.OK)
+            (ViewModel as MyMasterDetailViewModel).CloseMasterPage = new RelayCommand(() =>
             {
-                Application.Current.MainPage = new NavigationPage(new Views.LoginPage());
-                ViewModelLocator.NavigationService.Initialize(Application.Current.MainPage as NavigationPage, ViewModelLocator.HomePage);
-            }
+                if(Device.Idiom != TargetIdiom.Desktop)
+                    MasterDetails.IsPresented = false;
+            });
         }
     }
 }

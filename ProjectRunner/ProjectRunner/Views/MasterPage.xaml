@@ -13,7 +13,6 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition />
-                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <!-- user profile -->
@@ -44,10 +43,6 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-
-            <Grid Grid.Row="2">
-                <Button Text="Logout" Clicked="Logout_Command"/>
-            </Grid>
         </Grid>
     </ContentPage.Content>
 </views:MyContentPage>

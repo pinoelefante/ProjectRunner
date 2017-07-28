@@ -44,8 +44,8 @@ namespace ProjectRunner.ServerAPI
     {
         private HttpClient http;
         
-        private static readonly string SERVER_ADDRESS = "http://localhost";
-        //private static readonly string SERVER_ADDRESS = "http://gestioneserietv.altervista.org";
+        //private static readonly string SERVER_ADDRESS = "http://localhost";
+        private static readonly string SERVER_ADDRESS = "https://gestioneserietv.altervista.org";
         public static readonly string SERVER_ENDPOINT = $"{SERVER_ADDRESS}/prserver";
 
         public CommonServerAPI()
@@ -147,7 +147,7 @@ namespace ProjectRunner.ServerAPI
 #endif
                 if (response.IsSuccessStatusCode)
                 {
-                    var output = response.Content.ReadAsStringAsync().Result;
+                    var output = await response.Content.ReadAsStringAsync();
 #if DEBUG
                     Debug.WriteLine(output);
 #endif
@@ -704,7 +704,7 @@ namespace ProjectRunner.ServerAPI
                 DefaultUserLocation = dictionary.ContainsKey("defaultLocation") && dictionary["defaultLocation"] != null ? Int32.Parse(dictionary["defaultLocation"]) : 0,
                 NotifyNearbyActivities = dictionary.ContainsKey("notifyNearbyActivities") ? (Int32.Parse(dictionary["notifyNearbyActivities"]) == 1 ? true : false) : false, 
             };
-            if (dictionary.ContainsKey("birth"))
+            if (dictionary.ContainsKey("birth") && !string.IsNullOrEmpty(dictionary["birth"]))
                 profile.Birth = DateTime.Parse(dictionary["birth"], CultureInfo.InvariantCulture);
             if(dictionary.ContainsKey("lastUpdate"))
                 profile.LastUpdate = DateTime.Parse(dictionary["lastUpdate"], CultureInfo.InvariantCulture);
@@ -724,16 +724,16 @@ namespace ProjectRunner.ServerAPI
             comm = c;
         }
         private static readonly string GOOGLEMAPS_API_KEY = "AIzaSyDVPJKCj8wPi50f1x3BV_rUrOKRaDI6ZXM";
-        public Location GetCoordinatesFromAddress(string city, string street, string streetNo, string postalCode)
+        public async Task<Location> GetCoordinatesFromAddressAsync(string city, string street, string streetNo, string postalCode)
         {
-            var address = (!string.IsNullOrEmpty(street) ? street : "") + (!string.IsNullOrEmpty(streetNo) ? ","+streetNo : "")+
-                ", "+(!string.IsNullOrEmpty(postalCode) ? postalCode + " " : "") + (!string.IsNullOrEmpty(city) ? city : "");
+            var address = (!string.IsNullOrEmpty(street) ? street : "") + (!string.IsNullOrEmpty(streetNo) ? "," + streetNo : "") +
+                ", " + (!string.IsNullOrEmpty(postalCode) ? postalCode + " " : "") + (!string.IsNullOrEmpty(city) ? city : "");
             var endpoint = $"https://maps.googleapis.com/maps/api/geocode/json?address={address}&key={GOOGLEMAPS_API_KEY}";
             try
             {
-                var output = comm.SendSimpleRequest(endpoint).Result;
+                var output = await comm.SendSimpleRequest(endpoint);
                 var result = JsonConvert.DeserializeObject<GoogleMapsGeocode>(output);
-                if(result.status=="OK" && result.results.Any())
+                if (result.status == "OK" && result.results.Any())
                     return result.results[0].geometry.location;
             }
             catch

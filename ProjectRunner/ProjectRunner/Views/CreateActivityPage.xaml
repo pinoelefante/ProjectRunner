@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <views:MyContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                     xmlns:views="clr-namespace:ProjectRunner.Views"
-                     x:Class="ProjectRunner.Views.CreateActivityPage"
-                     Title="Create activity"
-                     BindingContext="{Binding CreateActivityViewModel, Source={StaticResource Locator}}">
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:ProjectRunner.Views"
+             x:Class="ProjectRunner.Views.CreateActivityPage"
+             Title="Create activity"
+             BindingContext="{Binding CreateActivityViewModel, Source={StaticResource Locator}}">
     <ScrollView>
         <Grid>
             <Grid.RowDefinitions>
@@ -30,7 +30,7 @@
                 <DatePicker Date="{Binding StartDay, Mode=TwoWay}"/>
                 <Label Text="at"/>
                 <TimePicker Time="{Binding StartTime, Mode=TwoWay}"/>
-
+                
                 <Label Text="Guest users" />
                 <Entry Placeholder="0" PlaceholderColor="Gray" Margin="0,0,0,10" Text="{Binding Guests, Mode=TwoWay}" Keyboard="Numeric" IsVisible="{Binding IsGuestListActive, Mode=OneWay, Converter={StaticResource NotBoolean}}"/>
                 <Picker x:Name="listGuests" IsVisible="{Binding IsGuestListActive, Mode=TwoWay}" SelectedIndex="{Binding SelectedIndexGuestList,Mode=TwoWay}"/>
