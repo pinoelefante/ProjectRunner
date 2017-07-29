@@ -39,7 +39,7 @@ namespace ProjectRunner.ViewModel
         public DateTime Birth { get { return _birth; } set { Set(ref _birth, value); } }
         public string Phone { get { return _phone; } set { Set(ref _phone, value); } }
         public int TimezoneIndex { get { return _timezoneIndex; } set { Set(ref _timezoneIndex, value); RaisePropertyChanged(() => TimezoneSelected); } }
-        public ObservableCollection<string> Timezones { get; } = new ObservableCollection<string>();
+        public ObservableCollection<KeyValuePair<string,string>> Timezones { get; } = new ObservableCollection<KeyValuePair<string,string>>();
 
         private RelayCommand _registerCommand;
         public RelayCommand RegisterCommand => _registerCommand ??
@@ -62,6 +62,8 @@ namespace ProjectRunner.ViewModel
         }
         public async Task LoadTimezonesAsync()
         {
+            Debug.WriteLine("Rome translation = " + TimezonesLocations.ResourceManager.GetString("Europe__Rome"));
+
             IsTimezoneLoaded = false;
             TimezoneIndex = 0;
             Timezones.Clear();
@@ -72,15 +74,23 @@ namespace ProjectRunner.ViewModel
             var res = await server.Authentication.GetTimezones(regionCode, Convert.ToInt32(timezoneOffset));
             if(res.response == StatusCodes.OK)
             {
+                var list = new List<KeyValuePair<string,string>>(res.content.Count());
                 foreach (var item in res.content)
+                {
+                    var name = TimezonesLocations.ResourceManager.GetString(item.Replace("/", "__").Replace("-", "_minus_"));
+                    list.Add(new KeyValuePair<string, string>(item, name));
+                }
+                list = list.OrderBy(x => x.Value).ToList();
+                foreach (var item in list)
                     Timezones.Add(item);
+
                 RaisePropertyChanged(() => TimezoneSelected);
                 RaisePropertyChanged(() => Timezones);
                 TimezoneIndex = 0;
             }
             IsTimezoneLoaded = true;
         }
-        public string TimezoneSelected { get { return TimezoneIndex >=0 && TimezoneIndex < Timezones.Count ? Timezones[TimezoneIndex] : "Europe/London"; } }
+        public string TimezoneSelected { get { return TimezoneIndex >=0 && TimezoneIndex < Timezones.Count ? Timezones[TimezoneIndex].Key : "UTC"; } }
         private bool _timezoneLoaded = false;
         public bool IsTimezoneLoaded { get { return _timezoneLoaded; } set { Set(ref _timezoneLoaded, value); } }
     }

@@ -62,425 +62,3827 @@ namespace ProjectRunner.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Europe.
+        ///   Looks up a localized string similar to Abidjan.
         /// </summary>
-        public static string CONTINENT_EUROPE {
+        public static string Africa__Abidjan {
             get {
-                return ResourceManager.GetString("CONTINENT_EUROPE", resourceCulture);
+                return ResourceManager.GetString("Africa__Abidjan", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Albania.
+        ///   Looks up a localized string similar to Accra.
         /// </summary>
-        public static string EUROPE_ALBANIA {
+        public static string Africa__Accra {
             get {
-                return ResourceManager.GetString("EUROPE_ALBANIA", resourceCulture);
+                return ResourceManager.GetString("Africa__Accra", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Addis Ababa.
+        /// </summary>
+        public static string Africa__Addis_Ababa {
+            get {
+                return ResourceManager.GetString("Africa__Addis_Ababa", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Algiers.
+        /// </summary>
+        public static string Africa__Algiers {
+            get {
+                return ResourceManager.GetString("Africa__Algiers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Asmara.
+        /// </summary>
+        public static string Africa__Asmara {
+            get {
+                return ResourceManager.GetString("Africa__Asmara", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bamako.
+        /// </summary>
+        public static string Africa__Bamako {
+            get {
+                return ResourceManager.GetString("Africa__Bamako", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bangui.
+        /// </summary>
+        public static string Africa__Bangui {
+            get {
+                return ResourceManager.GetString("Africa__Bangui", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Banjul.
+        /// </summary>
+        public static string Africa__Banjul {
+            get {
+                return ResourceManager.GetString("Africa__Banjul", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bissau.
+        /// </summary>
+        public static string Africa__Bissau {
+            get {
+                return ResourceManager.GetString("Africa__Bissau", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Blantyre.
+        /// </summary>
+        public static string Africa__Blantyre {
+            get {
+                return ResourceManager.GetString("Africa__Blantyre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brazzaville.
+        /// </summary>
+        public static string Africa__Brazzaville {
+            get {
+                return ResourceManager.GetString("Africa__Brazzaville", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bujumbura.
+        /// </summary>
+        public static string Africa__Bujumbura {
+            get {
+                return ResourceManager.GetString("Africa__Bujumbura", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cairo.
+        /// </summary>
+        public static string Africa__Cairo {
+            get {
+                return ResourceManager.GetString("Africa__Cairo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Casablanca.
+        /// </summary>
+        public static string Africa__Casablanca {
+            get {
+                return ResourceManager.GetString("Africa__Casablanca", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ceuta.
+        /// </summary>
+        public static string Africa__Ceuta {
+            get {
+                return ResourceManager.GetString("Africa__Ceuta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Conakry.
+        /// </summary>
+        public static string Africa__Conakry {
+            get {
+                return ResourceManager.GetString("Africa__Conakry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dakar.
+        /// </summary>
+        public static string Africa__Dakar {
+            get {
+                return ResourceManager.GetString("Africa__Dakar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dar es Salaam.
+        /// </summary>
+        public static string Africa__Dar_es_Salaam {
+            get {
+                return ResourceManager.GetString("Africa__Dar_es_Salaam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Djibouti.
+        /// </summary>
+        public static string Africa__Djibouti {
+            get {
+                return ResourceManager.GetString("Africa__Djibouti", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Douala.
+        /// </summary>
+        public static string Africa__Douala {
+            get {
+                return ResourceManager.GetString("Africa__Douala", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to El Aaiun.
+        /// </summary>
+        public static string Africa__El_Aaiun {
+            get {
+                return ResourceManager.GetString("Africa__El_Aaiun", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Freetown.
+        /// </summary>
+        public static string Africa__Freetown {
+            get {
+                return ResourceManager.GetString("Africa__Freetown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gaborone.
+        /// </summary>
+        public static string Africa__Gaborone {
+            get {
+                return ResourceManager.GetString("Africa__Gaborone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Harare.
+        /// </summary>
+        public static string Africa__Harare {
+            get {
+                return ResourceManager.GetString("Africa__Harare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Johannesburg.
+        /// </summary>
+        public static string Africa__Johannesburg {
+            get {
+                return ResourceManager.GetString("Africa__Johannesburg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Juba.
+        /// </summary>
+        public static string Africa__Juba {
+            get {
+                return ResourceManager.GetString("Africa__Juba", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kampala.
+        /// </summary>
+        public static string Africa__Kampala {
+            get {
+                return ResourceManager.GetString("Africa__Kampala", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Khartoum.
+        /// </summary>
+        public static string Africa__Khartoum {
+            get {
+                return ResourceManager.GetString("Africa__Khartoum", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kigali.
+        /// </summary>
+        public static string Africa__Kigali {
+            get {
+                return ResourceManager.GetString("Africa__Kigali", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kinshasa.
+        /// </summary>
+        public static string Africa__Kinshasa {
+            get {
+                return ResourceManager.GetString("Africa__Kinshasa", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lagos.
+        /// </summary>
+        public static string Africa__Lagos {
+            get {
+                return ResourceManager.GetString("Africa__Lagos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Libreville.
+        /// </summary>
+        public static string Africa__Libreville {
+            get {
+                return ResourceManager.GetString("Africa__Libreville", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lome.
+        /// </summary>
+        public static string Africa__Lome {
+            get {
+                return ResourceManager.GetString("Africa__Lome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Luanda.
+        /// </summary>
+        public static string Africa__Luanda {
+            get {
+                return ResourceManager.GetString("Africa__Luanda", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lubumbashi.
+        /// </summary>
+        public static string Africa__Lubumbashi {
+            get {
+                return ResourceManager.GetString("Africa__Lubumbashi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lusaka.
+        /// </summary>
+        public static string Africa__Lusaka {
+            get {
+                return ResourceManager.GetString("Africa__Lusaka", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Malabo.
+        /// </summary>
+        public static string Africa__Malabo {
+            get {
+                return ResourceManager.GetString("Africa__Malabo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maputo.
+        /// </summary>
+        public static string Africa__Maputo {
+            get {
+                return ResourceManager.GetString("Africa__Maputo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maseru.
+        /// </summary>
+        public static string Africa__Maseru {
+            get {
+                return ResourceManager.GetString("Africa__Maseru", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mbabane.
+        /// </summary>
+        public static string Africa__Mbabane {
+            get {
+                return ResourceManager.GetString("Africa__Mbabane", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mogadishu.
+        /// </summary>
+        public static string Africa__Mogadishu {
+            get {
+                return ResourceManager.GetString("Africa__Mogadishu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Monrovia.
+        /// </summary>
+        public static string Africa__Monrovia {
+            get {
+                return ResourceManager.GetString("Africa__Monrovia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nairobi.
+        /// </summary>
+        public static string Africa__Nairobi {
+            get {
+                return ResourceManager.GetString("Africa__Nairobi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ndjamena.
+        /// </summary>
+        public static string Africa__Ndjamena {
+            get {
+                return ResourceManager.GetString("Africa__Ndjamena", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Niamey.
+        /// </summary>
+        public static string Africa__Niamey {
+            get {
+                return ResourceManager.GetString("Africa__Niamey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nouakchott.
+        /// </summary>
+        public static string Africa__Nouakchott {
+            get {
+                return ResourceManager.GetString("Africa__Nouakchott", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ouagadougou.
+        /// </summary>
+        public static string Africa__Ouagadougou {
+            get {
+                return ResourceManager.GetString("Africa__Ouagadougou", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Porto-Novo.
+        /// </summary>
+        public static string Africa__Porto_minus_Novo {
+            get {
+                return ResourceManager.GetString("Africa__Porto_minus_Novo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sao Tome.
+        /// </summary>
+        public static string Africa__Sao_Tome {
+            get {
+                return ResourceManager.GetString("Africa__Sao_Tome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tripoli.
+        /// </summary>
+        public static string Africa__Tripoli {
+            get {
+                return ResourceManager.GetString("Africa__Tripoli", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tunis.
+        /// </summary>
+        public static string Africa__Tunis {
+            get {
+                return ResourceManager.GetString("Africa__Tunis", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Windhoek.
+        /// </summary>
+        public static string Africa__Windhoek {
+            get {
+                return ResourceManager.GetString("Africa__Windhoek", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adak.
+        /// </summary>
+        public static string America__Adak {
+            get {
+                return ResourceManager.GetString("America__Adak", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Anchorage.
+        /// </summary>
+        public static string America__Anchorage {
+            get {
+                return ResourceManager.GetString("America__Anchorage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Anguilla.
+        /// </summary>
+        public static string America__Anguilla {
+            get {
+                return ResourceManager.GetString("America__Anguilla", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Antigua.
+        /// </summary>
+        public static string America__Antigua {
+            get {
+                return ResourceManager.GetString("America__Antigua", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Araguaina.
+        /// </summary>
+        public static string America__Araguaina {
+            get {
+                return ResourceManager.GetString("America__Araguaina", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Buenos Aires.
+        /// </summary>
+        public static string America__Argentina__Buenos_Aires {
+            get {
+                return ResourceManager.GetString("America__Argentina__Buenos_Aires", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Catamarca.
+        /// </summary>
+        public static string America__Argentina__Catamarca {
+            get {
+                return ResourceManager.GetString("America__Argentina__Catamarca", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cordoba.
+        /// </summary>
+        public static string America__Argentina__Cordoba {
+            get {
+                return ResourceManager.GetString("America__Argentina__Cordoba", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Jujuy.
+        /// </summary>
+        public static string America__Argentina__Jujuy {
+            get {
+                return ResourceManager.GetString("America__Argentina__Jujuy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to La Rioja.
+        /// </summary>
+        public static string America__Argentina__La_Rioja {
+            get {
+                return ResourceManager.GetString("America__Argentina__La_Rioja", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mendoza.
+        /// </summary>
+        public static string America__Argentina__Mendoza {
+            get {
+                return ResourceManager.GetString("America__Argentina__Mendoza", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rio Gallegos.
+        /// </summary>
+        public static string America__Argentina__Rio_Gallegos {
+            get {
+                return ResourceManager.GetString("America__Argentina__Rio_Gallegos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Salta.
+        /// </summary>
+        public static string America__Argentina__Salta {
+            get {
+                return ResourceManager.GetString("America__Argentina__Salta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to San Juan.
+        /// </summary>
+        public static string America__Argentina__San_Juan {
+            get {
+                return ResourceManager.GetString("America__Argentina__San_Juan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to San Luis.
+        /// </summary>
+        public static string America__Argentina__San_Luis {
+            get {
+                return ResourceManager.GetString("America__Argentina__San_Luis", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tucuman.
+        /// </summary>
+        public static string America__Argentina__Tucuman {
+            get {
+                return ResourceManager.GetString("America__Argentina__Tucuman", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ushuaia.
+        /// </summary>
+        public static string America__Argentina__Ushuaia {
+            get {
+                return ResourceManager.GetString("America__Argentina__Ushuaia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aruba.
+        /// </summary>
+        public static string America__Aruba {
+            get {
+                return ResourceManager.GetString("America__Aruba", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Asuncion.
+        /// </summary>
+        public static string America__Asuncion {
+            get {
+                return ResourceManager.GetString("America__Asuncion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Atikokan.
+        /// </summary>
+        public static string America__Atikokan {
+            get {
+                return ResourceManager.GetString("America__Atikokan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bahia.
+        /// </summary>
+        public static string America__Bahia {
+            get {
+                return ResourceManager.GetString("America__Bahia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bahia Banderas.
+        /// </summary>
+        public static string America__Bahia_Banderas {
+            get {
+                return ResourceManager.GetString("America__Bahia_Banderas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Barbados.
+        /// </summary>
+        public static string America__Barbados {
+            get {
+                return ResourceManager.GetString("America__Barbados", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Belem.
+        /// </summary>
+        public static string America__Belem {
+            get {
+                return ResourceManager.GetString("America__Belem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Belize.
+        /// </summary>
+        public static string America__Belize {
+            get {
+                return ResourceManager.GetString("America__Belize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Blanc-Sablon.
+        /// </summary>
+        public static string America__Blanc_minus_Sablon {
+            get {
+                return ResourceManager.GetString("America__Blanc_minus_Sablon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Boa Vista.
+        /// </summary>
+        public static string America__Boa_Vista {
+            get {
+                return ResourceManager.GetString("America__Boa_Vista", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bogota.
+        /// </summary>
+        public static string America__Bogota {
+            get {
+                return ResourceManager.GetString("America__Bogota", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Boise.
+        /// </summary>
+        public static string America__Boise {
+            get {
+                return ResourceManager.GetString("America__Boise", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cambridge Bay.
+        /// </summary>
+        public static string America__Cambridge_Bay {
+            get {
+                return ResourceManager.GetString("America__Cambridge_Bay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Campo Grande.
+        /// </summary>
+        public static string America__Campo_Grande {
+            get {
+                return ResourceManager.GetString("America__Campo_Grande", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancun.
+        /// </summary>
+        public static string America__Cancun {
+            get {
+                return ResourceManager.GetString("America__Cancun", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Caracas.
+        /// </summary>
+        public static string America__Caracas {
+            get {
+                return ResourceManager.GetString("America__Caracas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cayenne.
+        /// </summary>
+        public static string America__Cayenne {
+            get {
+                return ResourceManager.GetString("America__Cayenne", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cayman.
+        /// </summary>
+        public static string America__Cayman {
+            get {
+                return ResourceManager.GetString("America__Cayman", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chicago.
+        /// </summary>
+        public static string America__Chicago {
+            get {
+                return ResourceManager.GetString("America__Chicago", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chihuahua.
+        /// </summary>
+        public static string America__Chihuahua {
+            get {
+                return ResourceManager.GetString("America__Chihuahua", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Costa Rica.
+        /// </summary>
+        public static string America__Costa_Rica {
+            get {
+                return ResourceManager.GetString("America__Costa_Rica", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creston.
+        /// </summary>
+        public static string America__Creston {
+            get {
+                return ResourceManager.GetString("America__Creston", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cuiaba.
+        /// </summary>
+        public static string America__Cuiaba {
+            get {
+                return ResourceManager.GetString("America__Cuiaba", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Curacao.
+        /// </summary>
+        public static string America__Curacao {
+            get {
+                return ResourceManager.GetString("America__Curacao", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Danmarkshavn.
+        /// </summary>
+        public static string America__Danmarkshavn {
+            get {
+                return ResourceManager.GetString("America__Danmarkshavn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dawson.
+        /// </summary>
+        public static string America__Dawson {
+            get {
+                return ResourceManager.GetString("America__Dawson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dawson Creek.
+        /// </summary>
+        public static string America__Dawson_Creek {
+            get {
+                return ResourceManager.GetString("America__Dawson_Creek", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Denver.
+        /// </summary>
+        public static string America__Denver {
+            get {
+                return ResourceManager.GetString("America__Denver", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Detroit.
+        /// </summary>
+        public static string America__Detroit {
+            get {
+                return ResourceManager.GetString("America__Detroit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dominica.
+        /// </summary>
+        public static string America__Dominica {
+            get {
+                return ResourceManager.GetString("America__Dominica", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edmonton.
+        /// </summary>
+        public static string America__Edmonton {
+            get {
+                return ResourceManager.GetString("America__Edmonton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Eirunepe.
+        /// </summary>
+        public static string America__Eirunepe {
+            get {
+                return ResourceManager.GetString("America__Eirunepe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to El Salvador.
+        /// </summary>
+        public static string America__El_Salvador {
+            get {
+                return ResourceManager.GetString("America__El_Salvador", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fort Nelson.
+        /// </summary>
+        public static string America__Fort_Nelson {
+            get {
+                return ResourceManager.GetString("America__Fort_Nelson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fortaleza.
+        /// </summary>
+        public static string America__Fortaleza {
+            get {
+                return ResourceManager.GetString("America__Fortaleza", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Glace Bay.
+        /// </summary>
+        public static string America__Glace_Bay {
+            get {
+                return ResourceManager.GetString("America__Glace_Bay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Godthab.
+        /// </summary>
+        public static string America__Godthab {
+            get {
+                return ResourceManager.GetString("America__Godthab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Goose Bay.
+        /// </summary>
+        public static string America__Goose_Bay {
+            get {
+                return ResourceManager.GetString("America__Goose_Bay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grand Turk.
+        /// </summary>
+        public static string America__Grand_Turk {
+            get {
+                return ResourceManager.GetString("America__Grand_Turk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grenada.
+        /// </summary>
+        public static string America__Grenada {
+            get {
+                return ResourceManager.GetString("America__Grenada", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Guadeloupe.
+        /// </summary>
+        public static string America__Guadeloupe {
+            get {
+                return ResourceManager.GetString("America__Guadeloupe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Guatemala.
+        /// </summary>
+        public static string America__Guatemala {
+            get {
+                return ResourceManager.GetString("America__Guatemala", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Guayaquil.
+        /// </summary>
+        public static string America__Guayaquil {
+            get {
+                return ResourceManager.GetString("America__Guayaquil", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Guyana.
+        /// </summary>
+        public static string America__Guyana {
+            get {
+                return ResourceManager.GetString("America__Guyana", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Halifax.
+        /// </summary>
+        public static string America__Halifax {
+            get {
+                return ResourceManager.GetString("America__Halifax", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Havana.
+        /// </summary>
+        public static string America__Havana {
+            get {
+                return ResourceManager.GetString("America__Havana", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hermosillo.
+        /// </summary>
+        public static string America__Hermosillo {
+            get {
+                return ResourceManager.GetString("America__Hermosillo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Indianapolis.
+        /// </summary>
+        public static string America__Indiana__Indianapolis {
+            get {
+                return ResourceManager.GetString("America__Indiana__Indianapolis", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Knox.
+        /// </summary>
+        public static string America__Indiana__Knox {
+            get {
+                return ResourceManager.GetString("America__Indiana__Knox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Marengo.
+        /// </summary>
+        public static string America__Indiana__Marengo {
+            get {
+                return ResourceManager.GetString("America__Indiana__Marengo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Petersburg.
+        /// </summary>
+        public static string America__Indiana__Petersburg {
+            get {
+                return ResourceManager.GetString("America__Indiana__Petersburg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tell City.
+        /// </summary>
+        public static string America__Indiana__Tell_City {
+            get {
+                return ResourceManager.GetString("America__Indiana__Tell_City", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vevay.
+        /// </summary>
+        public static string America__Indiana__Vevay {
+            get {
+                return ResourceManager.GetString("America__Indiana__Vevay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vincennes.
+        /// </summary>
+        public static string America__Indiana__Vincennes {
+            get {
+                return ResourceManager.GetString("America__Indiana__Vincennes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Winamac.
+        /// </summary>
+        public static string America__Indiana__Winamac {
+            get {
+                return ResourceManager.GetString("America__Indiana__Winamac", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inuvik.
+        /// </summary>
+        public static string America__Inuvik {
+            get {
+                return ResourceManager.GetString("America__Inuvik", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Iqaluit.
+        /// </summary>
+        public static string America__Iqaluit {
+            get {
+                return ResourceManager.GetString("America__Iqaluit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Jamaica.
+        /// </summary>
+        public static string America__Jamaica {
+            get {
+                return ResourceManager.GetString("America__Jamaica", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Juneau.
+        /// </summary>
+        public static string America__Juneau {
+            get {
+                return ResourceManager.GetString("America__Juneau", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Louisville.
+        /// </summary>
+        public static string America__Kentucky__Louisville {
+            get {
+                return ResourceManager.GetString("America__Kentucky__Louisville", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Monticello.
+        /// </summary>
+        public static string America__Kentucky__Monticello {
+            get {
+                return ResourceManager.GetString("America__Kentucky__Monticello", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kralendijk.
+        /// </summary>
+        public static string America__Kralendijk {
+            get {
+                return ResourceManager.GetString("America__Kralendijk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to La Paz.
+        /// </summary>
+        public static string America__La_Paz {
+            get {
+                return ResourceManager.GetString("America__La_Paz", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lima.
+        /// </summary>
+        public static string America__Lima {
+            get {
+                return ResourceManager.GetString("America__Lima", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Los Angeles.
+        /// </summary>
+        public static string America__Los_Angeles {
+            get {
+                return ResourceManager.GetString("America__Los_Angeles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lower Princes.
+        /// </summary>
+        public static string America__Lower_Princes {
+            get {
+                return ResourceManager.GetString("America__Lower_Princes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maceio.
+        /// </summary>
+        public static string America__Maceio {
+            get {
+                return ResourceManager.GetString("America__Maceio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Managua.
+        /// </summary>
+        public static string America__Managua {
+            get {
+                return ResourceManager.GetString("America__Managua", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manaus.
+        /// </summary>
+        public static string America__Manaus {
+            get {
+                return ResourceManager.GetString("America__Manaus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Marigot.
+        /// </summary>
+        public static string America__Marigot {
+            get {
+                return ResourceManager.GetString("America__Marigot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Martinique.
+        /// </summary>
+        public static string America__Martinique {
+            get {
+                return ResourceManager.GetString("America__Martinique", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Matamoros.
+        /// </summary>
+        public static string America__Matamoros {
+            get {
+                return ResourceManager.GetString("America__Matamoros", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mazatlan.
+        /// </summary>
+        public static string America__Mazatlan {
+            get {
+                return ResourceManager.GetString("America__Mazatlan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Menominee.
+        /// </summary>
+        public static string America__Menominee {
+            get {
+                return ResourceManager.GetString("America__Menominee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Merida.
+        /// </summary>
+        public static string America__Merida {
+            get {
+                return ResourceManager.GetString("America__Merida", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Metlakatla.
+        /// </summary>
+        public static string America__Metlakatla {
+            get {
+                return ResourceManager.GetString("America__Metlakatla", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mexico City.
+        /// </summary>
+        public static string America__Mexico_City {
+            get {
+                return ResourceManager.GetString("America__Mexico_City", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Miquelon.
+        /// </summary>
+        public static string America__Miquelon {
+            get {
+                return ResourceManager.GetString("America__Miquelon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Moncton.
+        /// </summary>
+        public static string America__Moncton {
+            get {
+                return ResourceManager.GetString("America__Moncton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Monterrey.
+        /// </summary>
+        public static string America__Monterrey {
+            get {
+                return ResourceManager.GetString("America__Monterrey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Montevideo.
+        /// </summary>
+        public static string America__Montevideo {
+            get {
+                return ResourceManager.GetString("America__Montevideo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Montserrat.
+        /// </summary>
+        public static string America__Montserrat {
+            get {
+                return ResourceManager.GetString("America__Montserrat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nassau.
+        /// </summary>
+        public static string America__Nassau {
+            get {
+                return ResourceManager.GetString("America__Nassau", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New York.
+        /// </summary>
+        public static string America__New_York {
+            get {
+                return ResourceManager.GetString("America__New_York", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nipigon.
+        /// </summary>
+        public static string America__Nipigon {
+            get {
+                return ResourceManager.GetString("America__Nipigon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nome.
+        /// </summary>
+        public static string America__Nome {
+            get {
+                return ResourceManager.GetString("America__Nome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Noronha.
+        /// </summary>
+        public static string America__Noronha {
+            get {
+                return ResourceManager.GetString("America__Noronha", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Beulah.
+        /// </summary>
+        public static string America__North_Dakota__Beulah {
+            get {
+                return ResourceManager.GetString("America__North_Dakota__Beulah", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Center.
+        /// </summary>
+        public static string America__North_Dakota__Center {
+            get {
+                return ResourceManager.GetString("America__North_Dakota__Center", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Salem.
+        /// </summary>
+        public static string America__North_Dakota__New_Salem {
+            get {
+                return ResourceManager.GetString("America__North_Dakota__New_Salem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ojinaga.
+        /// </summary>
+        public static string America__Ojinaga {
+            get {
+                return ResourceManager.GetString("America__Ojinaga", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Panama.
+        /// </summary>
+        public static string America__Panama {
+            get {
+                return ResourceManager.GetString("America__Panama", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pangnirtung.
+        /// </summary>
+        public static string America__Pangnirtung {
+            get {
+                return ResourceManager.GetString("America__Pangnirtung", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Paramaribo.
+        /// </summary>
+        public static string America__Paramaribo {
+            get {
+                return ResourceManager.GetString("America__Paramaribo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phoenix.
+        /// </summary>
+        public static string America__Phoenix {
+            get {
+                return ResourceManager.GetString("America__Phoenix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Port-au-Prince.
+        /// </summary>
+        public static string America__Port_minus_au_minus_Prince {
+            get {
+                return ResourceManager.GetString("America__Port_minus_au_minus_Prince", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Port of Spain.
+        /// </summary>
+        public static string America__Port_of_Spain {
+            get {
+                return ResourceManager.GetString("America__Port_of_Spain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Porto Velho.
+        /// </summary>
+        public static string America__Porto_Velho {
+            get {
+                return ResourceManager.GetString("America__Porto_Velho", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Puerto Rico.
+        /// </summary>
+        public static string America__Puerto_Rico {
+            get {
+                return ResourceManager.GetString("America__Puerto_Rico", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Punta Arenas.
+        /// </summary>
+        public static string America__Punta_Arenas {
+            get {
+                return ResourceManager.GetString("America__Punta_Arenas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rainy River.
+        /// </summary>
+        public static string America__Rainy_River {
+            get {
+                return ResourceManager.GetString("America__Rainy_River", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rankin Inlet.
+        /// </summary>
+        public static string America__Rankin_Inlet {
+            get {
+                return ResourceManager.GetString("America__Rankin_Inlet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recife.
+        /// </summary>
+        public static string America__Recife {
+            get {
+                return ResourceManager.GetString("America__Recife", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Regina.
+        /// </summary>
+        public static string America__Regina {
+            get {
+                return ResourceManager.GetString("America__Regina", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Resolute.
+        /// </summary>
+        public static string America__Resolute {
+            get {
+                return ResourceManager.GetString("America__Resolute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rio Branco.
+        /// </summary>
+        public static string America__Rio_Branco {
+            get {
+                return ResourceManager.GetString("America__Rio_Branco", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Santarem.
+        /// </summary>
+        public static string America__Santarem {
+            get {
+                return ResourceManager.GetString("America__Santarem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Santiago.
+        /// </summary>
+        public static string America__Santiago {
+            get {
+                return ResourceManager.GetString("America__Santiago", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Santo Domingo.
+        /// </summary>
+        public static string America__Santo_Domingo {
+            get {
+                return ResourceManager.GetString("America__Santo_Domingo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sao Paulo.
+        /// </summary>
+        public static string America__Sao_Paulo {
+            get {
+                return ResourceManager.GetString("America__Sao_Paulo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scoresbysund.
+        /// </summary>
+        public static string America__Scoresbysund {
+            get {
+                return ResourceManager.GetString("America__Scoresbysund", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sitka.
+        /// </summary>
+        public static string America__Sitka {
+            get {
+                return ResourceManager.GetString("America__Sitka", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to St Barthelemy.
+        /// </summary>
+        public static string America__St_Barthelemy {
+            get {
+                return ResourceManager.GetString("America__St_Barthelemy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to St Johns.
+        /// </summary>
+        public static string America__St_Johns {
+            get {
+                return ResourceManager.GetString("America__St_Johns", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to St Kitts.
+        /// </summary>
+        public static string America__St_Kitts {
+            get {
+                return ResourceManager.GetString("America__St_Kitts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to St Lucia.
+        /// </summary>
+        public static string America__St_Lucia {
+            get {
+                return ResourceManager.GetString("America__St_Lucia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to St Thomas.
+        /// </summary>
+        public static string America__St_Thomas {
+            get {
+                return ResourceManager.GetString("America__St_Thomas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to St Vincent.
+        /// </summary>
+        public static string America__St_Vincent {
+            get {
+                return ResourceManager.GetString("America__St_Vincent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Swift Current.
+        /// </summary>
+        public static string America__Swift_Current {
+            get {
+                return ResourceManager.GetString("America__Swift_Current", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tegucigalpa.
+        /// </summary>
+        public static string America__Tegucigalpa {
+            get {
+                return ResourceManager.GetString("America__Tegucigalpa", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thule.
+        /// </summary>
+        public static string America__Thule {
+            get {
+                return ResourceManager.GetString("America__Thule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thunder Bay.
+        /// </summary>
+        public static string America__Thunder_Bay {
+            get {
+                return ResourceManager.GetString("America__Thunder_Bay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tijuana.
+        /// </summary>
+        public static string America__Tijuana {
+            get {
+                return ResourceManager.GetString("America__Tijuana", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toronto.
+        /// </summary>
+        public static string America__Toronto {
+            get {
+                return ResourceManager.GetString("America__Toronto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tortola.
+        /// </summary>
+        public static string America__Tortola {
+            get {
+                return ResourceManager.GetString("America__Tortola", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vancouver.
+        /// </summary>
+        public static string America__Vancouver {
+            get {
+                return ResourceManager.GetString("America__Vancouver", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Whitehorse.
+        /// </summary>
+        public static string America__Whitehorse {
+            get {
+                return ResourceManager.GetString("America__Whitehorse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Winnipeg.
+        /// </summary>
+        public static string America__Winnipeg {
+            get {
+                return ResourceManager.GetString("America__Winnipeg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yakutat.
+        /// </summary>
+        public static string America__Yakutat {
+            get {
+                return ResourceManager.GetString("America__Yakutat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yellowknife.
+        /// </summary>
+        public static string America__Yellowknife {
+            get {
+                return ResourceManager.GetString("America__Yellowknife", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Casey.
+        /// </summary>
+        public static string Antarctica__Casey {
+            get {
+                return ResourceManager.GetString("Antarctica__Casey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Davis.
+        /// </summary>
+        public static string Antarctica__Davis {
+            get {
+                return ResourceManager.GetString("Antarctica__Davis", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DumontDUrville.
+        /// </summary>
+        public static string Antarctica__DumontDUrville {
+            get {
+                return ResourceManager.GetString("Antarctica__DumontDUrville", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Macquarie.
+        /// </summary>
+        public static string Antarctica__Macquarie {
+            get {
+                return ResourceManager.GetString("Antarctica__Macquarie", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mawson.
+        /// </summary>
+        public static string Antarctica__Mawson {
+            get {
+                return ResourceManager.GetString("Antarctica__Mawson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to McMurdo.
+        /// </summary>
+        public static string Antarctica__McMurdo {
+            get {
+                return ResourceManager.GetString("Antarctica__McMurdo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Palmer.
+        /// </summary>
+        public static string Antarctica__Palmer {
+            get {
+                return ResourceManager.GetString("Antarctica__Palmer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rothera.
+        /// </summary>
+        public static string Antarctica__Rothera {
+            get {
+                return ResourceManager.GetString("Antarctica__Rothera", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Syowa.
+        /// </summary>
+        public static string Antarctica__Syowa {
+            get {
+                return ResourceManager.GetString("Antarctica__Syowa", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Troll.
+        /// </summary>
+        public static string Antarctica__Troll {
+            get {
+                return ResourceManager.GetString("Antarctica__Troll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vostok.
+        /// </summary>
+        public static string Antarctica__Vostok {
+            get {
+                return ResourceManager.GetString("Antarctica__Vostok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Longyearbyen.
+        /// </summary>
+        public static string Arctic__Longyearbyen {
+            get {
+                return ResourceManager.GetString("Arctic__Longyearbyen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aden.
+        /// </summary>
+        public static string Asia__Aden {
+            get {
+                return ResourceManager.GetString("Asia__Aden", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Almaty.
+        /// </summary>
+        public static string Asia__Almaty {
+            get {
+                return ResourceManager.GetString("Asia__Almaty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Amman.
+        /// </summary>
+        public static string Asia__Amman {
+            get {
+                return ResourceManager.GetString("Asia__Amman", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Anadyr.
+        /// </summary>
+        public static string Asia__Anadyr {
+            get {
+                return ResourceManager.GetString("Asia__Anadyr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aqtau.
+        /// </summary>
+        public static string Asia__Aqtau {
+            get {
+                return ResourceManager.GetString("Asia__Aqtau", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aqtobe.
+        /// </summary>
+        public static string Asia__Aqtobe {
+            get {
+                return ResourceManager.GetString("Asia__Aqtobe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ashgabat.
+        /// </summary>
+        public static string Asia__Ashgabat {
+            get {
+                return ResourceManager.GetString("Asia__Ashgabat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Atyrau.
+        /// </summary>
+        public static string Asia__Atyrau {
+            get {
+                return ResourceManager.GetString("Asia__Atyrau", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Baghdad.
+        /// </summary>
+        public static string Asia__Baghdad {
+            get {
+                return ResourceManager.GetString("Asia__Baghdad", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bahrain.
+        /// </summary>
+        public static string Asia__Bahrain {
+            get {
+                return ResourceManager.GetString("Asia__Bahrain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Baku.
+        /// </summary>
+        public static string Asia__Baku {
+            get {
+                return ResourceManager.GetString("Asia__Baku", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bangkok.
+        /// </summary>
+        public static string Asia__Bangkok {
+            get {
+                return ResourceManager.GetString("Asia__Bangkok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Barnaul.
+        /// </summary>
+        public static string Asia__Barnaul {
+            get {
+                return ResourceManager.GetString("Asia__Barnaul", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Beirut.
+        /// </summary>
+        public static string Asia__Beirut {
+            get {
+                return ResourceManager.GetString("Asia__Beirut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bishkek.
+        /// </summary>
+        public static string Asia__Bishkek {
+            get {
+                return ResourceManager.GetString("Asia__Bishkek", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brunei.
+        /// </summary>
+        public static string Asia__Brunei {
+            get {
+                return ResourceManager.GetString("Asia__Brunei", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chita.
+        /// </summary>
+        public static string Asia__Chita {
+            get {
+                return ResourceManager.GetString("Asia__Chita", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choibalsan.
+        /// </summary>
+        public static string Asia__Choibalsan {
+            get {
+                return ResourceManager.GetString("Asia__Choibalsan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Colombo.
+        /// </summary>
+        public static string Asia__Colombo {
+            get {
+                return ResourceManager.GetString("Asia__Colombo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Damascus.
+        /// </summary>
+        public static string Asia__Damascus {
+            get {
+                return ResourceManager.GetString("Asia__Damascus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dhaka.
+        /// </summary>
+        public static string Asia__Dhaka {
+            get {
+                return ResourceManager.GetString("Asia__Dhaka", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dili.
+        /// </summary>
+        public static string Asia__Dili {
+            get {
+                return ResourceManager.GetString("Asia__Dili", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dubai.
+        /// </summary>
+        public static string Asia__Dubai {
+            get {
+                return ResourceManager.GetString("Asia__Dubai", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dushanbe.
+        /// </summary>
+        public static string Asia__Dushanbe {
+            get {
+                return ResourceManager.GetString("Asia__Dushanbe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Famagusta.
+        /// </summary>
+        public static string Asia__Famagusta {
+            get {
+                return ResourceManager.GetString("Asia__Famagusta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gaza.
+        /// </summary>
+        public static string Asia__Gaza {
+            get {
+                return ResourceManager.GetString("Asia__Gaza", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hebron.
+        /// </summary>
+        public static string Asia__Hebron {
+            get {
+                return ResourceManager.GetString("Asia__Hebron", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ho Chi Minh.
+        /// </summary>
+        public static string Asia__Ho_Chi_Minh {
+            get {
+                return ResourceManager.GetString("Asia__Ho_Chi_Minh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hong Kong.
+        /// </summary>
+        public static string Asia__Hong_Kong {
+            get {
+                return ResourceManager.GetString("Asia__Hong_Kong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hovd.
+        /// </summary>
+        public static string Asia__Hovd {
+            get {
+                return ResourceManager.GetString("Asia__Hovd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Irkutsk.
+        /// </summary>
+        public static string Asia__Irkutsk {
+            get {
+                return ResourceManager.GetString("Asia__Irkutsk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Jakarta.
+        /// </summary>
+        public static string Asia__Jakarta {
+            get {
+                return ResourceManager.GetString("Asia__Jakarta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Jayapura.
+        /// </summary>
+        public static string Asia__Jayapura {
+            get {
+                return ResourceManager.GetString("Asia__Jayapura", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Jerusalem.
+        /// </summary>
+        public static string Asia__Jerusalem {
+            get {
+                return ResourceManager.GetString("Asia__Jerusalem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kabul.
+        /// </summary>
+        public static string Asia__Kabul {
+            get {
+                return ResourceManager.GetString("Asia__Kabul", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kamchatka.
+        /// </summary>
+        public static string Asia__Kamchatka {
+            get {
+                return ResourceManager.GetString("Asia__Kamchatka", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Karachi.
+        /// </summary>
+        public static string Asia__Karachi {
+            get {
+                return ResourceManager.GetString("Asia__Karachi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kathmandu.
+        /// </summary>
+        public static string Asia__Kathmandu {
+            get {
+                return ResourceManager.GetString("Asia__Kathmandu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Khandyga.
+        /// </summary>
+        public static string Asia__Khandyga {
+            get {
+                return ResourceManager.GetString("Asia__Khandyga", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kolkata.
+        /// </summary>
+        public static string Asia__Kolkata {
+            get {
+                return ResourceManager.GetString("Asia__Kolkata", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Krasnoyarsk.
+        /// </summary>
+        public static string Asia__Krasnoyarsk {
+            get {
+                return ResourceManager.GetString("Asia__Krasnoyarsk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kuala Lumpur.
+        /// </summary>
+        public static string Asia__Kuala_Lumpur {
+            get {
+                return ResourceManager.GetString("Asia__Kuala_Lumpur", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kuching.
+        /// </summary>
+        public static string Asia__Kuching {
+            get {
+                return ResourceManager.GetString("Asia__Kuching", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kuwait.
+        /// </summary>
+        public static string Asia__Kuwait {
+            get {
+                return ResourceManager.GetString("Asia__Kuwait", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Macau.
+        /// </summary>
+        public static string Asia__Macau {
+            get {
+                return ResourceManager.GetString("Asia__Macau", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Magadan.
+        /// </summary>
+        public static string Asia__Magadan {
+            get {
+                return ResourceManager.GetString("Asia__Magadan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Makassar.
+        /// </summary>
+        public static string Asia__Makassar {
+            get {
+                return ResourceManager.GetString("Asia__Makassar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manila.
+        /// </summary>
+        public static string Asia__Manila {
+            get {
+                return ResourceManager.GetString("Asia__Manila", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Muscat.
+        /// </summary>
+        public static string Asia__Muscat {
+            get {
+                return ResourceManager.GetString("Asia__Muscat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nicosia.
+        /// </summary>
+        public static string Asia__Nicosia {
+            get {
+                return ResourceManager.GetString("Asia__Nicosia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Novokuznetsk.
+        /// </summary>
+        public static string Asia__Novokuznetsk {
+            get {
+                return ResourceManager.GetString("Asia__Novokuznetsk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Novosibirsk.
+        /// </summary>
+        public static string Asia__Novosibirsk {
+            get {
+                return ResourceManager.GetString("Asia__Novosibirsk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Omsk.
+        /// </summary>
+        public static string Asia__Omsk {
+            get {
+                return ResourceManager.GetString("Asia__Omsk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Oral.
+        /// </summary>
+        public static string Asia__Oral {
+            get {
+                return ResourceManager.GetString("Asia__Oral", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phnom Penh.
+        /// </summary>
+        public static string Asia__Phnom_Penh {
+            get {
+                return ResourceManager.GetString("Asia__Phnom_Penh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pontianak.
+        /// </summary>
+        public static string Asia__Pontianak {
+            get {
+                return ResourceManager.GetString("Asia__Pontianak", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pyongyang.
+        /// </summary>
+        public static string Asia__Pyongyang {
+            get {
+                return ResourceManager.GetString("Asia__Pyongyang", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Qatar.
+        /// </summary>
+        public static string Asia__Qatar {
+            get {
+                return ResourceManager.GetString("Asia__Qatar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Qyzylorda.
+        /// </summary>
+        public static string Asia__Qyzylorda {
+            get {
+                return ResourceManager.GetString("Asia__Qyzylorda", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Riyadh.
+        /// </summary>
+        public static string Asia__Riyadh {
+            get {
+                return ResourceManager.GetString("Asia__Riyadh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sakhalin.
+        /// </summary>
+        public static string Asia__Sakhalin {
+            get {
+                return ResourceManager.GetString("Asia__Sakhalin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Samarkand.
+        /// </summary>
+        public static string Asia__Samarkand {
+            get {
+                return ResourceManager.GetString("Asia__Samarkand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Seoul.
+        /// </summary>
+        public static string Asia__Seoul {
+            get {
+                return ResourceManager.GetString("Asia__Seoul", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shanghai.
+        /// </summary>
+        public static string Asia__Shanghai {
+            get {
+                return ResourceManager.GetString("Asia__Shanghai", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Singapore.
+        /// </summary>
+        public static string Asia__Singapore {
+            get {
+                return ResourceManager.GetString("Asia__Singapore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Srednekolymsk.
+        /// </summary>
+        public static string Asia__Srednekolymsk {
+            get {
+                return ResourceManager.GetString("Asia__Srednekolymsk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Taipei.
+        /// </summary>
+        public static string Asia__Taipei {
+            get {
+                return ResourceManager.GetString("Asia__Taipei", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tashkent.
+        /// </summary>
+        public static string Asia__Tashkent {
+            get {
+                return ResourceManager.GetString("Asia__Tashkent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tbilisi.
+        /// </summary>
+        public static string Asia__Tbilisi {
+            get {
+                return ResourceManager.GetString("Asia__Tbilisi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tehran.
+        /// </summary>
+        public static string Asia__Tehran {
+            get {
+                return ResourceManager.GetString("Asia__Tehran", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thimphu.
+        /// </summary>
+        public static string Asia__Thimphu {
+            get {
+                return ResourceManager.GetString("Asia__Thimphu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tokyo.
+        /// </summary>
+        public static string Asia__Tokyo {
+            get {
+                return ResourceManager.GetString("Asia__Tokyo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tomsk.
+        /// </summary>
+        public static string Asia__Tomsk {
+            get {
+                return ResourceManager.GetString("Asia__Tomsk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ulaanbaatar.
+        /// </summary>
+        public static string Asia__Ulaanbaatar {
+            get {
+                return ResourceManager.GetString("Asia__Ulaanbaatar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Urumqi.
+        /// </summary>
+        public static string Asia__Urumqi {
+            get {
+                return ResourceManager.GetString("Asia__Urumqi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ust-Nera.
+        /// </summary>
+        public static string Asia__Ust_minus_Nera {
+            get {
+                return ResourceManager.GetString("Asia__Ust_minus_Nera", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vientiane.
+        /// </summary>
+        public static string Asia__Vientiane {
+            get {
+                return ResourceManager.GetString("Asia__Vientiane", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vladivostok.
+        /// </summary>
+        public static string Asia__Vladivostok {
+            get {
+                return ResourceManager.GetString("Asia__Vladivostok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yakutsk.
+        /// </summary>
+        public static string Asia__Yakutsk {
+            get {
+                return ResourceManager.GetString("Asia__Yakutsk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yangon.
+        /// </summary>
+        public static string Asia__Yangon {
+            get {
+                return ResourceManager.GetString("Asia__Yangon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yekaterinburg.
+        /// </summary>
+        public static string Asia__Yekaterinburg {
+            get {
+                return ResourceManager.GetString("Asia__Yekaterinburg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yerevan.
+        /// </summary>
+        public static string Asia__Yerevan {
+            get {
+                return ResourceManager.GetString("Asia__Yerevan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Azores.
+        /// </summary>
+        public static string Atlantic__Azores {
+            get {
+                return ResourceManager.GetString("Atlantic__Azores", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bermuda.
+        /// </summary>
+        public static string Atlantic__Bermuda {
+            get {
+                return ResourceManager.GetString("Atlantic__Bermuda", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Canary.
+        /// </summary>
+        public static string Atlantic__Canary {
+            get {
+                return ResourceManager.GetString("Atlantic__Canary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cape Verde.
+        /// </summary>
+        public static string Atlantic__Cape_Verde {
+            get {
+                return ResourceManager.GetString("Atlantic__Cape_Verde", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Faroe.
+        /// </summary>
+        public static string Atlantic__Faroe {
+            get {
+                return ResourceManager.GetString("Atlantic__Faroe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Madeira.
+        /// </summary>
+        public static string Atlantic__Madeira {
+            get {
+                return ResourceManager.GetString("Atlantic__Madeira", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reykjavik.
+        /// </summary>
+        public static string Atlantic__Reykjavik {
+            get {
+                return ResourceManager.GetString("Atlantic__Reykjavik", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to South Georgia.
+        /// </summary>
+        public static string Atlantic__South_Georgia {
+            get {
+                return ResourceManager.GetString("Atlantic__South_Georgia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to St Helena.
+        /// </summary>
+        public static string Atlantic__St_Helena {
+            get {
+                return ResourceManager.GetString("Atlantic__St_Helena", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stanley.
+        /// </summary>
+        public static string Atlantic__Stanley {
+            get {
+                return ResourceManager.GetString("Atlantic__Stanley", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adelaide.
+        /// </summary>
+        public static string Australia__Adelaide {
+            get {
+                return ResourceManager.GetString("Australia__Adelaide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brisbane.
+        /// </summary>
+        public static string Australia__Brisbane {
+            get {
+                return ResourceManager.GetString("Australia__Brisbane", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Broken Hill.
+        /// </summary>
+        public static string Australia__Broken_Hill {
+            get {
+                return ResourceManager.GetString("Australia__Broken_Hill", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Currie.
+        /// </summary>
+        public static string Australia__Currie {
+            get {
+                return ResourceManager.GetString("Australia__Currie", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Darwin.
+        /// </summary>
+        public static string Australia__Darwin {
+            get {
+                return ResourceManager.GetString("Australia__Darwin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Eucla.
+        /// </summary>
+        public static string Australia__Eucla {
+            get {
+                return ResourceManager.GetString("Australia__Eucla", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hobart.
+        /// </summary>
+        public static string Australia__Hobart {
+            get {
+                return ResourceManager.GetString("Australia__Hobart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lindeman.
+        /// </summary>
+        public static string Australia__Lindeman {
+            get {
+                return ResourceManager.GetString("Australia__Lindeman", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lord Howe.
+        /// </summary>
+        public static string Australia__Lord_Howe {
+            get {
+                return ResourceManager.GetString("Australia__Lord_Howe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Melbourne.
+        /// </summary>
+        public static string Australia__Melbourne {
+            get {
+                return ResourceManager.GetString("Australia__Melbourne", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Perth.
+        /// </summary>
+        public static string Australia__Perth {
+            get {
+                return ResourceManager.GetString("Australia__Perth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sydney.
+        /// </summary>
+        public static string Australia__Sydney {
+            get {
+                return ResourceManager.GetString("Australia__Sydney", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Amsterdam.
+        /// </summary>
+        public static string Europe__Amsterdam {
+            get {
+                return ResourceManager.GetString("Europe__Amsterdam", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Andorra.
         /// </summary>
-        public static string EUROPE_ANDORRA {
+        public static string Europe__Andorra {
             get {
-                return ResourceManager.GetString("EUROPE_ANDORRA", resourceCulture);
+                return ResourceManager.GetString("Europe__Andorra", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Austria.
+        ///   Looks up a localized string similar to Astrakhan.
         /// </summary>
-        public static string EUROPE_AUSTRIA {
+        public static string Europe__Astrakhan {
             get {
-                return ResourceManager.GetString("EUROPE_AUSTRIA", resourceCulture);
+                return ResourceManager.GetString("Europe__Astrakhan", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Belarus.
+        ///   Looks up a localized string similar to Athens.
         /// </summary>
-        public static string EUROPE_BELARUS {
+        public static string Europe__Athens {
             get {
-                return ResourceManager.GetString("EUROPE_BELARUS", resourceCulture);
+                return ResourceManager.GetString("Europe__Athens", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bosnia and Herzegovina.
+        ///   Looks up a localized string similar to Belgrade.
         /// </summary>
-        public static string EUROPE_BOSNIA {
+        public static string Europe__Belgrade {
             get {
-                return ResourceManager.GetString("EUROPE_BOSNIA", resourceCulture);
+                return ResourceManager.GetString("Europe__Belgrade", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Berlin.
+        /// </summary>
+        public static string Europe__Berlin {
+            get {
+                return ResourceManager.GetString("Europe__Berlin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bratislava.
+        /// </summary>
+        public static string Europe__Bratislava {
+            get {
+                return ResourceManager.GetString("Europe__Bratislava", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Brussels.
         /// </summary>
-        public static string EUROPE_BRUSSELS {
+        public static string Europe__Brussels {
             get {
-                return ResourceManager.GetString("EUROPE_BRUSSELS", resourceCulture);
+                return ResourceManager.GetString("Europe__Brussels", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bulgaria.
+        ///   Looks up a localized string similar to Bucharest.
         /// </summary>
-        public static string EUROPE_BULGARIA {
+        public static string Europe__Bucharest {
             get {
-                return ResourceManager.GetString("EUROPE_BULGARIA", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Croatia.
-        /// </summary>
-        public static string EUROPE_CROATIA {
-            get {
-                return ResourceManager.GetString("EUROPE_CROATIA", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Cyprus.
-        /// </summary>
-        public static string EUROPE_CYPRUS {
-            get {
-                return ResourceManager.GetString("EUROPE_CYPRUS", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Czech Republic.
-        /// </summary>
-        public static string EUROPE_CZECH {
-            get {
-                return ResourceManager.GetString("EUROPE_CZECH", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Denmark.
-        /// </summary>
-        public static string EUROPE_DENMARK {
-            get {
-                return ResourceManager.GetString("EUROPE_DENMARK", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Estonia.
-        /// </summary>
-        public static string EUROPE_ESTONIA {
-            get {
-                return ResourceManager.GetString("EUROPE_ESTONIA", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Finland.
-        /// </summary>
-        public static string EUROPE_FINLAND {
-            get {
-                return ResourceManager.GetString("EUROPE_FINLAND", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to France.
-        /// </summary>
-        public static string EUROPE_FRANCE {
-            get {
-                return ResourceManager.GetString("EUROPE_FRANCE", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Germany.
-        /// </summary>
-        public static string EUROPE_GERMANY {
-            get {
-                return ResourceManager.GetString("EUROPE_GERMANY", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Greece.
-        /// </summary>
-        public static string EUROPE_GREECE {
-            get {
-                return ResourceManager.GetString("EUROPE_GREECE", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Holland.
-        /// </summary>
-        public static string EUROPE_HOLLAND {
-            get {
-                return ResourceManager.GetString("EUROPE_HOLLAND", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Hungary.
-        /// </summary>
-        public static string EUROPE_HUNGARY {
-            get {
-                return ResourceManager.GetString("EUROPE_HUNGARY", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ireland.
-        /// </summary>
-        public static string EUROPE_IRELAND {
-            get {
-                return ResourceManager.GetString("EUROPE_IRELAND", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Italy.
-        /// </summary>
-        public static string EUROPE_ITALY {
-            get {
-                return ResourceManager.GetString("EUROPE_ITALY", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Latvia.
-        /// </summary>
-        public static string EUROPE_LATVIA {
-            get {
-                return ResourceManager.GetString("EUROPE_LATVIA", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Liechtenstein.
-        /// </summary>
-        public static string EUROPE_LIECHTENSTEIN {
-            get {
-                return ResourceManager.GetString("EUROPE_LIECHTENSTEIN", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Lithuania.
-        /// </summary>
-        public static string EUROPE_LITHUANIA {
-            get {
-                return ResourceManager.GetString("EUROPE_LITHUANIA", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Luxembourg.
-        /// </summary>
-        public static string EUROPE_LUXEMBOURG {
-            get {
-                return ResourceManager.GetString("EUROPE_LUXEMBOURG", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Macedonia.
-        /// </summary>
-        public static string EUROPE_MACEDONIA {
-            get {
-                return ResourceManager.GetString("EUROPE_MACEDONIA", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Malta.
-        /// </summary>
-        public static string EUROPE_MALTA {
-            get {
-                return ResourceManager.GetString("EUROPE_MALTA", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Moldova.
-        /// </summary>
-        public static string EUROPE_MOLDOVA {
-            get {
-                return ResourceManager.GetString("EUROPE_MOLDOVA", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Monaco.
-        /// </summary>
-        public static string EUROPE_MONACO {
-            get {
-                return ResourceManager.GetString("EUROPE_MONACO", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Montenegro.
-        /// </summary>
-        public static string EUROPE_MONTENEGRO {
-            get {
-                return ResourceManager.GetString("EUROPE_MONTENEGRO", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Norway.
-        /// </summary>
-        public static string EUROPE_NORWAY {
-            get {
-                return ResourceManager.GetString("EUROPE_NORWAY", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Poland.
-        /// </summary>
-        public static string EUROPE_POLAND {
-            get {
-                return ResourceManager.GetString("EUROPE_POLAND", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Portugal.
-        /// </summary>
-        public static string EUROPE_PORTUGAL {
-            get {
-                return ResourceManager.GetString("EUROPE_PORTUGAL", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Romania.
-        /// </summary>
-        public static string EUROPE_ROMANIA {
-            get {
-                return ResourceManager.GetString("EUROPE_ROMANIA", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Russia.
-        /// </summary>
-        public static string EUROPE_RUSSIA {
-            get {
-                return ResourceManager.GetString("EUROPE_RUSSIA", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to San Marino.
-        /// </summary>
-        public static string EUROPE_SAN_MARINO {
-            get {
-                return ResourceManager.GetString("EUROPE_SAN_MARINO", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Serbia.
-        /// </summary>
-        public static string EUROPE_SERBIA {
-            get {
-                return ResourceManager.GetString("EUROPE_SERBIA", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Slovakia.
-        /// </summary>
-        public static string EUROPE_SLOVAKIA {
-            get {
-                return ResourceManager.GetString("EUROPE_SLOVAKIA", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Slovenia.
-        /// </summary>
-        public static string EUROPE_SLOVENIA {
-            get {
-                return ResourceManager.GetString("EUROPE_SLOVENIA", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Spain.
-        /// </summary>
-        public static string EUROPE_SPAIN {
-            get {
-                return ResourceManager.GetString("EUROPE_SPAIN", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sweden.
-        /// </summary>
-        public static string EUROPE_SWEDEN {
-            get {
-                return ResourceManager.GetString("EUROPE_SWEDEN", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Switzerland.
-        /// </summary>
-        public static string EUROPE_SWITZERLAND {
-            get {
-                return ResourceManager.GetString("EUROPE_SWITZERLAND", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Turkey.
-        /// </summary>
-        public static string EUROPE_TURKEY {
-            get {
-                return ResourceManager.GetString("EUROPE_TURKEY", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to United Kingdom.
-        /// </summary>
-        public static string EUROPE_UK {
-            get {
-                return ResourceManager.GetString("EUROPE_UK", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ukraine.
-        /// </summary>
-        public static string EUROPE_UKRAIN {
-            get {
-                return ResourceManager.GetString("EUROPE_UKRAIN", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Vatican City.
-        /// </summary>
-        public static string EUROPE_VATICAN {
-            get {
-                return ResourceManager.GetString("EUROPE_VATICAN", resourceCulture);
+                return ResourceManager.GetString("Europe__Bucharest", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Budapest.
         /// </summary>
-        public static string HUNGARY_BUDAPEST {
+        public static string Europe__Budapest {
             get {
-                return ResourceManager.GetString("HUNGARY_BUDAPEST", resourceCulture);
+                return ResourceManager.GetString("Europe__Budapest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Busingen.
+        /// </summary>
+        public static string Europe__Busingen {
+            get {
+                return ResourceManager.GetString("Europe__Busingen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chisinau.
+        /// </summary>
+        public static string Europe__Chisinau {
+            get {
+                return ResourceManager.GetString("Europe__Chisinau", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copenhagen.
+        /// </summary>
+        public static string Europe__Copenhagen {
+            get {
+                return ResourceManager.GetString("Europe__Copenhagen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dublin.
+        /// </summary>
+        public static string Europe__Dublin {
+            get {
+                return ResourceManager.GetString("Europe__Dublin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gibraltar.
+        /// </summary>
+        public static string Europe__Gibraltar {
+            get {
+                return ResourceManager.GetString("Europe__Gibraltar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Guernsey.
+        /// </summary>
+        public static string Europe__Guernsey {
+            get {
+                return ResourceManager.GetString("Europe__Guernsey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Helsinki.
+        /// </summary>
+        public static string Europe__Helsinki {
+            get {
+                return ResourceManager.GetString("Europe__Helsinki", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Isle of Man.
+        /// </summary>
+        public static string Europe__Isle_of_Man {
+            get {
+                return ResourceManager.GetString("Europe__Isle_of_Man", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Istanbul.
+        /// </summary>
+        public static string Europe__Istanbul {
+            get {
+                return ResourceManager.GetString("Europe__Istanbul", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Jersey.
+        /// </summary>
+        public static string Europe__Jersey {
+            get {
+                return ResourceManager.GetString("Europe__Jersey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kaliningrad.
+        /// </summary>
+        public static string Europe__Kaliningrad {
+            get {
+                return ResourceManager.GetString("Europe__Kaliningrad", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kiev.
+        /// </summary>
+        public static string Europe__Kiev {
+            get {
+                return ResourceManager.GetString("Europe__Kiev", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kirov.
+        /// </summary>
+        public static string Europe__Kirov {
+            get {
+                return ResourceManager.GetString("Europe__Kirov", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lisbon.
+        /// </summary>
+        public static string Europe__Lisbon {
+            get {
+                return ResourceManager.GetString("Europe__Lisbon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ljubljana.
+        /// </summary>
+        public static string Europe__Ljubljana {
+            get {
+                return ResourceManager.GetString("Europe__Ljubljana", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to London.
+        /// </summary>
+        public static string Europe__London {
+            get {
+                return ResourceManager.GetString("Europe__London", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Luxembourg.
+        /// </summary>
+        public static string Europe__Luxembourg {
+            get {
+                return ResourceManager.GetString("Europe__Luxembourg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Madrid.
+        /// </summary>
+        public static string Europe__Madrid {
+            get {
+                return ResourceManager.GetString("Europe__Madrid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Malta.
+        /// </summary>
+        public static string Europe__Malta {
+            get {
+                return ResourceManager.GetString("Europe__Malta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mariehamn.
+        /// </summary>
+        public static string Europe__Mariehamn {
+            get {
+                return ResourceManager.GetString("Europe__Mariehamn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minsk.
+        /// </summary>
+        public static string Europe__Minsk {
+            get {
+                return ResourceManager.GetString("Europe__Minsk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Monaco.
+        /// </summary>
+        public static string Europe__Monaco {
+            get {
+                return ResourceManager.GetString("Europe__Monaco", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Moscow.
+        /// </summary>
+        public static string Europe__Moscow {
+            get {
+                return ResourceManager.GetString("Europe__Moscow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Oslo.
+        /// </summary>
+        public static string Europe__Oslo {
+            get {
+                return ResourceManager.GetString("Europe__Oslo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Paris.
+        /// </summary>
+        public static string Europe__Paris {
+            get {
+                return ResourceManager.GetString("Europe__Paris", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Podgorica.
+        /// </summary>
+        public static string Europe__Podgorica {
+            get {
+                return ResourceManager.GetString("Europe__Podgorica", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prague.
+        /// </summary>
+        public static string Europe__Prague {
+            get {
+                return ResourceManager.GetString("Europe__Prague", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Riga.
+        /// </summary>
+        public static string Europe__Riga {
+            get {
+                return ResourceManager.GetString("Europe__Riga", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rome.
+        /// </summary>
+        public static string Europe__Rome {
+            get {
+                return ResourceManager.GetString("Europe__Rome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Samara.
+        /// </summary>
+        public static string Europe__Samara {
+            get {
+                return ResourceManager.GetString("Europe__Samara", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to San Marino.
+        /// </summary>
+        public static string Europe__San_Marino {
+            get {
+                return ResourceManager.GetString("Europe__San_Marino", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sarajevo.
+        /// </summary>
+        public static string Europe__Sarajevo {
+            get {
+                return ResourceManager.GetString("Europe__Sarajevo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saratov.
+        /// </summary>
+        public static string Europe__Saratov {
+            get {
+                return ResourceManager.GetString("Europe__Saratov", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Simferopol.
+        /// </summary>
+        public static string Europe__Simferopol {
+            get {
+                return ResourceManager.GetString("Europe__Simferopol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skopje.
+        /// </summary>
+        public static string Europe__Skopje {
+            get {
+                return ResourceManager.GetString("Europe__Skopje", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sofia.
+        /// </summary>
+        public static string Europe__Sofia {
+            get {
+                return ResourceManager.GetString("Europe__Sofia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stockholm.
+        /// </summary>
+        public static string Europe__Stockholm {
+            get {
+                return ResourceManager.GetString("Europe__Stockholm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tallinn.
+        /// </summary>
+        public static string Europe__Tallinn {
+            get {
+                return ResourceManager.GetString("Europe__Tallinn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tirane.
+        /// </summary>
+        public static string Europe__Tirane {
+            get {
+                return ResourceManager.GetString("Europe__Tirane", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ulyanovsk.
+        /// </summary>
+        public static string Europe__Ulyanovsk {
+            get {
+                return ResourceManager.GetString("Europe__Ulyanovsk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uzhgorod.
+        /// </summary>
+        public static string Europe__Uzhgorod {
+            get {
+                return ResourceManager.GetString("Europe__Uzhgorod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vaduz.
+        /// </summary>
+        public static string Europe__Vaduz {
+            get {
+                return ResourceManager.GetString("Europe__Vaduz", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vatican.
+        /// </summary>
+        public static string Europe__Vatican {
+            get {
+                return ResourceManager.GetString("Europe__Vatican", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vienna.
+        /// </summary>
+        public static string Europe__Vienna {
+            get {
+                return ResourceManager.GetString("Europe__Vienna", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vilnius.
+        /// </summary>
+        public static string Europe__Vilnius {
+            get {
+                return ResourceManager.GetString("Europe__Vilnius", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Volgograd.
+        /// </summary>
+        public static string Europe__Volgograd {
+            get {
+                return ResourceManager.GetString("Europe__Volgograd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warsaw.
+        /// </summary>
+        public static string Europe__Warsaw {
+            get {
+                return ResourceManager.GetString("Europe__Warsaw", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zagreb.
+        /// </summary>
+        public static string Europe__Zagreb {
+            get {
+                return ResourceManager.GetString("Europe__Zagreb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zaporozhye.
+        /// </summary>
+        public static string Europe__Zaporozhye {
+            get {
+                return ResourceManager.GetString("Europe__Zaporozhye", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zurich.
+        /// </summary>
+        public static string Europe__Zurich {
+            get {
+                return ResourceManager.GetString("Europe__Zurich", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Antananarivo.
+        /// </summary>
+        public static string Indian__Antananarivo {
+            get {
+                return ResourceManager.GetString("Indian__Antananarivo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chagos.
+        /// </summary>
+        public static string Indian__Chagos {
+            get {
+                return ResourceManager.GetString("Indian__Chagos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Christmas.
+        /// </summary>
+        public static string Indian__Christmas {
+            get {
+                return ResourceManager.GetString("Indian__Christmas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cocos.
+        /// </summary>
+        public static string Indian__Cocos {
+            get {
+                return ResourceManager.GetString("Indian__Cocos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comoro.
+        /// </summary>
+        public static string Indian__Comoro {
+            get {
+                return ResourceManager.GetString("Indian__Comoro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kerguelen.
+        /// </summary>
+        public static string Indian__Kerguelen {
+            get {
+                return ResourceManager.GetString("Indian__Kerguelen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mahe.
+        /// </summary>
+        public static string Indian__Mahe {
+            get {
+                return ResourceManager.GetString("Indian__Mahe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maldives.
+        /// </summary>
+        public static string Indian__Maldives {
+            get {
+                return ResourceManager.GetString("Indian__Maldives", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mauritius.
+        /// </summary>
+        public static string Indian__Mauritius {
+            get {
+                return ResourceManager.GetString("Indian__Mauritius", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mayotte.
+        /// </summary>
+        public static string Indian__Mayotte {
+            get {
+                return ResourceManager.GetString("Indian__Mayotte", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reunion.
+        /// </summary>
+        public static string Indian__Reunion {
+            get {
+                return ResourceManager.GetString("Indian__Reunion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apia.
+        /// </summary>
+        public static string Pacific__Apia {
+            get {
+                return ResourceManager.GetString("Pacific__Apia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Auckland.
+        /// </summary>
+        public static string Pacific__Auckland {
+            get {
+                return ResourceManager.GetString("Pacific__Auckland", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bougainville.
+        /// </summary>
+        public static string Pacific__Bougainville {
+            get {
+                return ResourceManager.GetString("Pacific__Bougainville", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chatham.
+        /// </summary>
+        public static string Pacific__Chatham {
+            get {
+                return ResourceManager.GetString("Pacific__Chatham", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chuuk.
+        /// </summary>
+        public static string Pacific__Chuuk {
+            get {
+                return ResourceManager.GetString("Pacific__Chuuk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Easter.
+        /// </summary>
+        public static string Pacific__Easter {
+            get {
+                return ResourceManager.GetString("Pacific__Easter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Efate.
+        /// </summary>
+        public static string Pacific__Efate {
+            get {
+                return ResourceManager.GetString("Pacific__Efate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enderbury.
+        /// </summary>
+        public static string Pacific__Enderbury {
+            get {
+                return ResourceManager.GetString("Pacific__Enderbury", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fakaofo.
+        /// </summary>
+        public static string Pacific__Fakaofo {
+            get {
+                return ResourceManager.GetString("Pacific__Fakaofo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fiji.
+        /// </summary>
+        public static string Pacific__Fiji {
+            get {
+                return ResourceManager.GetString("Pacific__Fiji", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Funafuti.
+        /// </summary>
+        public static string Pacific__Funafuti {
+            get {
+                return ResourceManager.GetString("Pacific__Funafuti", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Galapagos.
+        /// </summary>
+        public static string Pacific__Galapagos {
+            get {
+                return ResourceManager.GetString("Pacific__Galapagos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gambier.
+        /// </summary>
+        public static string Pacific__Gambier {
+            get {
+                return ResourceManager.GetString("Pacific__Gambier", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Guadalcanal.
+        /// </summary>
+        public static string Pacific__Guadalcanal {
+            get {
+                return ResourceManager.GetString("Pacific__Guadalcanal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Guam.
+        /// </summary>
+        public static string Pacific__Guam {
+            get {
+                return ResourceManager.GetString("Pacific__Guam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Honolulu.
+        /// </summary>
+        public static string Pacific__Honolulu {
+            get {
+                return ResourceManager.GetString("Pacific__Honolulu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kiritimati.
+        /// </summary>
+        public static string Pacific__Kiritimati {
+            get {
+                return ResourceManager.GetString("Pacific__Kiritimati", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kosrae.
+        /// </summary>
+        public static string Pacific__Kosrae {
+            get {
+                return ResourceManager.GetString("Pacific__Kosrae", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kwajalein.
+        /// </summary>
+        public static string Pacific__Kwajalein {
+            get {
+                return ResourceManager.GetString("Pacific__Kwajalein", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Majuro.
+        /// </summary>
+        public static string Pacific__Majuro {
+            get {
+                return ResourceManager.GetString("Pacific__Majuro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Marquesas.
+        /// </summary>
+        public static string Pacific__Marquesas {
+            get {
+                return ResourceManager.GetString("Pacific__Marquesas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Midway.
+        /// </summary>
+        public static string Pacific__Midway {
+            get {
+                return ResourceManager.GetString("Pacific__Midway", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nauru.
+        /// </summary>
+        public static string Pacific__Nauru {
+            get {
+                return ResourceManager.GetString("Pacific__Nauru", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Niue.
+        /// </summary>
+        public static string Pacific__Niue {
+            get {
+                return ResourceManager.GetString("Pacific__Niue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Norfolk.
+        /// </summary>
+        public static string Pacific__Norfolk {
+            get {
+                return ResourceManager.GetString("Pacific__Norfolk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Noumea.
+        /// </summary>
+        public static string Pacific__Noumea {
+            get {
+                return ResourceManager.GetString("Pacific__Noumea", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pago Pago.
+        /// </summary>
+        public static string Pacific__Pago_Pago {
+            get {
+                return ResourceManager.GetString("Pacific__Pago_Pago", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Palau.
+        /// </summary>
+        public static string Pacific__Palau {
+            get {
+                return ResourceManager.GetString("Pacific__Palau", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pitcairn.
+        /// </summary>
+        public static string Pacific__Pitcairn {
+            get {
+                return ResourceManager.GetString("Pacific__Pitcairn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pohnpei.
+        /// </summary>
+        public static string Pacific__Pohnpei {
+            get {
+                return ResourceManager.GetString("Pacific__Pohnpei", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Port Moresby.
+        /// </summary>
+        public static string Pacific__Port_Moresby {
+            get {
+                return ResourceManager.GetString("Pacific__Port_Moresby", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rarotonga.
+        /// </summary>
+        public static string Pacific__Rarotonga {
+            get {
+                return ResourceManager.GetString("Pacific__Rarotonga", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saipan.
+        /// </summary>
+        public static string Pacific__Saipan {
+            get {
+                return ResourceManager.GetString("Pacific__Saipan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tahiti.
+        /// </summary>
+        public static string Pacific__Tahiti {
+            get {
+                return ResourceManager.GetString("Pacific__Tahiti", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tarawa.
+        /// </summary>
+        public static string Pacific__Tarawa {
+            get {
+                return ResourceManager.GetString("Pacific__Tarawa", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tongatapu.
+        /// </summary>
+        public static string Pacific__Tongatapu {
+            get {
+                return ResourceManager.GetString("Pacific__Tongatapu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wake.
+        /// </summary>
+        public static string Pacific__Wake {
+            get {
+                return ResourceManager.GetString("Pacific__Wake", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wallis.
+        /// </summary>
+        public static string Pacific__Wallis {
+            get {
+                return ResourceManager.GetString("Pacific__Wallis", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UTC.
+        /// </summary>
+        public static string UTC {
+            get {
+                return ResourceManager.GetString("UTC", resourceCulture);
             }
         }
     }

@@ -39,15 +39,14 @@
             <Label Grid.Row="4" Grid.Column="0" Text="Email" Margin="10,0" VerticalOptions="Center" />
             <Entry Grid.Row="4" Grid.Column="1" x:Name="entryMail" Placeholder="drwatson@bakerstreet.co.uk" PlaceholderColor="Gray" Margin="5,0" Text="{Binding Email}" Keyboard="Email"/>
 
-            <Label Grid.Row="5" Grid.Column="0" Text="Phone number" Margin="10,0" VerticalOptions="Center" />
+            <Label Grid.Row="5" Grid.Column="0" Text="Phone" Margin="10,0" VerticalOptions="Center" />
             <Entry Grid.Row="5" Grid.Column="1" x:Name="entryPhone" Placeholder="+443482512365" PlaceholderColor="Gray" Margin="5,0" Text="{Binding Phone}" Keyboard="Telephone"/>
 
             <Label Grid.Row="6" Grid.Column="0" Text="Birth" Margin="10,0"  VerticalOptions="Center"/>
             <DatePicker Grid.Row="6" Grid.Column="1" x:Name="entryBirth" Date="{Binding Birth, Mode=TwoWay}" />
 
             <Label Grid.Row="7" Grid.Column="0" Text="Timezone" Margin="10,0" VerticalOptions="Center" IsVisible="{Binding Timezones.Count, Converter={StaticResource IntGreaterThan}, ConverterParameter=1}"/>
-            <!--ItemDisplayBinding="Value"-->
-            <Picker Grid.Row="7" Grid.Column="1" ItemsSource="{Binding Timezones}" SelectedIndex="{Binding TimezoneIndex, Mode=TwoWay}" IsVisible="{Binding Timezones.Count, Converter={StaticResource IntGreaterThan}, ConverterParameter=1}"/>
+            <Picker Grid.Row="7" Grid.Column="1" ItemsSource="{Binding Timezones}" ItemDisplayBinding="{Binding Value}" SelectedIndex="{Binding TimezoneIndex, Mode=TwoWay}" IsVisible="{Binding Timezones.Count, Converter={StaticResource IntGreaterThan}, ConverterParameter=1}"/>
             
             <Button Grid.Row="9" Grid.ColumnSpan="2" Text="Register" Command="{Binding RegisterCommand}" HeightRequest="60" IsEnabled="{Binding IsTimezoneLoaded}"/>
         </Grid>
