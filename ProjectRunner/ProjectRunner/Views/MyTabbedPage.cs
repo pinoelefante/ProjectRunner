@@ -19,12 +19,12 @@ namespace ProjectRunner.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            VM.NavigatedToAsync(navigationParameter);
+            VM?.NavigatedToAsync(navigationParameter);
         }
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            VM.NavigatedFrom();
+            VM?.NavigatedFrom();
         }
     }
 }

@@ -660,7 +660,17 @@ namespace ProjectRunner.ServerAPI
         }
         public async Task<Envelop<List<UserProfile>>> FriendList()
         {
-            throw new NotImplementedException();
+            return await server.SendRequestWithAction<List<UserProfile>, List<Dictionary<string, string>>>("/people.php?action=FriendList", (x)=>
+            {
+                if(x!=null)
+                {
+                    List<UserProfile> friends = new List<UserProfile>(x.Count);
+                    foreach (var item in x)
+                        friends.Add(UserProfile.ParseDictionary(item));
+                    return friends;
+                }
+                return null;
+            });
         }
         public async Task<Envelop<UserProfile>> GetProfileInfo(int userId)
         {

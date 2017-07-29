@@ -5,10 +5,37 @@
             xmlns:views="clr-namespace:ProjectRunner.Views"
             BindingContext="{Binding FriendsViewModel, Source={StaticResource Locator}}">
     <!--Pages can be added as references or inline-->
-    <ContentPage Title="Friends" />
+    <ContentPage Title="Friends">
+        <Grid>
+            <Label Text="You don't have friends :(" HorizontalOptions="Center" Margin="0,25" IsVisible="{Binding Friends.Count, Converter={StaticResource IntEquals}, ConverterParameter=0}"/>
+            <ListView ItemsSource="{Binding Friends}" ItemTemplate="{StaticResource ActivityUserProfileImageSelector}">
+                <ListView.Behaviors>
+                    <views:EventToCommandBehavior EventName="ItemTapped" Command="{Binding OpenProfileCommand}" EventArgsConverter="{StaticResource ItemTappedConverter}" />
+                </ListView.Behaviors>
+            </ListView>
+        </Grid>
+    </ContentPage>
 
     <TabbedPage Title="Requests">
-        <ContentPage Title="Received"/>
-        <ContentPage Title="Sent"/>
+        <ContentPage Title="Received">
+            <Grid>
+                <Label Text="You don't have friendship requests" HorizontalOptions="Center" Margin="0,25" IsVisible="{Binding RequestsReceived.Count, Converter={StaticResource IntEquals}, ConverterParameter=0}"/>
+                <ListView ItemsSource="{Binding RequestsReceived}" ItemTemplate="{StaticResource ActivityUserProfileImageSelector}">
+                    <ListView.Behaviors>
+                        <views:EventToCommandBehavior EventName="ItemTapped" Command="{Binding OpenProfileCommand}" EventArgsConverter="{StaticResource ItemTappedConverter}" />
+                    </ListView.Behaviors>
+                </ListView>
+            </Grid>
+        </ContentPage>
+        <ContentPage Title="Sent">
+            <Grid>
+                <Label Text="You haven't sent friendship requests" HorizontalOptions="Center" Margin="0,25" IsVisible="{Binding RequestsReceived.Count, Converter={StaticResource IntEquals}, ConverterParameter=0}"/>
+                <ListView ItemsSource="{Binding RequestsSent}" ItemTemplate="{StaticResource ActivityUserProfileImageSelector}">
+                    <ListView.Behaviors>
+                        <views:EventToCommandBehavior EventName="ItemTapped" Command="{Binding OpenProfileCommand}" EventArgsConverter="{StaticResource ItemTappedConverter}" />
+                    </ListView.Behaviors>
+                </ListView>
+            </Grid>
+        </ContentPage>
     </TabbedPage>
 </views:MyTabbedPage>

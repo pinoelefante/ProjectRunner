@@ -6,7 +6,7 @@
              Title="Project Runners"
              BindingContext="{Binding MyMasterDetailViewModel, Source={StaticResource Locator}}">
     <ContentPage.Content>
-        <Grid VerticalOptions="FillAndExpand">
+        <Grid>
             <Grid.Margin>
                 <OnPlatform x:TypeArguments="Thickness" Android="0,24,0,0"/>
             </Grid.Margin>

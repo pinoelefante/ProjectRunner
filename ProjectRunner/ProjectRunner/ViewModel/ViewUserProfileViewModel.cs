@@ -34,6 +34,7 @@ namespace ProjectRunner.ViewModel
                 {
                     User = response.content;
                     RaisePropertyChanged(() => User);
+                    RaisePropertyChanged(() => IsCurrentUser);
                 }
             }
         }

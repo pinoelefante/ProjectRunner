@@ -19,12 +19,12 @@ namespace ProjectRunner.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            ViewModel.NavigatedToAsync(navigationParameter);
+            ViewModel?.NavigatedToAsync(navigationParameter);
         }
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            ViewModel.NavigatedFrom();
+            ViewModel?.NavigatedFrom();
         }
         protected override bool OnBackButtonPressed()
         {

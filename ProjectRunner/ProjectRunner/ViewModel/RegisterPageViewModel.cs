@@ -28,8 +28,10 @@ namespace ProjectRunner.ViewModel
             server = s;
             cache = c;
         }
-        private string _username, _pass1, _pass2, _firstName, _lastName, _email, _phone;
-        private DateTime _birth = DateTime.Now;
+        public DateTime MaxDateTime { get; } = DateTime.Now.Subtract(TimeSpan.FromDays(365.25 * 15));
+        public DateTime MinDateTime { get; } = DateTime.Now.Subtract(TimeSpan.FromDays(365.25 * 100));
+        private string _username, _pass1, _firstName, _lastName, _email, _phone;
+        private DateTime _birth = DateTime.Now.Subtract(TimeSpan.FromDays(365.25*18));
         private int _timezoneIndex = 0;
         public string Username { get { return _username; } set { Set(ref _username, value); } }
         public string Password { get { return _pass1; } set { Set(ref _pass1, value); } }

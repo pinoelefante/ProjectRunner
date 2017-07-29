@@ -28,6 +28,9 @@ namespace ProjectRunner.ViewModel
         }
         private async Task CheckLocationPermissionAsync()
         {
+            var locator = Plugin.Geolocator.CrossGeolocator.Current;
+            if (!locator.IsGeolocationAvailable)
+                return;
             try
             {
                 var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
@@ -41,22 +44,10 @@ namespace ProjectRunner.ViewModel
                     if (results.ContainsKey(Permission.Location))
                         status = results[Permission.Location];
                 }
-                /*
-                if (status == PermissionStatus.Granted)
-                {
-                    var results = await CrossGeolocator.Current.GetPositionAsync(10000);
-                    LabelGeolocation.Text = "Lat: " + results.Latitude + " Long: " + results.Longitude;
-                }
-                else if (status != PermissionStatus.Unknown)
-                {
-                    await DisplayAlert("Location Denied", "Can not continue, try again.", "OK");
-                }
-                */
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-
-               // LabelGeolocation.Text = "Error: " + ex;
+                Debug.WriteLine(e.Message);
             }
         }
     }
