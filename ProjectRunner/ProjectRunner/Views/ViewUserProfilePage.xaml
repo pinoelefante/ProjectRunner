@@ -15,6 +15,7 @@
             <StackLayout Orientation="Vertical" Margin="5">
                 <Image Source="{Binding User, Converter={StaticResource UserImageConverter}}" WidthRequest="64" HeightRequest="64" HorizontalOptions="Center"/>
                 <Label Text="{Binding User.Username}" HorizontalOptions="Center"/>
+                <Label Text="Hey, this is you!" FontAttributes="Italic" HorizontalOptions="Center" IsVisible="{Binding User.Status, Converter={StaticResource IntEquals}, ConverterParameter=0}"/>
             </StackLayout>
 
             <ScrollView Grid.Row="1">

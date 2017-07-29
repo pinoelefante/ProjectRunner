@@ -18,8 +18,7 @@ namespace ProjectRunner.Views
         {
             InitializeComponent();
             entryUsername.Completed += (s, e) => entryPassword.Focus();
-            entryPassword.Completed += (s, e) => entryPassword2.Focus();
-            entryPassword2.Completed += (s, e) => entryFirstName.Focus();
+            entryPassword.Completed += (s, e) => entryFirstName.Focus();
             entryFirstName.Completed += (s, e) => entryLastName.Focus();
             entryLastName.Completed += (s, e) => entryMail.Focus();
             entryMail.Completed += (s, e) => entryPhone.Focus();

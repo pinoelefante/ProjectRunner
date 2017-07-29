@@ -13,7 +13,7 @@
 
         <ListView Grid.Row="0" ItemsSource="{Binding ListMessages}" ItemTemplate="{StaticResource ChatMessageSelector}" HasUnevenRows="True"/>
 
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" Padding="5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="Auto"/>
@@ -23,7 +23,12 @@
                     <views:EventToCommandBehavior EventName="Completed" Command="{Binding SendChatMessageCommand}" />
                 </Entry.Behaviors>
             </Entry>
-            <Button Grid.Column="1" HorizontalOptions="End" Image="send_message.png" Command="{Binding SendChatMessageCommand}" BackgroundColor="Transparent" BorderColor="Transparent" IsEnabled="{Binding UserJoinedActivity}"/>
+            <Button Grid.Column="1"
+                    Image="send_message.png"
+                    Command="{Binding SendChatMessageCommand}"
+                    BackgroundColor="Transparent"
+                    BorderColor="Transparent"
+                    IsEnabled="{Binding UserJoinedActivity}"/>
         </Grid>
     </Grid>
 </ContentPage>

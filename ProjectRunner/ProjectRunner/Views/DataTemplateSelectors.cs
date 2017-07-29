@@ -48,6 +48,8 @@ namespace ProjectRunner.Views.Selectors
         protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
         {
             UserProfile profile = item as UserProfile;
+            if (profile == null)
+                return null;
             if (!string.IsNullOrEmpty(profile.Image))
                 return ImageProfile;
 

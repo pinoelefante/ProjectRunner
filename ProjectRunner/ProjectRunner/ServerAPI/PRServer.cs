@@ -10,6 +10,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -73,10 +74,10 @@ namespace ProjectRunner.ServerAPI
             try
             {
                 var output = await SendSimpleRequest($"{SERVER_ENDPOINT}{url}", postContent);
-                var result = JsonConvert.DeserializeObject<Dictionary<string, string>>(output);
-
-                envelop.time = DateTime.Parse(result["time"], CultureInfo.InvariantCulture);
-                envelop.response = (StatusCodes)Enum.ToObject(typeof(StatusCodes), Int32.Parse(result["response"]));
+                var result = JsonConvert.DeserializeObject<Dictionary<string, object>>(output);
+                
+                envelop.time = DateTime.Parse(result["time"].ToString(), CultureInfo.InvariantCulture);
+                envelop.response = (StatusCodes)Enum.ToObject(typeof(StatusCodes), Int32.Parse(result["response"].ToString()));
 #if DEBUG
                 Debug.WriteLine("STAUS CODE: " + envelop.response);
 #endif
@@ -204,7 +205,7 @@ namespace ProjectRunner.ServerAPI
                 new KeyValuePair<string, string>("timezone", timezone)
             });
 
-            var response = await server.SendRequestWithAction<string, Dictionary<string, string>>("/registration.php", (x) =>
+            var response = await server.SendRequestWithAction<string, Dictionary<string, string>>("/registration.php?action=Register", (x) =>
             {
                 if (x != null)
                     cache.CurrentUser = UserProfile.ParseDictionary(x);
@@ -255,6 +256,10 @@ namespace ProjectRunner.ServerAPI
         public async Task<Envelop<string>> RecoverPassword()
         {
             throw new NotImplementedException();
+        }
+        public async Task<Envelop<string[]>> GetTimezones(string country, int offset)
+        {
+            return await server.SendRequest<string[]>($"/registration.php?action=ListTimezones&country={country}&offset={offset}");
         }
     }
     public class ActivityAPI
@@ -723,12 +728,12 @@ namespace ProjectRunner.ServerAPI
         {
             comm = c;
         }
-        private static readonly string GOOGLEMAPS_API_KEY = "AIzaSyDVPJKCj8wPi50f1x3BV_rUrOKRaDI6ZXM";
+        private static readonly string GOOGLEMAPS_GEOCODE_API_KEY = "AIzaSyDVPJKCj8wPi50f1x3BV_rUrOKRaDI6ZXM";
         public async Task<Location> GetCoordinatesFromAddressAsync(string city, string street, string streetNo, string postalCode)
         {
             var address = (!string.IsNullOrEmpty(street) ? street : "") + (!string.IsNullOrEmpty(streetNo) ? "," + streetNo : "") +
                 ", " + (!string.IsNullOrEmpty(postalCode) ? postalCode + " " : "") + (!string.IsNullOrEmpty(city) ? city : "");
-            var endpoint = $"https://maps.googleapis.com/maps/api/geocode/json?address={address}&key={GOOGLEMAPS_API_KEY}";
+            var endpoint = $"https://maps.googleapis.com/maps/api/geocode/json?address={address}&key={GOOGLEMAPS_GEOCODE_API_KEY}";
             try
             {
                 var output = await comm.SendSimpleRequest(endpoint);
@@ -741,6 +746,32 @@ namespace ProjectRunner.ServerAPI
                 Debug.WriteLine("exception catched");
             }
             return null;
+        }
+        public static readonly string GOOGLEMAPS_TIMEZONES_API_KEY = "AIzaSyAJy96W6Db875Ty0wTO6L3KNRD45zl3xUc";
+        public async Task<string> GetTimeZoneFromLatitudeLongitude(double lat, double lon)
+        {
+            var timestamp = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+            var address = $"https://maps.googleapis.com/maps/api/timezone/json?location={lat.ToString().Replace(',', '.')},{lon.ToString().Replace(',', '.')}&timestamp={timestamp}&key={GOOGLEMAPS_TIMEZONES_API_KEY}";
+            try
+            {
+                var json = await comm.SendSimpleRequest(address);
+                var result = JsonConvert.DeserializeObject<GTimezone>(json);
+                if (result.status == "OK")
+                    return result.timeZoneId;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            return null;
+        }
+        public class GTimezone
+        {
+            public int dstOffset { get; set; }
+            public int rawOffset { get; set; }
+            public string status { get; set; }
+            public string timeZoneId { get; set; }
+            public string timeZoneName { get; set; }
         }
         public class AddressComponent
         {
