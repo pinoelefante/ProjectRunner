@@ -683,6 +683,24 @@ namespace ProjectRunner.ServerAPI
                 return UserProfile.ParseDictionary(x);
             }, postContent);
         }
+        public async Task<Envelop<List<UserProfile>>> SearchPeople(string username)
+        {
+            var postContent = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("search", username)
+            });
+            return await server.SendRequestWithAction<List<UserProfile>, List<Dictionary<string, string>>> ("/people.php?action=SearchFriends", (x)=>
+            {
+                if(x!=null)
+                {
+                    List<UserProfile> found = new List<UserProfile>(x.Count);
+                    foreach (var item in x)
+                        found.Add(UserProfile.ParseDictionary(item));
+                    return found;
+                }
+                return null;
+            }, postContent);
+        }
     }
     public class UserProfile
     {

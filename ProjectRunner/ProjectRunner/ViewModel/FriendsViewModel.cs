@@ -48,5 +48,12 @@ namespace ProjectRunner.ViewModel
             {
                 navigation.NavigateTo(ViewModelLocator.ViewUserProfile, x.Id);
             }));
+        private RelayCommand _searchFriend;
+        public RelayCommand SearchFriendCommand =>
+            _searchFriend ??
+            (_searchFriend = new RelayCommand(() =>
+            {
+                navigation.NavigateTo(ViewModelLocator.SearchFriendsPage);
+            }));
     }
 }

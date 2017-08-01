@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProjectRunner.Views.SearchFriendsPage"
+             Title="Search friends"
+             xmlns:views="clr-namespace:ProjectRunner.Views"
+             BindingContext="{Binding SearchFriendsViewModel, Source={StaticResource Locator}}">
+    <Grid Padding="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Entry Grid.Column="0" Placeholder="Username to search" Text="{Binding SearchParameter}" Margin="5,0" />
+            <Button Grid.Column="1" Text="Search" Command="{Binding SearchCommand}" Margin="5,0"/>
+        </Grid>
+
+        <StackLayout Grid.Row="1" IsVisible="{Binding SearchResults.Count, Converter={StaticResource IntGreaterThan}, ConverterParameter=0}" Margin="5,10,5,0">
+            <Label Text="Search results" HorizontalOptions="Center"/>
+            <ListView ItemsSource="{Binding SearchResults}" ItemTemplate="{StaticResource ActivityUserProfileImageSelector}">
+                <ListView.Behaviors>
+                    <views:EventToCommandBehavior EventName="ItemTapped" Command="{Binding OpenProfileCommand}" EventArgsConverter="{StaticResource ItemTappedConverter}"/>
+                </ListView.Behaviors>
+            </ListView>
+        </StackLayout>
+    </Grid>
+</ContentPage>

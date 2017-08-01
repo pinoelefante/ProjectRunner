@@ -1,0 +1,34 @@
+HOME PAGE
+1) if there is no pending activity, asking to create or search one
+2) Suggest near activity
+3) Suggest near people
+4) If there is an activity, it will be showed. The admin will have a button to start the activity
+
+USERS
+1) Experience for each activity ended
+2) Levels
+3) Coins reward after x activity
+4) Upload photo
+5) Send message to users
+6) Edit profile
+
+USER SETTINGS
+1) Discoverable
+2) Default location
+3) Change timezone
+4) Change unit of measure
+
+ACTIVITIES
+1) Private activities
+2) Organizer mode
+3) Invite friends to activity
+4) Group activity
+5) Receive notification for near activities
+6) Activity just for male or female
+
+GROUPS
+1) Open/private groups
+2) Send invite to users to join a group
+
+SEARCH ACTIVITY
+1) Check Location permission when trying to enable gps

@@ -46,7 +46,7 @@ namespace ProjectRunner.ViewModel
                 ProgressText = "Loading addresses";
             });
             var loginRes = await server.Authentication.LoginAsync();
-            if(loginRes.response == StatusCodes.LOGIN_ERROR)
+            if(loginRes.response != StatusCodes.OK)
                 return false;
 
             var resAddr = await server.Activities.ListAddressAsync();

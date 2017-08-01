@@ -1,0 +1,1712 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
+  <file datatype="xml" source-language="en" target-language="pt" original="PROJECTRUNNER/STRINGS/TIMEZONESLOCATIONS.RESX" tool-id="MultilingualAppToolkit" product-name="n/a" product-version="n/a" build-num="n/a">
+    <header>
+      <tool tool-id="MultilingualAppToolkit" tool-name="Multilingual App Toolkit" tool-version="4.0.6810.0" tool-company="Microsoft" />
+    </header>
+    <body>
+      <group id="PROJECTRUNNER/STRINGS/TIMEZONESLOCATIONS.RESX" datatype="resx">
+        <trans-unit id="Africa__Abidjan" translate="yes" xml:space="preserve">
+          <source>Abidjan</source>
+          <target state="new">Abidjan</target>
+        </trans-unit>
+        <trans-unit id="Africa__Accra" translate="yes" xml:space="preserve">
+          <source>Accra</source>
+          <target state="new">Accra</target>
+        </trans-unit>
+        <trans-unit id="Africa__Addis_Ababa" translate="yes" xml:space="preserve">
+          <source>Addis Ababa</source>
+          <target state="new">Addis Ababa</target>
+        </trans-unit>
+        <trans-unit id="Africa__Algiers" translate="yes" xml:space="preserve">
+          <source>Algiers</source>
+          <target state="new">Algiers</target>
+        </trans-unit>
+        <trans-unit id="Africa__Asmara" translate="yes" xml:space="preserve">
+          <source>Asmara</source>
+          <target state="new">Asmara</target>
+        </trans-unit>
+        <trans-unit id="Africa__Bamako" translate="yes" xml:space="preserve">
+          <source>Bamako</source>
+          <target state="new">Bamako</target>
+        </trans-unit>
+        <trans-unit id="Africa__Bangui" translate="yes" xml:space="preserve">
+          <source>Bangui</source>
+          <target state="new">Bangui</target>
+        </trans-unit>
+        <trans-unit id="Africa__Banjul" translate="yes" xml:space="preserve">
+          <source>Banjul</source>
+          <target state="new">Banjul</target>
+        </trans-unit>
+        <trans-unit id="Africa__Bissau" translate="yes" xml:space="preserve">
+          <source>Bissau</source>
+          <target state="new">Bissau</target>
+        </trans-unit>
+        <trans-unit id="Africa__Blantyre" translate="yes" xml:space="preserve">
+          <source>Blantyre</source>
+          <target state="new">Blantyre</target>
+        </trans-unit>
+        <trans-unit id="Africa__Brazzaville" translate="yes" xml:space="preserve">
+          <source>Brazzaville</source>
+          <target state="new">Brazzaville</target>
+        </trans-unit>
+        <trans-unit id="Africa__Bujumbura" translate="yes" xml:space="preserve">
+          <source>Bujumbura</source>
+          <target state="new">Bujumbura</target>
+        </trans-unit>
+        <trans-unit id="Africa__Cairo" translate="yes" xml:space="preserve">
+          <source>Cairo</source>
+          <target state="new">Cairo</target>
+        </trans-unit>
+        <trans-unit id="Africa__Casablanca" translate="yes" xml:space="preserve">
+          <source>Casablanca</source>
+          <target state="new">Casablanca</target>
+        </trans-unit>
+        <trans-unit id="Africa__Ceuta" translate="yes" xml:space="preserve">
+          <source>Ceuta</source>
+          <target state="new">Ceuta</target>
+        </trans-unit>
+        <trans-unit id="Africa__Conakry" translate="yes" xml:space="preserve">
+          <source>Conakry</source>
+          <target state="new">Conakry</target>
+        </trans-unit>
+        <trans-unit id="Africa__Dakar" translate="yes" xml:space="preserve">
+          <source>Dakar</source>
+          <target state="new">Dakar</target>
+        </trans-unit>
+        <trans-unit id="Africa__Dar_es_Salaam" translate="yes" xml:space="preserve">
+          <source>Dar es Salaam</source>
+          <target state="new">Dar es Salaam</target>
+        </trans-unit>
+        <trans-unit id="Africa__Djibouti" translate="yes" xml:space="preserve">
+          <source>Djibouti</source>
+          <target state="new">Djibouti</target>
+        </trans-unit>
+        <trans-unit id="Africa__Douala" translate="yes" xml:space="preserve">
+          <source>Douala</source>
+          <target state="new">Douala</target>
+        </trans-unit>
+        <trans-unit id="Africa__El_Aaiun" translate="yes" xml:space="preserve">
+          <source>El Aaiun</source>
+          <target state="new">El Aaiun</target>
+        </trans-unit>
+        <trans-unit id="Africa__Freetown" translate="yes" xml:space="preserve">
+          <source>Freetown</source>
+          <target state="new">Freetown</target>
+        </trans-unit>
+        <trans-unit id="Africa__Gaborone" translate="yes" xml:space="preserve">
+          <source>Gaborone</source>
+          <target state="new">Gaborone</target>
+        </trans-unit>
+        <trans-unit id="Africa__Harare" translate="yes" xml:space="preserve">
+          <source>Harare</source>
+          <target state="new">Harare</target>
+        </trans-unit>
+        <trans-unit id="Africa__Johannesburg" translate="yes" xml:space="preserve">
+          <source>Johannesburg</source>
+          <target state="new">Johannesburg</target>
+        </trans-unit>
+        <trans-unit id="Africa__Juba" translate="yes" xml:space="preserve">
+          <source>Juba</source>
+          <target state="new">Juba</target>
+        </trans-unit>
+        <trans-unit id="Africa__Kampala" translate="yes" xml:space="preserve">
+          <source>Kampala</source>
+          <target state="new">Kampala</target>
+        </trans-unit>
+        <trans-unit id="Africa__Khartoum" translate="yes" xml:space="preserve">
+          <source>Khartoum</source>
+          <target state="new">Khartoum</target>
+        </trans-unit>
+        <trans-unit id="Africa__Kigali" translate="yes" xml:space="preserve">
+          <source>Kigali</source>
+          <target state="new">Kigali</target>
+        </trans-unit>
+        <trans-unit id="Africa__Kinshasa" translate="yes" xml:space="preserve">
+          <source>Kinshasa</source>
+          <target state="new">Kinshasa</target>
+        </trans-unit>
+        <trans-unit id="Africa__Lagos" translate="yes" xml:space="preserve">
+          <source>Lagos</source>
+          <target state="new">Lagos</target>
+        </trans-unit>
+        <trans-unit id="Africa__Libreville" translate="yes" xml:space="preserve">
+          <source>Libreville</source>
+          <target state="new">Libreville</target>
+        </trans-unit>
+        <trans-unit id="Africa__Lome" translate="yes" xml:space="preserve">
+          <source>Lome</source>
+          <target state="new">Lome</target>
+        </trans-unit>
+        <trans-unit id="Africa__Luanda" translate="yes" xml:space="preserve">
+          <source>Luanda</source>
+          <target state="new">Luanda</target>
+        </trans-unit>
+        <trans-unit id="Africa__Lubumbashi" translate="yes" xml:space="preserve">
+          <source>Lubumbashi</source>
+          <target state="new">Lubumbashi</target>
+        </trans-unit>
+        <trans-unit id="Africa__Lusaka" translate="yes" xml:space="preserve">
+          <source>Lusaka</source>
+          <target state="new">Lusaka</target>
+        </trans-unit>
+        <trans-unit id="Africa__Malabo" translate="yes" xml:space="preserve">
+          <source>Malabo</source>
+          <target state="new">Malabo</target>
+        </trans-unit>
+        <trans-unit id="Africa__Maputo" translate="yes" xml:space="preserve">
+          <source>Maputo</source>
+          <target state="new">Maputo</target>
+        </trans-unit>
+        <trans-unit id="Africa__Maseru" translate="yes" xml:space="preserve">
+          <source>Maseru</source>
+          <target state="new">Maseru</target>
+        </trans-unit>
+        <trans-unit id="Africa__Mbabane" translate="yes" xml:space="preserve">
+          <source>Mbabane</source>
+          <target state="new">Mbabane</target>
+        </trans-unit>
+        <trans-unit id="Africa__Mogadishu" translate="yes" xml:space="preserve">
+          <source>Mogadishu</source>
+          <target state="new">Mogadishu</target>
+        </trans-unit>
+        <trans-unit id="Africa__Monrovia" translate="yes" xml:space="preserve">
+          <source>Monrovia</source>
+          <target state="new">Monrovia</target>
+        </trans-unit>
+        <trans-unit id="Africa__Nairobi" translate="yes" xml:space="preserve">
+          <source>Nairobi</source>
+          <target state="new">Nairobi</target>
+        </trans-unit>
+        <trans-unit id="Africa__Ndjamena" translate="yes" xml:space="preserve">
+          <source>Ndjamena</source>
+          <target state="new">Ndjamena</target>
+        </trans-unit>
+        <trans-unit id="Africa__Niamey" translate="yes" xml:space="preserve">
+          <source>Niamey</source>
+          <target state="new">Niamey</target>
+        </trans-unit>
+        <trans-unit id="Africa__Nouakchott" translate="yes" xml:space="preserve">
+          <source>Nouakchott</source>
+          <target state="new">Nouakchott</target>
+        </trans-unit>
+        <trans-unit id="Africa__Ouagadougou" translate="yes" xml:space="preserve">
+          <source>Ouagadougou</source>
+          <target state="new">Ouagadougou</target>
+        </trans-unit>
+        <trans-unit id="Africa__Porto_minus_Novo" translate="yes" xml:space="preserve">
+          <source>Porto-Novo</source>
+          <target state="new">Porto-Novo</target>
+        </trans-unit>
+        <trans-unit id="Africa__Sao_Tome" translate="yes" xml:space="preserve">
+          <source>Sao Tome</source>
+          <target state="new">Sao Tome</target>
+        </trans-unit>
+        <trans-unit id="Africa__Tripoli" translate="yes" xml:space="preserve">
+          <source>Tripoli</source>
+          <target state="new">Tripoli</target>
+        </trans-unit>
+        <trans-unit id="Africa__Tunis" translate="yes" xml:space="preserve">
+          <source>Tunis</source>
+          <target state="new">Tunis</target>
+        </trans-unit>
+        <trans-unit id="Africa__Windhoek" translate="yes" xml:space="preserve">
+          <source>Windhoek</source>
+          <target state="new">Windhoek</target>
+        </trans-unit>
+        <trans-unit id="America__Adak" translate="yes" xml:space="preserve">
+          <source>Adak</source>
+          <target state="new">Adak</target>
+        </trans-unit>
+        <trans-unit id="America__Anchorage" translate="yes" xml:space="preserve">
+          <source>Anchorage</source>
+          <target state="new">Anchorage</target>
+        </trans-unit>
+        <trans-unit id="America__Anguilla" translate="yes" xml:space="preserve">
+          <source>Anguilla</source>
+          <target state="new">Anguilla</target>
+        </trans-unit>
+        <trans-unit id="America__Antigua" translate="yes" xml:space="preserve">
+          <source>Antigua</source>
+          <target state="new">Antigua</target>
+        </trans-unit>
+        <trans-unit id="America__Araguaina" translate="yes" xml:space="preserve">
+          <source>Araguaina</source>
+          <target state="new">Araguaina</target>
+        </trans-unit>
+        <trans-unit id="America__Argentina__Buenos_Aires" translate="yes" xml:space="preserve">
+          <source>Buenos Aires</source>
+          <target state="new">Buenos Aires</target>
+        </trans-unit>
+        <trans-unit id="America__Argentina__Catamarca" translate="yes" xml:space="preserve">
+          <source>Catamarca</source>
+          <target state="new">Catamarca</target>
+        </trans-unit>
+        <trans-unit id="America__Argentina__Cordoba" translate="yes" xml:space="preserve">
+          <source>Cordoba</source>
+          <target state="new">Cordoba</target>
+        </trans-unit>
+        <trans-unit id="America__Argentina__Jujuy" translate="yes" xml:space="preserve">
+          <source>Jujuy</source>
+          <target state="new">Jujuy</target>
+        </trans-unit>
+        <trans-unit id="America__Argentina__La_Rioja" translate="yes" xml:space="preserve">
+          <source>La Rioja</source>
+          <target state="new">La Rioja</target>
+        </trans-unit>
+        <trans-unit id="America__Argentina__Mendoza" translate="yes" xml:space="preserve">
+          <source>Mendoza</source>
+          <target state="new">Mendoza</target>
+        </trans-unit>
+        <trans-unit id="America__Argentina__Rio_Gallegos" translate="yes" xml:space="preserve">
+          <source>Rio Gallegos</source>
+          <target state="new">Rio Gallegos</target>
+        </trans-unit>
+        <trans-unit id="America__Argentina__Salta" translate="yes" xml:space="preserve">
+          <source>Salta</source>
+          <target state="new">Salta</target>
+        </trans-unit>
+        <trans-unit id="America__Argentina__San_Juan" translate="yes" xml:space="preserve">
+          <source>San Juan</source>
+          <target state="new">San Juan</target>
+        </trans-unit>
+        <trans-unit id="America__Argentina__San_Luis" translate="yes" xml:space="preserve">
+          <source>San Luis</source>
+          <target state="new">San Luis</target>
+        </trans-unit>
+        <trans-unit id="America__Argentina__Tucuman" translate="yes" xml:space="preserve">
+          <source>Tucuman</source>
+          <target state="new">Tucuman</target>
+        </trans-unit>
+        <trans-unit id="America__Argentina__Ushuaia" translate="yes" xml:space="preserve">
+          <source>Ushuaia</source>
+          <target state="new">Ushuaia</target>
+        </trans-unit>
+        <trans-unit id="America__Aruba" translate="yes" xml:space="preserve">
+          <source>Aruba</source>
+          <target state="new">Aruba</target>
+        </trans-unit>
+        <trans-unit id="America__Asuncion" translate="yes" xml:space="preserve">
+          <source>Asuncion</source>
+          <target state="new">Asuncion</target>
+        </trans-unit>
+        <trans-unit id="America__Atikokan" translate="yes" xml:space="preserve">
+          <source>Atikokan</source>
+          <target state="new">Atikokan</target>
+        </trans-unit>
+        <trans-unit id="America__Bahia" translate="yes" xml:space="preserve">
+          <source>Bahia</source>
+          <target state="new">Bahia</target>
+        </trans-unit>
+        <trans-unit id="America__Bahia_Banderas" translate="yes" xml:space="preserve">
+          <source>Bahia Banderas</source>
+          <target state="new">Bahia Banderas</target>
+        </trans-unit>
+        <trans-unit id="America__Barbados" translate="yes" xml:space="preserve">
+          <source>Barbados</source>
+          <target state="new">Barbados</target>
+        </trans-unit>
+        <trans-unit id="America__Belem" translate="yes" xml:space="preserve">
+          <source>Belem</source>
+          <target state="new">Belem</target>
+        </trans-unit>
+        <trans-unit id="America__Belize" translate="yes" xml:space="preserve">
+          <source>Belize</source>
+          <target state="new">Belize</target>
+        </trans-unit>
+        <trans-unit id="America__Blanc_minus_Sablon" translate="yes" xml:space="preserve">
+          <source>Blanc-Sablon</source>
+          <target state="new">Blanc-Sablon</target>
+        </trans-unit>
+        <trans-unit id="America__Boa_Vista" translate="yes" xml:space="preserve">
+          <source>Boa Vista</source>
+          <target state="new">Boa Vista</target>
+        </trans-unit>
+        <trans-unit id="America__Bogota" translate="yes" xml:space="preserve">
+          <source>Bogota</source>
+          <target state="new">Bogota</target>
+        </trans-unit>
+        <trans-unit id="America__Boise" translate="yes" xml:space="preserve">
+          <source>Boise</source>
+          <target state="new">Boise</target>
+        </trans-unit>
+        <trans-unit id="America__Cambridge_Bay" translate="yes" xml:space="preserve">
+          <source>Cambridge Bay</source>
+          <target state="new">Cambridge Bay</target>
+        </trans-unit>
+        <trans-unit id="America__Campo_Grande" translate="yes" xml:space="preserve">
+          <source>Campo Grande</source>
+          <target state="new">Campo Grande</target>
+        </trans-unit>
+        <trans-unit id="America__Cancun" translate="yes" xml:space="preserve">
+          <source>Cancun</source>
+          <target state="new">Cancun</target>
+        </trans-unit>
+        <trans-unit id="America__Caracas" translate="yes" xml:space="preserve">
+          <source>Caracas</source>
+          <target state="new">Caracas</target>
+        </trans-unit>
+        <trans-unit id="America__Cayenne" translate="yes" xml:space="preserve">
+          <source>Cayenne</source>
+          <target state="new">Cayenne</target>
+        </trans-unit>
+        <trans-unit id="America__Cayman" translate="yes" xml:space="preserve">
+          <source>Cayman</source>
+          <target state="new">Cayman</target>
+        </trans-unit>
+        <trans-unit id="America__Chicago" translate="yes" xml:space="preserve">
+          <source>Chicago</source>
+          <target state="new">Chicago</target>
+        </trans-unit>
+        <trans-unit id="America__Chihuahua" translate="yes" xml:space="preserve">
+          <source>Chihuahua</source>
+          <target state="new">Chihuahua</target>
+        </trans-unit>
+        <trans-unit id="America__Costa_Rica" translate="yes" xml:space="preserve">
+          <source>Costa Rica</source>
+          <target state="new">Costa Rica</target>
+        </trans-unit>
+        <trans-unit id="America__Creston" translate="yes" xml:space="preserve">
+          <source>Creston</source>
+          <target state="new">Creston</target>
+        </trans-unit>
+        <trans-unit id="America__Cuiaba" translate="yes" xml:space="preserve">
+          <source>Cuiaba</source>
+          <target state="new">Cuiaba</target>
+        </trans-unit>
+        <trans-unit id="America__Curacao" translate="yes" xml:space="preserve">
+          <source>Curacao</source>
+          <target state="new">Curacao</target>
+        </trans-unit>
+        <trans-unit id="America__Danmarkshavn" translate="yes" xml:space="preserve">
+          <source>Danmarkshavn</source>
+          <target state="new">Danmarkshavn</target>
+        </trans-unit>
+        <trans-unit id="America__Dawson" translate="yes" xml:space="preserve">
+          <source>Dawson</source>
+          <target state="new">Dawson</target>
+        </trans-unit>
+        <trans-unit id="America__Dawson_Creek" translate="yes" xml:space="preserve">
+          <source>Dawson Creek</source>
+          <target state="new">Dawson Creek</target>
+        </trans-unit>
+        <trans-unit id="America__Denver" translate="yes" xml:space="preserve">
+          <source>Denver</source>
+          <target state="new">Denver</target>
+        </trans-unit>
+        <trans-unit id="America__Detroit" translate="yes" xml:space="preserve">
+          <source>Detroit</source>
+          <target state="new">Detroit</target>
+        </trans-unit>
+        <trans-unit id="America__Dominica" translate="yes" xml:space="preserve">
+          <source>Dominica</source>
+          <target state="new">Dominica</target>
+        </trans-unit>
+        <trans-unit id="America__Edmonton" translate="yes" xml:space="preserve">
+          <source>Edmonton</source>
+          <target state="new">Edmonton</target>
+        </trans-unit>
+        <trans-unit id="America__Eirunepe" translate="yes" xml:space="preserve">
+          <source>Eirunepe</source>
+          <target state="new">Eirunepe</target>
+        </trans-unit>
+        <trans-unit id="America__El_Salvador" translate="yes" xml:space="preserve">
+          <source>El Salvador</source>
+          <target state="new">El Salvador</target>
+        </trans-unit>
+        <trans-unit id="America__Fortaleza" translate="yes" xml:space="preserve">
+          <source>Fortaleza</source>
+          <target state="new">Fortaleza</target>
+        </trans-unit>
+        <trans-unit id="America__Fort_Nelson" translate="yes" xml:space="preserve">
+          <source>Fort Nelson</source>
+          <target state="new">Fort Nelson</target>
+        </trans-unit>
+        <trans-unit id="America__Glace_Bay" translate="yes" xml:space="preserve">
+          <source>Glace Bay</source>
+          <target state="new">Glace Bay</target>
+        </trans-unit>
+        <trans-unit id="America__Godthab" translate="yes" xml:space="preserve">
+          <source>Godthab</source>
+          <target state="new">Godthab</target>
+        </trans-unit>
+        <trans-unit id="America__Goose_Bay" translate="yes" xml:space="preserve">
+          <source>Goose Bay</source>
+          <target state="new">Goose Bay</target>
+        </trans-unit>
+        <trans-unit id="America__Grand_Turk" translate="yes" xml:space="preserve">
+          <source>Grand Turk</source>
+          <target state="new">Grand Turk</target>
+        </trans-unit>
+        <trans-unit id="America__Grenada" translate="yes" xml:space="preserve">
+          <source>Grenada</source>
+          <target state="new">Grenada</target>
+        </trans-unit>
+        <trans-unit id="America__Guadeloupe" translate="yes" xml:space="preserve">
+          <source>Guadeloupe</source>
+          <target state="new">Guadeloupe</target>
+        </trans-unit>
+        <trans-unit id="America__Guatemala" translate="yes" xml:space="preserve">
+          <source>Guatemala</source>
+          <target state="new">Guatemala</target>
+        </trans-unit>
+        <trans-unit id="America__Guayaquil" translate="yes" xml:space="preserve">
+          <source>Guayaquil</source>
+          <target state="new">Guayaquil</target>
+        </trans-unit>
+        <trans-unit id="America__Guyana" translate="yes" xml:space="preserve">
+          <source>Guyana</source>
+          <target state="new">Guyana</target>
+        </trans-unit>
+        <trans-unit id="America__Halifax" translate="yes" xml:space="preserve">
+          <source>Halifax</source>
+          <target state="new">Halifax</target>
+        </trans-unit>
+        <trans-unit id="America__Havana" translate="yes" xml:space="preserve">
+          <source>Havana</source>
+          <target state="new">Havana</target>
+        </trans-unit>
+        <trans-unit id="America__Hermosillo" translate="yes" xml:space="preserve">
+          <source>Hermosillo</source>
+          <target state="new">Hermosillo</target>
+        </trans-unit>
+        <trans-unit id="America__Indiana__Indianapolis" translate="yes" xml:space="preserve">
+          <source>Indianapolis</source>
+          <target state="new">Indianapolis</target>
+        </trans-unit>
+        <trans-unit id="America__Indiana__Knox" translate="yes" xml:space="preserve">
+          <source>Knox</source>
+          <target state="new">Knox</target>
+        </trans-unit>
+        <trans-unit id="America__Indiana__Marengo" translate="yes" xml:space="preserve">
+          <source>Marengo</source>
+          <target state="new">Marengo</target>
+        </trans-unit>
+        <trans-unit id="America__Indiana__Petersburg" translate="yes" xml:space="preserve">
+          <source>Petersburg</source>
+          <target state="new">Petersburg</target>
+        </trans-unit>
+        <trans-unit id="America__Indiana__Tell_City" translate="yes" xml:space="preserve">
+          <source>Tell City</source>
+          <target state="new">Tell City</target>
+        </trans-unit>
+        <trans-unit id="America__Indiana__Vevay" translate="yes" xml:space="preserve">
+          <source>Vevay</source>
+          <target state="new">Vevay</target>
+        </trans-unit>
+        <trans-unit id="America__Indiana__Vincennes" translate="yes" xml:space="preserve">
+          <source>Vincennes</source>
+          <target state="new">Vincennes</target>
+        </trans-unit>
+        <trans-unit id="America__Indiana__Winamac" translate="yes" xml:space="preserve">
+          <source>Winamac</source>
+          <target state="new">Winamac</target>
+        </trans-unit>
+        <trans-unit id="America__Inuvik" translate="yes" xml:space="preserve">
+          <source>Inuvik</source>
+          <target state="new">Inuvik</target>
+        </trans-unit>
+        <trans-unit id="America__Iqaluit" translate="yes" xml:space="preserve">
+          <source>Iqaluit</source>
+          <target state="new">Iqaluit</target>
+        </trans-unit>
+        <trans-unit id="America__Jamaica" translate="yes" xml:space="preserve">
+          <source>Jamaica</source>
+          <target state="new">Jamaica</target>
+        </trans-unit>
+        <trans-unit id="America__Juneau" translate="yes" xml:space="preserve">
+          <source>Juneau</source>
+          <target state="new">Juneau</target>
+        </trans-unit>
+        <trans-unit id="America__Kentucky__Louisville" translate="yes" xml:space="preserve">
+          <source>Louisville</source>
+          <target state="new">Louisville</target>
+        </trans-unit>
+        <trans-unit id="America__Kentucky__Monticello" translate="yes" xml:space="preserve">
+          <source>Monticello</source>
+          <target state="new">Monticello</target>
+        </trans-unit>
+        <trans-unit id="America__Kralendijk" translate="yes" xml:space="preserve">
+          <source>Kralendijk</source>
+          <target state="new">Kralendijk</target>
+        </trans-unit>
+        <trans-unit id="America__La_Paz" translate="yes" xml:space="preserve">
+          <source>La Paz</source>
+          <target state="new">La Paz</target>
+        </trans-unit>
+        <trans-unit id="America__Lima" translate="yes" xml:space="preserve">
+          <source>Lima</source>
+          <target state="new">Lima</target>
+        </trans-unit>
+        <trans-unit id="America__Los_Angeles" translate="yes" xml:space="preserve">
+          <source>Los Angeles</source>
+          <target state="new">Los Angeles</target>
+        </trans-unit>
+        <trans-unit id="America__Lower_Princes" translate="yes" xml:space="preserve">
+          <source>Lower Princes</source>
+          <target state="new">Lower Princes</target>
+        </trans-unit>
+        <trans-unit id="America__Maceio" translate="yes" xml:space="preserve">
+          <source>Maceio</source>
+          <target state="new">Maceio</target>
+        </trans-unit>
+        <trans-unit id="America__Managua" translate="yes" xml:space="preserve">
+          <source>Managua</source>
+          <target state="new">Managua</target>
+        </trans-unit>
+        <trans-unit id="America__Manaus" translate="yes" xml:space="preserve">
+          <source>Manaus</source>
+          <target state="new">Manaus</target>
+        </trans-unit>
+        <trans-unit id="America__Marigot" translate="yes" xml:space="preserve">
+          <source>Marigot</source>
+          <target state="new">Marigot</target>
+        </trans-unit>
+        <trans-unit id="America__Martinique" translate="yes" xml:space="preserve">
+          <source>Martinique</source>
+          <target state="new">Martinique</target>
+        </trans-unit>
+        <trans-unit id="America__Matamoros" translate="yes" xml:space="preserve">
+          <source>Matamoros</source>
+          <target state="new">Matamoros</target>
+        </trans-unit>
+        <trans-unit id="America__Mazatlan" translate="yes" xml:space="preserve">
+          <source>Mazatlan</source>
+          <target state="new">Mazatlan</target>
+        </trans-unit>
+        <trans-unit id="America__Menominee" translate="yes" xml:space="preserve">
+          <source>Menominee</source>
+          <target state="new">Menominee</target>
+        </trans-unit>
+        <trans-unit id="America__Merida" translate="yes" xml:space="preserve">
+          <source>Merida</source>
+          <target state="new">Merida</target>
+        </trans-unit>
+        <trans-unit id="America__Metlakatla" translate="yes" xml:space="preserve">
+          <source>Metlakatla</source>
+          <target state="new">Metlakatla</target>
+        </trans-unit>
+        <trans-unit id="America__Mexico_City" translate="yes" xml:space="preserve">
+          <source>Mexico City</source>
+          <target state="new">Mexico City</target>
+        </trans-unit>
+        <trans-unit id="America__Miquelon" translate="yes" xml:space="preserve">
+          <source>Miquelon</source>
+          <target state="new">Miquelon</target>
+        </trans-unit>
+        <trans-unit id="America__Moncton" translate="yes" xml:space="preserve">
+          <source>Moncton</source>
+          <target state="new">Moncton</target>
+        </trans-unit>
+        <trans-unit id="America__Monterrey" translate="yes" xml:space="preserve">
+          <source>Monterrey</source>
+          <target state="new">Monterrey</target>
+        </trans-unit>
+        <trans-unit id="America__Montevideo" translate="yes" xml:space="preserve">
+          <source>Montevideo</source>
+          <target state="new">Montevideo</target>
+        </trans-unit>
+        <trans-unit id="America__Montserrat" translate="yes" xml:space="preserve">
+          <source>Montserrat</source>
+          <target state="new">Montserrat</target>
+        </trans-unit>
+        <trans-unit id="America__Nassau" translate="yes" xml:space="preserve">
+          <source>Nassau</source>
+          <target state="new">Nassau</target>
+        </trans-unit>
+        <trans-unit id="America__New_York" translate="yes" xml:space="preserve">
+          <source>New York</source>
+          <target state="new">New York</target>
+        </trans-unit>
+        <trans-unit id="America__Nipigon" translate="yes" xml:space="preserve">
+          <source>Nipigon</source>
+          <target state="new">Nipigon</target>
+        </trans-unit>
+        <trans-unit id="America__Nome" translate="yes" xml:space="preserve">
+          <source>Nome</source>
+          <target state="new">Nome</target>
+        </trans-unit>
+        <trans-unit id="America__Noronha" translate="yes" xml:space="preserve">
+          <source>Noronha</source>
+          <target state="new">Noronha</target>
+        </trans-unit>
+        <trans-unit id="America__North_Dakota__Beulah" translate="yes" xml:space="preserve">
+          <source>Beulah</source>
+          <target state="new">Beulah</target>
+        </trans-unit>
+        <trans-unit id="America__North_Dakota__Center" translate="yes" xml:space="preserve">
+          <source>Center</source>
+          <target state="new">Center</target>
+        </trans-unit>
+        <trans-unit id="America__North_Dakota__New_Salem" translate="yes" xml:space="preserve">
+          <source>New Salem</source>
+          <target state="new">New Salem</target>
+        </trans-unit>
+        <trans-unit id="America__Ojinaga" translate="yes" xml:space="preserve">
+          <source>Ojinaga</source>
+          <target state="new">Ojinaga</target>
+        </trans-unit>
+        <trans-unit id="America__Panama" translate="yes" xml:space="preserve">
+          <source>Panama</source>
+          <target state="new">Panama</target>
+        </trans-unit>
+        <trans-unit id="America__Pangnirtung" translate="yes" xml:space="preserve">
+          <source>Pangnirtung</source>
+          <target state="new">Pangnirtung</target>
+        </trans-unit>
+        <trans-unit id="America__Paramaribo" translate="yes" xml:space="preserve">
+          <source>Paramaribo</source>
+          <target state="new">Paramaribo</target>
+        </trans-unit>
+        <trans-unit id="America__Phoenix" translate="yes" xml:space="preserve">
+          <source>Phoenix</source>
+          <target state="new">Phoenix</target>
+        </trans-unit>
+        <trans-unit id="America__Porto_Velho" translate="yes" xml:space="preserve">
+          <source>Porto Velho</source>
+          <target state="new">Porto Velho</target>
+        </trans-unit>
+        <trans-unit id="America__Port_minus_au_minus_Prince" translate="yes" xml:space="preserve">
+          <source>Port-au-Prince</source>
+          <target state="new">Port-au-Prince</target>
+        </trans-unit>
+        <trans-unit id="America__Port_of_Spain" translate="yes" xml:space="preserve">
+          <source>Port of Spain</source>
+          <target state="new">Port of Spain</target>
+        </trans-unit>
+        <trans-unit id="America__Puerto_Rico" translate="yes" xml:space="preserve">
+          <source>Puerto Rico</source>
+          <target state="new">Puerto Rico</target>
+        </trans-unit>
+        <trans-unit id="America__Punta_Arenas" translate="yes" xml:space="preserve">
+          <source>Punta Arenas</source>
+          <target state="new">Punta Arenas</target>
+        </trans-unit>
+        <trans-unit id="America__Rainy_River" translate="yes" xml:space="preserve">
+          <source>Rainy River</source>
+          <target state="new">Rainy River</target>
+        </trans-unit>
+        <trans-unit id="America__Rankin_Inlet" translate="yes" xml:space="preserve">
+          <source>Rankin Inlet</source>
+          <target state="new">Rankin Inlet</target>
+        </trans-unit>
+        <trans-unit id="America__Recife" translate="yes" xml:space="preserve">
+          <source>Recife</source>
+          <target state="new">Recife</target>
+        </trans-unit>
+        <trans-unit id="America__Regina" translate="yes" xml:space="preserve">
+          <source>Regina</source>
+          <target state="new">Regina</target>
+        </trans-unit>
+        <trans-unit id="America__Resolute" translate="yes" xml:space="preserve">
+          <source>Resolute</source>
+          <target state="new">Resolute</target>
+        </trans-unit>
+        <trans-unit id="America__Rio_Branco" translate="yes" xml:space="preserve">
+          <source>Rio Branco</source>
+          <target state="new">Rio Branco</target>
+        </trans-unit>
+        <trans-unit id="America__Santarem" translate="yes" xml:space="preserve">
+          <source>Santarem</source>
+          <target state="new">Santarem</target>
+        </trans-unit>
+        <trans-unit id="America__Santiago" translate="yes" xml:space="preserve">
+          <source>Santiago</source>
+          <target state="new">Santiago</target>
+        </trans-unit>
+        <trans-unit id="America__Santo_Domingo" translate="yes" xml:space="preserve">
+          <source>Santo Domingo</source>
+          <target state="new">Santo Domingo</target>
+        </trans-unit>
+        <trans-unit id="America__Sao_Paulo" translate="yes" xml:space="preserve">
+          <source>Sao Paulo</source>
+          <target state="new">Sao Paulo</target>
+        </trans-unit>
+        <trans-unit id="America__Scoresbysund" translate="yes" xml:space="preserve">
+          <source>Scoresbysund</source>
+          <target state="new">Scoresbysund</target>
+        </trans-unit>
+        <trans-unit id="America__Sitka" translate="yes" xml:space="preserve">
+          <source>Sitka</source>
+          <target state="new">Sitka</target>
+        </trans-unit>
+        <trans-unit id="America__St_Barthelemy" translate="yes" xml:space="preserve">
+          <source>St Barthelemy</source>
+          <target state="new">St Barthelemy</target>
+        </trans-unit>
+        <trans-unit id="America__St_Johns" translate="yes" xml:space="preserve">
+          <source>St Johns</source>
+          <target state="new">St Johns</target>
+        </trans-unit>
+        <trans-unit id="America__St_Kitts" translate="yes" xml:space="preserve">
+          <source>St Kitts</source>
+          <target state="new">St Kitts</target>
+        </trans-unit>
+        <trans-unit id="America__St_Lucia" translate="yes" xml:space="preserve">
+          <source>St Lucia</source>
+          <target state="new">St Lucia</target>
+        </trans-unit>
+        <trans-unit id="America__St_Thomas" translate="yes" xml:space="preserve">
+          <source>St Thomas</source>
+          <target state="new">St Thomas</target>
+        </trans-unit>
+        <trans-unit id="America__St_Vincent" translate="yes" xml:space="preserve">
+          <source>St Vincent</source>
+          <target state="new">St Vincent</target>
+        </trans-unit>
+        <trans-unit id="America__Swift_Current" translate="yes" xml:space="preserve">
+          <source>Swift Current</source>
+          <target state="new">Swift Current</target>
+        </trans-unit>
+        <trans-unit id="America__Tegucigalpa" translate="yes" xml:space="preserve">
+          <source>Tegucigalpa</source>
+          <target state="new">Tegucigalpa</target>
+        </trans-unit>
+        <trans-unit id="America__Thule" translate="yes" xml:space="preserve">
+          <source>Thule</source>
+          <target state="new">Thule</target>
+        </trans-unit>
+        <trans-unit id="America__Thunder_Bay" translate="yes" xml:space="preserve">
+          <source>Thunder Bay</source>
+          <target state="new">Thunder Bay</target>
+        </trans-unit>
+        <trans-unit id="America__Tijuana" translate="yes" xml:space="preserve">
+          <source>Tijuana</source>
+          <target state="new">Tijuana</target>
+        </trans-unit>
+        <trans-unit id="America__Toronto" translate="yes" xml:space="preserve">
+          <source>Toronto</source>
+          <target state="new">Toronto</target>
+        </trans-unit>
+        <trans-unit id="America__Tortola" translate="yes" xml:space="preserve">
+          <source>Tortola</source>
+          <target state="new">Tortola</target>
+        </trans-unit>
+        <trans-unit id="America__Vancouver" translate="yes" xml:space="preserve">
+          <source>Vancouver</source>
+          <target state="new">Vancouver</target>
+        </trans-unit>
+        <trans-unit id="America__Whitehorse" translate="yes" xml:space="preserve">
+          <source>Whitehorse</source>
+          <target state="new">Whitehorse</target>
+        </trans-unit>
+        <trans-unit id="America__Winnipeg" translate="yes" xml:space="preserve">
+          <source>Winnipeg</source>
+          <target state="new">Winnipeg</target>
+        </trans-unit>
+        <trans-unit id="America__Yakutat" translate="yes" xml:space="preserve">
+          <source>Yakutat</source>
+          <target state="new">Yakutat</target>
+        </trans-unit>
+        <trans-unit id="America__Yellowknife" translate="yes" xml:space="preserve">
+          <source>Yellowknife</source>
+          <target state="new">Yellowknife</target>
+        </trans-unit>
+        <trans-unit id="Antarctica__Casey" translate="yes" xml:space="preserve">
+          <source>Casey</source>
+          <target state="new">Casey</target>
+        </trans-unit>
+        <trans-unit id="Antarctica__Davis" translate="yes" xml:space="preserve">
+          <source>Davis</source>
+          <target state="new">Davis</target>
+        </trans-unit>
+        <trans-unit id="Antarctica__DumontDUrville" translate="yes" xml:space="preserve">
+          <source>DumontDUrville</source>
+          <target state="new">DumontDUrville</target>
+        </trans-unit>
+        <trans-unit id="Antarctica__Macquarie" translate="yes" xml:space="preserve">
+          <source>Macquarie</source>
+          <target state="new">Macquarie</target>
+        </trans-unit>
+        <trans-unit id="Antarctica__Mawson" translate="yes" xml:space="preserve">
+          <source>Mawson</source>
+          <target state="new">Mawson</target>
+        </trans-unit>
+        <trans-unit id="Antarctica__McMurdo" translate="yes" xml:space="preserve">
+          <source>McMurdo</source>
+          <target state="new">McMurdo</target>
+        </trans-unit>
+        <trans-unit id="Antarctica__Palmer" translate="yes" xml:space="preserve">
+          <source>Palmer</source>
+          <target state="new">Palmer</target>
+        </trans-unit>
+        <trans-unit id="Antarctica__Rothera" translate="yes" xml:space="preserve">
+          <source>Rothera</source>
+          <target state="new">Rothera</target>
+        </trans-unit>
+        <trans-unit id="Antarctica__Syowa" translate="yes" xml:space="preserve">
+          <source>Syowa</source>
+          <target state="new">Syowa</target>
+        </trans-unit>
+        <trans-unit id="Antarctica__Troll" translate="yes" xml:space="preserve">
+          <source>Troll</source>
+          <target state="new">Troll</target>
+        </trans-unit>
+        <trans-unit id="Antarctica__Vostok" translate="yes" xml:space="preserve">
+          <source>Vostok</source>
+          <target state="new">Vostok</target>
+        </trans-unit>
+        <trans-unit id="Arctic__Longyearbyen" translate="yes" xml:space="preserve">
+          <source>Longyearbyen</source>
+          <target state="new">Longyearbyen</target>
+        </trans-unit>
+        <trans-unit id="Asia__Aden" translate="yes" xml:space="preserve">
+          <source>Aden</source>
+          <target state="new">Aden</target>
+        </trans-unit>
+        <trans-unit id="Asia__Almaty" translate="yes" xml:space="preserve">
+          <source>Almaty</source>
+          <target state="new">Almaty</target>
+        </trans-unit>
+        <trans-unit id="Asia__Amman" translate="yes" xml:space="preserve">
+          <source>Amman</source>
+          <target state="new">Amman</target>
+        </trans-unit>
+        <trans-unit id="Asia__Anadyr" translate="yes" xml:space="preserve">
+          <source>Anadyr</source>
+          <target state="new">Anadyr</target>
+        </trans-unit>
+        <trans-unit id="Asia__Aqtau" translate="yes" xml:space="preserve">
+          <source>Aqtau</source>
+          <target state="new">Aqtau</target>
+        </trans-unit>
+        <trans-unit id="Asia__Aqtobe" translate="yes" xml:space="preserve">
+          <source>Aqtobe</source>
+          <target state="new">Aqtobe</target>
+        </trans-unit>
+        <trans-unit id="Asia__Ashgabat" translate="yes" xml:space="preserve">
+          <source>Ashgabat</source>
+          <target state="new">Ashgabat</target>
+        </trans-unit>
+        <trans-unit id="Asia__Atyrau" translate="yes" xml:space="preserve">
+          <source>Atyrau</source>
+          <target state="new">Atyrau</target>
+        </trans-unit>
+        <trans-unit id="Asia__Baghdad" translate="yes" xml:space="preserve">
+          <source>Baghdad</source>
+          <target state="new">Baghdad</target>
+        </trans-unit>
+        <trans-unit id="Asia__Bahrain" translate="yes" xml:space="preserve">
+          <source>Bahrain</source>
+          <target state="new">Bahrain</target>
+        </trans-unit>
+        <trans-unit id="Asia__Baku" translate="yes" xml:space="preserve">
+          <source>Baku</source>
+          <target state="new">Baku</target>
+        </trans-unit>
+        <trans-unit id="Asia__Bangkok" translate="yes" xml:space="preserve">
+          <source>Bangkok</source>
+          <target state="new">Bangkok</target>
+        </trans-unit>
+        <trans-unit id="Asia__Barnaul" translate="yes" xml:space="preserve">
+          <source>Barnaul</source>
+          <target state="new">Barnaul</target>
+        </trans-unit>
+        <trans-unit id="Asia__Beirut" translate="yes" xml:space="preserve">
+          <source>Beirut</source>
+          <target state="new">Beirut</target>
+        </trans-unit>
+        <trans-unit id="Asia__Bishkek" translate="yes" xml:space="preserve">
+          <source>Bishkek</source>
+          <target state="new">Bishkek</target>
+        </trans-unit>
+        <trans-unit id="Asia__Brunei" translate="yes" xml:space="preserve">
+          <source>Brunei</source>
+          <target state="new">Brunei</target>
+        </trans-unit>
+        <trans-unit id="Asia__Chita" translate="yes" xml:space="preserve">
+          <source>Chita</source>
+          <target state="new">Chita</target>
+        </trans-unit>
+        <trans-unit id="Asia__Choibalsan" translate="yes" xml:space="preserve">
+          <source>Choibalsan</source>
+          <target state="new">Choibalsan</target>
+        </trans-unit>
+        <trans-unit id="Asia__Colombo" translate="yes" xml:space="preserve">
+          <source>Colombo</source>
+          <target state="new">Colombo</target>
+        </trans-unit>
+        <trans-unit id="Asia__Damascus" translate="yes" xml:space="preserve">
+          <source>Damascus</source>
+          <target state="new">Damascus</target>
+        </trans-unit>
+        <trans-unit id="Asia__Dhaka" translate="yes" xml:space="preserve">
+          <source>Dhaka</source>
+          <target state="new">Dhaka</target>
+        </trans-unit>
+        <trans-unit id="Asia__Dili" translate="yes" xml:space="preserve">
+          <source>Dili</source>
+          <target state="new">Dili</target>
+        </trans-unit>
+        <trans-unit id="Asia__Dubai" translate="yes" xml:space="preserve">
+          <source>Dubai</source>
+          <target state="new">Dubai</target>
+        </trans-unit>
+        <trans-unit id="Asia__Dushanbe" translate="yes" xml:space="preserve">
+          <source>Dushanbe</source>
+          <target state="new">Dushanbe</target>
+        </trans-unit>
+        <trans-unit id="Asia__Famagusta" translate="yes" xml:space="preserve">
+          <source>Famagusta</source>
+          <target state="new">Famagusta</target>
+        </trans-unit>
+        <trans-unit id="Asia__Gaza" translate="yes" xml:space="preserve">
+          <source>Gaza</source>
+          <target state="new">Gaza</target>
+        </trans-unit>
+        <trans-unit id="Asia__Hebron" translate="yes" xml:space="preserve">
+          <source>Hebron</source>
+          <target state="new">Hebron</target>
+        </trans-unit>
+        <trans-unit id="Asia__Hong_Kong" translate="yes" xml:space="preserve">
+          <source>Hong Kong</source>
+          <target state="new">Hong Kong</target>
+        </trans-unit>
+        <trans-unit id="Asia__Hovd" translate="yes" xml:space="preserve">
+          <source>Hovd</source>
+          <target state="new">Hovd</target>
+        </trans-unit>
+        <trans-unit id="Asia__Ho_Chi_Minh" translate="yes" xml:space="preserve">
+          <source>Ho Chi Minh</source>
+          <target state="new">Ho Chi Minh</target>
+        </trans-unit>
+        <trans-unit id="Asia__Irkutsk" translate="yes" xml:space="preserve">
+          <source>Irkutsk</source>
+          <target state="new">Irkutsk</target>
+        </trans-unit>
+        <trans-unit id="Asia__Jakarta" translate="yes" xml:space="preserve">
+          <source>Jakarta</source>
+          <target state="new">Jakarta</target>
+        </trans-unit>
+        <trans-unit id="Asia__Jayapura" translate="yes" xml:space="preserve">
+          <source>Jayapura</source>
+          <target state="new">Jayapura</target>
+        </trans-unit>
+        <trans-unit id="Asia__Jerusalem" translate="yes" xml:space="preserve">
+          <source>Jerusalem</source>
+          <target state="new">Jerusalem</target>
+        </trans-unit>
+        <trans-unit id="Asia__Kabul" translate="yes" xml:space="preserve">
+          <source>Kabul</source>
+          <target state="new">Kabul</target>
+        </trans-unit>
+        <trans-unit id="Asia__Kamchatka" translate="yes" xml:space="preserve">
+          <source>Kamchatka</source>
+          <target state="new">Kamchatka</target>
+        </trans-unit>
+        <trans-unit id="Asia__Karachi" translate="yes" xml:space="preserve">
+          <source>Karachi</source>
+          <target state="new">Karachi</target>
+        </trans-unit>
+        <trans-unit id="Asia__Kathmandu" translate="yes" xml:space="preserve">
+          <source>Kathmandu</source>
+          <target state="new">Kathmandu</target>
+        </trans-unit>
+        <trans-unit id="Asia__Khandyga" translate="yes" xml:space="preserve">
+          <source>Khandyga</source>
+          <target state="new">Khandyga</target>
+        </trans-unit>
+        <trans-unit id="Asia__Kolkata" translate="yes" xml:space="preserve">
+          <source>Kolkata</source>
+          <target state="new">Kolkata</target>
+        </trans-unit>
+        <trans-unit id="Asia__Krasnoyarsk" translate="yes" xml:space="preserve">
+          <source>Krasnoyarsk</source>
+          <target state="new">Krasnoyarsk</target>
+        </trans-unit>
+        <trans-unit id="Asia__Kuala_Lumpur" translate="yes" xml:space="preserve">
+          <source>Kuala Lumpur</source>
+          <target state="new">Kuala Lumpur</target>
+        </trans-unit>
+        <trans-unit id="Asia__Kuching" translate="yes" xml:space="preserve">
+          <source>Kuching</source>
+          <target state="new">Kuching</target>
+        </trans-unit>
+        <trans-unit id="Asia__Kuwait" translate="yes" xml:space="preserve">
+          <source>Kuwait</source>
+          <target state="new">Kuwait</target>
+        </trans-unit>
+        <trans-unit id="Asia__Macau" translate="yes" xml:space="preserve">
+          <source>Macau</source>
+          <target state="new">Macau</target>
+        </trans-unit>
+        <trans-unit id="Asia__Magadan" translate="yes" xml:space="preserve">
+          <source>Magadan</source>
+          <target state="new">Magadan</target>
+        </trans-unit>
+        <trans-unit id="Asia__Makassar" translate="yes" xml:space="preserve">
+          <source>Makassar</source>
+          <target state="new">Makassar</target>
+        </trans-unit>
+        <trans-unit id="Asia__Manila" translate="yes" xml:space="preserve">
+          <source>Manila</source>
+          <target state="new">Manila</target>
+        </trans-unit>
+        <trans-unit id="Asia__Muscat" translate="yes" xml:space="preserve">
+          <source>Muscat</source>
+          <target state="new">Muscat</target>
+        </trans-unit>
+        <trans-unit id="Asia__Nicosia" translate="yes" xml:space="preserve">
+          <source>Nicosia</source>
+          <target state="new">Nicosia</target>
+        </trans-unit>
+        <trans-unit id="Asia__Novokuznetsk" translate="yes" xml:space="preserve">
+          <source>Novokuznetsk</source>
+          <target state="new">Novokuznetsk</target>
+        </trans-unit>
+        <trans-unit id="Asia__Novosibirsk" translate="yes" xml:space="preserve">
+          <source>Novosibirsk</source>
+          <target state="new">Novosibirsk</target>
+        </trans-unit>
+        <trans-unit id="Asia__Omsk" translate="yes" xml:space="preserve">
+          <source>Omsk</source>
+          <target state="new">Omsk</target>
+        </trans-unit>
+        <trans-unit id="Asia__Oral" translate="yes" xml:space="preserve">
+          <source>Oral</source>
+          <target state="new">Oral</target>
+        </trans-unit>
+        <trans-unit id="Asia__Phnom_Penh" translate="yes" xml:space="preserve">
+          <source>Phnom Penh</source>
+          <target state="new">Phnom Penh</target>
+        </trans-unit>
+        <trans-unit id="Asia__Pontianak" translate="yes" xml:space="preserve">
+          <source>Pontianak</source>
+          <target state="new">Pontianak</target>
+        </trans-unit>
+        <trans-unit id="Asia__Pyongyang" translate="yes" xml:space="preserve">
+          <source>Pyongyang</source>
+          <target state="new">Pyongyang</target>
+        </trans-unit>
+        <trans-unit id="Asia__Qatar" translate="yes" xml:space="preserve">
+          <source>Qatar</source>
+          <target state="new">Qatar</target>
+        </trans-unit>
+        <trans-unit id="Asia__Qyzylorda" translate="yes" xml:space="preserve">
+          <source>Qyzylorda</source>
+          <target state="new">Qyzylorda</target>
+        </trans-unit>
+        <trans-unit id="Asia__Riyadh" translate="yes" xml:space="preserve">
+          <source>Riyadh</source>
+          <target state="new">Riyadh</target>
+        </trans-unit>
+        <trans-unit id="Asia__Sakhalin" translate="yes" xml:space="preserve">
+          <source>Sakhalin</source>
+          <target state="new">Sakhalin</target>
+        </trans-unit>
+        <trans-unit id="Asia__Samarkand" translate="yes" xml:space="preserve">
+          <source>Samarkand</source>
+          <target state="new">Samarkand</target>
+        </trans-unit>
+        <trans-unit id="Asia__Seoul" translate="yes" xml:space="preserve">
+          <source>Seoul</source>
+          <target state="new">Seoul</target>
+        </trans-unit>
+        <trans-unit id="Asia__Shanghai" translate="yes" xml:space="preserve">
+          <source>Shanghai</source>
+          <target state="new">Shanghai</target>
+        </trans-unit>
+        <trans-unit id="Asia__Singapore" translate="yes" xml:space="preserve">
+          <source>Singapore</source>
+          <target state="new">Singapore</target>
+        </trans-unit>
+        <trans-unit id="Asia__Srednekolymsk" translate="yes" xml:space="preserve">
+          <source>Srednekolymsk</source>
+          <target state="new">Srednekolymsk</target>
+        </trans-unit>
+        <trans-unit id="Asia__Taipei" translate="yes" xml:space="preserve">
+          <source>Taipei</source>
+          <target state="new">Taipei</target>
+        </trans-unit>
+        <trans-unit id="Asia__Tashkent" translate="yes" xml:space="preserve">
+          <source>Tashkent</source>
+          <target state="new">Tashkent</target>
+        </trans-unit>
+        <trans-unit id="Asia__Tbilisi" translate="yes" xml:space="preserve">
+          <source>Tbilisi</source>
+          <target state="new">Tbilisi</target>
+        </trans-unit>
+        <trans-unit id="Asia__Tehran" translate="yes" xml:space="preserve">
+          <source>Tehran</source>
+          <target state="new">Tehran</target>
+        </trans-unit>
+        <trans-unit id="Asia__Thimphu" translate="yes" xml:space="preserve">
+          <source>Thimphu</source>
+          <target state="new">Thimphu</target>
+        </trans-unit>
+        <trans-unit id="Asia__Tokyo" translate="yes" xml:space="preserve">
+          <source>Tokyo</source>
+          <target state="new">Tokyo</target>
+        </trans-unit>
+        <trans-unit id="Asia__Tomsk" translate="yes" xml:space="preserve">
+          <source>Tomsk</source>
+          <target state="new">Tomsk</target>
+        </trans-unit>
+        <trans-unit id="Asia__Ulaanbaatar" translate="yes" xml:space="preserve">
+          <source>Ulaanbaatar</source>
+          <target state="new">Ulaanbaatar</target>
+        </trans-unit>
+        <trans-unit id="Asia__Urumqi" translate="yes" xml:space="preserve">
+          <source>Urumqi</source>
+          <target state="new">Urumqi</target>
+        </trans-unit>
+        <trans-unit id="Asia__Ust_minus_Nera" translate="yes" xml:space="preserve">
+          <source>Ust-Nera</source>
+          <target state="new">Ust-Nera</target>
+        </trans-unit>
+        <trans-unit id="Asia__Vientiane" translate="yes" xml:space="preserve">
+          <source>Vientiane</source>
+          <target state="new">Vientiane</target>
+        </trans-unit>
+        <trans-unit id="Asia__Vladivostok" translate="yes" xml:space="preserve">
+          <source>Vladivostok</source>
+          <target state="new">Vladivostok</target>
+        </trans-unit>
+        <trans-unit id="Asia__Yakutsk" translate="yes" xml:space="preserve">
+          <source>Yakutsk</source>
+          <target state="new">Yakutsk</target>
+        </trans-unit>
+        <trans-unit id="Asia__Yangon" translate="yes" xml:space="preserve">
+          <source>Yangon</source>
+          <target state="new">Yangon</target>
+        </trans-unit>
+        <trans-unit id="Asia__Yekaterinburg" translate="yes" xml:space="preserve">
+          <source>Yekaterinburg</source>
+          <target state="new">Yekaterinburg</target>
+        </trans-unit>
+        <trans-unit id="Asia__Yerevan" translate="yes" xml:space="preserve">
+          <source>Yerevan</source>
+          <target state="new">Yerevan</target>
+        </trans-unit>
+        <trans-unit id="Atlantic__Azores" translate="yes" xml:space="preserve">
+          <source>Azores</source>
+          <target state="new">Azores</target>
+        </trans-unit>
+        <trans-unit id="Atlantic__Bermuda" translate="yes" xml:space="preserve">
+          <source>Bermuda</source>
+          <target state="new">Bermuda</target>
+        </trans-unit>
+        <trans-unit id="Atlantic__Canary" translate="yes" xml:space="preserve">
+          <source>Canary</source>
+          <target state="new">Canary</target>
+        </trans-unit>
+        <trans-unit id="Atlantic__Cape_Verde" translate="yes" xml:space="preserve">
+          <source>Cape Verde</source>
+          <target state="new">Cape Verde</target>
+        </trans-unit>
+        <trans-unit id="Atlantic__Faroe" translate="yes" xml:space="preserve">
+          <source>Faroe</source>
+          <target state="new">Faroe</target>
+        </trans-unit>
+        <trans-unit id="Atlantic__Madeira" translate="yes" xml:space="preserve">
+          <source>Madeira</source>
+          <target state="new">Madeira</target>
+        </trans-unit>
+        <trans-unit id="Atlantic__Reykjavik" translate="yes" xml:space="preserve">
+          <source>Reykjavik</source>
+          <target state="new">Reykjavik</target>
+        </trans-unit>
+        <trans-unit id="Atlantic__South_Georgia" translate="yes" xml:space="preserve">
+          <source>South Georgia</source>
+          <target state="new">South Georgia</target>
+        </trans-unit>
+        <trans-unit id="Atlantic__Stanley" translate="yes" xml:space="preserve">
+          <source>Stanley</source>
+          <target state="new">Stanley</target>
+        </trans-unit>
+        <trans-unit id="Atlantic__St_Helena" translate="yes" xml:space="preserve">
+          <source>St Helena</source>
+          <target state="new">St Helena</target>
+        </trans-unit>
+        <trans-unit id="Australia__Adelaide" translate="yes" xml:space="preserve">
+          <source>Adelaide</source>
+          <target state="new">Adelaide</target>
+        </trans-unit>
+        <trans-unit id="Australia__Brisbane" translate="yes" xml:space="preserve">
+          <source>Brisbane</source>
+          <target state="new">Brisbane</target>
+        </trans-unit>
+        <trans-unit id="Australia__Broken_Hill" translate="yes" xml:space="preserve">
+          <source>Broken Hill</source>
+          <target state="new">Broken Hill</target>
+        </trans-unit>
+        <trans-unit id="Australia__Currie" translate="yes" xml:space="preserve">
+          <source>Currie</source>
+          <target state="new">Currie</target>
+        </trans-unit>
+        <trans-unit id="Australia__Darwin" translate="yes" xml:space="preserve">
+          <source>Darwin</source>
+          <target state="new">Darwin</target>
+        </trans-unit>
+        <trans-unit id="Australia__Eucla" translate="yes" xml:space="preserve">
+          <source>Eucla</source>
+          <target state="new">Eucla</target>
+        </trans-unit>
+        <trans-unit id="Australia__Hobart" translate="yes" xml:space="preserve">
+          <source>Hobart</source>
+          <target state="new">Hobart</target>
+        </trans-unit>
+        <trans-unit id="Australia__Lindeman" translate="yes" xml:space="preserve">
+          <source>Lindeman</source>
+          <target state="new">Lindeman</target>
+        </trans-unit>
+        <trans-unit id="Australia__Lord_Howe" translate="yes" xml:space="preserve">
+          <source>Lord Howe</source>
+          <target state="new">Lord Howe</target>
+        </trans-unit>
+        <trans-unit id="Australia__Melbourne" translate="yes" xml:space="preserve">
+          <source>Melbourne</source>
+          <target state="new">Melbourne</target>
+        </trans-unit>
+        <trans-unit id="Australia__Perth" translate="yes" xml:space="preserve">
+          <source>Perth</source>
+          <target state="new">Perth</target>
+        </trans-unit>
+        <trans-unit id="Australia__Sydney" translate="yes" xml:space="preserve">
+          <source>Sydney</source>
+          <target state="new">Sydney</target>
+        </trans-unit>
+        <trans-unit id="Europe__Amsterdam" translate="yes" xml:space="preserve">
+          <source>Amsterdam</source>
+          <target state="new">Amsterdam</target>
+        </trans-unit>
+        <trans-unit id="Europe__Andorra" translate="yes" xml:space="preserve">
+          <source>Andorra</source>
+          <target state="new">Andorra</target>
+        </trans-unit>
+        <trans-unit id="Europe__Astrakhan" translate="yes" xml:space="preserve">
+          <source>Astrakhan</source>
+          <target state="new">Astrakhan</target>
+        </trans-unit>
+        <trans-unit id="Europe__Athens" translate="yes" xml:space="preserve">
+          <source>Athens</source>
+          <target state="new">Athens</target>
+        </trans-unit>
+        <trans-unit id="Europe__Belgrade" translate="yes" xml:space="preserve">
+          <source>Belgrade</source>
+          <target state="new">Belgrade</target>
+        </trans-unit>
+        <trans-unit id="Europe__Berlin" translate="yes" xml:space="preserve">
+          <source>Berlin</source>
+          <target state="new">Berlin</target>
+        </trans-unit>
+        <trans-unit id="Europe__Bratislava" translate="yes" xml:space="preserve">
+          <source>Bratislava</source>
+          <target state="new">Bratislava</target>
+        </trans-unit>
+        <trans-unit id="Europe__Brussels" translate="yes" xml:space="preserve">
+          <source>Brussels</source>
+          <target state="new">Brussels</target>
+        </trans-unit>
+        <trans-unit id="Europe__Bucharest" translate="yes" xml:space="preserve">
+          <source>Bucharest</source>
+          <target state="new">Bucharest</target>
+        </trans-unit>
+        <trans-unit id="Europe__Budapest" translate="yes" xml:space="preserve">
+          <source>Budapest</source>
+          <target state="new">Budapest</target>
+        </trans-unit>
+        <trans-unit id="Europe__Busingen" translate="yes" xml:space="preserve">
+          <source>Busingen</source>
+          <target state="new">Busingen</target>
+        </trans-unit>
+        <trans-unit id="Europe__Chisinau" translate="yes" xml:space="preserve">
+          <source>Chisinau</source>
+          <target state="new">Chisinau</target>
+        </trans-unit>
+        <trans-unit id="Europe__Copenhagen" translate="yes" xml:space="preserve">
+          <source>Copenhagen</source>
+          <target state="new">Copenhagen</target>
+        </trans-unit>
+        <trans-unit id="Europe__Dublin" translate="yes" xml:space="preserve">
+          <source>Dublin</source>
+          <target state="new">Dublin</target>
+        </trans-unit>
+        <trans-unit id="Europe__Gibraltar" translate="yes" xml:space="preserve">
+          <source>Gibraltar</source>
+          <target state="new">Gibraltar</target>
+        </trans-unit>
+        <trans-unit id="Europe__Guernsey" translate="yes" xml:space="preserve">
+          <source>Guernsey</source>
+          <target state="new">Guernsey</target>
+        </trans-unit>
+        <trans-unit id="Europe__Helsinki" translate="yes" xml:space="preserve">
+          <source>Helsinki</source>
+          <target state="new">Helsinki</target>
+        </trans-unit>
+        <trans-unit id="Europe__Isle_of_Man" translate="yes" xml:space="preserve">
+          <source>Isle of Man</source>
+          <target state="new">Isle of Man</target>
+        </trans-unit>
+        <trans-unit id="Europe__Istanbul" translate="yes" xml:space="preserve">
+          <source>Istanbul</source>
+          <target state="new">Istanbul</target>
+        </trans-unit>
+        <trans-unit id="Europe__Jersey" translate="yes" xml:space="preserve">
+          <source>Jersey</source>
+          <target state="new">Jersey</target>
+        </trans-unit>
+        <trans-unit id="Europe__Kaliningrad" translate="yes" xml:space="preserve">
+          <source>Kaliningrad</source>
+          <target state="new">Kaliningrad</target>
+        </trans-unit>
+        <trans-unit id="Europe__Kiev" translate="yes" xml:space="preserve">
+          <source>Kiev</source>
+          <target state="new">Kiev</target>
+        </trans-unit>
+        <trans-unit id="Europe__Kirov" translate="yes" xml:space="preserve">
+          <source>Kirov</source>
+          <target state="new">Kirov</target>
+        </trans-unit>
+        <trans-unit id="Europe__Lisbon" translate="yes" xml:space="preserve">
+          <source>Lisbon</source>
+          <target state="new">Lisbon</target>
+        </trans-unit>
+        <trans-unit id="Europe__Ljubljana" translate="yes" xml:space="preserve">
+          <source>Ljubljana</source>
+          <target state="new">Ljubljana</target>
+        </trans-unit>
+        <trans-unit id="Europe__London" translate="yes" xml:space="preserve">
+          <source>London</source>
+          <target state="new">London</target>
+        </trans-unit>
+        <trans-unit id="Europe__Luxembourg" translate="yes" xml:space="preserve">
+          <source>Luxembourg</source>
+          <target state="new">Luxembourg</target>
+        </trans-unit>
+        <trans-unit id="Europe__Madrid" translate="yes" xml:space="preserve">
+          <source>Madrid</source>
+          <target state="new">Madrid</target>
+        </trans-unit>
+        <trans-unit id="Europe__Malta" translate="yes" xml:space="preserve">
+          <source>Malta</source>
+          <target state="new">Malta</target>
+        </trans-unit>
+        <trans-unit id="Europe__Mariehamn" translate="yes" xml:space="preserve">
+          <source>Mariehamn</source>
+          <target state="new">Mariehamn</target>
+        </trans-unit>
+        <trans-unit id="Europe__Minsk" translate="yes" xml:space="preserve">
+          <source>Minsk</source>
+          <target state="new">Minsk</target>
+        </trans-unit>
+        <trans-unit id="Europe__Monaco" translate="yes" xml:space="preserve">
+          <source>Monaco</source>
+          <target state="new">Monaco</target>
+        </trans-unit>
+        <trans-unit id="Europe__Moscow" translate="yes" xml:space="preserve">
+          <source>Moscow</source>
+          <target state="new">Moscow</target>
+        </trans-unit>
+        <trans-unit id="Europe__Oslo" translate="yes" xml:space="preserve">
+          <source>Oslo</source>
+          <target state="new">Oslo</target>
+        </trans-unit>
+        <trans-unit id="Europe__Paris" translate="yes" xml:space="preserve">
+          <source>Paris</source>
+          <target state="new">Paris</target>
+        </trans-unit>
+        <trans-unit id="Europe__Podgorica" translate="yes" xml:space="preserve">
+          <source>Podgorica</source>
+          <target state="new">Podgorica</target>
+        </trans-unit>
+        <trans-unit id="Europe__Prague" translate="yes" xml:space="preserve">
+          <source>Prague</source>
+          <target state="new">Prague</target>
+        </trans-unit>
+        <trans-unit id="Europe__Riga" translate="yes" xml:space="preserve">
+          <source>Riga</source>
+          <target state="new">Riga</target>
+        </trans-unit>
+        <trans-unit id="Europe__Rome" translate="yes" xml:space="preserve">
+          <source>Rome</source>
+          <target state="new">Rome</target>
+        </trans-unit>
+        <trans-unit id="Europe__Samara" translate="yes" xml:space="preserve">
+          <source>Samara</source>
+          <target state="new">Samara</target>
+        </trans-unit>
+        <trans-unit id="Europe__San_Marino" translate="yes" xml:space="preserve">
+          <source>San Marino</source>
+          <target state="new">San Marino</target>
+        </trans-unit>
+        <trans-unit id="Europe__Sarajevo" translate="yes" xml:space="preserve">
+          <source>Sarajevo</source>
+          <target state="new">Sarajevo</target>
+        </trans-unit>
+        <trans-unit id="Europe__Saratov" translate="yes" xml:space="preserve">
+          <source>Saratov</source>
+          <target state="new">Saratov</target>
+        </trans-unit>
+        <trans-unit id="Europe__Simferopol" translate="yes" xml:space="preserve">
+          <source>Simferopol</source>
+          <target state="new">Simferopol</target>
+        </trans-unit>
+        <trans-unit id="Europe__Skopje" translate="yes" xml:space="preserve">
+          <source>Skopje</source>
+          <target state="new">Skopje</target>
+        </trans-unit>
+        <trans-unit id="Europe__Sofia" translate="yes" xml:space="preserve">
+          <source>Sofia</source>
+          <target state="new">Sofia</target>
+        </trans-unit>
+        <trans-unit id="Europe__Stockholm" translate="yes" xml:space="preserve">
+          <source>Stockholm</source>
+          <target state="new">Stockholm</target>
+        </trans-unit>
+        <trans-unit id="Europe__Tallinn" translate="yes" xml:space="preserve">
+          <source>Tallinn</source>
+          <target state="new">Tallinn</target>
+        </trans-unit>
+        <trans-unit id="Europe__Tirane" translate="yes" xml:space="preserve">
+          <source>Tirane</source>
+          <target state="new">Tirane</target>
+        </trans-unit>
+        <trans-unit id="Europe__Ulyanovsk" translate="yes" xml:space="preserve">
+          <source>Ulyanovsk</source>
+          <target state="new">Ulyanovsk</target>
+        </trans-unit>
+        <trans-unit id="Europe__Uzhgorod" translate="yes" xml:space="preserve">
+          <source>Uzhgorod</source>
+          <target state="new">Uzhgorod</target>
+        </trans-unit>
+        <trans-unit id="Europe__Vaduz" translate="yes" xml:space="preserve">
+          <source>Vaduz</source>
+          <target state="new">Vaduz</target>
+        </trans-unit>
+        <trans-unit id="Europe__Vatican" translate="yes" xml:space="preserve">
+          <source>Vatican</source>
+          <target state="new">Vatican</target>
+        </trans-unit>
+        <trans-unit id="Europe__Vienna" translate="yes" xml:space="preserve">
+          <source>Vienna</source>
+          <target state="new">Vienna</target>
+        </trans-unit>
+        <trans-unit id="Europe__Vilnius" translate="yes" xml:space="preserve">
+          <source>Vilnius</source>
+          <target state="new">Vilnius</target>
+        </trans-unit>
+        <trans-unit id="Europe__Volgograd" translate="yes" xml:space="preserve">
+          <source>Volgograd</source>
+          <target state="new">Volgograd</target>
+        </trans-unit>
+        <trans-unit id="Europe__Warsaw" translate="yes" xml:space="preserve">
+          <source>Warsaw</source>
+          <target state="new">Warsaw</target>
+        </trans-unit>
+        <trans-unit id="Europe__Zagreb" translate="yes" xml:space="preserve">
+          <source>Zagreb</source>
+          <target state="new">Zagreb</target>
+        </trans-unit>
+        <trans-unit id="Europe__Zaporozhye" translate="yes" xml:space="preserve">
+          <source>Zaporozhye</source>
+          <target state="new">Zaporozhye</target>
+        </trans-unit>
+        <trans-unit id="Europe__Zurich" translate="yes" xml:space="preserve">
+          <source>Zurich</source>
+          <target state="new">Zurich</target>
+        </trans-unit>
+        <trans-unit id="Indian__Antananarivo" translate="yes" xml:space="preserve">
+          <source>Antananarivo</source>
+          <target state="new">Antananarivo</target>
+        </trans-unit>
+        <trans-unit id="Indian__Chagos" translate="yes" xml:space="preserve">
+          <source>Chagos</source>
+          <target state="new">Chagos</target>
+        </trans-unit>
+        <trans-unit id="Indian__Christmas" translate="yes" xml:space="preserve">
+          <source>Christmas</source>
+          <target state="new">Christmas</target>
+        </trans-unit>
+        <trans-unit id="Indian__Cocos" translate="yes" xml:space="preserve">
+          <source>Cocos</source>
+          <target state="new">Cocos</target>
+        </trans-unit>
+        <trans-unit id="Indian__Comoro" translate="yes" xml:space="preserve">
+          <source>Comoro</source>
+          <target state="new">Comoro</target>
+        </trans-unit>
+        <trans-unit id="Indian__Kerguelen" translate="yes" xml:space="preserve">
+          <source>Kerguelen</source>
+          <target state="new">Kerguelen</target>
+        </trans-unit>
+        <trans-unit id="Indian__Mahe" translate="yes" xml:space="preserve">
+          <source>Mahe</source>
+          <target state="new">Mahe</target>
+        </trans-unit>
+        <trans-unit id="Indian__Maldives" translate="yes" xml:space="preserve">
+          <source>Maldives</source>
+          <target state="new">Maldives</target>
+        </trans-unit>
+        <trans-unit id="Indian__Mauritius" translate="yes" xml:space="preserve">
+          <source>Mauritius</source>
+          <target state="new">Mauritius</target>
+        </trans-unit>
+        <trans-unit id="Indian__Mayotte" translate="yes" xml:space="preserve">
+          <source>Mayotte</source>
+          <target state="new">Mayotte</target>
+        </trans-unit>
+        <trans-unit id="Indian__Reunion" translate="yes" xml:space="preserve">
+          <source>Reunion</source>
+          <target state="new">Reunion</target>
+        </trans-unit>
+        <trans-unit id="Pacific__Apia" translate="yes" xml:space="preserve">
+          <source>Apia</source>
+          <target state="new">Apia</target>
+        </trans-unit>
+        <trans-unit id="Pacific__Auckland" translate="yes" xml:space="preserve">
+          <source>Auckland</source>
+          <target state="new">Auckland</target>
+        </trans-unit>
+        <trans-unit id="Pacific__Bougainville" translate="yes" xml:space="preserve">
+          <source>Bougainville</source>
+          <target state="new">Bougainville</target>
+        </trans-unit>
+        <trans-unit id="Pacific__Chatham" translate="yes" xml:space="preserve">
+          <source>Chatham</source>
+          <target state="new">Chatham</target>
+        </trans-unit>
+        <trans-unit id="Pacific__Chuuk" translate="yes" xml:space="preserve">
+          <source>Chuuk</source>
+          <target state="new">Chuuk</target>
+        </trans-unit>
+        <trans-unit id="Pacific__Easter" translate="yes" xml:space="preserve">
+          <source>Easter</source>
+          <target state="new">Easter</target>
+        </trans-unit>
+        <trans-unit id="Pacific__Efate" translate="yes" xml:space="preserve">
+          <source>Efate</source>
+          <target state="new">Efate</target>
+        </trans-unit>
+        <trans-unit id="Pacific__Enderbury" translate="yes" xml:space="preserve">
+          <source>Enderbury</source>
+          <target state="new">Enderbury</target>
+        </trans-unit>
+        <trans-unit id="Pacific__Fakaofo" translate="yes" xml:space="preserve">
+          <source>Fakaofo</source>
+          <target state="new">Fakaofo</target>
+        </trans-unit>
+        <trans-unit id="Pacific__Fiji" translate="yes" xml:space="preserve">
+          <source>Fiji</source>
+          <target state="new">Fiji</target>
+        </trans-unit>
+        <trans-unit id="Pacific__Funafuti" translate="yes" xml:space="preserve">
+          <source>Funafuti</source>
+          <target state="new">Funafuti</target>
+        </trans-unit>
+        <trans-unit id="Pacific__Galapagos" translate="yes" xml:space="preserve">
+          <source>Galapagos</source>
+          <target state="new">Galapagos</target>
+        </trans-unit>
+        <trans-unit id="Pacific__Gambier" translate="yes" xml:space="preserve">
+          <source>Gambier</source>
+          <target state="new">Gambier</target>
+        </trans-unit>
+        <trans-unit id="Pacific__Guadalcanal" translate="yes" xml:space="preserve">
+          <source>Guadalcanal</source>
+          <target state="new">Guadalcanal</target>
+        </trans-unit>
+        <trans-unit id="Pacific__Guam" translate="yes" xml:space="preserve">
+          <source>Guam</source>
+          <target state="new">Guam</target>
+        </trans-unit>
+        <trans-unit id="Pacific__Honolulu" translate="yes" xml:space="preserve">
+          <source>Honolulu</source>
+          <target state="new">Honolulu</target>
+        </trans-unit>
+        <trans-unit id="Pacific__Kiritimati" translate="yes" xml:space="preserve">
+          <source>Kiritimati</source>
+          <target state="new">Kiritimati</target>
+        </trans-unit>
+        <trans-unit id="Pacific__Kosrae" translate="yes" xml:space="preserve">
+          <source>Kosrae</source>
+          <target state="new">Kosrae</target>
+        </trans-unit>
+        <trans-unit id="Pacific__Kwajalein" translate="yes" xml:space="preserve">
+          <source>Kwajalein</source>
+          <target state="new">Kwajalein</target>
+        </trans-unit>
+        <trans-unit id="Pacific__Majuro" translate="yes" xml:space="preserve">
+          <source>Majuro</source>
+          <target state="new">Majuro</target>
+        </trans-unit>
+        <trans-unit id="Pacific__Marquesas" translate="yes" xml:space="preserve">
+          <source>Marquesas</source>
+          <target state="new">Marquesas</target>
+        </trans-unit>
+        <trans-unit id="Pacific__Midway" translate="yes" xml:space="preserve">
+          <source>Midway</source>
+          <target state="new">Midway</target>
+        </trans-unit>
+        <trans-unit id="Pacific__Nauru" translate="yes" xml:space="preserve">
+          <source>Nauru</source>
+          <target state="new">Nauru</target>
+        </trans-unit>
+        <trans-unit id="Pacific__Niue" translate="yes" xml:space="preserve">
+          <source>Niue</source>
+          <target state="new">Niue</target>
+        </trans-unit>
+        <trans-unit id="Pacific__Norfolk" translate="yes" xml:space="preserve">
+          <source>Norfolk</source>
+          <target state="new">Norfolk</target>
+        </trans-unit>
+        <trans-unit id="Pacific__Noumea" translate="yes" xml:space="preserve">
+          <source>Noumea</source>
+          <target state="new">Noumea</target>
+        </trans-unit>
+        <trans-unit id="Pacific__Pago_Pago" translate="yes" xml:space="preserve">
+          <source>Pago Pago</source>
+          <target state="new">Pago Pago</target>
+        </trans-unit>
+        <trans-unit id="Pacific__Palau" translate="yes" xml:space="preserve">
+          <source>Palau</source>
+          <target state="new">Palau</target>
+        </trans-unit>
+        <trans-unit id="Pacific__Pitcairn" translate="yes" xml:space="preserve">
+          <source>Pitcairn</source>
+          <target state="new">Pitcairn</target>
+        </trans-unit>
+        <trans-unit id="Pacific__Pohnpei" translate="yes" xml:space="preserve">
+          <source>Pohnpei</source>
+          <target state="new">Pohnpei</target>
+        </trans-unit>
+        <trans-unit id="Pacific__Port_Moresby" translate="yes" xml:space="preserve">
+          <source>Port Moresby</source>
+          <target state="new">Port Moresby</target>
+        </trans-unit>
+        <trans-unit id="Pacific__Rarotonga" translate="yes" xml:space="preserve">
+          <source>Rarotonga</source>
+          <target state="new">Rarotonga</target>
+        </trans-unit>
+        <trans-unit id="Pacific__Saipan" translate="yes" xml:space="preserve">
+          <source>Saipan</source>
+          <target state="new">Saipan</target>
+        </trans-unit>
+        <trans-unit id="Pacific__Tahiti" translate="yes" xml:space="preserve">
+          <source>Tahiti</source>
+          <target state="new">Tahiti</target>
+        </trans-unit>
+        <trans-unit id="Pacific__Tarawa" translate="yes" xml:space="preserve">
+          <source>Tarawa</source>
+          <target state="new">Tarawa</target>
+        </trans-unit>
+        <trans-unit id="Pacific__Tongatapu" translate="yes" xml:space="preserve">
+          <source>Tongatapu</source>
+          <target state="new">Tongatapu</target>
+        </trans-unit>
+        <trans-unit id="Pacific__Wake" translate="yes" xml:space="preserve">
+          <source>Wake</source>
+          <target state="new">Wake</target>
+        </trans-unit>
+        <trans-unit id="Pacific__Wallis" translate="yes" xml:space="preserve">
+          <source>Wallis</source>
+          <target state="new">Wallis</target>
+        </trans-unit>
+        <trans-unit id="UTC" translate="yes" xml:space="preserve">
+          <source>UTC</source>
+          <target state="new">UTC</target>
+        </trans-unit>
+      </group>
+    </body>
+  </file>
+</xliff>

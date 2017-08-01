@@ -52,15 +52,35 @@
     <Compile Include="ServerAPI\PRSettings.cs" />
     <Compile Include="Services\ISQLite.cs" />
     <Compile Include="Services\NavigationService.cs" />
+    <Compile Include="Strings\TimezonesLocations.de.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TimezonesLocations.de.resx</DependentUpon>
+    </Compile>
     <Compile Include="Strings\TimezonesLocations.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TimezonesLocations.resx</DependentUpon>
     </Compile>
+    <Compile Include="Strings\TimezonesLocations.es.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TimezonesLocations.es.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Strings\TimezonesLocations.fr.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TimezonesLocations.fr.resx</DependentUpon>
+    </Compile>
     <Compile Include="Strings\TimezonesLocations.it.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TimezonesLocations.it.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Strings\TimezonesLocations.pt.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TimezonesLocations.pt.resx</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\ActivitiesListViewModel.cs" />
     <Compile Include="ViewModel\ActivityDetailsViewModel.cs" />
@@ -75,6 +95,7 @@
     <Compile Include="ViewModel\MyViewModel.cs" />
     <Compile Include="ViewModel\RegisterPageViewModel.cs" />
     <Compile Include="ViewModel\SearchActivityViewModel.cs" />
+    <Compile Include="ViewModel\SearchFriendsViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="ViewModel\ViewUserProfileViewModel.cs" />
     <Compile Include="Views\AboutPage.xaml.cs">
@@ -143,6 +164,12 @@
     <Compile Include="Views\SearchActivityResults.xaml.cs">
       <DependentUpon>SearchActivityResults.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SearchFriendsPage.xaml.cs">
+      <DependentUpon>SearchFriendsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ViewUserProfilePage.xaml.cs">
       <DependentUpon>ViewUserProfilePage.xaml</DependentUpon>
     </Compile>
@@ -155,9 +182,25 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Strings\TimezonesLocations.de.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TimezonesLocations.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Strings\TimezonesLocations.es.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TimezonesLocations.es.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Strings\TimezonesLocations.fr.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TimezonesLocations.fr.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Strings\TimezonesLocations.it.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>TimezonesLocations.it.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Strings\TimezonesLocations.pt.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TimezonesLocations.pt.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Strings\TimezonesLocations.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -350,9 +393,13 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <XliffResource Include="MultilingualResources\ProjectRunner.de.xlf" />
+    <XliffResource Include="MultilingualResources\ProjectRunner.es.xlf" />
+    <XliffResource Include="MultilingualResources\ProjectRunner.fr.xlf" />
     <XliffResource Include="MultilingualResources\ProjectRunner.it.xlf">
       <SubType>Designer</SubType>
     </XliffResource>
+    <XliffResource Include="MultilingualResources\ProjectRunner.pt.xlf" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\LoadingPage.xaml">
@@ -374,6 +421,18 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\FriendsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\SearchFriendsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\SettingsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

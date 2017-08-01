@@ -13,6 +13,19 @@
                     <views:EventToCommandBehavior EventName="ItemTapped" Command="{Binding OpenProfileCommand}" EventArgsConverter="{StaticResource ItemTappedConverter}" />
                 </ListView.Behaviors>
             </ListView>
+            <Button HorizontalOptions="End"
+                    VerticalOptions="End"
+                    Margin="10,10,10,10"
+                    FontSize="32"
+                    FontAttributes="Bold"
+                    BackgroundColor="LightGreen"
+                    TextColor="White"
+                    BorderRadius="25"
+                    WidthRequest="60"
+                    HeightRequest="60"
+                    Image="search.png"
+                    BorderColor="White"
+                    Command="{Binding SearchFriendCommand}"/>
         </Grid>
     </ContentPage>
 
