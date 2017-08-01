@@ -20,7 +20,6 @@ namespace ProjectRunner.ViewModel
             ForgotPassword = "ForgotPasswordPage",
             Activities = "ActivitiesPage",
             CreateActivity = "CreateActivityPage",
-            CreateActivityChooseLocation = "CreateActivityChooseLocation",
             AddLocation = "AddLocation",
             CreateActivityConfirm = "CreateActivityConfirm",
             ActivityDetails = "ActivityDetailsPage",
@@ -67,7 +66,6 @@ namespace ProjectRunner.ViewModel
             nav.Configure(Activities, typeof(Views.Activities));
             nav.Configure(CreateActivity, typeof(Views.CreateActivityPage));
             nav.Configure(AddLocation, typeof(Views.AddLocationPage));
-            nav.Configure(CreateActivityChooseLocation, typeof(Views.CreateActivityChooseLocation));
             nav.Configure(CreateActivityConfirm, typeof(Views.CreateActivityConfirmPage));
 
             nav.Configure(ActivityDetails, typeof(Views.ActivityDetails));

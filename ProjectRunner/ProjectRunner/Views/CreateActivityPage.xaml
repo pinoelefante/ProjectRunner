@@ -12,89 +12,103 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <StackLayout Orientation="Vertical" Padding="10,0,10,0">
+            <Grid Grid.Row="0" Padding="10,10,10,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
 
-                <Label Text="General" FontSize="24" HorizontalOptions="Center" FontAttributes="Bold"/>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
 
-                <Label Text="Sport">
-                    <Label.IsVisible>
-                        <OnPlatform x:TypeArguments="x:Boolean" Android="true" iOS="true" WinPhone="false"/>
-                    </Label.IsVisible>
-                </Label>
-                <Picker Title="Sport"
-                        ItemsSource="{Binding SportsAvailable}"
+
+                <Label Grid.Row="0" Grid.Column="0" Text="Sport" VerticalOptions="Center"/>
+                <Picker Grid.Row="0" Grid.Column="1" ItemsSource="{Binding SportsAvailable}"
                         ItemDisplayBinding="{Binding SportName}"
-                        SelectedIndex="{Binding SelectedSportIndex, Mode=TwoWay}"/>
+                        SelectedIndex="{Binding SelectedSportIndex, Mode=TwoWay}">
+                    <Picker.Title>
+                        <OnPlatform x:TypeArguments="x:String" Android="Sport" iOS="Sport"/>
+                    </Picker.Title>
+                </Picker>
 
-                <Label Text="Day"/>
-                <DatePicker Date="{Binding StartDay, Mode=TwoWay}" MinimumDate="{Binding MinDateTime}"/>
-                <Label Text="at"/>
-                <TimePicker Time="{Binding StartTime, Mode=TwoWay}"/>
+                <Label Grid.Row="1" Grid.Column="0" Text="Day" VerticalOptions="Center"/>
+                <DatePicker Grid.Row="1" Grid.Column="1" Date="{Binding StartDay, Mode=TwoWay}" MinimumDate="{Binding MinDateTime}"/>
+
+                <Label Grid.Row="2" Grid.Column="0" Text="at" VerticalOptions="Center"/>
+                <TimePicker Grid.Row="2" Grid.Column="1" Time="{Binding StartTime, Mode=TwoWay}"/>
+
+                <Label Grid.Row="3" Grid.Column="0" Text="Guest users" VerticalOptions="Center"/>
+                <Entry Grid.Row="3" Grid.Column="1" Placeholder="0" PlaceholderColor="Gray" Text="{Binding Guests, Mode=TwoWay}" Keyboard="Numeric" IsVisible="{Binding IsGuestListActive, Mode=OneWay, Converter={StaticResource NotBoolean}}"/>
+                <Picker Grid.Row="3" Grid.Column="1" x:Name="listGuests" IsVisible="{Binding IsGuestListActive, Mode=TwoWay}" SelectedIndex="{Binding SelectedIndexGuestList,Mode=TwoWay}"/>
+
+                <Label Grid.Row="4" Grid.Column="0" Text="Max Players" IsVisible="{Binding IsMaxPlayerActive, Mode=TwoWay}" VerticalOptions="Center"/>
+                <Entry Grid.Row="4" Grid.Column="1" Placeholder="0" PlaceholderColor="Gray" Text="{Binding MaxPlayers, Mode=TwoWay}" Keyboard="Numeric" IsEnabled="{Binding IsMaxPlayerActive, Mode=OneWay}" IsVisible="{Binding IsMaxPlayerActive, Mode=TwoWay}"/>
+
+                <Label Grid.Row="5" Grid.Column="0" Text="Is free?" VerticalOptions="Center"/>
+                <Switch Grid.Row="5" Grid.Column="1" IsToggled="{Binding IsGratis, Mode=TwoWay}"/>
+
+                <Label Grid.Row="6" Grid.Column="0" Text="Cost" IsVisible="{Binding IsGratis, Converter={StaticResource NotBoolean}, Mode=TwoWay}" VerticalOptions="Center"/>
+                <Entry Grid.Row="6" Grid.Column="1" Text="{Binding Fee, Mode=TwoWay}" WidthRequest="50" Keyboard="Numeric" IsVisible="{Binding IsGratis, Converter={StaticResource NotBoolean}, Mode=TwoWay}"/>
+
+                <!-- Sport details -->
                 
-                <Label Text="Guest users" />
-                <Entry Placeholder="0" PlaceholderColor="Gray" Margin="0,0,0,10" Text="{Binding Guests, Mode=TwoWay}" Keyboard="Numeric" IsVisible="{Binding IsGuestListActive, Mode=OneWay, Converter={StaticResource NotBoolean}}"/>
-                <Picker x:Name="listGuests" IsVisible="{Binding IsGuestListActive, Mode=TwoWay}" SelectedIndex="{Binding SelectedIndexGuestList,Mode=TwoWay}"/>
-
-                <Label Text="Max Players" IsVisible="{Binding IsMaxPlayerActive, Mode=TwoWay}"/>
-                <Entry Placeholder="0" PlaceholderColor="Gray" Margin="0,0,0,10" Text="{Binding MaxPlayers, Mode=TwoWay}" Keyboard="Numeric" IsEnabled="{Binding IsMaxPlayerActive, Mode=OneWay}" IsVisible="{Binding IsMaxPlayerActive, Mode=TwoWay}"/>
-
-                <Label Text="Is free?"/>
-                <Switch IsToggled="{Binding IsGratis, Mode=TwoWay}"/>
-                <Label Text="Cost" IsVisible="{Binding IsGratis, Converter={StaticResource NotBoolean}, Mode=TwoWay}"/>
-                <StackLayout Orientation="Horizontal" IsVisible="{Binding IsGratis, Converter={StaticResource NotBoolean}, Mode=TwoWay}">
-                    <Entry Text="{Binding Fee, Mode=TwoWay}" WidthRequest="50" Keyboard="Numeric"/>
-                    <Picker ItemsSource="{Binding CurrenciesList}" SelectedIndex="{Binding SelectedCurrencyIndex, Mode=TwoWay}"/>
-                </StackLayout>
-
                 <!-- Running -->
-                <StackLayout Orientation="Vertical" IsVisible="{Binding SelectedSport.SportEnumValue, ConverterParameter=1, Converter={StaticResource IntEquals}}">
-                    <Label Text="Running" FontSize="24" HorizontalOptions="Center" FontAttributes="Bold"/>
-                    <Label Text="Distance">
-                        <Label.IsVisible>
-                            <OnPlatform x:TypeArguments="x:Boolean" Android="true" iOS="true" WinPhone="false"/>
-                        </Label.IsVisible>
-                    </Label>
-                    <Picker Title="Distance" ItemsSource="{Binding RunningDistances}" SelectedIndex="{Binding SelectedIndexDistanceRunning, Mode=TwoWay}"/>
+                <Label Grid.Row="7" Grid.Column="0" Text="Distance" VerticalOptions="Center" IsVisible="{Binding SelectedSport.SportEnumValue, ConverterParameter=1, Converter={StaticResource IntEquals}}"/>
+                <Picker Grid.Row="7" Grid.Column="1" ItemsSource="{Binding RunningDistances}" SelectedIndex="{Binding SelectedIndexDistanceRunning, Mode=TwoWay}" IsVisible="{Binding SelectedSport.SportEnumValue, ConverterParameter=1, Converter={StaticResource IntEquals}}">
+                    <Picker.Title>
+                        <OnPlatform x:TypeArguments="x:String" Android="Distance" iOS="Distance"/>
+                    </Picker.Title>
+                </Picker>
 
-                    <Label Text="With fitness"/>
-                    <Switch IsToggled="{Binding WithFitness, Mode=TwoWay}"/>
-                </StackLayout>
+                <Label Grid.Row="8" Grid.Column="0" Text="With fitness" VerticalOptions="Center" IsVisible="{Binding SelectedSport.SportEnumValue, ConverterParameter=1, Converter={StaticResource IntEquals}}"/>
+                <Switch Grid.Row="8" Grid.Column="1" IsToggled="{Binding WithFitness, Mode=TwoWay}" IsVisible="{Binding SelectedSport.SportEnumValue, ConverterParameter=1, Converter={StaticResource IntEquals}}"/>
 
                 <!-- Football -->
-                <StackLayout Orientation="Vertical" IsVisible="{Binding SelectedSport.SportEnumValue, ConverterParameter=2, Converter={StaticResource IntEquals}}">
-                    <Label Text="Football" FontSize="24" HorizontalOptions="Center" FontAttributes="Bold"/>
-                    <Label Text="Players per team">
-                        <Label.IsVisible>
-                            <OnPlatform x:TypeArguments="x:Boolean" Android="true" iOS="true" WinPhone="false"/>
-                        </Label.IsVisible>
-                    </Label>
-                    <Picker Title="Players per team"
-          ItemsSource="{Binding FootballPlayersPerTeam}"
-          SelectedIndex="{Binding SelectedIndexPlayerPerTeam, Mode=TwoWay}"
-          Margin="0,0,0,10"/>
-
-                </StackLayout>
+                <Label Grid.Row="7" Grid.Column="0" Text="Players per team" VerticalOptions="Center" IsVisible="{Binding SelectedSport.SportEnumValue, ConverterParameter=2, Converter={StaticResource IntEquals}}"/>
+                <Picker Grid.Row="7" Grid.Column="1" ItemsSource="{Binding FootballPlayersPerTeam}"
+                        SelectedIndex="{Binding SelectedIndexPlayerPerTeam, Mode=TwoWay}"
+                        IsVisible="{Binding SelectedSport.SportEnumValue, ConverterParameter=2, Converter={StaticResource IntEquals}}">
+                    <Picker.Title>
+                        <OnPlatform x:TypeArguments="x:String" Android="Players per team" iOS="Players per team"/>
+                    </Picker.Title>
+                </Picker>
 
                 <!-- Bicycle -->
-                <StackLayout Orientation="Vertical" IsVisible="{Binding SelectedSport.SportEnumValue, ConverterParameter=3, Converter={StaticResource IntEquals}}">
-                    <Label Text="Bicycle" FontSize="24" HorizontalOptions="Center" FontAttributes="Bold"/>
-                    <Label Text="Distance">
-                        <Label.IsVisible>
-                            <OnPlatform x:TypeArguments="x:Boolean" Android="true" iOS="true" WinPhone="false"/>
-                        </Label.IsVisible>
-                    </Label>
-                    <Picker Title="Distance" ItemsSource="{Binding BicycleDistances}" SelectedIndex="{Binding SelectedIndexDistanceBicycle, Mode=TwoWay}"/>
-                </StackLayout>
+                <Label Grid.Row="7" Grid.Column="0" Text="Distance" VerticalOptions="Center" IsVisible="{Binding SelectedSport.SportEnumValue, ConverterParameter=3, Converter={StaticResource IntEquals}}"/>
+                <Picker Grid.Row="7" Grid.Column="1" ItemsSource="{Binding BicycleDistances}" SelectedIndex="{Binding SelectedIndexDistanceBicycle, Mode=TwoWay}" IsVisible="{Binding SelectedSport.SportEnumValue, ConverterParameter=3, Converter={StaticResource IntEquals}}">
+                    <Picker.Title>
+                        <OnPlatform x:TypeArguments="x:String" Android="Distance" iOS="Distance"/>
+                    </Picker.Title>
+                </Picker>
 
                 <!-- Tennis -->
-                <StackLayout Orientation="Vertical" IsVisible="{Binding SelectedSport.SportEnumValue, ConverterParameter=4, Converter={StaticResource IntEquals}}">
-                    <Label Text="Tennis" FontSize="24" HorizontalOptions="Center" FontAttributes="Bold"/>
-                    <Label Text="Double"/>
-                    <Switch IsToggled="{Binding IsDouble, Mode=TwoWay}" />
-                </StackLayout>
-            </StackLayout>
+                <Label Grid.Row="7" Grid.Column="0" Text="Double" VerticalOptions="Center" IsVisible="{Binding SelectedSport.SportEnumValue, ConverterParameter=4, Converter={StaticResource IntEquals}}"/>
+                <Switch Grid.Row="7" Grid.Column="1" IsToggled="{Binding IsDouble, Mode=TwoWay}" IsVisible="{Binding SelectedSport.SportEnumValue, ConverterParameter=4, Converter={StaticResource IntEquals}}"/>
 
-            <Button Grid.Row="1" Text="Next" Command="{Binding GoToLocation}" IsEnabled="{Binding IsNextGeneralEnabled}" HeightRequest="60"/>
+                <Label Grid.Row="9" Grid.Column="0" Text="Meting&#x0a;Point" />
+                <StackLayout Grid.Row="9" Grid.Column="1" Orientation="Horizontal">
+                    <Picker ItemsSource="{Binding KnownAddress}" HorizontalOptions="FillAndExpand" SelectedIndex="{Binding SelectedIndexLocation,Mode=TwoWay}" ItemDisplayBinding="{Binding Name}"/>
+                    <Button Text="X" Command="{Binding DeleteLocationCommand}" IsEnabled="{Binding SelectedIndexLocation, Converter={StaticResource IntGreaterThan}, ConverterParameter=-1}" IsVisible="{Binding SelectedIndexLocation, Converter={StaticResource IntGreaterThan}, ConverterParameter=-1}"/>
+                </StackLayout>
+                <Label Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2" FontSize="12" Text="La località non è presente nell'elenco? Clicca qui per aggiungerla" TextColor="Blue" HorizontalOptions="Center" Margin="0,10">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoToAddLocation}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+            </Grid>
+
+            <Button Grid.Row="1" Text="Next" Command="{Binding GoToConfirm}" IsEnabled="{Binding IsNextGeneralEnabled}" HeightRequest="60"/>
         </Grid>
     </ScrollView>
 </views:MyContentPage>

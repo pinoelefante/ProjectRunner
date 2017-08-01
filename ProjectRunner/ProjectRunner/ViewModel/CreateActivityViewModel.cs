@@ -33,7 +33,6 @@ namespace ProjectRunner.ViewModel
         {
             base.NavigatedToAsync(parameter);
             VerifyGeneral();
-            VerifyLocation();
             RaisePropertyChanged(() => KnownAddress);
             RaisePropertyChanged(() => SelectedIndexLocation);
         }
@@ -268,6 +267,12 @@ namespace ProjectRunner.ViewModel
                     IsNextGeneralEnabled = false;
                     return;
                 }
+                if(SelectedIndexLocation < 0 || SelectedIndexLocation >= KnownAddress.Count)
+                {
+                    IsNextGeneralEnabled = false;
+                    return;
+                }
+
                 switch (SelectedSport?.SportEnumValue)
                 {
                     case Sports.BICYCLE:
@@ -291,20 +296,14 @@ namespace ProjectRunner.ViewModel
                 IsNextGeneralEnabled = false;
         }
 
-        private RelayCommand _goLocationCmd, _goToConfirmCmd;
-        public RelayCommand GoToLocation =>
-            _goLocationCmd ??
-            (_goLocationCmd = new RelayCommand(() =>
-            {
-                navigation.NavigateTo(ViewModelLocator.CreateActivityChooseLocation);
-            }));
+        private RelayCommand _goToConfirmCmd;
         #endregion
 
         #region Choose location
         public List<MapAddress> KnownAddress { get { return cache.MyMapAddresses.OrderBy(x => x.Name).ToList(); } }
         
         private int _selectedIndexLocation = 0;
-        public int SelectedIndexLocation { get { return _selectedIndexLocation; } set { Set(ref _selectedIndexLocation, value); VerifyLocation(); RaisePropertyChanged(()=> SelectedLocation); } }
+        public int SelectedIndexLocation { get { return _selectedIndexLocation; } set { Set(ref _selectedIndexLocation, value); VerifyGeneral(); RaisePropertyChanged(()=> SelectedLocation); } }
         public MapAddress SelectedLocation { get { if (_selectedIndexLocation >= 0 && KnownAddress.Count() > _selectedIndexLocation) return KnownAddress[_selectedIndexLocation]; return null; } }
         private RelayCommand _deleteLocationCmd;
         public RelayCommand DeleteLocationCommand =>
@@ -326,13 +325,6 @@ namespace ProjectRunner.ViewModel
             {
                 navigation.NavigateTo(ViewModelLocator.CreateActivityConfirm);
             }));
-        
-        private bool _nextLocationEnabled = false;
-        public bool IsNextLocationEnabled { get { return _nextLocationEnabled; } set { Set(ref _nextLocationEnabled, value); } }
-        private void VerifyLocation()
-        {
-            IsNextLocationEnabled = SelectedIndexLocation >= 0 && SelectedIndexLocation < KnownAddress.Count;
-        }
         #endregion
 
         #region Add Location
@@ -383,7 +375,6 @@ namespace ProjectRunner.ViewModel
                     UserDialogs.Instance.Alert("Activity created", "Activity creation");
                     navigation.NavigateTo(ViewModelLocator.Activities);
                     (navigation as NavigationService).RemovePageFromBackstack(typeof(Views.CreateActivityPage));
-                    (navigation as NavigationService).RemovePageFromBackstack(typeof(Views.CreateActivityChooseLocation));
                     (navigation as NavigationService).RemovePageFromBackstack(typeof(Views.CreateActivityConfirmPage));
                     (navigation as NavigationService).RemovePageFromBackstack(typeof(Views.AddLocationPage));
                     Reset();

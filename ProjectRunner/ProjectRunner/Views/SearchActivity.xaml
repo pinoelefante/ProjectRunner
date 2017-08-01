@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<views:MyContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProjectRunner.Views.SearchActivity"
+             xmlns:views="clr-namespace:ProjectRunner.Views"
              BindingContext="{Binding SearchActivityViewModel, Source={StaticResource Locator}}"
              Title="Search activity">
     <Grid>
@@ -9,29 +10,48 @@
             <RowDefinition/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <StackLayout Padding="10">
-            <Label Text="Sport">
-                <Label.IsVisible>
-                    <OnPlatform x:TypeArguments="x:Boolean" Android="True" iOS="True" WinPhone="False"/>
-                </Label.IsVisible>
-            </Label>
-            <Picker ItemsSource="{Binding SportsAvailable}"
+        <Grid Padding="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Label Text="Sport" Grid.Row="0" Grid.Column="0" VerticalOptions="Center"/>
+            <Picker Grid.Row="0" Grid.Column="1" ItemsSource="{Binding SportsAvailable}"
                 SelectedIndex="{Binding SelectedSportIndex, Mode=TwoWay}"
-                ItemDisplayBinding="{Binding Converter={StaticResource SportNameConverter}}"
-                Title="Sport"/>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Use GPS location"/>
-                <Switch IsToggled="{Binding UseGPSLocation, Mode=TwoWay}"/>
-            </StackLayout>
-            <Label Text="Distance from your position">
-                <Label.IsVisible>
-                    <OnPlatform x:TypeArguments="x:Boolean" Android="True" iOS="True" WinPhone="False"/>
-                </Label.IsVisible>
+                ItemDisplayBinding="{Binding Converter={StaticResource SportNameConverter}}">
+                <Picker.Title>
+                    <OnPlatform x:TypeArguments="x:String" Android="Sport" iOS="Sport" />
+                </Picker.Title>
+            </Picker>
+
+            <Label Grid.Row="1" Grid.Column="0" Text="Use GPS location" VerticalOptions="Center"/>
+            <Switch Grid.Row="1" Grid.Column="1" IsToggled="{Binding UseGPSLocation, Mode=TwoWay}"/>
+
+            <Label Grid.Row="2" Grid.Column="0" Text="Location" IsVisible="{Binding UseGPSLocation, Converter={StaticResource NotBoolean}}" VerticalOptions="Center"/>
+            <Picker Grid.Row="2" Grid.Column="1" ItemsSource="{Binding LocationsList}" SelectedIndex="{Binding LocationIndex, Mode=TwoWay}" ItemDisplayBinding="{Binding Name}" IsVisible="{Binding UseGPSLocation, Converter={StaticResource NotBoolean}}"/>
+            <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" FontSize="12" Text="La località non è presente nell'elenco? Clicca qui per aggiungerla" TextColor="Blue" HorizontalOptions="Center" Margin="0,10" IsVisible="{Binding UseGPSLocation, Converter={StaticResource NotBoolean}}">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoToAddLocation}"/>
+                </Label.GestureRecognizers>
             </Label>
-            <Picker ItemsSource="{Binding Distances}"
-                SelectedIndex="{Binding SelectedDistanceIndex}"
-                Title="Distance from your position"/>
-        </StackLayout>
+
+            <Label Grid.Row="4" Grid.Column="0" Text="Distance from your position" VerticalOptions="Center"/>
+            <Picker Grid.Row="4" Grid.Column="1" ItemsSource="{Binding Distances}"
+                SelectedIndex="{Binding SelectedDistanceIndex}">
+                <Picker.Title>
+                    <OnPlatform x:TypeArguments="x:String" Android="Distance from your position" iOS="Distance from your position" />
+                </Picker.Title>
+            </Picker>
+        </Grid>
+        
         <Button Grid.Row="1" Text="Search" Command="{Binding SearchCommand}" HeightRequest="60" BackgroundColor="Green"/>
     </Grid>
-</ContentPage>
+</views:MyContentPage>

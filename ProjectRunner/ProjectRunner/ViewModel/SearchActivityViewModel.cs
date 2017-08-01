@@ -2,13 +2,18 @@
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
 using Plugin.Geolocator;
+using Plugin.Geolocator.Abstractions;
+using Plugin.Permissions;
+using Plugin.Permissions.Abstractions;
 using ProjectRunner.ServerAPI;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace ProjectRunner.ViewModel
 {
@@ -21,66 +26,113 @@ namespace ProjectRunner.ViewModel
             server = s;
             cache = c;
         }
+        public override void NavigatedToAsync(object parameter = null)
+        {
+            base.NavigatedToAsync(parameter);
+
+            LocationsList.Clear();
+            foreach (var item in cache.MyMapAddresses)
+                LocationsList.Add(item);
+            LocationIndex = 0;
+        }
         public ObservableCollection<Sports> SportsAvailable { get; } = new ObservableCollection<Sports>()
         {
             Sports.RUNNING, Sports.FOOTBALL, Sports.BICYCLE, Sports.TENNIS
         };
-        private int _selectedSportIndex;
+        public MapAddress SelectedAddress
+        {
+            get
+            {
+                if (LocationIndex >= 0 && LocationIndex < LocationsList.Count)
+                    return LocationsList[LocationIndex];
+                return null;
+            }
+        }
+        
+        public int LocationIndex { get { return _indexLocation; } set { Set(ref _indexLocation, value); RaisePropertyChanged(() => SelectedAddress); } }
+        public ObservableCollection<MapAddress> LocationsList { get; } = new ObservableCollection<MapAddress>();
+        private int _selectedSportIndex, _indexLocation;
         public int SelectedSportIndex { get { return _selectedSportIndex; } set { Set(ref _selectedSportIndex, value); } }
         public List<int> Distances { get; } = new List<int>() { 2, 3, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50 };
         public int SelectedDistanceIndex { get; set; } = 2;
-        public bool UseGPSLocation { get; set; } = false;
-        private RelayCommand _searchCmd;
+        private bool _useGps = false;
+        public bool UseGPSLocation
+        {
+            get { return _useGps; }
+            set
+            {
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    if (value)
+                    {
+                        var locator = CrossGeolocator.Current;
+                        if (!locator.IsGeolocationAvailable)
+                        {
+                            UserDialogs.Instance.Alert("You device does not support geolocation", "Location non available");
+                            Set(ref _useGps, false);
+                            return;
+                        }
+                        if(!locator.IsGeolocationEnabled)
+                        {
+                            UserDialogs.Instance.Alert("You have to turn on the location system", "Location non available");
+                            Set(ref _useGps, false);
+                            return;
+                        }
+                        try
+                        {
+                            var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
+                            if (status != PermissionStatus.Granted)
+                            {
+                                Set(ref _useGps, false);
+                                UserDialogs.Instance.Alert("You have to enable location in system settings", "Access to location");
+                                return;
+                            }
+                            Set(ref _useGps, value);
+                        }
+                        catch
+                        {
+                            Set(ref _useGps, false);
+                        }
+                    }
+                    else
+                        Set(ref _useGps, value);
+                });
+                RaisePropertyChanged(() => UseGPSLocation);
+            }
+        }
+        private RelayCommand _searchCmd, _addLocationCmd;
         public RelayCommand SearchCommand =>
             _searchCmd ??
             (_searchCmd = new RelayCommand(async () =>
             {
                 Sports sport = SportsAvailable[SelectedSportIndex];
                 double latitude = 0, longitude = 0;
-                bool haveDefaultAddress = false;
-                if(cache.CurrentUser.DefaultUserLocation > 0)
-                {
-                    var address = cache.MyMapAddresses.Find(x => x.Id == cache.CurrentUser.DefaultUserLocation);
-                    if(address != null)
-                    {
-                        haveDefaultAddress = true;
-                        latitude = address.Latitude;
-                        longitude = address.Longitude;
-                    }
-                }
+                
                 if(UseGPSLocation)
                 {
                     var locator = CrossGeolocator.Current;
-                    if (locator.IsGeolocationAvailable && locator.IsGeolocationEnabled)
+                    try
                     {
-                        try
-                        {
-                            var lastPosition = await locator.GetLastKnownLocationAsync();
-                            if (lastPosition != null)
-                            {
-                                latitude = lastPosition.Latitude;
-                                longitude = lastPosition.Longitude;
-                            }
-                            var location = await locator.GetPositionAsync(TimeSpan.FromSeconds(10));
-                            latitude = location.Latitude;
-                            longitude = location.Longitude;
-                        }
-                        catch
-                        {
-                            UserDialogs.Instance.Alert("There was an error while retrieving your gps position", "");
-                            return;
-                        }
+                        locator.DesiredAccuracy = 500;
+                        var location = await locator.GetPositionAsync(TimeSpan.FromSeconds(10));
+                        latitude = location.Latitude;
+                        longitude = location.Longitude;
                     }
-                    else
+                    catch
                     {
-                        UserDialogs.Instance.Alert("Your device have position sensor disabled or is not available", "Position error");
+                        UserDialogs.Instance.Alert("There was an error while retrieving your gps position", "");
                         return;
                     }
                 }
-                else if(!haveDefaultAddress)
+                else
                 {
-                    UserDialogs.Instance.Alert("You have to register one address as default address", "");
-                    return;
+                    if(SelectedAddress==null)
+                    {
+                        UserDialogs.Instance.Alert("You have to select a starting address", "");
+                        return;
+                    }
+                    latitude = SelectedAddress.Latitude;
+                    longitude = SelectedAddress.Longitude;
                 }
                 
                 var res = await server.Activities.SearchActivities(sport,latitude,longitude);
@@ -109,6 +161,12 @@ namespace ProjectRunner.ViewModel
             (_openActivityCmd = new RelayCommand<Activity>((x) =>
             {
                 navigation.NavigateTo(ViewModelLocator.ActivityDetails, x);
+            }));
+        public RelayCommand GoToAddLocation =>
+            _addLocationCmd ??
+            (_addLocationCmd = new RelayCommand(() =>
+            {
+                navigation.NavigateTo(ViewModelLocator.AddLocation);
             }));
     }
 }

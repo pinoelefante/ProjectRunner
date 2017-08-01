@@ -746,6 +746,7 @@ namespace ProjectRunner.ServerAPI
                 Level = dictionary.ContainsKey("level") ? Int32.Parse(dictionary["level"]) : 1,
                 IsPrivate = dictionary.ContainsKey("private") ? (Int32.Parse(dictionary["private"]) == 1 ? true : false) : false,
                 IsBanned = dictionary.ContainsKey("banned") ? (Int32.Parse(dictionary["banned"]) == 1 ? true : false) : false,
+                Image = dictionary.ContainsKey("image") ? dictionary["image"] : null
             };
             if (dictionary.ContainsKey("birth") && !string.IsNullOrEmpty(dictionary["birth"]))
                 profile.Birth = DateTime.Parse(dictionary["birth"], CultureInfo.InvariantCulture);
@@ -755,8 +756,8 @@ namespace ProjectRunner.ServerAPI
                 profile.RegistrationTime = DateTime.Parse(dictionary["registration"], CultureInfo.InvariantCulture);
             if (dictionary.ContainsKey("status"))
                 profile.Status = (FriendshipStatus)Enum.Parse(typeof(FriendshipStatus), dictionary["status"]);
-            if(dictionary.ContainsKey("ban_timestamp"))
-                profile.LastUpdate = DateTime.Parse(dictionary["ban_timestamp"], CultureInfo.InvariantCulture);
+            if(dictionary.ContainsKey("ban_timestamp") && !string.IsNullOrEmpty(dictionary["ban_timestamp"]))
+                profile.BanTime = DateTime.Parse(dictionary["ban_timestamp"], CultureInfo.InvariantCulture);
 
             return profile;
         }
