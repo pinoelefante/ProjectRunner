@@ -101,12 +101,17 @@ namespace ProjectRunner.Services
                             "No suitable constructor found for page " + pageKey);
                     }
                     var page = constructor.Invoke(parameters) as Page;
+                    var lastPage = _navigation.Navigation.NavigationStack.LastOrDefault();
+                    
                     var task = _navigation.PushAsync(page);
                     task.ContinueWith((c) =>
                     {
                         if (MainPageKey != null && pageKey.CompareTo(MainPageKey) == 0)
                             ClearBackstack();
                     });
+
+                    if (lastPage != null && lastPage.GetType() == page.GetType())
+                        _navigation.Navigation.RemovePage(lastPage);
                 }
                 else
                 {
