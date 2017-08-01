@@ -15,12 +15,10 @@ namespace ProjectRunner.ViewModel
 {
     public class ActivitiesListViewModel : MyViewModel
     {
-        private INavigationService navigation;
         private PRServer server;
         private PRCache cache;
-        public ActivitiesListViewModel(INavigationService n, PRServer s, PRCache c)
+        public ActivitiesListViewModel(INavigationService n, PRServer s, PRCache c) : base(n)
         {
-            navigation = n;
             server = s;
             cache = c;
         }

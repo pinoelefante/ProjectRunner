@@ -16,12 +16,10 @@ namespace ProjectRunner.ViewModel
 {
     public class LoginPageViewModel : MyViewModel
     {
-        private INavigationService navigation;
         private PRServer server;
         private PRCache cache;
-        public LoginPageViewModel(INavigationService nav, PRServer s, PRCache c)
+        public LoginPageViewModel(INavigationService nav, PRServer s, PRCache c) : base(nav)
         {
-            navigation = nav;
             server = s;
             cache = c;
         }

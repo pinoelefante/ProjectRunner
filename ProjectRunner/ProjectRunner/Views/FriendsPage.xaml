@@ -42,7 +42,7 @@
         </ContentPage>
         <ContentPage Title="Sent">
             <Grid>
-                <Label Text="You haven't sent friendship requests" HorizontalOptions="Center" Margin="0,25" IsVisible="{Binding RequestsReceived.Count, Converter={StaticResource IntEquals}, ConverterParameter=0}"/>
+                <Label Text="You haven't sent friendship requests" HorizontalOptions="Center" Margin="0,25" IsVisible="{Binding RequestsSent.Count, Converter={StaticResource IntEquals}, ConverterParameter=0}"/>
                 <ListView ItemsSource="{Binding RequestsSent}" ItemTemplate="{StaticResource ActivityUserProfileImageSelector}">
                     <ListView.Behaviors>
                         <views:EventToCommandBehavior EventName="ItemTapped" Command="{Binding OpenProfileCommand}" EventArgsConverter="{StaticResource ItemTappedConverter}" />

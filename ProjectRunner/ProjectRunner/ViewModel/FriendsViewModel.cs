@@ -14,11 +14,9 @@ namespace ProjectRunner.ViewModel
     public class FriendsViewModel : MyViewModel
     {
         private PRServer server;
-        private INavigationService navigation;
-        public FriendsViewModel (PRServer s, INavigationService n)
+        public FriendsViewModel (INavigationService n, PRServer s) : base(n)
         {
             server = s;
-            navigation = n;
         }
         public override void NavigatedToAsync(object parameter = null)
         {

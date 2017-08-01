@@ -19,12 +19,10 @@ namespace ProjectRunner.ViewModel
 {
     public class RegisterPageViewModel : MyViewModel
     {
-        private INavigationService navigation;
         private PRServer server;
         private PRCache cache;
-        public RegisterPageViewModel(INavigationService n, PRServer s, PRCache c)
+        public RegisterPageViewModel(INavigationService n, PRServer s, PRCache c) : base(n)
         {
-            navigation = n;
             server = s;
             cache = c;
         }
@@ -32,7 +30,7 @@ namespace ProjectRunner.ViewModel
         public DateTime MinDateTime { get; } = DateTime.Now.Subtract(TimeSpan.FromDays(365.25 * 100));
         private string _username, _pass1, _firstName, _lastName, _email, _phone;
         private DateTime _birth = DateTime.Now.Subtract(TimeSpan.FromDays(365.25*18));
-        private int _timezoneIndex = 0;
+        private int _timezoneIndex = 0, _sexIndex = 0;
         public string Username { get { return _username; } set { Set(ref _username, value); } }
         public string Password { get { return _pass1; } set { Set(ref _pass1, value); } }
         public string FirstName { get { return _firstName; } set { Set(ref _firstName, value); } }
@@ -42,6 +40,11 @@ namespace ProjectRunner.ViewModel
         public string Phone { get { return _phone; } set { Set(ref _phone, value); } }
         public int TimezoneIndex { get { return _timezoneIndex; } set { Set(ref _timezoneIndex, value); RaisePropertyChanged(() => TimezoneSelected); } }
         public ObservableCollection<KeyValuePair<string,string>> Timezones { get; } = new ObservableCollection<KeyValuePair<string,string>>();
+        public int SexIndex { get { return _sexIndex; } set { Set(ref _sexIndex, value); } }
+        public List<string> SexList { get; } = new List<string>()
+        {
+            "Male", "Female"
+        };
 
         private RelayCommand _registerCommand;
         public RelayCommand RegisterCommand => _registerCommand ??
@@ -52,7 +55,7 @@ namespace ProjectRunner.ViewModel
                     UserDialogs.Instance.Alert("Password should have at least 8 characters");
                     return;
                 }
-                var response = await server.Authentication.RegisterAsync(Username, Password, Email, FirstName, LastName, Birth.ToString("yyyy-MM-dd"), Phone, null);
+                var response = await server.Authentication.RegisterAsync(Username, Password, Email, FirstName, LastName, Birth.ToString("yyyy-MM-dd"), Phone, TimezoneSelected, SexIndex);
                 if (response.response == StatusCodes.OK)
                     Application.Current.MainPage = new Views.MyMasterPage();
                 else

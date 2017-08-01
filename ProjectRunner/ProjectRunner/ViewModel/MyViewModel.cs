@@ -1,4 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Views;
+using ProjectRunner.ServerAPI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +11,11 @@ namespace ProjectRunner.ViewModel
 {
     public class MyViewModel : ViewModelBase
     {
+        protected INavigationService navigation;
+        public MyViewModel(INavigationService n)
+        {
+            navigation = n;
+        }
         private bool busyActive;
         public bool IsBusyActive { get { return busyActive; } set { Set(ref busyActive, value); } }
 
@@ -24,6 +31,10 @@ namespace ProjectRunner.ViewModel
          * OnBackPressed() must return true when override 
          */
         public virtual bool OnBackPressed()
+        {
+            return false;
+        }
+        public bool ManageCommonServerResponse(StatusCodes code)
         {
             return false;
         }

@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Views;
 using ProjectRunner.ServerAPI;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace ProjectRunner.ViewModel
     {
         private PRServer server;
         private PRCache cache;
-        public ViewUserProfileViewModel(PRServer s, PRCache c)
+        public ViewUserProfileViewModel(PRServer s, PRCache c, INavigationService n) : base(n)
         {
             server = s;
             cache = c;
@@ -26,17 +27,20 @@ namespace ProjectRunner.ViewModel
         public bool IsFriendshipRequested { get; set; }
         public override void NavigatedToAsync(object parameter = null)
         {
-            IsCurrentUser = parameter == null || ((int)parameter) == cache.CurrentUser.Id;
-            if(parameter != null)
+            Task.Factory.StartNew(async () =>
             {
-                var response = server.People.GetProfileInfo((int)parameter).Result;
-                if (response.response == StatusCodes.OK)
+                IsCurrentUser = parameter == null || ((int)parameter) == cache.CurrentUser.Id;
+                if (parameter != null)
                 {
-                    User = response.content;
-                    RaisePropertyChanged(() => User);
-                    RaisePropertyChanged(() => IsCurrentUser);
+                    var response = await server.People.GetProfileInfo((int)parameter);
+                    if (response.response == StatusCodes.OK)
+                    {
+                        User = response.content;
+                        RaisePropertyChanged(() => User);
+                        RaisePropertyChanged(() => IsCurrentUser);
+                    }
                 }
-            }
+            });
         }
         private RelayCommand _addFriendCmd, _remFriend, _remRequest, _acceptReqCmd, _logoutCmd;
         public RelayCommand AddFriendCommand =>
@@ -85,9 +89,9 @@ namespace ProjectRunner.ViewModel
             }));
         public RelayCommand LogoutCommand =>
             _logoutCmd ??
-            (_logoutCmd = new RelayCommand(() =>
+            (_logoutCmd = new RelayCommand(async () =>
             {
-                var res = server.Authentication.Logout().Result;
+                var res = await server.Authentication.Logout();
                 if (res.response == StatusCodes.OK)
                 {
                     Application.Current.MainPage = new NavigationPage(new Views.LoginPage());

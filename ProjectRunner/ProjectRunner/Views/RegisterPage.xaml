@@ -20,6 +20,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition />
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
@@ -36,19 +37,22 @@
             <Label Grid.Row="3" Grid.Column="0" Text="Last Name" Margin="10,0" VerticalOptions="Center" />
             <Entry Grid.Row="3" Grid.Column="1" x:Name="entryLastName" Placeholder="Stark" PlaceholderColor="Gray" Margin="5,0" Text="{Binding LastName}"/>
 
-            <Label Grid.Row="4" Grid.Column="0" Text="Email" Margin="10,0" VerticalOptions="Center" />
-            <Entry Grid.Row="4" Grid.Column="1" x:Name="entryMail" Placeholder="ned@housestark.win" PlaceholderColor="Gray" Margin="5,0" Text="{Binding Email}" Keyboard="Email"/>
+            <Label Grid.Row="4" Grid.Column="0" Text="Sex" Margin="10,0" VerticalOptions="Center" />
+            <Picker Grid.Row="4" Grid.Column="1" x:Name="sexPicker" Margin="5,0" ItemsSource="{Binding SexList}" SelectedIndex="{Binding SexIndex, Mode=TwoWay}"/>
 
-            <Label Grid.Row="5" Grid.Column="0" Text="Phone" Margin="10,0" VerticalOptions="Center" />
-            <Entry Grid.Row="5" Grid.Column="1" x:Name="entryPhone" Placeholder="+443482512365" PlaceholderColor="Gray" Margin="5,0" Text="{Binding Phone}" Keyboard="Telephone"/>
+            <Label Grid.Row="5" Grid.Column="0" Text="Email" Margin="10,0" VerticalOptions="Center" />
+            <Entry Grid.Row="5" Grid.Column="1" x:Name="entryMail" Placeholder="ned@housestark.win" PlaceholderColor="Gray" Margin="5,0" Text="{Binding Email}" Keyboard="Email"/>
 
-            <Label Grid.Row="6" Grid.Column="0" Text="Birth" Margin="10,0"  VerticalOptions="Center"/>
-            <DatePicker Grid.Row="6" Grid.Column="1" x:Name="entryBirth" Date="{Binding Birth, Mode=TwoWay}" MaximumDate="{Binding MaxDateTime}" MinimumDate="{Binding MinDateTime}" />
+            <Label Grid.Row="6" Grid.Column="0" Text="Phone" Margin="10,0" VerticalOptions="Center" />
+            <Entry Grid.Row="6" Grid.Column="1" x:Name="entryPhone" Placeholder="+443482512365" PlaceholderColor="Gray" Margin="5,0" Text="{Binding Phone}" Keyboard="Telephone"/>
 
-            <Label Grid.Row="7" Grid.Column="0" Text="Timezone" Margin="10,0" VerticalOptions="Center" IsVisible="{Binding Timezones.Count, Converter={StaticResource IntGreaterThan}, ConverterParameter=1}"/>
-            <Picker Grid.Row="7" Grid.Column="1" ItemsSource="{Binding Timezones}" ItemDisplayBinding="{Binding Value}" SelectedIndex="{Binding TimezoneIndex, Mode=TwoWay}" IsVisible="{Binding Timezones.Count, Converter={StaticResource IntGreaterThan}, ConverterParameter=1}"/>
+            <Label Grid.Row="7" Grid.Column="0" Text="Birth" Margin="10,0"  VerticalOptions="Center"/>
+            <DatePicker Grid.Row="7" Grid.Column="1" x:Name="entryBirth" Date="{Binding Birth, Mode=TwoWay}" MaximumDate="{Binding MaxDateTime}" MinimumDate="{Binding MinDateTime}" />
+
+            <Label Grid.Row="8" Grid.Column="0" Text="Timezone" Margin="10,0" VerticalOptions="Center" IsVisible="{Binding Timezones.Count, Converter={StaticResource IntGreaterThan}, ConverterParameter=1}"/>
+            <Picker Grid.Row="8" Grid.Column="1" ItemsSource="{Binding Timezones}" ItemDisplayBinding="{Binding Value}" SelectedIndex="{Binding TimezoneIndex, Mode=TwoWay}" IsVisible="{Binding Timezones.Count, Converter={StaticResource IntGreaterThan}, ConverterParameter=1}"/>
             
-            <Button Grid.Row="9" Grid.ColumnSpan="2" Text="Register" Command="{Binding RegisterCommand}" HeightRequest="60" IsEnabled="{Binding IsTimezoneLoaded}"/>
+            <Button Grid.Row="10" Grid.ColumnSpan="2" Text="Register" Command="{Binding RegisterCommand}" HeightRequest="60" IsEnabled="{Binding IsTimezoneLoaded}"/>
         </Grid>
     </ScrollView>
 </views:MyContentPage>

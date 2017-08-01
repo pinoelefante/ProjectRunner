@@ -21,13 +21,11 @@ namespace ProjectRunner.ViewModel
 {
     public class CreateActivityViewModel : MyViewModel
     {
-        private INavigationService navigation;
         private PRServer server;
         private PRCache cache;
         #region General
-        public CreateActivityViewModel(INavigationService nav, PRServer s, PRCache c)
+        public CreateActivityViewModel(INavigationService nav, PRServer s, PRCache c) : base(nav)
         {
-            navigation = nav;
             server = s;
             cache = c;
         }
@@ -67,6 +65,7 @@ namespace ProjectRunner.ViewModel
         private DateTime _startDay = DateTime.Now;
         private TimeSpan _startTime = DateTime.Now.TimeOfDay.Add(TimeSpan.FromHours(1));
 
+        public DateTime MinDateTime { get; } = DateTime.Now.Date;
         public float Fee { get { return _fee; } set { Set(ref _fee, value); VerifyGeneral(); } }
         public ObservableCollection<string> CurrenciesList { get; } = new ObservableCollection<string>()
         {

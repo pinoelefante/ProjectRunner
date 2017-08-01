@@ -16,12 +16,10 @@ namespace ProjectRunner.ViewModel
     {
         private PRServer server;
         private PRCache cache;
-        private INavigationService navigation;
-        public SearchActivityViewModel(PRServer s, PRCache c, INavigationService n)
+        public SearchActivityViewModel(PRServer s, PRCache c, INavigationService n) : base(n)
         {
             server = s;
             cache = c;
-            navigation = n;
         }
         public ObservableCollection<Sports> SportsAvailable { get; } = new ObservableCollection<Sports>()
         {

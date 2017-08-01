@@ -28,7 +28,8 @@ namespace ProjectRunner.ViewModel
             ActivitySearchResults = "ActivitySearchResults",
             ViewUserProfile = "ViewUserProfile",
             FriendsPage = "FriendsPage",
-            SearchFriendsPage = "SearchFriendsPage";
+            SearchFriendsPage = "SearchFriendsPage",
+            SettingsPage = "SettingsPage";
         
         private static NavigationService nav;
         static ViewModelLocator()
@@ -76,6 +77,7 @@ namespace ProjectRunner.ViewModel
             nav.Configure(ViewUserProfile, typeof(Views.ViewUserProfilePage));
             nav.Configure(FriendsPage, typeof(Views.FriendsPage));
             nav.Configure(SearchFriendsPage, typeof(Views.SearchFriendsPage));
+            nav.Configure(SettingsPage, typeof(Views.SettingsPage));
         }
         public static T GetService<T>() => ServiceLocator.Current.GetInstance<T>();
         public static NavigationService NavigationService { get { return nav; } }

@@ -16,11 +16,9 @@ namespace ProjectRunner.ViewModel
 {
     public class AddLocationViewModel : MyViewModel
     {
-        private INavigationService navigation;
         private PRServer server;
-        public AddLocationViewModel(INavigationService nav, PRServer s)
+        public AddLocationViewModel(INavigationService nav, PRServer s) : base(nav)
         {
-            navigation = nav;
             server = s;
         }
         private string _mpName = string.Empty, _mpStreet, _mpCity, _mpZipCode;

@@ -27,7 +27,7 @@
                         SelectedIndex="{Binding SelectedSportIndex, Mode=TwoWay}"/>
 
                 <Label Text="Day"/>
-                <DatePicker Date="{Binding StartDay, Mode=TwoWay}"/>
+                <DatePicker Date="{Binding StartDay, Mode=TwoWay}" MinimumDate="{Binding MinDateTime}"/>
                 <Label Text="at"/>
                 <TimePicker Time="{Binding StartTime, Mode=TwoWay}"/>
                 

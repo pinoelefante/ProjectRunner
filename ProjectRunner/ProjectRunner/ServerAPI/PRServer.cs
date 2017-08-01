@@ -23,6 +23,7 @@ namespace ProjectRunner.ServerAPI
         public ActivityAPI Activities { get; }
         public GoogleMapsAPI GoogleMaps { get; }
         public PeopleAPI People { get; }
+        public UserAPI User { get; }
         public PRServer(PRCache cache)
         {
             CommonApi = new CommonServerAPI();
@@ -39,6 +40,7 @@ namespace ProjectRunner.ServerAPI
             Activities = new ActivityAPI(CommonApi, cache);
             GoogleMaps = new GoogleMapsAPI(CommonApi);
             People = new PeopleAPI(CommonApi);
+            User = new UserAPI(CommonApi);
         }
     }
     public class CommonServerAPI
@@ -142,7 +144,7 @@ namespace ProjectRunner.ServerAPI
                 if(content!=null)
                     Debug.WriteLine(await content.ReadAsStringAsync());
 #endif
-                var response = http.PostAsync(url, content).Result;
+                var response = await http.PostAsync(url, content);
 #if DEBUG
                 Debug.WriteLine($"REQUEST at {url} - {response.StatusCode}");
 #endif
@@ -191,7 +193,7 @@ namespace ProjectRunner.ServerAPI
                 cache.SaveCredentials(username, password);
             return response;
         }
-        public async Task<Envelop<string>> RegisterAsync(string username, string password, string email, string firstName, string lastName, string birth, string phone, string timezone)
+        public async Task<Envelop<string>> RegisterAsync(string username, string password, string email, string firstName, string lastName, string birth, string phone, string timezone, int sex)
         {
             FormUrlEncodedContent postContent = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>()
             {
@@ -202,7 +204,8 @@ namespace ProjectRunner.ServerAPI
                 new KeyValuePair<string, string>("birth", birth),
                 new KeyValuePair<string, string>("phone", phone),
                 new KeyValuePair<string, string>("email", email),
-                new KeyValuePair<string, string>("timezone", timezone)
+                new KeyValuePair<string, string>("timezone", timezone),
+                new KeyValuePair<string, string>("sex", sex.ToString())
             });
 
             var response = await server.SendRequestWithAction<string, Dictionary<string, string>>("/registration.php?action=Register", (x) =>
@@ -217,27 +220,6 @@ namespace ProjectRunner.ServerAPI
                 server.SetAuthorization(username, password);
             }
             return response;
-        }
-        public async Task<Envelop<string>> ModifyField(string field, string newValue)
-        {
-            FormUrlEncodedContent postContent = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>()
-            {
-                new KeyValuePair<string, string>("field",field),
-                new KeyValuePair<string, string>("newValue", newValue)
-            });
-            return await server.SendRequest<string>("/authentication.php?action=ModifyField", postContent);
-        }
-        public async Task<Envelop<UserProfile>> GetProfileInfo()
-        {
-            return await server.SendRequestWithAction<UserProfile, Dictionary<string, string>>("/authentication.php?action=GetProfileInfo", (x) =>
-            {
-                if (x != null && x.Any())
-                {
-                    UserProfile user = UserProfile.ParseDictionary(x);
-                    return user;
-                }
-                return null;
-            });
         }
         public async Task<Envelop<string>> ModifyPassword(string oldPassword, string newPassword)
         {
@@ -260,6 +242,23 @@ namespace ProjectRunner.ServerAPI
         public async Task<Envelop<string[]>> GetTimezones(string country, int offset)
         {
             return await server.SendRequest<string[]>($"/registration.php?action=ListTimezones&country={country}&offset={offset}");
+        }
+    }
+    public class UserAPI
+    {
+        private CommonServerAPI server;
+        public UserAPI(CommonServerAPI s)
+        {
+            server = s;
+        }
+        public async Task<Envelop<string>> ModifyField(string field, string newValue)
+        {
+            FormUrlEncodedContent postContent = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("field",field),
+                new KeyValuePair<string, string>("newValue", newValue)
+            });
+            return await server.SendRequest<string>("/authentication.php?action=ModifyField", postContent);
         }
     }
     public class ActivityAPI
@@ -720,6 +719,12 @@ namespace ProjectRunner.ServerAPI
         public string Image { get; set; }
         [Ignore]
         public FriendshipStatus Status { get; set; }
+        public int Coins { get; private set; }
+        public int Experience { get; set; }
+        public int Level { get; set; }
+        public bool IsPrivate { get; set; }
+        public bool IsBanned { get; set; }
+        public DateTime BanTime { get; set; }
 
         public UserProfile() { }
 
@@ -735,7 +740,12 @@ namespace ProjectRunner.ServerAPI
                 Phone = dictionary.ContainsKey("phone") ? dictionary["phone"] : string.Empty,
                 Sex = dictionary.ContainsKey("sex") ? Int32.Parse(dictionary["sex"]) : 0,
                 DefaultUserLocation = dictionary.ContainsKey("defaultLocation") && dictionary["defaultLocation"] != null ? Int32.Parse(dictionary["defaultLocation"]) : 0,
-                NotifyNearbyActivities = dictionary.ContainsKey("notifyNearbyActivities") ? (Int32.Parse(dictionary["notifyNearbyActivities"]) == 1 ? true : false) : false, 
+                NotifyNearbyActivities = dictionary.ContainsKey("notifyNearbyActivities") ? (Int32.Parse(dictionary["notifyNearbyActivities"]) == 1 ? true : false) : false,
+                Coins = dictionary.ContainsKey("coins") ? Int32.Parse(dictionary["coins"]) : 0,
+                Experience = dictionary.ContainsKey("experience") ? Int32.Parse(dictionary["experience"]) : 0,
+                Level = dictionary.ContainsKey("level") ? Int32.Parse(dictionary["level"]) : 1,
+                IsPrivate = dictionary.ContainsKey("private") ? (Int32.Parse(dictionary["private"]) == 1 ? true : false) : false,
+                IsBanned = dictionary.ContainsKey("banned") ? (Int32.Parse(dictionary["banned"]) == 1 ? true : false) : false,
             };
             if (dictionary.ContainsKey("birth") && !string.IsNullOrEmpty(dictionary["birth"]))
                 profile.Birth = DateTime.Parse(dictionary["birth"], CultureInfo.InvariantCulture);
@@ -745,6 +755,8 @@ namespace ProjectRunner.ServerAPI
                 profile.RegistrationTime = DateTime.Parse(dictionary["registration"], CultureInfo.InvariantCulture);
             if (dictionary.ContainsKey("status"))
                 profile.Status = (FriendshipStatus)Enum.Parse(typeof(FriendshipStatus), dictionary["status"]);
+            if(dictionary.ContainsKey("ban_timestamp"))
+                profile.LastUpdate = DateTime.Parse(dictionary["ban_timestamp"], CultureInfo.InvariantCulture);
 
             return profile;
         }

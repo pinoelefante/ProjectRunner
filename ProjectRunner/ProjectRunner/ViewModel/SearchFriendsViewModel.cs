@@ -14,11 +14,9 @@ namespace ProjectRunner.ViewModel
     public class SearchFriendsViewModel : MyViewModel
     {
         private PRServer server;
-        private INavigationService navigation;
-        public SearchFriendsViewModel(PRServer s, INavigationService n)
+        public SearchFriendsViewModel(PRServer s, INavigationService n) : base(n)
         {
             server = s;
-            navigation = n;
         }
         public ObservableCollection<UserProfile> SearchResults { get; } = new ObservableCollection<UserProfile>();
         private string oldSearchParameter = null;

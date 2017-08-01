@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Views;
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
 using ProjectRunner.ServerAPI;
@@ -14,13 +15,14 @@ namespace ProjectRunner.ViewModel
     public class HomePageViewModel : MyViewModel
     {
         private PRServer server;
-        public HomePageViewModel(PRServer s)
+        public HomePageViewModel(INavigationService n, PRServer s) : base(n)
         {
             server = s;
         }
         public RelayCommand TestCommand => new RelayCommand(() =>
         {
             //server.GoogleMaps.GetCoordinatesFromAddress("Santa Maria la Carità", "Via Visitazione", "290", "80050");
+            navigation.NavigateTo(ViewModelLocator.SettingsPage);
         });
         public override void NavigatedToAsync(object parameter = null)
         {

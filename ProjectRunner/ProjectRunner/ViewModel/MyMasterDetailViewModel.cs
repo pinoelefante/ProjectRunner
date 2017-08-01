@@ -15,11 +15,9 @@ namespace ProjectRunner.ViewModel
 {
     public class MyMasterDetailViewModel : MyViewModel
     {
-        private INavigationService navigation;
         private PRCache cache;
-        public MyMasterDetailViewModel(INavigationService n, PRCache c)
+        public MyMasterDetailViewModel(INavigationService n, PRCache c) : base(n)
         {
-            navigation = n;
             cache = c;
         }
         public UserProfile User { get; set; }

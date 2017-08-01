@@ -18,12 +18,10 @@ namespace ProjectRunner.ViewModel
     public class ActivityDetailsViewModel : MyViewModel
     {
         private PRServer server;
-        private INavigationService navigation;
         private PRCache cache;
-        public ActivityDetailsViewModel(PRServer s, INavigationService n, PRCache c)
+        public ActivityDetailsViewModel(INavigationService n, PRServer s, PRCache c) : base(n)
         {
             server = s;
-            navigation = n;
             cache = c;
         }
         public Activity CurrentActivity { get; private set; }

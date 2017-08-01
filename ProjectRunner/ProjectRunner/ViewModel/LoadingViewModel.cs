@@ -17,7 +17,7 @@ namespace ProjectRunner.ViewModel
         public string ProgressText { get { return _progText; } set { Set(ref _progText, value); } }
         private PRCache cache;
         private PRServer server;
-        public LoadingViewModel(PRServer s, PRCache c)
+        public LoadingViewModel(PRServer s, PRCache c) : base(null)
         {
             server = s;
             cache = c;
