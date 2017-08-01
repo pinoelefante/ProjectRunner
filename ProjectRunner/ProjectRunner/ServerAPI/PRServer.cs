@@ -141,7 +141,7 @@ namespace ProjectRunner.ServerAPI
             try
             {
 #if DEBUG
-                if(content!=null)
+                if (content != null)
                     Debug.WriteLine(await content.ReadAsStringAsync());
 #endif
                 var response = await http.PostAsync(url, content);
@@ -157,11 +157,11 @@ namespace ProjectRunner.ServerAPI
                     return output;
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw e;
             }
-            throw new HttpRequestException();
+            return null;
         }
     }
     public class AuthenticationAPI

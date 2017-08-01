@@ -148,5 +148,32 @@ namespace ProjectRunner.Services
             _navigation = navigation;
             MainPageKey = mainPageKey;
         }
+        public void PrintBackstack()
+        {
+            var stack = _navigation.Navigation.NavigationStack.ToList();
+            foreach (var item in stack)
+            {
+                Debug.WriteLine("classid: "+item.ClassId + " typeof: "+item.GetType().FullName);
+
+            }
+        }
+        public void RemovePagesFromBackstack(IEnumerable<Type> types)
+        {
+            foreach (var item in types)
+                RemovePageFromBackstack(item);
+        }
+        public void RemovePageFromBackstack(Type t, bool one = false)
+        {
+            var stack = _navigation.Navigation.NavigationStack.ToList();
+            foreach (var item in stack)
+            {
+                if(item.GetType() == t)
+                {
+                    _navigation.Navigation.RemovePage(item);
+                    if (one)
+                        break;
+                }
+            }
+        }
     }
 }

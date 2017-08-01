@@ -36,3 +36,6 @@ SEARCH ACTIVITY
 
 MY VIEW MODEL
 1) Manage common server response
+
+BACKSTACK
+1) If navigating to the same page, remove the old one (ex: tapping two times on Activities will remove the old page)

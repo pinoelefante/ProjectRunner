@@ -350,36 +350,42 @@ namespace ProjectRunner.ViewModel
         #region Confirm activity
         private RelayCommand _createActivityCmd;
         public RelayCommand CreateActivityCommand =>
-            _createActivityCmd ?? 
+            _createActivityCmd ??
             (_createActivityCmd = new RelayCommand(
             async () =>
             {
 
-                Dictionary<string, string> sportDetails = null;
-                switch (SelectedSport?.SportEnumValue)
-                {
-                    case Sports.BICYCLE:
-                        sportDetails = BicycleActivity.CreateDetailsDictionary(Distance);
-                        break;
-                    case Sports.FOOTBALL:
-                        sportDetails = FootballActivity.CreateDetailsDictionary(PlayersPerTeam);
-                        break;
-                    case Sports.RUNNING:
-                        sportDetails = RunningActivity.CreateDetailsDictionary(Distance, null, WithFitness);
-                        break;
-                    case Sports.TENNIS:
-                        sportDetails = TennisActivity.CreateDetailsDictionary(IsDouble);
-                        break;
-                }
+            Dictionary<string, string> sportDetails = null;
+            switch (SelectedSport?.SportEnumValue)
+            {
+                case Sports.BICYCLE:
+                    sportDetails = BicycleActivity.CreateDetailsDictionary(Distance);
+                    break;
+                case Sports.FOOTBALL:
+                    sportDetails = FootballActivity.CreateDetailsDictionary(PlayersPerTeam);
+                    break;
+                case Sports.RUNNING:
+                    sportDetails = RunningActivity.CreateDetailsDictionary(Distance, null, WithFitness);
+                    break;
+                case Sports.TENNIS:
+                    sportDetails = TennisActivity.CreateDetailsDictionary(IsDouble);
+                    break;
+            }
 
-                Debug.WriteLine(StartDay.ToString());
-                Debug.WriteLine(StartTime.ToString());
+            Debug.WriteLine(StartDay.ToString());
+            Debug.WriteLine(StartTime.ToString());
 
                 var response = await server.Activities.CreateActivityAsync(StartDay, StartTime, SelectedLocation.Id, MaxPlayers, Guests, Fee, SelectedCurrency, SelectedSport.SportEnumValue, RequiredFeedback, sportDetails);
                 if (response.response == StatusCodes.OK)
                 {
+                    var navService = navigation as NavigationService;
+                    navService.RemovePageFromBackstack(typeof(Activities));
                     UserDialogs.Instance.Alert("Activity created", "Activity creation");
                     navigation.NavigateTo(ViewModelLocator.Activities);
+                    (navigation as NavigationService).RemovePageFromBackstack(typeof(Views.CreateActivityPage));
+                    (navigation as NavigationService).RemovePageFromBackstack(typeof(Views.CreateActivityChooseLocation));
+                    (navigation as NavigationService).RemovePageFromBackstack(typeof(Views.CreateActivityConfirmPage));
+                    (navigation as NavigationService).RemovePageFromBackstack(typeof(Views.AddLocationPage));
                     Reset();
                 }
                 else
