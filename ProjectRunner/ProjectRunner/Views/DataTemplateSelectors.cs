@@ -35,9 +35,13 @@ namespace ProjectRunner.Views.Selectors
         protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
         {
             var message = item as ChatMessage;
-            if (message.MessageType == ChatMessage.ChatMessageType.USER)
-                return message.IsMine ? MyMessage : UserMessage;
-            return ServiceMessage;
+            if (message != null)
+            {
+                if (message.MessageType == ChatMessage.ChatMessageType.USER)
+                    return message.IsMine ? MyMessage : UserMessage;
+                return ServiceMessage;
+            }
+            return null;
         }
     }
     public class ActivityUserProfileImageSelector : DataTemplateSelector

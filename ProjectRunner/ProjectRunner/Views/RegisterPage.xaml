@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProjectRunner.Views.RegisterPage"
              xmlns:views="clr-namespace:ProjectRunner.Views"
-             Title="Register"
+             Title="Create an account"
              BindingContext="{Binding RegisterPageViewModel, Source={StaticResource Locator}}">
     <ScrollView>
         <Grid>

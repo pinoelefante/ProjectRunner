@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProjectRunner.Views.CreateActivityConfirmPage"
              xmlns:views="clr-namespace:ProjectRunner.Views"
-             Title="Create activity"
+             Title="Confirm activity creation"
              BindingContext="{Binding CreateActivityViewModel, Source={StaticResource Locator}}">
     <ScrollView>
         <Grid>

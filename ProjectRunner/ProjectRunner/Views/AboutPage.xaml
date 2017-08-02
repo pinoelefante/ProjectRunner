@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ProjectRunner.Views.AboutPage">
+             x:Class="ProjectRunner.Views.AboutPage"
+             Title="About">
     <Grid>
         <Label Text="Icons by flaticon.com"/>
         <Label Text="Icons by freepik.com"/>

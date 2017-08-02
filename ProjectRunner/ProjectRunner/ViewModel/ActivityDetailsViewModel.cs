@@ -48,14 +48,21 @@ namespace ProjectRunner.ViewModel
                 navigation.GoBack();
             }
         }
+        public override void NavigatedFrom()
+        {
+            ReadingTaskCancellationSource?.Cancel();
+            ReadingTask?.Wait(TimeSpan.FromSeconds(5));
+            ReadingTask = null;
+        }
         private async Task LoadActivityAsync(int id)
         {
             var res = await server.Activities.InfoActivityAsync(id);
             if(res.response == StatusCodes.OK)
             {
-                var index = cache.ListActivities.IndexOf(CurrentActivity);
+                var index = cache.ListActivities.IndexOf(cache.ListActivities.First(x => x.Id == id));
                 CurrentActivity = res.content;
-                cache.ListActivities[index] = CurrentActivity;
+                if (index >=0)
+                    cache.ListActivities[index] = CurrentActivity;
 
                 Device.BeginInvokeOnMainThread(() =>
                 {
@@ -239,56 +246,73 @@ namespace ProjectRunner.ViewModel
             (_sendChatMsgCmd = new RelayCommand(async () =>
             {
                 //non ha joinato l'attività o non è l'organizzatore
-                if (!UserJoinedActivity || CurrentActivity.CreatedBy!=cache.CurrentUser.Id)
-                    return;
-                if (ChatMessage?.Trim().Length > 0)
+                if (UserJoinedActivity || CurrentActivity.CreatedBy == cache.CurrentUser.Id)
                 {
-                    var res = await server.Activities.SendChatMessage(CurrentActivity.Id, ChatMessage.Trim());
-                    if (res.response == StatusCodes.OK)
+                    if (ChatMessage?.Trim().Length > 0)
                     {
-                        await ReadChatMessagesAsync();
-                        ChatMessage = string.Empty;
+                        var res = await server.Activities.SendChatMessage(CurrentActivity.Id, ChatMessage.Trim());
+                        if (res.response == StatusCodes.OK)
+                        {
+                            await ReadChatMessagesAsync();
+                            ChatMessage = string.Empty;
+                        }
+                        else
+                            UserDialogs.Instance.Alert("Error while sending the message. Retry later", "Message not delivered", "OK");
                     }
-                    else
-                        UserDialogs.Instance.Alert("Error while sending the message. Retry later", "Message not delivered", "OK");
                 }
             }));
         public ObservableCollection<ChatMessage> ListMessages { get; } = new ObservableCollection<ChatMessage>();
-        public async Task ReadChatMessagesAsync()
+        public async Task<int> ReadChatMessagesAsync(bool firstTime = false)
         {
-            if (!ListMessages.Any())
+            Debug.WriteLine("Reading chat messages");
+            Device.BeginInvokeOnMainThread(() =>
             {
-                var messages = cache.GetChatMessages(CurrentActivity.Id);
-                if (messages != null)
-                    foreach (var item in messages)
-                        ListMessages.Add(item);
-                else
-                    cache.SetChatLastTimestamp(CurrentActivity.Id, 0);
-            }
+                if (!ListMessages.Any())
+                {
+                    var messages = cache.GetChatMessages(CurrentActivity.Id);
+                    if (messages != null)
+                    {
+                        foreach (var item in messages)
+                            ListMessages.Add(item);
+                        ScrollToPosition(ListMessages.LastOrDefault());
+                    }
+                    else
+                        cache.SetChatLastTimestamp(CurrentActivity.Id, 0);
+                }
+            });
             var last_timestamp = cache.GetChatLastTimestamp(CurrentActivity.Id);
             var res = await server.Activities.ReadChatMessages(CurrentActivity.Id, last_timestamp);
-            if(res.response == StatusCodes.OK)
+            int newMessages = 0;
+            if (res.response == StatusCodes.OK)
             {
-                if(res.content.Any())
+                Device.BeginInvokeOnMainThread(() =>
                 {
-                    var placeholder = ListMessages.FirstOrDefault(x => x.MessageType == ServerAPI.ChatMessage.ChatMessageType.SERVICE);
-                    if (placeholder != null)
-                        ListMessages.Remove(placeholder);
-                    
-                    if(res.content.Count > 1)
+                    if (res.content != null && res.content.Any())
                     {
-                        ListMessages.Add(new ChatMessage()
+                        var placeholder = ListMessages.FirstOrDefault(x => x.MessageType == ServerAPI.ChatMessage.ChatMessageType.SERVICE);
+                        if (placeholder != null)
+                            ListMessages.Remove(placeholder);
+
+                        newMessages = res.content.Count;
+                        if (firstTime)
                         {
-                            Message = $"{res.content.Count} new messages",
-                            MessageType = ServerAPI.ChatMessage.ChatMessageType.SERVICE
-                        });
+                            ListMessages.Add(new ChatMessage()
+                            {
+                                Message = $"{res.content.Count} new messages",
+                                MessageType = ServerAPI.ChatMessage.ChatMessageType.SERVICE
+                            });
+                        }
+                        var scrollIndex = ListMessages.Count;
+                        foreach (var item in res.content)
+                            ListMessages.Add(item);
+                        cache.SaveItemsDB<ChatMessage>(res.content);
+                        cache.SetChatLastTimestamp(CurrentActivity.Id, res.content.Last().Timestamp);
+
+                        ScrollToPosition(ListMessages[scrollIndex]);
                     }
-                    foreach (var item in res.content)
-                        ListMessages.Add(item);
-                    cache.SaveItemsDB<ChatMessage>(res.content);
-                    cache.SetChatLastTimestamp(CurrentActivity.Id, res.content.Last().Timestamp);
-                }
+                });
             }
+            return newMessages;
         }
         private async Task LoadPeopleAsync(bool force = false)
         {
@@ -316,10 +340,41 @@ namespace ProjectRunner.ViewModel
             if (ActivityPeople.FirstOrDefault(x=>x.Id == cache.CurrentUser.Id) != null)
             {
                 UserJoinedActivity = true;
-                ReadChatMessagesAsync();
+
+                if (ReadingTask == null)
+                {
+                    ReadingTaskCancellationSource = new CancellationTokenSource();
+                    ReadingToken = ReadingTaskCancellationSource.Token;
+                    ReadingTask = Task.Factory.StartNew(async () =>
+                    {
+                        bool firstTime = true;
+                        int delay = 5000;
+                        while (!ReadingTaskCancellationSource.IsCancellationRequested)
+                        {
+                            try
+                            {
+                                var messages = await ReadChatMessagesAsync(firstTime);
+                                firstTime = false;
+                                if (messages == 0 && delay < 10000)
+                                    delay += 1000;
+                                else
+                                    delay = 3000;
+                                await Task.Delay(delay);
+                            }
+                            catch(Exception e)
+                            {
+                                Debug.WriteLine(e.Message);
+                            }
+                        }
+                        Debug.WriteLine("Read chat task ended");
+                    }, ReadingToken);
+                }
             }
             IsPeopleListLoaded = true;
         }
+        private CancellationTokenSource ReadingTaskCancellationSource;
+        private CancellationToken ReadingToken;
+        private Task ReadingTask;
         private bool _isPeopleListLoaded, _joinedActivity;
         public bool IsPeopleListLoaded { get { return _isPeopleListLoaded; } set { Set(ref _isPeopleListLoaded, value); } }
         public bool UserJoinedActivity { get { return _joinedActivity; } set { Set(ref _joinedActivity, value); } }
@@ -359,5 +414,7 @@ namespace ProjectRunner.ViewModel
                 NewPlayersPerTeamIndex = (minPlayers < 5) ? currPpt - 5 : currPpt - minPlayers;
             }
         }
+
+        public Action<object> ScrollToPosition { get; set; }
     }
 }

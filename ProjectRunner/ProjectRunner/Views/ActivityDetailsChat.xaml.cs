@@ -1,6 +1,8 @@
-﻿using System;
+﻿using ProjectRunner.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -18,6 +20,11 @@ namespace ProjectRunner.Views
         public ActivityDetailsChat()
         {
             InitializeComponent();
+            (BindingContext as ActivityDetailsViewModel).ScrollToPosition = (x) => 
+            {
+                if(x!=null)
+                    chatList.ScrollTo(x, ScrollToPosition.MakeVisible, true);
+            };
         }
     }
 }

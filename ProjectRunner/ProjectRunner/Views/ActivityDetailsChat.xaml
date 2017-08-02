@@ -4,14 +4,19 @@
              x:Class="ProjectRunner.Views.ActivityDetailsChat"
              xmlns:selectors="clr-namespace:ProjectRunner.Views.Selectors"
              xmlns:views="clr-namespace:ProjectRunner.Views"
-             Title="Chat">
+             Title="Chat"
+             BindingContext="{Binding ActivityDetailsViewModel, Source={StaticResource Locator}}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <ListView Grid.Row="0" ItemsSource="{Binding ListMessages}" ItemTemplate="{StaticResource ChatMessageSelector}" HasUnevenRows="True"/>
+        <ListView Grid.Row="0"
+                  x:Name="chatList"
+                  ItemsSource="{Binding ListMessages}"
+                  ItemTemplate="{StaticResource ChatMessageSelector}" 
+                  HasUnevenRows="True"/>
 
         <Grid Grid.Row="1" Padding="5">
             <Grid.ColumnDefinitions>
