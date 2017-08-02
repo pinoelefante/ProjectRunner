@@ -1,63 +1,60 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+<views:MyContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProjectRunner.Views.AddLocationPage"
              xmlns:views="clr-namespace:ProjectRunner.Views"
              Title="Add location"
              BindingContext="{Binding AddLocationViewModel, Source={StaticResource Locator}}">
-    <ContentPage Title="By GPS position">
-        <ScrollView Padding="0,0,10,0" Margin="10,0,0,0">
-            <Grid>
+    <ScrollView>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Padding="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
                 <Grid.RowDefinitions>
-                    <RowDefinition/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <StackLayout Grid.Row="0">
-                    <Button Text="Get GPS" Command="{Binding GetMyGPSPositionCommand}" IsEnabled="{Binding HasGPS}" IsVisible="{Binding HasGPS}"/>
+                <Label Grid.Row="0" Grid.Column="0" Text="Use GPS" VerticalOptions="Center"/>
+                <Switch Grid.Row="0" Grid.Column="1" IsToggled="{Binding UseGPS, Mode=TwoWay}" />
 
-                    <Label Text="Name"/>
-                    <Entry Placeholder="Location name" Text="{Binding AddressName, Mode=TwoWay}"/>
+                <Label Grid.Row="1" Grid.Column="0" Text="Name" VerticalOptions="Center"/>
+                <Entry Grid.Row="1" Grid.Column="1" Placeholder="Location name" Text="{Binding AddressName, Mode=TwoWay}"/>
 
-                    <Label Text="Latitude"/>
-                    <Entry Placeholder="" Text="{Binding AddressLatitude, Mode=TwoWay}" IsEnabled="False"/>
+                <Label Grid.Row="2" Grid.Column="0" Text="City" VerticalOptions="Center" IsVisible="{Binding UseGPS, Converter={StaticResource NotBoolean}}"/>
+                <Entry Grid.Row="2" Grid.Column="1" Placeholder="New York" Text="{Binding AddressCity, Mode=TwoWay}" IsVisible="{Binding UseGPS, Converter={StaticResource NotBoolean}}"/>
 
-                    <Label Text="Longitude"/>
-                    <Entry Placeholder="" Text="{Binding AddressLongitude, Mode=TwoWay}" IsEnabled="False"/>
-                </StackLayout>
+                <Label Grid.Row="3" Grid.Column="0" Text="Street" VerticalOptions="Center" IsVisible="{Binding UseGPS, Converter={StaticResource NotBoolean}}"/>
+                <Entry Grid.Row="3" Grid.Column="1" Placeholder="" Text="{Binding AddressStreet, Mode=TwoWay}" IsVisible="{Binding UseGPS, Converter={StaticResource NotBoolean}}"/>
 
-                <Button Grid.Row="1" Text="Add" Command="{Binding AddLocationCommand}" />
+                <Label Grid.Row="4" Grid.Column="0" Text="Civic number" VerticalOptions="Center" IsVisible="{Binding UseGPS, Converter={StaticResource NotBoolean}}"/>
+                <Entry Grid.Row="4" Grid.Column="1" Placeholder="" Text="{Binding AddressCivicNumber, Mode=TwoWay}" Keyboard="Numeric" IsVisible="{Binding UseGPS, Converter={StaticResource NotBoolean}}"/>
+
+                <Label Grid.Row="5" Grid.Column="0" Text="Postal Code" VerticalOptions="Center" IsVisible="{Binding UseGPS, Converter={StaticResource NotBoolean}}"/>
+                <Entry Grid.Row="5" Grid.Column="1" Placeholder="" Text="{Binding AddressZipCode, Mode=TwoWay}" Keyboard="Numeric" IsVisible="{Binding UseGPS, Converter={StaticResource NotBoolean}}"/>
+
+                <Label Grid.Row="6" Grid.Column="0" Text="Latitude" VerticalOptions="Center"/>
+                <Entry Grid.Row="6" Grid.Column="1" Placeholder="" Text="{Binding AddressLatitude, Mode=TwoWay}" IsEnabled="False"/>
+
+                <Label Grid.Row="7" Grid.Column="0" Text="Longitude" VerticalOptions="Center"/>
+                <Entry Grid.Row="7" Grid.Column="1" Placeholder="" Text="{Binding AddressLongitude, Mode=TwoWay}" IsEnabled="False"/>
             </Grid>
-        </ScrollView>
-    </ContentPage>
 
-    <ContentPage Title="By address">
-        <ScrollView>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-
-                <StackLayout>
-                    <Label Text="Name"/>
-                    <Entry Placeholder="Location name" Text="{Binding AddressName, Mode=TwoWay}"/>
-                    
-                    <Label Text="City"/>
-                    <Entry Placeholder="New York" Text="{Binding AddressCity, Mode=TwoWay}"/>
-
-                    <Label Text="Street"/>
-                    <Entry Placeholder="" Text="{Binding AddressStreet, Mode=TwoWay}"/>
-
-                    <Label Text="Civic number"/>
-                    <Entry Placeholder="" Text="{Binding AddressCivicNumber, Mode=TwoWay}" Keyboard="Numeric"/>
-
-                    <Label Text="Postal Code"/>
-                    <Entry Placeholder="" Text="{Binding AddressZipCode, Mode=TwoWay}" Keyboard="Numeric"/>
-                </StackLayout>
-                
-                <Button Grid.Row="1" Text="Add" Command="{Binding AddALocationByAddressCommand}"/>
-            </Grid>
-        </ScrollView>
-    </ContentPage>
-</TabbedPage>
+            <Button Grid.Row="1" HeightRequest="60" Text="Add location" Command="{Binding AddLocationCommand}"/>
+        </Grid>
+    </ScrollView>
+</views:MyContentPage>

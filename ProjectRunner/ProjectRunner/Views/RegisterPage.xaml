@@ -44,7 +44,11 @@
                 <Entry Grid.Row="3" Grid.Column="1" x:Name="entryLastName" Placeholder="Stark" PlaceholderColor="Gray" Margin="5,0" Text="{Binding LastName}"/>
 
                 <Label Grid.Row="4" Grid.Column="0" Text="Sex" Margin="10,0" VerticalOptions="Center" />
-                <Picker Grid.Row="4" Grid.Column="1" x:Name="sexPicker" Margin="5,0" ItemsSource="{Binding SexList}" SelectedIndex="{Binding SexIndex, Mode=TwoWay}"/>
+                <Picker Grid.Row="4" Grid.Column="1" x:Name="sexPicker" Margin="5,0" ItemsSource="{Binding SexList}" SelectedIndex="{Binding SexIndex, Mode=TwoWay}">
+                    <Picker.Title>
+                        <OnPlatform x:TypeArguments="x:String" Android="Sex" iOS="Sex"/>
+                    </Picker.Title>
+                </Picker>
 
                 <Label Grid.Row="5" Grid.Column="0" Text="Email" Margin="10,0" VerticalOptions="Center" />
                 <Entry Grid.Row="5" Grid.Column="1" x:Name="entryMail" Placeholder="ned@housestark.win" PlaceholderColor="Gray" Margin="5,0" Text="{Binding Email}" Keyboard="Email"/>
@@ -56,7 +60,11 @@
                 <DatePicker Grid.Row="7" Grid.Column="1" x:Name="entryBirth" Date="{Binding Birth, Mode=TwoWay}" MaximumDate="{Binding MaxDateTime}" MinimumDate="{Binding MinDateTime}" />
 
                 <Label Grid.Row="8" Grid.Column="0" Text="Timezone" Margin="10,0" VerticalOptions="Center" IsVisible="{Binding Timezones.Count, Converter={StaticResource IntGreaterThan}, ConverterParameter=1}"/>
-                <Picker Grid.Row="8" Grid.Column="1" ItemsSource="{Binding Timezones}" ItemDisplayBinding="{Binding Value}" SelectedIndex="{Binding TimezoneIndex, Mode=TwoWay}" IsVisible="{Binding Timezones.Count, Converter={StaticResource IntGreaterThan}, ConverterParameter=1}"/>
+                <Picker Grid.Row="8" Grid.Column="1" ItemsSource="{Binding Timezones}" ItemDisplayBinding="{Binding Value}" SelectedIndex="{Binding TimezoneIndex, Mode=TwoWay}" IsVisible="{Binding Timezones.Count, Converter={StaticResource IntGreaterThan}, ConverterParameter=1}">
+                    <Picker.Title>
+                        <OnPlatform x:TypeArguments="x:String" Android="Timezone" iOS="Timezone"/>
+                    </Picker.Title>
+                </Picker>
             </Grid>
 
             <Button Grid.Row="1" Text="Register" Command="{Binding RegisterCommand}" HeightRequest="60" IsEnabled="{Binding IsTimezoneLoaded}"/>

@@ -36,7 +36,11 @@
             <Switch Grid.Row="1" Grid.Column="1" IsToggled="{Binding UseGPSLocation, Mode=TwoWay}"/>
 
             <Label Grid.Row="2" Grid.Column="0" Text="Location" IsVisible="{Binding UseGPSLocation, Converter={StaticResource NotBoolean}}" VerticalOptions="Center"/>
-            <Picker Grid.Row="2" Grid.Column="1" ItemsSource="{Binding LocationsList}" SelectedIndex="{Binding LocationIndex, Mode=TwoWay}" ItemDisplayBinding="{Binding Name}" IsVisible="{Binding UseGPSLocation, Converter={StaticResource NotBoolean}}"/>
+            <Picker Grid.Row="2" Grid.Column="1" ItemsSource="{Binding LocationsList}" SelectedIndex="{Binding LocationIndex, Mode=TwoWay}" ItemDisplayBinding="{Binding Name}" IsVisible="{Binding UseGPSLocation, Converter={StaticResource NotBoolean}}">
+                <Picker.Title>
+                    <OnPlatform x:TypeArguments="x:String" Android="Location" iOS="Location"/>
+                </Picker.Title>
+            </Picker>
             <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" FontSize="12" Text="La località non è presente nell'elenco? Clicca qui per aggiungerla" TextColor="Blue" HorizontalOptions="Center" Margin="0,10" IsVisible="{Binding UseGPSLocation, Converter={StaticResource NotBoolean}}">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding GoToAddLocation}"/>

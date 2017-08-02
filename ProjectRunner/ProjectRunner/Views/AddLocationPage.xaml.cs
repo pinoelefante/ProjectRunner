@@ -10,7 +10,7 @@ using Xamarin.Forms.Xaml;
 namespace ProjectRunner.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class AddLocationPage : TabbedPage
+    public partial class AddLocationPage : MyContentPage
     {
         public AddLocationPage()
         {

@@ -84,12 +84,20 @@
 
                     <StackLayout>
                         <Label Text="Guest users"/>
-                        <Picker ItemsSource="{Binding NewGuests}" SelectedIndex="{Binding NewGuestsIndex, Mode=TwoWay}"/>
+                        <Picker ItemsSource="{Binding NewGuests}" SelectedIndex="{Binding NewGuestsIndex, Mode=TwoWay}">
+                            <Picker.Title>
+                                <OnPlatform x:TypeArguments="x:String" Android="Guest users" iOS="Guest users"/>
+                            </Picker.Title>
+                        </Picker>
                     </StackLayout>
 
                     <StackLayout IsVisible="{Binding CurrentActivity,Converter={StaticResource SportWithTeam}}">
                         <Label Text="Players per team"/>
-                        <Picker ItemsSource="{Binding NewPlayersPerTeam}" SelectedIndex="{Binding NewPlayersPerTeamIndex, Mode=TwoWay}"/>
+                        <Picker ItemsSource="{Binding NewPlayersPerTeam}" SelectedIndex="{Binding NewPlayersPerTeamIndex, Mode=TwoWay}">
+                            <Picker.Title>
+                                <OnPlatform x:TypeArguments="x:String" Android="Players per team" iOS="Players per team"/>
+                            </Picker.Title>
+                        </Picker>
                     </StackLayout>
 
                     <StackLayout IsVisible="{Binding CurrentActivity.Sport, Converter={StaticResource SportMaxPlayerEditable}}">

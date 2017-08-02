@@ -16,7 +16,11 @@
                 <ColumnDefinition/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Entry Grid.Column="0" Placeholder="Username to search" Text="{Binding SearchParameter}" Margin="5,0" />
+            <Entry Grid.Column="0" Placeholder="Username to search" Text="{Binding SearchParameter}" Margin="5,0">
+                <Entry.Behaviors>
+                    <views:EventToCommandBehavior EventName="Completed" Command="SearchCommand" />
+                </Entry.Behaviors>
+            </Entry>
             <Button Grid.Column="1" Text="Search" Command="{Binding SearchCommand}" Margin="5,0"/>
         </Grid>
 

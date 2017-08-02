@@ -31,8 +31,5 @@ GROUPS
 1) Open/private groups
 2) Send invite to users to join a group
 
-SEARCH ACTIVITY
-1) Check Location permission when trying to enable gps
-
 MY VIEW MODEL
 1) Manage common server response

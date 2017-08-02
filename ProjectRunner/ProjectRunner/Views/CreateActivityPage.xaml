@@ -50,7 +50,11 @@
 
                 <Label Grid.Row="3" Grid.Column="0" Text="Guest users" VerticalOptions="Center"/>
                 <Entry Grid.Row="3" Grid.Column="1" Placeholder="0" PlaceholderColor="Gray" Text="{Binding Guests, Mode=TwoWay}" Keyboard="Numeric" IsVisible="{Binding IsGuestListActive, Mode=OneWay, Converter={StaticResource NotBoolean}}"/>
-                <Picker Grid.Row="3" Grid.Column="1" x:Name="listGuests" IsVisible="{Binding IsGuestListActive, Mode=TwoWay}" SelectedIndex="{Binding SelectedIndexGuestList,Mode=TwoWay}"/>
+                <Picker Grid.Row="3" Grid.Column="1" x:Name="listGuests" IsVisible="{Binding IsGuestListActive, Mode=TwoWay}" SelectedIndex="{Binding SelectedIndexGuestList,Mode=TwoWay}">
+                    <Picker.Title>
+                        <OnPlatform x:TypeArguments="x:String" Android="Guest users" iOS="Guest users"/>
+                    </Picker.Title>
+                </Picker>
 
                 <Label Grid.Row="4" Grid.Column="0" Text="Max Players" IsVisible="{Binding IsMaxPlayerActive, Mode=TwoWay}" VerticalOptions="Center"/>
                 <Entry Grid.Row="4" Grid.Column="1" Placeholder="0" PlaceholderColor="Gray" Text="{Binding MaxPlayers, Mode=TwoWay}" Keyboard="Numeric" IsEnabled="{Binding IsMaxPlayerActive, Mode=OneWay}" IsVisible="{Binding IsMaxPlayerActive, Mode=TwoWay}"/>

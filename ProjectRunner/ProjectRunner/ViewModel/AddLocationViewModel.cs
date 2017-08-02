@@ -2,6 +2,8 @@
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
 using Plugin.Geolocator;
+using Plugin.Permissions;
+using Plugin.Permissions.Abstractions;
 using ProjectRunner.ServerAPI;
 using System;
 using System.Collections.Generic;
@@ -10,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 
 namespace ProjectRunner.ViewModel
@@ -20,6 +23,22 @@ namespace ProjectRunner.ViewModel
         public AddLocationViewModel(INavigationService nav, PRServer s) : base(nav)
         {
             server = s;
+        }
+        public override void NavigatedToAsync(object parameter = null)
+        {
+            Cleanup();
+        }
+        public override void Cleanup()
+        {
+            AddressName = string.Empty;
+            AddressStreet = string.Empty;
+            AddressCity = string.Empty;
+            AddressCivicNumber = string.Empty;
+            AddressZipCode = string.Empty;
+            AddressLatitude = 0;
+            AddressLongitude = 0;
+            UseGPS = false;
+            base.Cleanup();
         }
         private string _mpName = string.Empty, _mpStreet, _mpCity, _mpZipCode;
         private string _mpCivicNumber;
@@ -33,29 +52,52 @@ namespace ProjectRunner.ViewModel
         public double AddressLongitude { get { return _mpLongitude; } set { Set(ref _mpLongitude, value); } }
         public bool HasGPS { get { return CrossGeolocator.Current.IsGeolocationAvailable; } }
 
-        private RelayCommand _addLocationByAddressCommand, _addLocationCmd, _getMyPositionCmd;
-        public RelayCommand AddALocationByAddressCommand =>
-            _addLocationByAddressCommand ??
-            (_addLocationByAddressCommand = new RelayCommand(async () =>
+        private bool _useGps = false;
+        public bool UseGPS
+        {
+            get { return _useGps; }
+            set
             {
-                var location = await server.GoogleMaps.GetCoordinatesFromAddressAsync(AddressCity, AddressStreet, AddressCivicNumber, AddressZipCode);
-                if (location != null)
+                Device.BeginInvokeOnMainThread(async () =>
                 {
-                    var response = await server.Activities.AddAddressPoint(AddressName, location.lat, location.lng);
-                    if(response.response == StatusCodes.OK)
+                    if (value)
                     {
-                        UserDialogs.Instance.Alert("Location added successfully");
-                        navigation.GoBack();
+                        var locator = CrossGeolocator.Current;
+                        if (!locator.IsGeolocationAvailable)
+                        {
+                            UserDialogs.Instance.Alert("You device does not support geolocation", "Location non available");
+                            Set(ref _useGps, false);
+                            return;
+                        }
+                        if (!locator.IsGeolocationEnabled)
+                        {
+                            UserDialogs.Instance.Alert("You have to turn on the location system", "Location non available");
+                            Set(ref _useGps, false);
+                            return;
+                        }
+                        try
+                        {
+                            var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
+                            if (status != PermissionStatus.Granted)
+                            {
+                                Set(ref _useGps, false);
+                                UserDialogs.Instance.Alert("You have to enable location in system settings", "Access to location");
+                                return;
+                            }
+                            Set(ref _useGps, value);
+                        }
+                        catch
+                        {
+                            Set(ref _useGps, false);
+                        }
                     }
                     else
-                    {
-                        UserDialogs.Instance.Alert("An error occurred while adding the address. Retry later");
-                        Debug.WriteLine("Error while adding address");
-                    }
-                }
-                else
-                    UserDialogs.Instance.Alert("It was not possible retrieve coordinates");
-            }));
+                        Set(ref _useGps, value);
+                });
+                RaisePropertyChanged(() => UseGPS);
+            }
+        }
+        private RelayCommand _addLocationCmd;
         public RelayCommand AddLocationCommand =>
             _addLocationCmd ??
             (_addLocationCmd = new RelayCommand(async () =>
@@ -65,76 +107,64 @@ namespace ProjectRunner.ViewModel
                     UserDialogs.Instance.Alert("You must give a name to the location");
                     return;
                 }
-                if(AddressLatitude == 0 && AddressLongitude == 0)
-                {
-                    UserDialogs.Instance.Alert("You must search gps coordinates");
-                    return;
-                }
 
-                var res = await server.Activities.AddAddressPoint(AddressName.Trim(), AddressLatitude, AddressLongitude);
-                if (res.response == StatusCodes.OK)
+                if (UseGPS)
                 {
-                    UserDialogs.Instance.Alert("Location added successfully");
-                    navigation.GoBack();
-                }
-                else
-                {
-                    UserDialogs.Instance.Alert("An error occurred while adding the address. Retry later");
-                    Debug.WriteLine("Error while adding address");
-                }
-            }));
-        public RelayCommand GetMyGPSPositionCommand =>
-            _getMyPositionCmd ??
-            (_getMyPositionCmd = new RelayCommand(async () =>
-            {
-                var locator = CrossGeolocator.Current;
-                if (locator.IsGeolocationAvailable && locator.IsGeolocationEnabled)
-                {
-                    CancellationToken ct = new CancellationToken();
-                    try
+                    var locator = CrossGeolocator.Current;
+                    if (locator.IsGeolocationAvailable && locator.IsGeolocationEnabled)
                     {
-                        var position = await locator.GetPositionAsync(TimeSpan.FromSeconds(5), ct);
-                        if (position != null)
+                        CancellationToken ct = new CancellationToken();
+                        try
                         {
-                            /*
-                            var geo = new Geocoder();
-                            var addrs = await geo.GetAddressesForPositionAsync(new Position(position.Latitude, position.Longitude));
-                            var addr = addrs.FirstOrDefault();
-                            if (addr != null)
-                                UserDialogs.Instance.Alert(addr + $"\nTrovati {addrs.Count()} indirizzi");
-                            */
-                            AddressLatitude = position.Latitude;
-                            AddressLongitude = position.Longitude;
+                            locator.DesiredAccuracy = 500;
+                            var position = await locator.GetPositionAsync(TimeSpan.FromSeconds(10), ct);
+                            if (position != null)
+                            {
+                                AddressLatitude = position.Latitude;
+                                AddressLongitude = position.Longitude;
 
-                            /*
-                            var addresses = await locator.GetAddressesForPositionAsync(position);
-                            var address = addresses.FirstOrDefault();
-                            if (address != null)
-                            {
-                                var country = address.CountryCode;
-                                AddressZipCode = address.PostalCode;
-                                AddressCity = address.Locality;
-                                AddressStreet = address.Thoroughfare;
+                                var res = await server.Activities.AddAddressPoint(AddressName.Trim(), position.Latitude, position.Longitude);
+                                if (res.response == StatusCodes.OK)
+                                {
+                                    UserDialogs.Instance.Alert("Location added successfully");
+                                    navigation.GoBack();
+                                }
+                                else
+                                {
+                                    UserDialogs.Instance.Alert("An error occurred while adding the address. Retry later");
+                                    Debug.WriteLine("Error while adding address");
+                                }
                             }
-                            else
-                            {
-                                AddressCity = string.Empty;
-                                AddressCivicNumber = 0;
-                                AddressStreet = string.Empty;
-                                AddressZipCode = string.Empty;
-                                UserDialogs.Instance.Alert("Address not found", "");
-                            }
-                            */
+                        }
+                        catch (Exception e)
+                        {
+                            UserDialogs.Instance.Alert("An error occurred while retrieving location.\n" + e.Message);
                         }
                     }
-                    catch (Exception e)
-                    {
-                        UserDialogs.Instance.Alert("An error occurred while retrieving location.\n" + e.Message);
-                    }
+                    else
+                        UserDialogs.Instance.Alert("Your device doesn't have a location sensor or is disabled", "Location sensor not found");
                 }
                 else
                 {
-                    UserDialogs.Instance.Alert("Your device doesn't have a location sensor or is disabled", "Location sensor not found");
+                    var location = await server.GoogleMaps.GetCoordinatesFromAddressAsync(AddressCity, AddressStreet, AddressCivicNumber, AddressZipCode);
+                    if (location != null)
+                    {
+                        var response = await server.Activities.AddAddressPoint(AddressName, location.lat, location.lng);
+                        if (response.response == StatusCodes.OK)
+                        {
+                            AddressLatitude = location.lat;
+                            AddressLongitude = location.lng;
+                            UserDialogs.Instance.Alert("Location added successfully");
+                            navigation.GoBack();
+                        }
+                        else
+                        {
+                            UserDialogs.Instance.Alert("An error occurred while adding the address. Retry later");
+                            Debug.WriteLine("Error while adding address");
+                        }
+                    }
+                    else
+                        UserDialogs.Instance.Alert("It was not possible retrieve coordinates");
                 }
             }));
     }
