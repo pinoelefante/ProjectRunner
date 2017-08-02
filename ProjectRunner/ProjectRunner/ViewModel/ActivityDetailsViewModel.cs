@@ -414,7 +414,6 @@ namespace ProjectRunner.ViewModel
                 NewPlayersPerTeamIndex = (minPlayers < 5) ? currPpt - 5 : currPpt - minPlayers;
             }
         }
-
         public Action<object> ScrollToPosition { get; set; }
     }
 }

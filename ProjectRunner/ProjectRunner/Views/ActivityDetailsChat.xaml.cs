@@ -22,6 +22,9 @@ namespace ProjectRunner.Views
             InitializeComponent();
             (BindingContext as ActivityDetailsViewModel).ScrollToPosition = (x) => 
             {
+                //TODO - fix this on xamarin.forms update
+                if (Device.RuntimePlatform == Device.Windows)
+                    return;
                 if(x!=null)
                     chatList.ScrollTo(x, ScrollToPosition.MakeVisible, true);
             };
