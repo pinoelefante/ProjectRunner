@@ -22,11 +22,6 @@ namespace ProjectRunner.ViewModel
             server = s;
             cache = c;
         }
-        public override bool OnBackPressed()
-        {
-            navigation.NavigateTo(ViewModelLocator.HomePage);
-            return true;
-        }
         public override void NavigatedToAsync(object parameter = null)
         {
             base.NavigatedToAsync(parameter);

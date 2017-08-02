@@ -103,7 +103,7 @@ namespace ProjectRunner.ViewModel
         {
             get
             {
-                switch(SelectedSport?.SportEnumValue)
+                switch (SelectedSport?.SportEnumValue)
                 {
                     case Sports.BICYCLE:
                         return BicycleDistances[SelectedIndexDistanceBicycle];
@@ -165,9 +165,9 @@ namespace ProjectRunner.ViewModel
             set
             {
                 Set(ref _indexSport, value);
-                    RaisePropertyChanged(() => SelectedSport);
-                    RaisePropertyChanged(() => IsMaxPlayerActive);
-                    RaisePropertyChanged(() => IsGuestListActive);
+                RaisePropertyChanged(() => SelectedSport);
+                RaisePropertyChanged(() => IsMaxPlayerActive);
+                RaisePropertyChanged(() => IsGuestListActive);
             }
         }
 
@@ -247,7 +247,7 @@ namespace ProjectRunner.ViewModel
                     return;
                 }
                 var timeStart = StartDay.Date.AddHours(StartTime.Hours).AddMinutes(StartTime.Minutes);
-                if(timeStart.CompareTo(DateTime.Now)<=0)
+                if (timeStart.CompareTo(DateTime.Now) <= 0)
                 {
                     IsNextGeneralEnabled = false;
                     return;
@@ -267,7 +267,7 @@ namespace ProjectRunner.ViewModel
                     IsNextGeneralEnabled = false;
                     return;
                 }
-                if(SelectedIndexLocation < 0 || SelectedIndexLocation >= KnownAddress.Count)
+                if (SelectedIndexLocation < 0 || SelectedIndexLocation >= KnownAddress.Count)
                 {
                     IsNextGeneralEnabled = false;
                     return;
@@ -301,9 +301,9 @@ namespace ProjectRunner.ViewModel
 
         #region Choose location
         public List<MapAddress> KnownAddress { get { return cache.MyMapAddresses.OrderBy(x => x.Name).ToList(); } }
-        
+
         private int _selectedIndexLocation = 0;
-        public int SelectedIndexLocation { get { return _selectedIndexLocation; } set { Set(ref _selectedIndexLocation, value); VerifyGeneral(); RaisePropertyChanged(()=> SelectedLocation); } }
+        public int SelectedIndexLocation { get { return _selectedIndexLocation; } set { Set(ref _selectedIndexLocation, value); VerifyGeneral(); RaisePropertyChanged(() => SelectedLocation); } }
         public MapAddress SelectedLocation { get { if (_selectedIndexLocation >= 0 && KnownAddress.Count() > _selectedIndexLocation) return KnownAddress[_selectedIndexLocation]; return null; } }
         private RelayCommand _deleteLocationCmd;
         public RelayCommand DeleteLocationCommand =>
@@ -312,7 +312,7 @@ namespace ProjectRunner.ViewModel
             {
                 var address = KnownAddress[SelectedIndexLocation];
                 var res = await server.Activities.RemoveAddress(address.Id);
-                if(res.response == StatusCodes.OK)
+                if (res.response == StatusCodes.OK)
                 {
                     RaisePropertyChanged(() => KnownAddress);
                     RaisePropertyChanged(() => SelectedLocation);
@@ -331,11 +331,11 @@ namespace ProjectRunner.ViewModel
         private RelayCommand _goAddLocationCmd;
         public RelayCommand GoToAddLocation =>
             _goAddLocationCmd ??
-            (_goAddLocationCmd = new RelayCommand(()=> 
+            (_goAddLocationCmd = new RelayCommand(() =>
             {
                 navigation.NavigateTo(ViewModelLocator.AddLocation);
             }));
-        
+
 
         #endregion
 
@@ -343,37 +343,38 @@ namespace ProjectRunner.ViewModel
         private RelayCommand _createActivityCmd;
         public RelayCommand CreateActivityCommand =>
             _createActivityCmd ??
-            (_createActivityCmd = new RelayCommand(
-            async () =>
+            (_createActivityCmd = new RelayCommand(async () =>
             {
 
-            Dictionary<string, string> sportDetails = null;
-            switch (SelectedSport?.SportEnumValue)
-            {
-                case Sports.BICYCLE:
-                    sportDetails = BicycleActivity.CreateDetailsDictionary(Distance);
-                    break;
-                case Sports.FOOTBALL:
-                    sportDetails = FootballActivity.CreateDetailsDictionary(PlayersPerTeam);
-                    break;
-                case Sports.RUNNING:
-                    sportDetails = RunningActivity.CreateDetailsDictionary(Distance, null, WithFitness);
-                    break;
-                case Sports.TENNIS:
-                    sportDetails = TennisActivity.CreateDetailsDictionary(IsDouble);
-                    break;
-            }
+                Dictionary<string, string> sportDetails = null;
+                switch (SelectedSport?.SportEnumValue)
+                {
+                    case Sports.BICYCLE:
+                        sportDetails = BicycleActivity.CreateDetailsDictionary(Distance);
+                        break;
+                    case Sports.FOOTBALL:
+                        sportDetails = FootballActivity.CreateDetailsDictionary(PlayersPerTeam);
+                        break;
+                    case Sports.RUNNING:
+                        sportDetails = RunningActivity.CreateDetailsDictionary(Distance, null, WithFitness);
+                        break;
+                    case Sports.TENNIS:
+                        sportDetails = TennisActivity.CreateDetailsDictionary(IsDouble);
+                        break;
+                }
 
-            Debug.WriteLine(StartDay.ToString());
-            Debug.WriteLine(StartTime.ToString());
+                Debug.WriteLine(StartDay.ToString());
+                Debug.WriteLine(StartTime.ToString());
 
                 var response = await server.Activities.CreateActivityAsync(StartDay, StartTime, SelectedLocation.Id, MaxPlayers, Guests, Fee, SelectedCurrency, SelectedSport.SportEnumValue, RequiredFeedback, sportDetails);
                 if (response.response == StatusCodes.OK)
                 {
                     var navService = navigation as NavigationService;
                     navService.RemovePageFromBackstack(typeof(Activities));
+                    cache.ListActivities.Clear(); //clear cache to force loading from web
                     UserDialogs.Instance.Alert("Activity created", "Activity creation");
                     navigation.NavigateTo(ViewModelLocator.Activities);
+                    //clear backstack
                     (navigation as NavigationService).RemovePageFromBackstack(typeof(Views.CreateActivityPage));
                     (navigation as NavigationService).RemovePageFromBackstack(typeof(Views.CreateActivityConfirmPage));
                     (navigation as NavigationService).RemovePageFromBackstack(typeof(Views.AddLocationPage));

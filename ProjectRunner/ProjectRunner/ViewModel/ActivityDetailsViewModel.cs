@@ -169,6 +169,8 @@ namespace ProjectRunner.ViewModel
                         ListMessages.Clear();
                         ActivityPeople.Clear();
                         UserJoinedActivity = false;
+                        cache.ListActivities.Remove(cache.ListActivities.FirstOrDefault(x => x?.Id == CurrentActivity.Id));
+                        CurrentActivity = null;
                         navigation.GoBack();
                     }
                 }
@@ -197,6 +199,7 @@ namespace ProjectRunner.ViewModel
                             ListMessages.Clear();
                             CurrentActivity.JoinedPlayers--;
                             ActivityPeople.Clear();
+                            cache.ListActivities.Remove(cache.ListActivities.FirstOrDefault(x => x?.Id == CurrentActivity.Id));
                             RaisePropertyChanged(() => CurrentActivity);
                         }
                     }
