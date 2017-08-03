@@ -24,7 +24,7 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <Image Grid.Column="0" Source="{Binding Converter={StaticResource UserImageConverter}}" WidthRequest="64" HeightRequest="64" HorizontalOptions="Center"/>
+                <Image Grid.Column="0" Source="{Binding User, Converter={StaticResource UserImageConverter}}" WidthRequest="64" HeightRequest="64" HorizontalOptions="Center"/>
                 <Label Grid.Column="1" Text="{Binding User.Username}" VerticalOptions="Center" HorizontalOptions="Start"/>
             </Grid>
             

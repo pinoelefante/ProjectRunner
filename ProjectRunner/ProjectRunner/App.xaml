@@ -9,13 +9,13 @@
              xmlns:views="clr-namespace:ProjectRunner.Views"
              xmlns:converters="clr-namespace:ProjectRunner.Views.Converters"
              xmlns:selectors="clr-namespace:ProjectRunner.Views.Selectors">
-  <Application.Resources>
-    <!-- Application resource dictionary -->
+    <Application.Resources>
+        <!-- Application resource dictionary -->
         <ResourceDictionary>
             <vm:ViewModelLocator x:Key="Locator" />
             <converters:IntEqualsConverter x:Key="IntEquals"/>
             <converters:IntGreaterThan x:Key="IntGreaterThan"/>
-			<converters:IntNotEqualsConverter x:Key="IntNotEquals"/>
+            <converters:IntNotEqualsConverter x:Key="IntNotEquals"/>
             <converters:NotBoolean x:Key="NotBoolean"/>
             <converters:ItemTappedEventArgsConverter x:Key="ItemTappedConverter"/>
             <converters:BoolImageConverter x:Key="BoolImage"/>
@@ -214,7 +214,7 @@
                                                         AnonFemale="{StaticResource ActivityUserProfileAnonyFemale}"
                                                         AnonMale="{StaticResource ActivityUserProfileAnonyMale}"
                                                         ImageProfile="{StaticResource ActivityUserProfileWithImage}"/>
-        </ResourceDictionary>  
-      
+        </ResourceDictionary>
+
     </Application.Resources>
 </Application>

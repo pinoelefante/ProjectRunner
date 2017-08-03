@@ -3,12 +3,14 @@ using ProjectRunner.ViewModel;
 using SQLite;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -28,15 +30,6 @@ namespace ProjectRunner.ServerAPI
         {
             CommonApi = new CommonServerAPI();
             Authentication = new AuthenticationAPI(CommonApi, cache);
-            CommonApi.OnAccessCodeError = () => 
-            {
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    cache.DeleteCredentials();
-                    Application.Current.MainPage = new NavigationPage(new Views.LoginPage());
-                    ViewModelLocator.NavigationService.Initialize(Application.Current.MainPage as NavigationPage, ViewModelLocator.HomePage);
-                });
-            };
             Activities = new ActivityAPI(CommonApi, cache);
             GoogleMaps = new GoogleMapsAPI(CommonApi);
             People = new PeopleAPI(CommonApi);
@@ -69,7 +62,6 @@ namespace ProjectRunner.ServerAPI
                 http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic",
                                 Convert.ToBase64String(Encoding.UTF8.GetBytes($"{username}:{password}")));
         }
-        public Action OnAccessCodeError { get; set; }
         public async Task<Envelop<T>> SendRequest<T>(string url, HttpContent postContent = null)
         {
             Envelop<T> envelop = new Envelop<T>();
@@ -83,8 +75,8 @@ namespace ProjectRunner.ServerAPI
 #if DEBUG
                 Debug.WriteLine("STAUS CODE: " + envelop.response);
 #endif
-                if(envelop.response == StatusCodes.LOGIN_ERROR)
-                    OnAccessCodeError?.Invoke();
+                if (envelop.response != StatusCodes.OK)
+                    return envelop;
 
                 if (typeof(T) == typeof(string))
                     envelop.content = (T)(object)result["content"];
@@ -116,11 +108,8 @@ namespace ProjectRunner.ServerAPI
                 var result = JsonConvert.DeserializeObject<Dictionary<string, object>>(output);
                 envelop.time = DateTime.Parse(result["time"].ToString(), CultureInfo.InvariantCulture);
                 envelop.response = (StatusCodes)Enum.ToObject(typeof(StatusCodes), Int32.Parse(result["response"].ToString()));
-                if (envelop.response == StatusCodes.LOGIN_ERROR)
-                {
-                    OnAccessCodeError?.Invoke();
+                if (envelop.response != StatusCodes.OK)
                     return envelop;
-                }
                 var json = result["content"].ToString();
                 if (!string.IsNullOrEmpty(json))
                 {
@@ -260,16 +249,16 @@ namespace ProjectRunner.ServerAPI
             });
             return await server.SendRequest<string>("/authentication.php?action=ModifyField", postContent);
         }
-        public async Task<bool> UpdateProfileImage(byte[] fileContent, string ext, string checksum)
+        public async Task<string> UpdateProfileImage(byte[] fileContent, string ext, string checksum)
         {
             var response = await RequestUploadImageAsync(checksum, ext, "profile");
             if(response.response==StatusCodes.OK)
             {
                 var req = response.content;
                 var uploadResponse = await UploadImageAsync(fileContent, Int32.Parse(req["id"]), req["requestHash"]);
-                return uploadResponse.response == StatusCodes.OK;
+                return uploadResponse.response == StatusCodes.OK ? uploadResponse.content : null;
             }
-            return false;
+            return null;
         }
         private async Task<Envelop<Dictionary<string,string>>> RequestUploadImageAsync(string checksum, string ext, string type, int? albumId = null)
         {
@@ -733,13 +722,14 @@ namespace ProjectRunner.ServerAPI
             }, postContent);
         }
     }
-    public class UserProfile
+    public class UserProfile : Notificable
     {
+        private string _firstName, _lastName, _image;
         [PrimaryKey]
         public int Id { get; set; }
         public string Username { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string FirstName { get { return _firstName; } set { Set(ref _firstName, value); } }
+        public string LastName { get { return _lastName; } set { Set(ref _lastName, value); } }
         public string Email { get; set; }
         public DateTime Birth { get; set; }
         public string Phone { get; set; }
@@ -748,7 +738,7 @@ namespace ProjectRunner.ServerAPI
         public int DefaultUserLocation { get; set; }
         public bool NotifyNearbyActivities { get; set; }
         public int Sex { get; set; }
-        public string Image { get; set; }
+        public string Image { get { return _image; } set { Set(ref _image, value); } }
         [Ignore]
         public FriendshipStatus Status { get; set; }
         public int Coins { get; private set; }
@@ -792,6 +782,16 @@ namespace ProjectRunner.ServerAPI
                 profile.BanTime = DateTime.Parse(dictionary["ban_timestamp"], CultureInfo.InvariantCulture);
 
             return profile;
+        }
+    }
+    public class Notificable : INotifyPropertyChanged
+    {
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void Set<T>(ref T parameter, T value, [CallerMemberName] string name = "")
+        {
+            parameter = value;
+            if(!string.IsNullOrEmpty(name))
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
     public class GoogleMapsAPI

@@ -147,8 +147,16 @@ namespace ProjectRunner.ViewModel
                         {
                             var checksum = MD5Core.GetHashString(content);
                             var ext = file.Path.Substring(file.Path.LastIndexOf("."));
-                            var res = await server.User.UpdateProfileImage(content, ext, checksum);
-                            UserDialogs.Instance.Alert("Image update: " + res.ToString());
+                            var url = await server.User.UpdateProfileImage(content, ext, checksum);
+                            if(url!=null)
+                            {
+                                User.Image = url;
+                                RaisePropertyChanged(() => User);
+                                RaisePropertyChanged(() => User.Image);
+                                cache.CurrentUser.Image = url;
+                            }
+                            else
+                                UserDialogs.Instance.Alert("Image not updated");
                         }
                         else
                             UserDialogs.Instance.Alert("Image empty");

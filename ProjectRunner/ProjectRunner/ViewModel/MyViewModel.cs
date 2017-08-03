@@ -49,7 +49,10 @@ namespace ProjectRunner.ViewModel
                 if (status != PermissionStatus.Granted)
                 {
 
-                    if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(p)) { }
+                    if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(p))
+                    {
+                        CrossPermissions.Current.OpenAppSettings();
+                    }
 
                     var results = await CrossPermissions.Current.RequestPermissionsAsync(p);
                     //Best practice to always check that the key exists

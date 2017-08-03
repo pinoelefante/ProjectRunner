@@ -179,8 +179,10 @@ namespace ProjectRunner.ServerAPI
         }
         public void DeleteCredentials()
         {
-            storage.DeleteKey("pr_username");
-            storage.DeleteKey("pr_password");
+            if(storage.HasKey("pr_username"))
+                Debug.WriteLine("Username deleted: " + storage.DeleteKey("pr_username"));
+            if (storage.HasKey("pr_password"))
+                Debug.WriteLine("Password deleted: " + storage.DeleteKey("pr_password"));
         }
         public bool HasCredentials()
         {
