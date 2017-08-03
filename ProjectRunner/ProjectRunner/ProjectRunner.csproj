@@ -51,6 +51,7 @@
     <Compile Include="ServerAPI\PRServer.cs" />
     <Compile Include="ServerAPI\PRSettings.cs" />
     <Compile Include="Services\ISQLite.cs" />
+    <Compile Include="Services\MD5.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Strings\TimezonesLocations.de.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -292,6 +293,12 @@
     </Reference>
     <Reference Include="Plugin.Geolocator.Abstractions, Version=4.0.0.55, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xam.Plugin.Geolocator.4.0.0.55-beta\lib\portable-net45+wp80+win8+wpa81\Plugin.Geolocator.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.Media, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xam.Plugin.Media.3.0.1\lib\netstandard1.0\Plugin.Media.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.Media.Abstractions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xam.Plugin.Media.3.0.1\lib\netstandard1.0\Plugin.Media.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="Plugin.Permissions, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Plugin.Permissions.1.2.1\lib\portable-net45+wp80+win+wpa81\Plugin.Permissions.dll</HintPath>

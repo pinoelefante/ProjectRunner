@@ -24,15 +24,16 @@ namespace ProjectRunner.ViewModel
         }
         public override void NavigatedToAsync(object parameter = null)
         {
-            DoLoadingAsync().ContinueWith((x)=>
+            Task.Factory.StartNew(async () =>
             {
+                var res = await DoLoadingAsync();
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    if (x.Result)
-                        Application.Current.MainPage = new Views.MyMasterPage();
+                    if (res)
+                        Application.Current.MainPage = new MyMasterPage();
                     else
                     {
-                        Application.Current.MainPage = new NavigationPage(new Views.LoginPage());
+                        Application.Current.MainPage = new NavigationPage(new LoginPage());
                         ViewModelLocator.NavigationService.Initialize(Application.Current.MainPage as NavigationPage, ViewModelLocator.HomePage);
                     }
                 });
@@ -47,7 +48,11 @@ namespace ProjectRunner.ViewModel
             });
             var loginRes = await server.Authentication.LoginAsync();
             if(loginRes.response != StatusCodes.OK)
+            {
+                if (loginRes.response == StatusCodes.LOGIN_ERROR)
+                    cache.DeleteCredentials();
                 return false;
+            }
 
             var resAddr = await server.Activities.ListAddressAsync();
             if (resAddr.response == StatusCodes.OK && resAddr.content != null)

@@ -33,24 +33,7 @@ namespace ProjectRunner.ViewModel
             var locator = Plugin.Geolocator.CrossGeolocator.Current;
             if (!locator.IsGeolocationAvailable)
                 return;
-            try
-            {
-                var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
-                if (status != PermissionStatus.Granted)
-                {
-
-                    if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Permission.Location)) { }
-                    
-                    var results = await CrossPermissions.Current.RequestPermissionsAsync(Permission.Location);
-                    //Best practice to always check that the key exists
-                    if (results.ContainsKey(Permission.Location))
-                        status = results[Permission.Location];
-                }
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine(e.Message);
-            }
+            await CheckPermissionAsync(Permission.Location);
         }
     }
 }

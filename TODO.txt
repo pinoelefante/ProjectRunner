@@ -9,9 +9,8 @@ USERS
 1) Experience for each activity ended
 2) Levels
 3) Coins reward after x activity
-4) Upload photo
-5) Send message to users
-6) Edit profile
+4) Send message to users
+5) Edit profile
 
 USER SETTINGS
 1) Discoverable
@@ -33,3 +32,5 @@ GROUPS
 
 MY VIEW MODEL
 1) Manage common server response
+
+ASSETS AND TRANSLATIONS

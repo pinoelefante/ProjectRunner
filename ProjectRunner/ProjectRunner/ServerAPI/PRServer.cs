@@ -260,6 +260,38 @@ namespace ProjectRunner.ServerAPI
             });
             return await server.SendRequest<string>("/authentication.php?action=ModifyField", postContent);
         }
+        public async Task<bool> UpdateProfileImage(byte[] fileContent, string ext, string checksum)
+        {
+            var response = await RequestUploadImageAsync(checksum, ext, "profile");
+            if(response.response==StatusCodes.OK)
+            {
+                var req = response.content;
+                var uploadResponse = await UploadImageAsync(fileContent, Int32.Parse(req["id"]), req["requestHash"]);
+                return uploadResponse.response == StatusCodes.OK;
+            }
+            return false;
+        }
+        private async Task<Envelop<Dictionary<string,string>>> RequestUploadImageAsync(string checksum, string ext, string type, int? albumId = null)
+        {
+            FormUrlEncodedContent postContent = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("checksum",checksum),
+                new KeyValuePair<string, string>("ext",ext),
+                new KeyValuePair<string, string>("type",type),
+                new KeyValuePair<string, string>("album",albumId!=null?albumId.ToString():""),
+            });
+            return await server.SendRequest<Dictionary<string, string>>("/user.php?action=RequestImageUpload", postContent);
+        }
+        private async Task<Envelop<string>> UploadImageAsync(byte[] fileContent, int requestId, string requestHash, string description = null)
+        {
+            MultipartFormDataContent content = new MultipartFormDataContent();
+            content.Add(new StringContent(requestId.ToString()), "id");
+            content.Add(new StringContent(requestHash), "requestHash");
+            if(description!=null)
+                content.Add(new StringContent(description), "description");
+            content.Add(new ByteArrayContent(fileContent), "content");
+            return await server.SendRequest<string>("/user.php?action=UploadImage", content);
+        }
     }
     public class ActivityAPI
     {

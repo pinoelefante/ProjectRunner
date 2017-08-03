@@ -1,9 +1,15 @@
-﻿using GalaSoft.MvvmLight.Command;
+﻿using Acr.UserDialogs;
+using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
+using Plugin.Media;
+using Plugin.Media.Abstractions;
+using Plugin.Permissions;
+using Plugin.Permissions.Abstractions;
 using ProjectRunner.ServerAPI;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -97,6 +103,76 @@ namespace ProjectRunner.ViewModel
                     Application.Current.MainPage = new NavigationPage(new Views.LoginPage());
                     ViewModelLocator.NavigationService.Initialize(Application.Current.MainPage as NavigationPage, ViewModelLocator.HomePage);
                 }
+            }));
+        private RelayCommand _takePhotoCmd;
+        public RelayCommand TakePhotoCommand =>
+            _takePhotoCmd ??
+            (_takePhotoCmd = new RelayCommand(async () =>
+            {
+                if (!IsCurrentUser)
+                    return;
+
+                Debug.WriteLine("Opening photo");
+
+                var cameraStatus = await CheckPermissionAsync(Permission.Camera);
+                var storageStatus = await CheckPermissionAsync(Permission.Storage);
+                
+                if (cameraStatus && storageStatus)
+                {
+                    await CrossMedia.Current.Initialize();
+
+                    if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
+                    {
+                        UserDialogs.Instance.Alert("No Camera", ":( No camera available.", "OK");
+                        return;
+                    }
+
+                    var file = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions
+                    {
+                        AllowCropping = true,
+                        CustomPhotoSize = 50,
+                        DefaultCamera = CameraDevice.Rear,
+                        PhotoSize = PhotoSize.Medium,
+                        SaveToAlbum = false
+                    });
+                    
+                    if (file != null)
+                    {
+                        byte[] content;
+                        using (var stream = new BinaryReader(file.GetStream()))
+                        {
+                            content = stream.ReadBytes((int)stream.BaseStream.Length);
+                        }
+                        if (content!=null)
+                        {
+                            var checksum = MD5Core.GetHashString(content);
+                            var ext = file.Path.Substring(file.Path.LastIndexOf("."));
+                            var res = await server.User.UpdateProfileImage(content, ext, checksum);
+                            UserDialogs.Instance.Alert("Image update: " + res.ToString());
+                        }
+                        else
+                            UserDialogs.Instance.Alert("Image empty");
+                    }
+                    else
+                        await UserDialogs.Instance.AlertAsync("Image error");
+
+
+                    /*
+                    image.Source = ImageSource.FromStream(() =>
+                    {
+                        var stream = file.GetStream();
+                        file.Dispose();
+                        return stream;
+                    });
+                    */
+                }
+                else
+                {
+                    await UserDialogs.Instance.AlertAsync("Permissions Denied", "Unable to take photos.", "OK");
+                    //On iOS you may want to send your user to the settings screen.
+                    //CrossPermissions.Current.OpenAppSettings();
+                }
+
             }));
     }
 }

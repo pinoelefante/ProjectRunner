@@ -303,21 +303,6 @@ namespace ProjectRunner.Views.Converters
             throw new NotImplementedException();
         }
     }
-    public class UserProfileImageConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            var image = value as string;
-            if (string.IsNullOrEmpty(image))
-                return $"{CommonServerAPI.SERVER_ENDPOINT}/images/users/{image}";
-            return null;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-    }
     public class UserImageConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -326,7 +311,7 @@ namespace ProjectRunner.Views.Converters
             if (user != null)
             {
                 if (!string.IsNullOrEmpty(user.Image))
-                    return $"{CommonServerAPI.SERVER_ENDPOINT}/images/users/{user.Image}";
+                    return $"{CommonServerAPI.SERVER_ENDPOINT}/images/users/{user.Id}/profile/{user.Image}";
                 return user.Sex == 0 ? "male.png" : "female.png";
             }
             return null;
