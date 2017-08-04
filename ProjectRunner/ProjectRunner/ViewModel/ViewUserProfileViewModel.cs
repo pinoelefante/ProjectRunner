@@ -152,7 +152,7 @@ namespace ProjectRunner.ViewModel
                                 User.Image = url;
                                 RaisePropertyChanged(() => User);
                                 RaisePropertyChanged(() => User.Image);
-                                cache.CurrentUser.Image = url;
+                                cache.SetUserImage(url);
                             }
                             else
                                 UserDialogs.Instance.Alert("Image not updated");

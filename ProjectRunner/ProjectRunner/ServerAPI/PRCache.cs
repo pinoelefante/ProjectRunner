@@ -3,6 +3,7 @@ using Plugin.SecureStorage.Abstractions;
 using ProjectRunner.Services;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -10,10 +11,13 @@ using System.Threading.Tasks;
 
 namespace ProjectRunner.ServerAPI
 {
-    public class PRCache
+    public class PRCache : INotifyPropertyChanged
     {
         private ISecureStorage storage;
         private ISQLite db;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public PRCache(ISQLite d)
         {
             storage = CrossSecureStorage.Current;
@@ -25,7 +29,13 @@ namespace ProjectRunner.ServerAPI
         public List<Activity> ListActivities { get; } = new List<Activity>();
         public List<UserProfile> ListProfiles { get; } = new List<UserProfile>();
         public List<MapAddress> MyMapAddresses { get; } = new List<MapAddress>();
-
+        
+        public void SetUserImage(string image)
+        {
+            CurrentUser.Image = image;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentUser)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentUser.Image)));
+        }
         public bool HasUserProfile(int id)
         {
             return ListProfiles.Where(x => x.Id == id).Any();

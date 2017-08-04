@@ -15,16 +15,14 @@ namespace ProjectRunner.ViewModel
 {
     public class MyMasterDetailViewModel : MyViewModel
     {
-        private PRCache cache;
+        public PRCache cache { get; }
         public MyMasterDetailViewModel(INavigationService n, PRCache c) : base(n)
         {
             cache = c;
         }
-        public UserProfile User { get; set; }
         public override void NavigatedToAsync(object parameter = null)
         {
-            User = cache.CurrentUser;
-            RaisePropertyChanged(() => User);
+
         }
         public void Navigate(string pageKey)
         {
@@ -40,7 +38,7 @@ namespace ProjectRunner.ViewModel
             _openProfile ??
             (_openProfile = new RelayCommand(() =>
             {
-                navigation.NavigateTo(ViewModelLocator.ViewUserProfile, User.Id);
+                navigation.NavigateTo(ViewModelLocator.ViewUserProfile, cache.CurrentUser.Id);
                 CloseMasterPage?.Execute(null);
             }));
     }
