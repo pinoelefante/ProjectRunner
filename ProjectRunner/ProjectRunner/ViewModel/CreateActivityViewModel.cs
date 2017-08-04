@@ -35,9 +35,25 @@ namespace ProjectRunner.ViewModel
             VerifyGeneral();
             RaisePropertyChanged(() => KnownAddress);
             RaisePropertyChanged(() => SelectedIndexLocation);
+            this.PropertyChanged += OnPropertyChanged;
         }
+
+        private void OnPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            VerifyGeneral();
+            switch(e.PropertyName)
+            {
+                case nameof(IsDouble):
+                case nameof(Guests):
+                case nameof(PlayersPerTeam):
+                    CalculateMaxPlayers();
+                    break;
+            }
+        }
+
         public override void NavigatedFrom()
         {
+            this.PropertyChanged -= OnPropertyChanged;
             base.NavigatedFrom();
         }
         private void Reset()
@@ -65,13 +81,13 @@ namespace ProjectRunner.ViewModel
         private TimeSpan _startTime = DateTime.Now.TimeOfDay.Add(TimeSpan.FromHours(1));
 
         public DateTime MinDateTime { get; } = DateTime.Now.Date;
-        public float Fee { get { return _fee; } set { Set(ref _fee, value); VerifyGeneral(); } }
+        public float Fee { get => _fee; set => Set(ref _fee, value); }
         public ObservableCollection<string> CurrenciesList { get; } = new ObservableCollection<string>()
         {
             "EUR", "USD", "GBP", "CNY", "JPY"
         };
         //TODO select preferred currency
-        public int SelectedCurrencyIndex { get { return _indexCurrency; } set { Set(ref _indexCurrency, value); RaisePropertyChanged(() => SelectedCurrency); } }
+        public int SelectedCurrencyIndex { get => _indexCurrency; set { Set(ref _indexCurrency, value); RaisePropertyChanged(() => SelectedCurrency); } }
         public string SelectedCurrency { get { if (SelectedCurrencyIndex < 0) return null; return CurrenciesList[SelectedCurrencyIndex]; } }
         public ObservableCollection<int> RunningDistances { get; } = new ObservableCollection<int>()
         {
@@ -79,7 +95,7 @@ namespace ProjectRunner.ViewModel
         };
         public int SelectedIndexDistanceRunning
         {
-            get { return _indexDistanceRunning; }
+            get => _indexDistanceRunning;
             set
             {
                 Set(ref _indexDistanceRunning, value);
@@ -92,7 +108,7 @@ namespace ProjectRunner.ViewModel
         };
         public int SelectedIndexDistanceBicycle
         {
-            get { return _indexDistanceBicycle; }
+            get => _indexDistanceBicycle;
             set
             {
                 Set(ref _indexDistanceBicycle, value);
@@ -113,10 +129,9 @@ namespace ProjectRunner.ViewModel
                 return 0;
             }
         }
-
-        public int PlayersPerTeam { get { return _playersTeam; } set { Set(ref _playersTeam, value); CalculateMaxPlayers(); VerifyGeneral(); } }
-        public int Guests { get { return _guests; } set { Set(ref _guests, value); CalculateMaxPlayers(); VerifyGeneral(); } }
-        public bool IsDouble { get { return _isDouble; } set { Set(ref _isDouble, value); CalculateMaxPlayers(); VerifyGeneral(); } }
+        public int PlayersPerTeam { get => _playersTeam; set => Set(ref _playersTeam, value); }
+        public int Guests { get => _guests; set => Set(ref _guests, value); }
+        public bool IsDouble { get => _isDouble; set => Set(ref _isDouble, value); }
         private void CalculateMaxPlayers()
         {
             switch (SelectedSport?.SportEnumValue)
@@ -136,32 +151,27 @@ namespace ProjectRunner.ViewModel
 
         public int MaxPlayers
         {
-            get
-            {
-                return _maxPlayers;
-            }
+            get => _maxPlayers;
             set
             {
                 if (value >= 1 + Guests)
                     Set(ref _maxPlayers, value);
                 else
                 {
-
                     UserDialogs.Instance.Alert("Max players can't be lesser than 1 + Guests");
                     Set(ref _maxPlayers, 1 + Guests);
                 }
-                VerifyGeneral();
             }
         }
-        public int RequiredFeedback { get { return _requiredFeedback; } set { Set(ref _requiredFeedback, value); VerifyGeneral(); } }
-        public bool WithFitness { get { return _fitness; } set { Set(ref _fitness, value); VerifyGeneral(); } }
-        public DateTime StartDay { get { return _startDay; } set { Set(ref _startDay, value); VerifyGeneral(); } }
-        public TimeSpan StartTime { get { return _startTime; } set { Set(ref _startTime, value); VerifyGeneral(); RaisePropertyChanged(() => StartTimeString); } }
-        public string StartTimeString { get { return $"{StartTime.Hours.ToString("D2")}:{StartTime.Minutes.ToString("D2")}"; } }
-        public bool IsGratis { get { return _isGratis; } set { Set(ref _isGratis, value); Fee = value ? 0.0f : 1.0f; VerifyGeneral(); } }
+        public int RequiredFeedback { get => _requiredFeedback; set => Set(ref _requiredFeedback, value); }
+        public bool WithFitness { get => _fitness; set => Set(ref _fitness, value); }
+        public DateTime StartDay { get => _startDay; set => Set(ref _startDay, value); }
+        public TimeSpan StartTime { get => _startTime; set => Set(ref _startTime, value); }
+        
+        public bool IsGratis { get => _isGratis; set { Set(ref _isGratis, value); Fee = value ? 0.0f : 1.0f; } }
         public int SelectedSportIndex
         {
-            get { return _indexSport; }
+            get => _indexSport;
             set
             {
                 Set(ref _indexSport, value);
@@ -171,7 +181,7 @@ namespace ProjectRunner.ViewModel
             }
         }
 
-        public SportItem SelectedSport { get { if (_indexSport >= 0) return SportsAvailable[_indexSport]; return null; } }
+        public SportItem SelectedSport { get => _indexSport >= 0 ? SportsAvailable[_indexSport]: null;  }
         public ObservableCollection<SportItem> SportsAvailable { get; } = new ObservableCollection<SportItem>()
         {
             new SportItem(Sports.RUNNING, "Corsa"),
@@ -185,7 +195,7 @@ namespace ProjectRunner.ViewModel
         };
         public int SelectedIndexPlayerPerTeam
         {
-            get { return _indexPlayerPerTeam; }
+            get => _indexPlayerPerTeam;
             set
             {
                 Set(ref _indexPlayerPerTeam, value);
@@ -230,7 +240,7 @@ namespace ProjectRunner.ViewModel
 
         public int SelectedIndexGuestList
         {
-            get { return _indexGuestList; }
+            get => _indexGuestList;
             set
             {
                 Set(ref _indexGuestList, value);
@@ -300,11 +310,11 @@ namespace ProjectRunner.ViewModel
         #endregion
 
         #region Choose location
-        public List<MapAddress> KnownAddress { get { return cache.MyMapAddresses.OrderBy(x => x.Name).ToList(); } }
+        public List<MapAddress> KnownAddress { get => cache.MyMapAddresses.OrderBy(x => x.Name).ToList(); }
 
         private int _selectedIndexLocation = 0;
-        public int SelectedIndexLocation { get { return _selectedIndexLocation; } set { Set(ref _selectedIndexLocation, value); VerifyGeneral(); RaisePropertyChanged(() => SelectedLocation); } }
-        public MapAddress SelectedLocation { get { if (_selectedIndexLocation >= 0 && KnownAddress.Count() > _selectedIndexLocation) return KnownAddress[_selectedIndexLocation]; return null; } }
+        public int SelectedIndexLocation { get => _selectedIndexLocation; set { Set(ref _selectedIndexLocation, value); RaisePropertyChanged(() => SelectedLocation); } }
+        public MapAddress SelectedLocation { get => (_selectedIndexLocation >= 0 && KnownAddress.Count() > _selectedIndexLocation) ? KnownAddress[_selectedIndexLocation] : null; }
         private RelayCommand _deleteLocationCmd;
         public RelayCommand DeleteLocationCommand =>
             _deleteLocationCmd ??
@@ -345,7 +355,6 @@ namespace ProjectRunner.ViewModel
             _createActivityCmd ??
             (_createActivityCmd = new RelayCommand(async () =>
             {
-
                 Dictionary<string, string> sportDetails = null;
                 switch (SelectedSport?.SportEnumValue)
                 {
@@ -362,9 +371,6 @@ namespace ProjectRunner.ViewModel
                         sportDetails = TennisActivity.CreateDetailsDictionary(IsDouble);
                         break;
                 }
-
-                Debug.WriteLine(StartDay.ToString());
-                Debug.WriteLine(StartTime.ToString());
 
                 var response = await server.Activities.CreateActivityAsync(StartDay, StartTime, SelectedLocation.Id, MaxPlayers, Guests, Fee, SelectedCurrency, SelectedSport.SportEnumValue, RequiredFeedback, sportDetails);
                 if (response.response == StatusCodes.OK)
@@ -387,6 +393,6 @@ namespace ProjectRunner.ViewModel
             }));
         #endregion
         private bool _nextGeneralEnabled = false;
-        public bool IsNextGeneralEnabled { get { return _nextGeneralEnabled; } set { Set(ref _nextGeneralEnabled, value); } }
+        public bool IsNextGeneralEnabled { get => _nextGeneralEnabled; set => Set(ref _nextGeneralEnabled, value); }
     }
 }

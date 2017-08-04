@@ -23,9 +23,9 @@ namespace ProjectRunner.ViewModel
             LoadFriendsAsync();
         }
         private List<UserProfile> FriendsList { get; set; }
-        public List<UserProfile> Friends { get { return FriendsList!=null ? FriendsList.Where(x => x.Status == FriendshipStatus.IS_FRIEND).ToList() : null; } }
-        public List<UserProfile> RequestsSent { get { return FriendsList != null ? FriendsList.Where(x => x.Status == FriendshipStatus.REQUESTED).ToList() : null; } }
-        public List<UserProfile> RequestsReceived { get { return FriendsList != null ? FriendsList.Where(x => x.Status == FriendshipStatus.RECEIVED).ToList() : null; } }
+        public List<UserProfile> Friends { get => FriendsList!=null ? FriendsList.Where(x => x.Status == FriendshipStatus.IS_FRIEND).ToList() : null; }
+        public List<UserProfile> RequestsSent { get => FriendsList != null ? FriendsList.Where(x => x.Status == FriendshipStatus.REQUESTED).ToList() : null; }
+        public List<UserProfile> RequestsReceived { get => FriendsList != null ? FriendsList.Where(x => x.Status == FriendshipStatus.RECEIVED).ToList() : null; }
         private async Task LoadFriendsAsync()
         {
             var response = await server.People.FriendList();

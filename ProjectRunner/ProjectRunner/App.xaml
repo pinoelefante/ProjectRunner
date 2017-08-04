@@ -31,6 +31,7 @@
             <converters:IsRoadActivityConverter x:Key="IsRoadActivityConverter"/>
             <converters:IsTeamActivityConverter x:Key="IsTeamActivityConverter"/>
             <converters:DateTimeStringConverter x:Key="DateTimeStringConverter"/>
+            <converters:TimeSpanStringConverter x:Key="TimeSpanStringConverter"/>
             <converters:UserImageConverter x:Key="UserImageConverter"/>
             <converters:SexNameConverter x:Key="SexNameConverter"/>
             <converters:AgeCalculationConverter x:Key="AgeCalculationConverter"/>

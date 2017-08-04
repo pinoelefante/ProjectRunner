@@ -130,9 +130,8 @@ namespace ProjectRunner.ViewModel
                     var file = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions
                     {
                         AllowCropping = true,
-                        CustomPhotoSize = 50,
                         DefaultCamera = CameraDevice.Rear,
-                        PhotoSize = PhotoSize.Medium,
+                        PhotoSize = PhotoSize.Small,
                         SaveToAlbum = false
                     });
                     
@@ -163,22 +162,10 @@ namespace ProjectRunner.ViewModel
                     }
                     else
                         await UserDialogs.Instance.AlertAsync("Image error");
-
-
-                    /*
-                    image.Source = ImageSource.FromStream(() =>
-                    {
-                        var stream = file.GetStream();
-                        file.Dispose();
-                        return stream;
-                    });
-                    */
                 }
                 else
                 {
                     await UserDialogs.Instance.AlertAsync("Permissions Denied", "Unable to take photos.", "OK");
-                    //On iOS you may want to send your user to the settings screen.
-                    //CrossPermissions.Current.OpenAppSettings();
                 }
 
             }));

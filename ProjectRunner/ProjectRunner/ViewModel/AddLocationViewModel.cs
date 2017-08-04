@@ -43,21 +43,20 @@ namespace ProjectRunner.ViewModel
         private string _mpName = string.Empty, _mpStreet, _mpCity, _mpZipCode;
         private string _mpCivicNumber;
         private double _mpLatitude, _mpLongitude;
-        public string AddressName { get { return _mpName; } set { Set(ref _mpName, value); } }
-        public string AddressStreet { get { return _mpStreet; } set { Set(ref _mpStreet, value); } }
-        public string AddressCity { get { return _mpCity; } set { Set(ref _mpCity, value); } }
-        public string AddressCivicNumber { get { return _mpCivicNumber; } set { Set(ref _mpCivicNumber, value); } }
-        public string AddressZipCode { get { return _mpZipCode; } set { Set(ref _mpZipCode, value); } }
-        public double AddressLatitude { get { return _mpLatitude; } set { Set(ref _mpLatitude, value); } }
-        public double AddressLongitude { get { return _mpLongitude; } set { Set(ref _mpLongitude, value); } }
-        public bool HasGPS { get { return CrossGeolocator.Current.IsGeolocationAvailable; } }
+        public string AddressName { get => _mpName; set => Set(ref _mpName, value); }
+        public string AddressStreet { get => _mpStreet; set => Set(ref _mpStreet, value); }
+        public string AddressCity { get => _mpCity; set => Set(ref _mpCity, value); }
+        public string AddressCivicNumber { get => _mpCivicNumber; set => Set(ref _mpCivicNumber, value); }
+        public string AddressZipCode { get => _mpZipCode; set => Set(ref _mpZipCode, value); }
+        public double AddressLatitude { get => _mpLatitude; set => Set(ref _mpLatitude, value); }
+        public double AddressLongitude { get => _mpLongitude; set => Set(ref _mpLongitude, value); }
 
         private bool _useGps = false;
         public bool UseGPS
         {
-            get { return _useGps; }
+            get => _useGps;
             set
-            {
+            { 
                 Device.BeginInvokeOnMainThread(async () =>
                 {
                     if (value)

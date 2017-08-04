@@ -39,26 +39,18 @@ namespace ProjectRunner.ViewModel
         {
             Sports.RUNNING, Sports.FOOTBALL, Sports.BICYCLE, Sports.TENNIS
         };
-        public MapAddress SelectedAddress
-        {
-            get
-            {
-                if (LocationIndex >= 0 && LocationIndex < LocationsList.Count)
-                    return LocationsList[LocationIndex];
-                return null;
-            }
-        }
+        public MapAddress SelectedAddress { get => LocationIndex >= 0 && LocationIndex < LocationsList.Count ? LocationsList[LocationIndex] : null; }
         
-        public int LocationIndex { get { return _indexLocation; } set { Set(ref _indexLocation, value); RaisePropertyChanged(() => SelectedAddress); } }
+        public int LocationIndex { get => _indexLocation; set { Set(ref _indexLocation, value); RaisePropertyChanged(() => SelectedAddress); } }
         public ObservableCollection<MapAddress> LocationsList { get; } = new ObservableCollection<MapAddress>();
         private int _selectedSportIndex, _indexLocation;
-        public int SelectedSportIndex { get { return _selectedSportIndex; } set { Set(ref _selectedSportIndex, value); } }
+        public int SelectedSportIndex { get => _selectedSportIndex; set => Set(ref _selectedSportIndex, value); }
         public List<int> Distances { get; } = new List<int>() { 2, 3, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50 };
         public int SelectedDistanceIndex { get; set; } = 2;
         private bool _useGps = false;
         public bool UseGPSLocation
         {
-            get { return _useGps; }
+            get => _useGps;
             set
             {
                 Device.BeginInvokeOnMainThread(async () =>

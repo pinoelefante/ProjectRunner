@@ -12,9 +12,9 @@ namespace ProjectRunner.ViewModel
     public class LoadingViewModel : MyViewModel
     {
         private double _prog = 0.1f;
-        public double Progress { get { return _prog; } set { Set(ref _prog, value); } }
+        public double Progress { get => _prog; set => Set(ref _prog, value); }
         private string _progText;
-        public string ProgressText { get { return _progText; } set { Set(ref _progText, value); } }
+        public string ProgressText { get => _progText; set => Set(ref _progText, value); }
         private PRCache cache;
         private PRServer server;
         public LoadingViewModel(PRServer s, PRCache c) : base(null)
@@ -44,7 +44,7 @@ namespace ProjectRunner.ViewModel
             Device.BeginInvokeOnMainThread(() =>
             {
                 Progress = 0.1f;
-                ProgressText = "Loading addresses";
+                ProgressText = "Loading user profile";
             });
             var loginRes = await server.Authentication.LoginAsync();
             if(loginRes.response != StatusCodes.OK)
@@ -53,21 +53,19 @@ namespace ProjectRunner.ViewModel
                     cache.DeleteCredentials();
                 return false;
             }
-
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                Progress = 0.3f;
+                ProgressText = "Loading addresses";
+            });
             var resAddr = await server.Activities.ListAddressAsync();
             if (resAddr.response == StatusCodes.OK && resAddr.content != null)
                 cache.MyMapAddresses.AddRange(resAddr.content);
 
             Device.BeginInvokeOnMainThread(() =>
             {
-                Progress = 0.25f;
-                ProgressText = "Loading friends";
-            });
-
-            Device.BeginInvokeOnMainThread(() =>
-            {
                 Progress = 0.5f;
-                ProgressText = "Loading friendship requests";
+                ProgressText = "Loading friends";
             });
 
             Device.BeginInvokeOnMainThread(() =>

@@ -25,7 +25,7 @@
                 </StackLayout>
                 <StackLayout Orientation="Horizontal">
                     <Label Text="at: "/>
-                    <Label Text="{Binding StartTimeString}" FontAttributes="Bold"/>
+                    <Label Text="{Binding StartTime, Converter={StaticResource TimeSpanStringConverter}}" FontAttributes="Bold"/>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal">
                     <Label Text="To: "/>

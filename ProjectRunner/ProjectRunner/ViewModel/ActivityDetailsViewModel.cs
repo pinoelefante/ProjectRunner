@@ -91,7 +91,7 @@ namespace ProjectRunner.ViewModel
             }
         }
         private bool _editMode;
-        public bool IsEditModeEnabled { get { return _editMode; } set { Set(ref _editMode, value); } }
+        public bool IsEditModeEnabled { get => _editMode;  set => Set(ref _editMode, value); }
         private RelayCommand _enableEditModeCmd, _saveChangesCmd, _openMapCmd, _leaveActivityCmd, _deleteActivityCmd, _sendChatMsgCmd, _joinActivityCmd;
         private RelayCommand<UserProfile> _viewUserProfile;
         public RelayCommand ToogleEditModeCommand =>
@@ -243,7 +243,7 @@ namespace ProjectRunner.ViewModel
                 navigation.NavigateTo(ViewModelLocator.ViewUserProfile, p.Id);
             }));
         private string _chatMessage;
-        public string ChatMessage { get { return _chatMessage; } set { Set(ref _chatMessage, value); } }
+        public string ChatMessage { get => _chatMessage; set => Set(ref _chatMessage, value); }
         public RelayCommand SendChatMessageCommand =>
             _sendChatMsgCmd ??
             (_sendChatMsgCmd = new RelayCommand(async () =>
@@ -379,8 +379,8 @@ namespace ProjectRunner.ViewModel
         private CancellationToken ReadingToken;
         private Task ReadingTask;
         private bool _isPeopleListLoaded, _joinedActivity;
-        public bool IsPeopleListLoaded { get { return _isPeopleListLoaded; } set { Set(ref _isPeopleListLoaded, value); } }
-        public bool UserJoinedActivity { get { return _joinedActivity; } set { Set(ref _joinedActivity, value); } }
+        public bool IsPeopleListLoaded { get => _isPeopleListLoaded; set => Set(ref _isPeopleListLoaded, value); }
+        public bool UserJoinedActivity { get => _joinedActivity; set => Set(ref _joinedActivity, value); }
         public ObservableCollection<UserProfile> ActivityPeople { get; } = new ObservableCollection<UserProfile>();
         public bool IsLoadingPeople { get; set; }
         private RelayCommand _refreshPeopleListCmd;
@@ -392,10 +392,10 @@ namespace ProjectRunner.ViewModel
             }));
         public ObservableCollection<int> NewGuests { get; } = new ObservableCollection<int>();
         private int _newGuestsIndex, _newMaxPlayers, _newPlayersTeamIndex;
-        public int NewGuestsIndex { get { return _newGuestsIndex; } set { Set(ref _newGuestsIndex, value); } }
-        public int NewMaxPlayers { get { return _newMaxPlayers; } set { Set(ref _newMaxPlayers, value); } }
+        public int NewGuestsIndex { get => _newGuestsIndex; set => Set(ref _newGuestsIndex, value); }
+        public int NewMaxPlayers { get => _newMaxPlayers; set => Set(ref _newMaxPlayers, value); }
         public ObservableCollection<int> NewPlayersPerTeam { get; } = new ObservableCollection<int>();
-        public int NewPlayersPerTeamIndex { get { return _newPlayersTeamIndex; } set { Set(ref _newPlayersTeamIndex, value); } }
+        public int NewPlayersPerTeamIndex { get => _newPlayersTeamIndex; set => Set(ref _newPlayersTeamIndex, value); }
         private void InitEditMode()
         {
             var remainingSpots = CurrentActivity.MaxPlayers - CurrentActivity.JoinedPlayers;

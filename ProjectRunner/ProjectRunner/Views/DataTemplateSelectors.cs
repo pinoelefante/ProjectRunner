@@ -34,8 +34,7 @@ namespace ProjectRunner.Views.Selectors
         public DataTemplate ServiceMessage { get; set; }
         protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
         {
-            var message = item as ChatMessage;
-            if (message != null)
+            if (item is ChatMessage message)
             {
                 if (message.MessageType == ChatMessage.ChatMessageType.USER)
                     return message.IsMine ? MyMessage : UserMessage;
@@ -51,16 +50,17 @@ namespace ProjectRunner.Views.Selectors
         public DataTemplate ImageProfile { get; set; }
         protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
         {
-            UserProfile profile = item as UserProfile;
-            if (profile == null)
-                return null;
-            if (!string.IsNullOrEmpty(profile.Image))
-                return ImageProfile;
+            if (item is UserProfile profile)
+            {
+                if (!string.IsNullOrEmpty(profile.Image))
+                    return ImageProfile;
 
-            if (profile.Sex == 0)
-                return AnonMale;
-            else
-                return AnonFemale;
+                if (profile.Sex == 0)
+                    return AnonMale;
+                else
+                    return AnonFemale;
+            }
+            return null;
         }
     }
 }

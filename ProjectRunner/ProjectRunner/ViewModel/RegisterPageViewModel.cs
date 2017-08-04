@@ -29,18 +29,18 @@ namespace ProjectRunner.ViewModel
         public DateTime MaxDateTime { get; } = DateTime.Now.Subtract(TimeSpan.FromDays(365.25 * 15));
         public DateTime MinDateTime { get; } = DateTime.Now.Subtract(TimeSpan.FromDays(365.25 * 100));
         private string _username, _pass1, _firstName, _lastName, _email, _phone;
-        private DateTime _birth = DateTime.Now.Subtract(TimeSpan.FromDays(365.25*18));
+        private DateTime _birth = DateTime.Now.Subtract(TimeSpan.FromDays(365.25 * 18));
         private int _timezoneIndex = 0, _sexIndex = 0;
-        public string Username { get { return _username; } set { Set(ref _username, value); } }
-        public string Password { get { return _pass1; } set { Set(ref _pass1, value); } }
-        public string FirstName { get { return _firstName; } set { Set(ref _firstName, value); } }
-        public string LastName { get { return _lastName; } set { Set(ref _lastName, value); } }
-        public string Email { get { return _email; } set { Set(ref _email, value); } }
-        public DateTime Birth { get { return _birth; } set { Set(ref _birth, value); } }
-        public string Phone { get { return _phone; } set { Set(ref _phone, value); } }
-        public int TimezoneIndex { get { return _timezoneIndex; } set { Set(ref _timezoneIndex, value); RaisePropertyChanged(() => TimezoneSelected); } }
+        public string Username { get => _username; set => Set(ref _username, value); }
+        public string Password { get => _pass1; set => Set(ref _pass1, value); }
+        public string FirstName { get => _firstName; set => Set(ref _firstName, value); }
+        public string LastName { get => _lastName; set => Set(ref _lastName, value); }
+        public string Email { get => _email; set => Set(ref _email, value); }
+        public DateTime Birth { get => _birth; set => Set(ref _birth, value); }
+        public string Phone { get => _phone; set => Set(ref _phone, value); }
+        public int TimezoneIndex { get => _timezoneIndex; set { Set(ref _timezoneIndex, value); RaisePropertyChanged(() => TimezoneSelected); } }
         public ObservableCollection<KeyValuePair<string,string>> Timezones { get; } = new ObservableCollection<KeyValuePair<string,string>>();
-        public int SexIndex { get { return _sexIndex; } set { Set(ref _sexIndex, value); } }
+        public int SexIndex { get => _sexIndex; set => Set(ref _sexIndex, value); }
         public List<string> SexList { get; } = new List<string>()
         {
             "Male", "Female"
@@ -95,8 +95,8 @@ namespace ProjectRunner.ViewModel
             }
             IsTimezoneLoaded = true;
         }
-        public string TimezoneSelected { get { return TimezoneIndex >=0 && TimezoneIndex < Timezones.Count ? Timezones[TimezoneIndex].Key : "UTC"; } }
+        public string TimezoneSelected { get => TimezoneIndex >=0 && TimezoneIndex < Timezones.Count ? Timezones[TimezoneIndex].Key : "UTC"; }
         private bool _timezoneLoaded = false;
-        public bool IsTimezoneLoaded { get { return _timezoneLoaded; } set { Set(ref _timezoneLoaded, value); } }
+        public bool IsTimezoneLoaded { get => _timezoneLoaded; set => Set(ref _timezoneLoaded, value); }
     }
 }

@@ -20,7 +20,7 @@ namespace ProjectRunner.ViewModel
             navigation = n;
         }
         private bool busyActive;
-        public bool IsBusyActive { get { return busyActive; } set { Set(ref busyActive, value); } }
+        public bool IsBusyActive { get => busyActive; set => Set(ref busyActive, value); }
 
         public virtual void NavigatedToAsync(object parameter = null)
         {

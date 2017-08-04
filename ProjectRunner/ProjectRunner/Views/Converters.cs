@@ -181,11 +181,9 @@ namespace ProjectRunner.Views.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            Activity activity = value as Activity;
-            if (activity == null)
-                return 0;
-            var joined = activity.JoinedPlayers + activity.GuestUsers;
-            return joined;
+            if (value is Activity activity)
+                return activity.JoinedPlayers + activity.GuestUsers;
+            return 0;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -296,6 +294,20 @@ namespace ProjectRunner.Views.Converters
                     return dateTime.ToString("t");
             }
             return null;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+    public class TimeSpanStringConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if(value is TimeSpan time)
+                return time.Hours.ToString("D2") + ":" + time.Minutes.ToString("D2");
+            return "";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

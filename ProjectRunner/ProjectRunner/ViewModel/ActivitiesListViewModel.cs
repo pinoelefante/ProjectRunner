@@ -29,8 +29,8 @@ namespace ProjectRunner.ViewModel
         }
 
         public List<Activity> ListActivities { get; } = new List<Activity>();
-        public List<Activity> ListPendingActivities { get { return ListActivities.Where(x => x.Status == ActivityStatus.PENDING).ToList(); } }
-        public List<Activity> ListMyActivities { get { return ListActivities.Where(x => x.CreatedBy == cache.CurrentUser.Id).ToList(); } }
+        public List<Activity> ListPendingActivities { get => ListActivities.Where(x => x.Status == ActivityStatus.PENDING).ToList();  }
+        public List<Activity> ListMyActivities { get => ListActivities.Where(x => x.CreatedBy == cache.CurrentUser.Id).ToList();  }
 
         private async Task LoadMyListAsync(bool forced = false)
         {

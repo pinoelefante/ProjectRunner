@@ -34,8 +34,8 @@ namespace ProjectRunner.ViewModel
         }
 
         private string _username, _password;
-        public string Username { get { return _username; } set { Set(ref _username, value); } }
-        public string Password { get { return _password; } set { Set(ref _password, value); } }
+        public string Username { get => _username; set => Set(ref _username, value); }
+        public string Password { get => _password; set => Set(ref _password, value); }
 
         private RelayCommand _loginCommand, _registerCommand, _forgotPasswordCommand;
         public RelayCommand LoginCommand => _loginCommand ??
