@@ -116,6 +116,7 @@
     <Content Include="bicycle1_bg_desktop.jpg" />
     <Content Include="bicycle2_bg.jpg" />
     <Content Include="bicycle2_bg_desktop.jpg" />
+    <Content Include="camera.png" />
     <Content Include="false_image.png" />
     <Content Include="female.png" />
     <Content Include="football.png" />
@@ -132,6 +133,7 @@
     <Content Include="leave.png" />
     <Content Include="locked.png" />
     <Content Include="male.png" />
+    <Content Include="play.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-100.png" />
     <Content Include="Assets\LockScreenLogo.scale-125.png" />
@@ -174,6 +176,7 @@
     <Content Include="send_message.png" />
     <Content Include="slideout.png" />
     <Content Include="running.png" />
+    <Content Include="stop.png" />
     <Content Include="tennis.png" />
     <Content Include="tennis1_bg.jpg" />
     <Content Include="tennis1_bg_desktop.jpg" />

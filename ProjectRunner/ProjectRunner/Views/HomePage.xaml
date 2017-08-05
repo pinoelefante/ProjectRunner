@@ -52,7 +52,7 @@
                                         <Label Text="{Binding StartTime, Converter={StaticResource DateTimeStringConverter},ConverterParameter=Date}" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center"/>
                                         <Label Text="{Binding StartTime, Converter={StaticResource DateTimeStringConverter},ConverterParameter=Time}" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center"/>
                                     </StackLayout>
-                                    
+
 
                                     <Label Grid.Row="2" Grid.Column="0" Text="Fee " TextColor="White" FontAttributes="Italic" IsVisible="{Binding Fee, Converter={StaticResource IntNotEquals}, ConverterParameter=0}"/>
                                     <StackLayout Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalOptions="Center" IsVisible="{Binding Fee, Converter={StaticResource IntNotEquals}, ConverterParameter=0}">
@@ -69,39 +69,76 @@
                                     <StackLayout Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" IsVisible="{Binding Sport, Converter={StaticResource IntEquals}, ConverterParameter=1}">
                                         <Label Text="with fitness" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Italic" TextColor="White" IsVisible="{Binding WithFitness}"/>
                                     </StackLayout>
-                                    
+
                                 </Grid>
-                                
+
                             </Grid>
 
-                            <StackLayout Grid.Row="3" Padding="20" BackgroundColor="#80000000">
-                                <Button BindingContext="{Binding HomePageViewModel, Source={StaticResource Locator}}" 
-                                    Text="Start"
-                                    BackgroundColor="GreenYellow"
-                                    BorderRadius="80"
-                                    HeightRequest="80"
-                                    WidthRequest="80"
-                                    HorizontalOptions="Center"
-                                    IsVisible="{Binding ActivitySelected.Status, Converter={StaticResource IntEquals}, ConverterParameter=0}"
-                                    Command="{Binding StartActivity}"/>
+                            <Grid Grid.Row="3" Padding="20" BackgroundColor="#80000000">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
 
-                                <Button BindingContext="{Binding HomePageViewModel, Source={StaticResource Locator}}" 
-                                    Text="Finish"
-                                    BackgroundColor="Red"
-                                    BorderRadius="80"
-                                    HeightRequest="80"
-                                    WidthRequest="80"
-                                    HorizontalOptions="Center"
-                                    IsVisible="{Binding ActivitySelected.Status, Converter={StaticResource IntEquals}, ConverterParameter=1}"
-                                    Command="{Binding FinishActivity}"/>
+                                <StackLayout Grid.Column="1" Orientation="Horizontal">
+                                    <Button Image="camera.png" 
+                                            VerticalOptions="Center"
+                                            HorizontalOptions="Center"
+                                            HeightRequest="50"
+                                            WidthRequest="50"
+                                            BackgroundColor="White" 
+                                            BorderWidth="2"
+                                            BorderColor="White"
+                                            BorderRadius="40"/>
+                                    
+                                    <Button BindingContext="{Binding HomePageViewModel, Source={StaticResource Locator}}" 
+                                            Image="play.png"
+                                            BackgroundColor="Green"
+                                            BorderRadius="80"
+                                            HeightRequest="80"
+                                            WidthRequest="80"
+                                            BorderWidth="2"
+                                            BorderColor="Green"
+                                            HorizontalOptions="Center"
+                                            IsVisible="{Binding ActivitySelected.Status, Converter={StaticResource IntEquals}, ConverterParameter=0}"
+                                            Command="{Binding StartActivity}"/>
 
-                                <Label Text="Ended"
-                                       HorizontalOptions="Center"
-                                       FontAttributes="Bold"
-                                       FontSize="Medium"
-                                       TextColor="White"
-                                       IsVisible="{Binding Status, Converter={StaticResource IntEquals}, ConverterParameter=2}"/>
-                            </StackLayout>
+                                    <Button BindingContext="{Binding HomePageViewModel, Source={StaticResource Locator}}" 
+                                            Image="stop.png"
+                                            BackgroundColor="Red"
+                                            BorderRadius="80"
+                                            HeightRequest="80"
+                                            WidthRequest="80"
+                                            BorderWidth="2"
+                                            BorderColor="Red"
+                                            HorizontalOptions="Center"
+                                            IsVisible="{Binding ActivitySelected.Status, Converter={StaticResource IntEquals}, ConverterParameter=1}"
+                                            Command="{Binding FinishActivity}"/>
+
+                                    <Label Text="Ended" 
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"
+                                           FontAttributes="Bold"
+                                           FontSize="Medium"
+                                           TextColor="White"
+                                           IsVisible="{Binding Status, Converter={StaticResource IntEquals}, ConverterParameter=2}"/>
+                                </StackLayout>
+
+                                <Grid Grid.Column="2" VerticalOptions="Fill" HorizontalOptions="Fill">
+                                    <Button BackgroundColor="White"
+                                            Text="..."
+                                            HorizontalOptions="End"
+                                            VerticalOptions="Center"
+                                            HeightRequest="50"
+                                            WidthRequest="50"
+                                            BorderRadius="50"
+                                            BorderWidth="2"
+                                            BorderColor="White"
+                                            TextColor="Black"/>
+                                </Grid>
+
+                            </Grid>
                         </Grid>
                     </Grid>
                 </ContentPage>
@@ -115,5 +152,83 @@
             <Button Text="Test" Command="{Binding XComm}"/>
         </StackLayout>
     </ContentPage>
+
+    <CarouselPage Title="Gallery">
+        <ContentPage>
+            <Image Source="bicycle1_bg.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
+        </ContentPage>
+        <ContentPage>
+            <Image Source="bicycle1_bg_desktop.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
+        </ContentPage>
+        <ContentPage>
+            <Image Source="bicycle2_bg.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
+        </ContentPage>
+        <ContentPage>
+            <Image Source="bicycle2_bg_desktop.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
+        </ContentPage>
+        <ContentPage>
+            <Image Source="football1_bg.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
+        </ContentPage>
+        <ContentPage>
+            <Image Source="football1_bg_desktop.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
+        </ContentPage>
+        <ContentPage>
+            <Image Source="football2_bg.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
+        </ContentPage>
+        <ContentPage>
+            <Image Source="football2_bg_desktop.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
+        </ContentPage>
+        <ContentPage>
+            <Image Source="football3_bg.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
+        </ContentPage>
+        <ContentPage>
+            <Image Source="football3_bg_desktop.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
+        </ContentPage>
+        <ContentPage>
+            <Image Source="football4_bg.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
+        </ContentPage>
+        <ContentPage>
+            <Image Source="football4_bg_desktop.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
+        </ContentPage>
+        <ContentPage>
+            <Image Source="running1_bg.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
+        </ContentPage>
+        <ContentPage>
+            <Image Source="running1_bg_desktop.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
+        </ContentPage>
+        <ContentPage>
+            <Image Source="running2_bg.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
+        </ContentPage>
+        <ContentPage>
+            <Image Source="running3_bg.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
+        </ContentPage>
+        <ContentPage>
+            <Image Source="tennis1_bg.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
+        </ContentPage>
+        <ContentPage>
+            <Image Source="tennis2_bg.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
+        </ContentPage>
+        <ContentPage>
+            <Image Source="tennis3_bg.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
+        </ContentPage>
+        <ContentPage>
+            <Image Source="tennis4_bg.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
+        </ContentPage>
+        <ContentPage>
+            <Image Source="tennis5_bg.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
+        </ContentPage>
+        <ContentPage>
+            <Image Source="tennis6_bg.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
+        </ContentPage>
+        <ContentPage>
+            <Image Source="tennis1_bg_desktop.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
+        </ContentPage>
+        <ContentPage>
+            <Image Source="tennis2_bg_desktop.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
+        </ContentPage>
+        <ContentPage>
+            <Image Source="tennis3_bg_desktop.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
+        </ContentPage>
+    </CarouselPage>
 
 </views:MyTabbedPage>
