@@ -404,15 +404,15 @@ namespace ProjectRunner.Views.Converters
             switch (sport)
             {
                 case Sports.BICYCLE:
-                    index = Device.Idiom == TargetIdiom.Desktop ? 1 : rand.Next(3)+1;
+                    index = rand.Next(2) + 1;//Device.Idiom == TargetIdiom.Desktop ? rand.Next(2) + 1 : rand.Next(2) + 1;
                     sportName = "bicycle";
                     break;
                 case Sports.FOOTBALL:
-                    index = Device.Idiom == TargetIdiom.Desktop ? 1 : rand.Next(3) + 1;
+                    index = rand.Next(4) + 1;//Device.Idiom == TargetIdiom.Desktop ? 1 : rand.Next(3) + 1;
                     sportName = "football";
                     break;
                 case Sports.RUNNING:
-                    index = Device.Idiom == TargetIdiom.Desktop ? 1 : rand.Next(4) + 1;
+                    index = 1;//Device.Idiom == TargetIdiom.Desktop ? 1 : rand.Next(3) + 1;
                     sportName = "running";
                     break;
                 case Sports.TENNIS:
