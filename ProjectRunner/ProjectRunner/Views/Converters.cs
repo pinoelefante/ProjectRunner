@@ -287,11 +287,11 @@ namespace ProjectRunner.Views.Converters
             switch(field)
             {
                 case "All":
-                    return dateTime.ToString();
+                    return $"{dateTime.ToString("d")}\n{dateTime.Hour}:{dateTime.Minute.ToString("D2")}"; //dateTime.ToString().Replace(" ","\n");
                 case "Date":
                     return dateTime.ToString("d");
                 case "Time":
-                    return dateTime.ToString("t");
+                    return $"{dateTime.Hour}:{dateTime.Minute.ToString("D2")}";//dateTime.ToString("t");
             }
             return null;
         }
@@ -384,6 +384,44 @@ namespace ProjectRunner.Views.Converters
                 }
             }
             return null;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+    public class SportBackgroundConverter : IValueConverter
+    {
+        private static Random rand = new Random();
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null)
+                return string.Empty;
+            var sport = (Sports)value;
+            int index = 0;
+            string sportName = string.Empty;
+            switch (sport)
+            {
+                case Sports.BICYCLE:
+                    index = Device.Idiom == TargetIdiom.Desktop ? 1 : rand.Next(3)+1;
+                    sportName = "bicycle";
+                    break;
+                case Sports.FOOTBALL:
+                    index = Device.Idiom == TargetIdiom.Desktop ? 1 : rand.Next(3) + 1;
+                    sportName = "football";
+                    break;
+                case Sports.RUNNING:
+                    index = Device.Idiom == TargetIdiom.Desktop ? 1 : rand.Next(4) + 1;
+                    sportName = "running";
+                    break;
+                case Sports.TENNIS:
+                    index = Device.Idiom == TargetIdiom.Desktop ? rand.Next(3) + 1 : rand.Next(6) + 1;
+                    sportName = "tennis";
+                    break;
+            }
+            
+            return $"{sportName}{index}_bg{(Device.Idiom == TargetIdiom.Desktop ? "_desktop":"")}.jpg";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -461,18 +461,6 @@ namespace ProjectRunner.ServerAPI
                 cache.DeleteActivity(activityId);
             return response;
         }
-        /*
-        public async Task<Envelop<string>> ModifyActivityFieldAsync(int activityId, string field, string newValue)
-        {
-            FormUrlEncodedContent postContent = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>()
-            {
-                new KeyValuePair<string, string>(ActivityDatabase.ID,activityId.ToString()),
-                new KeyValuePair<string, string>("field",field),
-                new KeyValuePair<string, string>("newValue", newValue)
-            });
-            return await server.SendRequest<string>("/activities.php?action=ModifyActivityField", postContent);
-        }
-        */
         public async Task<Envelop<string>> ModifyActivityAsync(int activityId, int newGuests, int newTotalPlayers)
         {
             FormUrlEncodedContent postContent = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>()
@@ -629,6 +617,22 @@ namespace ProjectRunner.ServerAPI
             {
                 return ParseDictionaryListActivity(x);
             }, postContent);
+        }
+        public async Task<Envelop<string>> StartActivityAsync(int activity)
+        {
+            var postContent = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>(ActivityDatabase.ID, activity.ToString()),
+            });
+            return await server.SendRequest<string>("/activities.php?action=StartActivity", postContent);
+        }
+        public async Task<Envelop<string>> FinishActivityAsync(int activity)
+        {
+            var postContent = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>(ActivityDatabase.ID, activity.ToString()),
+            });
+            return await server.SendRequest<string>("/activities.php?action=FinishActivity", postContent);
         }
     }
     public class PeopleAPI
@@ -961,7 +965,7 @@ namespace ProjectRunner.ServerAPI
         float Distance { get; set; }
         float Travelled { get; set; }
     }
-    public class Activity
+    public class Activity : Notificable
     {
         public int Id { get; set; }
         public int CreatedBy { get; set; }
@@ -971,7 +975,9 @@ namespace ProjectRunner.ServerAPI
         public int GuestUsers { get; set; }
         public int MaxPlayers { get; set; }
         public int JoinedPlayers { get; set; }
-        public ActivityStatus Status { get; set; }
+
+        private ActivityStatus _status;
+        public ActivityStatus Status { get => _status; set => Set(ref _status, value); }
         public Sports Sport { get; set; }
         public float Fee { get; set; }
         public string Currency { get; set; } = "EUR";

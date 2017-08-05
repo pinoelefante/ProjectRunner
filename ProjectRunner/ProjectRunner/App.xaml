@@ -36,6 +36,7 @@
             <converters:SexNameConverter x:Key="SexNameConverter"/>
             <converters:AgeCalculationConverter x:Key="AgeCalculationConverter"/>
             <converters:SportImageConverter x:Key="SportImageConverter"/>
+            <converters:SportBackgroundConverter x:Key="SportBackgroundConverter"/>
 
             <DataTemplate x:Key="runningTemplate">
                 <ViewCell>

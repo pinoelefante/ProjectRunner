@@ -41,11 +41,7 @@ namespace ProjectRunner.ViewModel
         }
         private async Task<bool> DoLoadingAsync()
         {
-            Device.BeginInvokeOnMainThread(() =>
-            {
-                Progress = 0.1f;
-                ProgressText = "Loading user profile";
-            });
+            UpdateProgress(0.1f, "Loading user profile");
             var loginRes = await server.Authentication.LoginAsync();
             if(loginRes.response != StatusCodes.OK)
             {
@@ -53,36 +49,30 @@ namespace ProjectRunner.ViewModel
                     cache.DeleteCredentials();
                 return false;
             }
-            Device.BeginInvokeOnMainThread(() =>
-            {
-                Progress = 0.3f;
-                ProgressText = "Loading addresses";
-            });
+
+            UpdateProgress(0.3f, "Loading addresses");
             var resAddr = await server.Activities.ListAddressAsync();
             if (resAddr.response == StatusCodes.OK && resAddr.content != null)
                 cache.MyMapAddresses.AddRange(resAddr.content);
 
-            Device.BeginInvokeOnMainThread(() =>
-            {
-                Progress = 0.5f;
-                ProgressText = "Loading friends";
-            });
+            UpdateProgress(0.5f, "Loading friends");
 
-            Device.BeginInvokeOnMainThread(() =>
-            {
-                Progress = 0.75f;
-                ProgressText = "Loading activities";
-            });
+            UpdateProgress(0.75f, "Loading activities");
             var resAct = await server.Activities.MyActivitiesListAsync();
             if(resAct.response==StatusCodes.OK && resAct.content!=null)
                 cache.ListActivities.AddRange(resAct.content);
-            Device.BeginInvokeOnMainThread(() =>
-            {
-                Progress = 1f;
-                ProgressText = "Loading completed";
-            });
+
+            UpdateProgress(1f, "Loading completed");
             await Task.Delay(250);
             return true;
+        }
+        private void UpdateProgress(double percent, string description = "")
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                Progress = percent;
+                ProgressText = description;
+            });
         }
     }
 }

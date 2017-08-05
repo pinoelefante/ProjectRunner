@@ -41,6 +41,19 @@ namespace ProjectRunner.ViewModel
         {
             return false;
         }
+
+        public async Task CheckPermissionsAsync(List<Permission> permissions)
+        {
+            for (int i = 0; i < permissions.Count;)
+            {
+                if (await CrossPermissions.Current.CheckPermissionStatusAsync(permissions[i]) == PermissionStatus.Granted)
+                    permissions.RemoveAt(i);
+                else
+                    i++;
+            }
+            if(permissions.Any())
+                await CrossPermissions.Current.RequestPermissionsAsync(permissions.ToArray());
+        }
         public async Task<bool> CheckPermissionAsync(Permission p)
         {
             try

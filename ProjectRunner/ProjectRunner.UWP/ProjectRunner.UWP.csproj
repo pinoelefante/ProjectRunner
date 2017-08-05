@@ -112,9 +112,17 @@
   <ItemGroup>
     <Content Include="background.png" />
     <Content Include="bicycle.png" />
+    <Content Include="bicycle1_bg.jpg" />
+    <Content Include="bicycle1_bg_desktop.jpg" />
+    <Content Include="bicycle2_bg.jpg" />
+    <Content Include="bicycle3_bg.jpg" />
     <Content Include="false_image.png" />
     <Content Include="female.png" />
     <Content Include="football.png" />
+    <Content Include="football1_bg.jpg" />
+    <Content Include="football1_bg_desktop.jpg" />
+    <Content Include="football2_bg.jpg" />
+    <Content Include="football3_bg.jpg" />
     <Content Include="gps_location.png" />
     <Content Include="join.png" />
     <Content Include="leave.png" />
@@ -152,12 +160,26 @@
     <Content Include="Assets\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
+    <Content Include="running1_bg.jpg" />
+    <Content Include="running1_bg_desktop.jpg" />
+    <Content Include="running2_bg.jpg" />
+    <Content Include="running3_bg.jpg" />
+    <Content Include="running4_bg.jpg" />
     <Content Include="save.png" />
     <Content Include="search.png" />
     <Content Include="send_message.png" />
     <Content Include="slideout.png" />
     <Content Include="running.png" />
     <Content Include="tennis.png" />
+    <Content Include="tennis1_bg.jpg" />
+    <Content Include="tennis1_bg_desktop.jpg" />
+    <Content Include="tennis2_bg.jpg" />
+    <Content Include="tennis2_bg_desktop.jpg" />
+    <Content Include="tennis3_bg.jpg" />
+    <Content Include="tennis3_bg_desktop.jpg" />
+    <Content Include="tennis4_bg.jpg" />
+    <Content Include="tennis5_bg.jpg" />
+    <Content Include="tennis6_bg.jpg" />
     <Content Include="true_image.png" />
     <Content Include="unlocked.png" />
   </ItemGroup>

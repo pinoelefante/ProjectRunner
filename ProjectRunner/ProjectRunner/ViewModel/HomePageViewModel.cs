@@ -5,35 +5,84 @@ using Plugin.Permissions.Abstractions;
 using ProjectRunner.ServerAPI;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace ProjectRunner.ViewModel
 {
     public class HomePageViewModel : MyViewModel
     {
         private PRServer server;
-        public HomePageViewModel(INavigationService n, PRServer s) : base(n)
+        private PRCache cache;
+        public HomePageViewModel(INavigationService n, PRServer s, PRCache c) : base(n)
         {
             server = s;
+            cache = c;
         }
-        public RelayCommand TestCommand => new RelayCommand(() =>
-        {
-            //server.GoogleMaps.GetCoordinatesFromAddress("Santa Maria la Carità", "Via Visitazione", "290", "80050");
-            navigation.NavigateTo(ViewModelLocator.SettingsPage);
-        });
         public override void NavigatedToAsync(object parameter = null)
         {
-            CheckLocationPermissionAsync();
+            Task.Factory.StartNew(() =>
+            {
+                Device.BeginInvokeOnMainThread(async () => await CheckAppPermissionAsync());
+                Device.BeginInvokeOnMainThread(() => LoadActivities());
+            });
+            
         }
-        private async Task CheckLocationPermissionAsync()
+        private async Task CheckAppPermissionAsync()
         {
-            var locator = Plugin.Geolocator.CrossGeolocator.Current;
-            if (!locator.IsGeolocationAvailable)
-                return;
-            await CheckPermissionAsync(Permission.Location);
+            await CheckPermissionsAsync(new List<Permission>()
+            {
+                Permission.Location,
+                Permission.Camera,
+                Permission.Storage
+            });
         }
+        private Activity _activitySelected;
+        public Activity ActivitySelected { get => _activitySelected; set => Set(ref _activitySelected, value); }
+        public ObservableCollection<Activity> PendingActivities { get; } = new ObservableCollection<Activity>();
+        private void LoadActivities()
+        {
+            PendingActivities.Clear();
+            var coll = cache.ListActivities.Where(x => x.Status == ActivityStatus.PENDING || x.Status == ActivityStatus.STARTED);
+            if (coll != null && coll.Any())
+            {
+                foreach (var item in coll)
+                    PendingActivities.Add(item);
+            }
+            ActivitySelected = PendingActivities.FirstOrDefault();
+        }
+        private RelayCommand _startActivityCmd, _finishActivityCmd;
+        public RelayCommand StartActivity =>
+            _startActivityCmd ??
+            (_startActivityCmd = new RelayCommand(async () =>
+            {
+                if (ActivitySelected == null || ActivitySelected.Status == ActivityStatus.STARTED)
+                    return;
+                var res = await server.Activities.StartActivityAsync(ActivitySelected.Id);
+                if(res.response == StatusCodes.OK)
+                {
+                    ActivitySelected.Status = ActivityStatus.STARTED;
+                    RaisePropertyChanged(() => ActivitySelected);
+                    RaisePropertyChanged(() => ActivitySelected.Status);
+                }
+            }));
+        public RelayCommand FinishActivity =>
+            _finishActivityCmd ??
+            (_finishActivityCmd = new RelayCommand(async () =>
+            {
+                if (ActivitySelected == null || ActivitySelected.Status == ActivityStatus.ENDED)
+                    return;
+                var res = await server.Activities.FinishActivityAsync(ActivitySelected.Id);
+                if (res.response == StatusCodes.OK)
+                {
+                    ActivitySelected.Status = ActivityStatus.ENDED;
+                    RaisePropertyChanged(() => ActivitySelected);
+                    RaisePropertyChanged(() => ActivitySelected.Status);
+                }
+            }));
     }
 }
