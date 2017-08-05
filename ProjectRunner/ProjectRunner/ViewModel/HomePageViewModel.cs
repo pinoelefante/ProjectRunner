@@ -42,7 +42,7 @@ namespace ProjectRunner.ViewModel
             });
         }
         private Activity _activitySelected;
-        public Activity ActivitySelected { get => _activitySelected; set => Set(ref _activitySelected, value); }
+        public Activity ActivitySelected { get => _activitySelected; set { Set(ref _activitySelected, value); OnSelectionChanged(); } }
         public ObservableCollection<Activity> PendingActivities { get; } = new ObservableCollection<Activity>();
         private void LoadActivities()
         {
@@ -83,6 +83,21 @@ namespace ProjectRunner.ViewModel
                     RaisePropertyChanged(() => ActivitySelected);
                     RaisePropertyChanged(() => ActivitySelected.Status);
                 }
+            }));
+        private bool _otherOptions;
+        public bool OtherOptionsShowing { get => _otherOptions; set => Set(ref _otherOptions, value); }
+        private void OnSelectionChanged()
+        {
+            OtherOptionsShowing = false;
+        }
+        private RelayCommand _openOptionsCmd;
+        public RelayCommand OpenOtherOptionsCommand =>
+            _openOptionsCmd ??
+            (_openOptionsCmd = new RelayCommand(() =>
+            {
+                Debug.WriteLine("Before - OtherOptionsShowing = " + OtherOptionsShowing);
+                OtherOptionsShowing = !OtherOptionsShowing;
+                Debug.WriteLine("After - OtherOptionsShowing = " + OtherOptionsShowing);
             }));
     }
 }

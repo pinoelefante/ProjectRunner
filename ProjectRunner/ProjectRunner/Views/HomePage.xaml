@@ -72,6 +72,9 @@
 
                                 </Grid>
 
+                                <Grid Grid.Column="2" BackgroundColor="#80000000" Padding="10,20" BindingContext="{Binding HomePageViewModel, Source={StaticResource Locator}}" IsVisible="{Binding OtherOptionsShowing}">
+                                    <Label Text="OtherOptionsHere" TextColor="White"/>
+                                </Grid>
                             </Grid>
 
                             <Grid Grid.Row="3" Padding="20" BackgroundColor="#80000000">
@@ -135,7 +138,9 @@
                                             BorderRadius="50"
                                             BorderWidth="2"
                                             BorderColor="White"
-                                            TextColor="Black"/>
+                                            TextColor="Black"
+                                            BindingContext="{Binding HomePageViewModel, Source={StaticResource Locator}}"
+                                            Command="{Binding OpenOtherOptionsCommand}"/>
                                 </Grid>
 
                             </Grid>
