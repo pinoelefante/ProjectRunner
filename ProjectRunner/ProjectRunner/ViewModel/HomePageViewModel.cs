@@ -84,20 +84,17 @@ namespace ProjectRunner.ViewModel
                     RaisePropertyChanged(() => ActivitySelected.Status);
                 }
             }));
-        private bool _otherOptions;
+        private bool _otherOptions, _isOwner;
         public bool OtherOptionsShowing { get => _otherOptions; set => Set(ref _otherOptions, value); }
-        private void OnSelectionChanged()
-        {
-            OtherOptionsShowing = false;
-        }
+        public bool IsOwner { get => _isOwner; set => Set(ref _isOwner, value); }
         private RelayCommand _openOptionsCmd;
         public RelayCommand OpenOtherOptionsCommand =>
             _openOptionsCmd ??
-            (_openOptionsCmd = new RelayCommand(() =>
-            {
-                Debug.WriteLine("Before - OtherOptionsShowing = " + OtherOptionsShowing);
-                OtherOptionsShowing = !OtherOptionsShowing;
-                Debug.WriteLine("After - OtherOptionsShowing = " + OtherOptionsShowing);
-            }));
+            (_openOptionsCmd = new RelayCommand(() => OtherOptionsShowing = !OtherOptionsShowing));
+        private void OnSelectionChanged()
+        {
+            OtherOptionsShowing = false;
+            IsOwner = (ActivitySelected!=null && ActivitySelected.CreatedBy == cache.CurrentUser.Id);
+        }
     }
 }
