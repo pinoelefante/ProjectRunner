@@ -16,7 +16,8 @@
                   x:Name="chatList"
                   ItemsSource="{Binding ListMessages}"
                   ItemTemplate="{StaticResource ChatMessageSelector}" 
-                  HasUnevenRows="True"/>
+                  HasUnevenRows="True"
+                  SeparatorVisibility="None"/>
 
         <Grid Grid.Row="1" Padding="5">
             <Grid.ColumnDefinitions>

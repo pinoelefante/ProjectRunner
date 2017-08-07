@@ -43,16 +43,11 @@ namespace ProjectRunner.ViewModel
         }
         private Activity _activitySelected;
         public Activity ActivitySelected { get => _activitySelected; set { Set(ref _activitySelected, value); OnSelectionChanged(); } }
-        public ObservableCollection<Activity> PendingActivities { get; } = new ObservableCollection<Activity>();
+        public MyObservableCollection<Activity> PendingActivities { get; } = new MyObservableCollection<Activity>();
         private void LoadActivities()
         {
-            PendingActivities.Clear();
             var coll = cache.ListActivities.Where(x => x.Status == ActivityStatus.PENDING || x.Status == ActivityStatus.STARTED);
-            if (coll != null && coll.Any())
-            {
-                foreach (var item in coll)
-                    PendingActivities.Add(item);
-            }
+            PendingActivities.AddRange(coll, true);
             ActivitySelected = PendingActivities.FirstOrDefault();
         }
         private RelayCommand _startActivityCmd, _finishActivityCmd;

@@ -9,7 +9,7 @@
     <ContentPage Title="Friends">
         <Grid>
             <Label Text="You don't have friends :(" HorizontalOptions="Center" Margin="0,25" IsVisible="{Binding Friends.Count, Converter={StaticResource IntEquals}, ConverterParameter=0}"/>
-            <ListView ItemsSource="{Binding Friends}" ItemTemplate="{StaticResource ActivityUserProfileImageSelector}">
+            <ListView ItemsSource="{Binding Friends}" ItemTemplate="{StaticResource ActivityUserProfileImageSelector}" SeparatorVisibility="None" IsVisible="{Binding Friends.Count, Converter={StaticResource IntGreaterThan}, ConverterParameter=0}">
                 <ListView.Behaviors>
                     <views:EventToCommandBehavior EventName="ItemTapped" Command="{Binding OpenProfileCommand}" EventArgsConverter="{StaticResource ItemTappedConverter}" />
                 </ListView.Behaviors>
@@ -34,7 +34,7 @@
         <ContentPage Title="Received">
             <Grid>
                 <Label Text="You don't have friendship requests" HorizontalOptions="Center" Margin="0,25" IsVisible="{Binding RequestsReceived.Count, Converter={StaticResource IntEquals}, ConverterParameter=0}"/>
-                <ListView ItemsSource="{Binding RequestsReceived}" ItemTemplate="{StaticResource ActivityUserProfileImageSelector}">
+                <ListView ItemsSource="{Binding RequestsReceived}" IsVisible="{Binding RequestsReceived.Count, Converter={StaticResource IntGreaterThan}, ConverterParameter=0}" ItemTemplate="{StaticResource ActivityUserProfileImageSelector}" SeparatorVisibility="None">
                     <ListView.Behaviors>
                         <views:EventToCommandBehavior EventName="ItemTapped" Command="{Binding OpenProfileCommand}" EventArgsConverter="{StaticResource ItemTappedConverter}" />
                     </ListView.Behaviors>
@@ -44,7 +44,7 @@
         <ContentPage Title="Sent">
             <Grid>
                 <Label Text="You haven't sent friendship requests" HorizontalOptions="Center" Margin="0,25" IsVisible="{Binding RequestsSent.Count, Converter={StaticResource IntEquals}, ConverterParameter=0}"/>
-                <ListView ItemsSource="{Binding RequestsSent}" ItemTemplate="{StaticResource ActivityUserProfileImageSelector}">
+                <ListView ItemsSource="{Binding RequestsSent}" IsVisible="{Binding RequestsSent.Count, Converter={StaticResource IntGreaterThan}, ConverterParameter=0}" ItemTemplate="{StaticResource ActivityUserProfileImageSelector}" SeparatorVisibility="None">
                     <ListView.Behaviors>
                         <views:EventToCommandBehavior EventName="ItemTapped" Command="{Binding OpenProfileCommand}" EventArgsConverter="{StaticResource ItemTappedConverter}" />
                     </ListView.Behaviors>

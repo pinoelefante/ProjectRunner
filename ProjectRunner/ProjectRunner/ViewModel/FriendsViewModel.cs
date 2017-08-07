@@ -22,19 +22,18 @@ namespace ProjectRunner.ViewModel
         {
             LoadFriendsAsync();
         }
-        private List<UserProfile> FriendsList { get; set; }
-        public List<UserProfile> Friends { get => FriendsList!=null ? FriendsList.Where(x => x.Status == FriendshipStatus.IS_FRIEND).ToList() : null; }
-        public List<UserProfile> RequestsSent { get => FriendsList != null ? FriendsList.Where(x => x.Status == FriendshipStatus.REQUESTED).ToList() : null; }
-        public List<UserProfile> RequestsReceived { get => FriendsList != null ? FriendsList.Where(x => x.Status == FriendshipStatus.RECEIVED).ToList() : null; }
+        public MyObservableCollection<UserProfile> Friends { get; } = new MyObservableCollection<UserProfile>();
+        public MyObservableCollection<UserProfile> RequestsSent { get; } = new MyObservableCollection<UserProfile>();
+        public MyObservableCollection<UserProfile> RequestsReceived { get; } = new MyObservableCollection<UserProfile>();
         private async Task LoadFriendsAsync()
         {
             var response = await server.People.FriendList();
             if(response.response == StatusCodes.OK)
             {
-                FriendsList = response.content;
-                RaisePropertyChanged(() => Friends);
-                RaisePropertyChanged(() => RequestsSent);
-                RaisePropertyChanged(() => RequestsReceived);
+                var c = response.content;
+                Friends.AddRange(c.Where(x => x.Status == FriendshipStatus.IS_FRIEND), true);
+                RequestsReceived.AddRange(c.Where(x => x.Status == FriendshipStatus.RECEIVED), true);
+                RequestsSent.AddRange(c.Where(x => x.Status == FriendshipStatus.REQUESTED), true);
             }
             else
                 UserDialogs.Instance.Alert("Check your internet connection", "Error: "+response.response);

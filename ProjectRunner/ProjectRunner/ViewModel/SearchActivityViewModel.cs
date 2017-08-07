@@ -130,23 +130,16 @@ namespace ProjectRunner.ViewModel
                 var res = await server.Activities.SearchActivities(sport,latitude,longitude);
                 if (res.response == StatusCodes.OK)
                 {
-                    SearchResults.Clear();
-                    if (res.content != null)
-                    {
-                        SearchResults.AddRange(res.content);
-                        RaisePropertyChanged(() => SearchResults);
-                    }
+                    SearchResults.AddRange(res.content, true);
                     if (SearchResults.Count > 0)
                         navigation.NavigateTo(ViewModelLocator.ActivitySearchResults);
                     else
                         UserDialogs.Instance.Alert($"I have found nothing", "Search results", "OK");
                 }
                 else
-                {
                     UserDialogs.Instance.Alert("Search error", "Search error", "OK");
-                }
             }));
-        public List<Activity> SearchResults { get; } = new List<Activity>();
+        public MyObservableCollection<Activity> SearchResults { get; } = new MyObservableCollection<Activity>();
         private RelayCommand<Activity> _openActivityCmd;
         public RelayCommand<Activity> OpenActivityCommand =>
             _openActivityCmd ??

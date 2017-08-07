@@ -152,6 +152,7 @@
     <Compile Include="Views\MyMasterPage.xaml.cs">
       <DependentUpon>MyMasterPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\MyObservableCollection.cs" />
     <Compile Include="Views\MyTabbedPage.cs" />
     <Compile Include="Views\RegisterPage.xaml.cs">
       <DependentUpon>RegisterPage.xaml</DependentUpon>

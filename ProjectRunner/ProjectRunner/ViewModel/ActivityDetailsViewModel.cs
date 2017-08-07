@@ -264,7 +264,7 @@ namespace ProjectRunner.ViewModel
                     }
                 }
             }));
-        public ObservableCollection<ChatMessage> ListMessages { get; } = new ObservableCollection<ChatMessage>();
+        public MyObservableCollection<ChatMessage> ListMessages { get; } = new MyObservableCollection<ChatMessage>();
         public async Task<int> ReadChatMessagesAsync(bool firstTime = false)
         {
             Debug.WriteLine("Reading chat messages");
@@ -273,14 +273,9 @@ namespace ProjectRunner.ViewModel
                 if (!ListMessages.Any())
                 {
                     var messages = cache.GetChatMessages(CurrentActivity.Id);
-                    if (messages != null)
-                    {
-                        foreach (var item in messages)
-                            ListMessages.Add(item);
-                        ScrollToPosition(ListMessages.LastOrDefault());
-                    }
-                    else
-                        cache.SetChatLastTimestamp(CurrentActivity.Id, 0);
+                    ListMessages.AddRange(messages);
+                    ScrollToPosition(ListMessages.LastOrDefault());
+                    cache.SetChatLastTimestamp(CurrentActivity.Id, messages == null ? 0 : messages.LastOrDefault().Timestamp);
                 }
             });
             var last_timestamp = cache.GetChatLastTimestamp(CurrentActivity.Id);
@@ -293,8 +288,7 @@ namespace ProjectRunner.ViewModel
                     if (res.content != null && res.content.Any())
                     {
                         var placeholder = ListMessages.FirstOrDefault(x => x.MessageType == ServerAPI.ChatMessage.ChatMessageType.SERVICE);
-                        if (placeholder != null)
-                            ListMessages.Remove(placeholder);
+                        ListMessages.Remove(placeholder);
 
                         newMessages = res.content.Count;
                         if (firstTime)
@@ -306,8 +300,7 @@ namespace ProjectRunner.ViewModel
                             });
                         }
                         var scrollIndex = ListMessages.Count;
-                        foreach (var item in res.content)
-                            ListMessages.Add(item);
+                        ListMessages.AddRange(res.content);
                         cache.SaveItemsDB<ChatMessage>(res.content);
                         cache.SetChatLastTimestamp(CurrentActivity.Id, res.content.Last().Timestamp);
 
@@ -324,19 +317,8 @@ namespace ProjectRunner.ViewModel
             RaisePropertyChanged(() => IsLoadingPeople);
             var res = await server.Activities.ListPeople(CurrentActivity.Id);
             if (res.response == StatusCodes.OK)
-            {
-                ActivityPeople.Clear();
-                if (res.content != null)
-                {
-                    foreach (var item in res.content)
-                    {
-                        ActivityPeople.Add(item);
-                        if (!cache.HasUserProfile(item.Id))
-                            cache.ListProfiles.Add(item);
-                    }
-                    cache.SaveItemsDB<UserProfile>(res?.content);
-                }
-            }
+                ActivityPeople.AddRange(res.content);
+
             IsLoadingPeople = false;
             RaisePropertyChanged(() => IsLoadingPeople);
 
@@ -381,7 +363,7 @@ namespace ProjectRunner.ViewModel
         private bool _isPeopleListLoaded, _joinedActivity;
         public bool IsPeopleListLoaded { get => _isPeopleListLoaded; set => Set(ref _isPeopleListLoaded, value); }
         public bool UserJoinedActivity { get => _joinedActivity; set => Set(ref _joinedActivity, value); }
-        public ObservableCollection<UserProfile> ActivityPeople { get; } = new ObservableCollection<UserProfile>();
+        public MyObservableCollection<UserProfile> ActivityPeople { get; } = new MyObservableCollection<UserProfile>();
         public bool IsLoadingPeople { get; set; }
         private RelayCommand _refreshPeopleListCmd;
         public RelayCommand RefreshPeopleListCommand =>

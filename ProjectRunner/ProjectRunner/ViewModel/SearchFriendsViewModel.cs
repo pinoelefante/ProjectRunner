@@ -18,7 +18,7 @@ namespace ProjectRunner.ViewModel
         {
             server = s;
         }
-        public ObservableCollection<UserProfile> SearchResults { get; } = new ObservableCollection<UserProfile>();
+        public MyObservableCollection<UserProfile> SearchResults { get; } = new MyObservableCollection<UserProfile>();
         private string oldSearchParameter = null;
         public string SearchParameter { get; set; } = string.Empty;
         private RelayCommand _searchCmd;
@@ -26,23 +26,27 @@ namespace ProjectRunner.ViewModel
             _searchCmd ??
             (_searchCmd = new RelayCommand(async () =>
             {
-                
                 if (!string.IsNullOrEmpty(SearchParameter.Trim()) && SearchParameter.Trim().Length >= 3 && !SearchParameter.Trim().Equals(oldSearchParameter))
                 {
-                    SearchResults.Clear();
-                    //UserDialogs.Instance.ShowLoading("Searching for " + SearchParameter.Trim());
-                    var res = await server.People.SearchPeople(SearchParameter.Trim());
-                    if(res.response == StatusCodes.OK)
+                    var progress = new ProgressDialogConfig()
                     {
-                        if(res.content!=null)
+                        IsDeterministic = false,
+                        Title = "Searching for "+SearchParameter.Trim(),
+                        MaskType = MaskType.Gradient,
+                        AutoShow = true,
+                        CancelText = string.Empty,
+                        OnCancel = null
+                    };
+                    using (UserDialogs.Instance.Progress(progress))
+                    {
+                        var res = await server.People.SearchPeople(SearchParameter.Trim());
+                        if (res.response == StatusCodes.OK)
                         {
-                            foreach (var item in res.content)
-                                SearchResults.Add(item);
+                            SearchResults.AddRange(res.content, true);
+                            oldSearchParameter = SearchParameter.Trim();
                         }
-                        oldSearchParameter = SearchParameter.Trim();
-                    }
-                    //UserDialogs.Instance.HideLoading();
-                    RaisePropertyChanged(() => SearchResults);
+                        RaisePropertyChanged(() => SearchResults);
+                    } 
                 }
             }));
         private RelayCommand<UserProfile> _openProfileCmd;

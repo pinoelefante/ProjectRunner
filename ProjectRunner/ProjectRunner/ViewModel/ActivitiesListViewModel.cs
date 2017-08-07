@@ -27,10 +27,9 @@ namespace ProjectRunner.ViewModel
             base.NavigatedToAsync(parameter);
             LoadMyListAsync();
         }
-
-        public List<Activity> ListActivities { get; } = new List<Activity>();
-        public List<Activity> ListPendingActivities { get => ListActivities.Where(x => x.Status == ActivityStatus.PENDING).ToList();  }
-        public List<Activity> ListMyActivities { get => ListActivities.Where(x => x.CreatedBy == cache.CurrentUser.Id).ToList();  }
+        
+        public MyObservableCollection<Activity> ListPendingActivities { get; } = new MyObservableCollection<Activity>();
+        public MyObservableCollection<Activity> ListMyActivities { get; } = new MyObservableCollection<Activity>();
 
         private async Task LoadMyListAsync(bool forced = false)
         {
@@ -41,24 +40,19 @@ namespace ProjectRunner.ViewModel
                 var res = await server.Activities.MyActivitiesListAsync();
                 if (res.response == StatusCodes.OK)
                 {
-                    ListActivities.Clear();
+                    ListPendingActivities.AddRange(res.content?.Where(x => x.Status == ActivityStatus.PENDING), true);
+                    ListMyActivities.AddRange(res.content?.Where(x => x.CreatedBy == cache.CurrentUser.Id), true);
                     cache.ListActivities.Clear();
-                    if (res.content != null)
-                    {
-                        ListActivities.AddRange(res.content);
-                        cache.ListActivities.AddRange(res.content);
-                    }
+                    cache.ListActivities.AddRange(res.content);
                 }
                 IsBusyActive = false;
             }
             else
             {
                 Debug.WriteLine("Loading activities from cache");
-                ListActivities.Clear();
-                ListActivities.AddRange(cache.ListActivities);
+                ListPendingActivities.AddRange(cache.ListActivities?.Where(x => x.Status == ActivityStatus.PENDING), true);
+                ListMyActivities.AddRange(cache.ListActivities?.Where(x => x.CreatedBy == cache.CurrentUser.Id), true);
             }
-            RaisePropertyChanged(() => ListPendingActivities);
-            RaisePropertyChanged(() => ListMyActivities);
         }
 
         private RelayCommand _addActivityCmd, _searchActivityCmd, _refreshActivitiesCmd;

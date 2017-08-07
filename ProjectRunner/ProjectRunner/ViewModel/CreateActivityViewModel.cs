@@ -74,7 +74,7 @@ namespace ProjectRunner.ViewModel
 
         #region SportSelection
         private float _fee = 0;
-        private int _guests, _maxPlayers, _requiredFeedback, _playersTeam;
+        private int _guests, _maxPlayers = 1, _requiredFeedback, _playersTeam;
         private int _indexSport, _indexPlayerPerTeam, _indexDistanceRunning, _indexDistanceBicycle, _indexGuestList, _indexCurrency;
         private bool _fitness, _isDouble, _isGratis = true;
         private DateTime _startDay = DateTime.Now;
@@ -378,7 +378,9 @@ namespace ProjectRunner.ViewModel
                     var navService = navigation as NavigationService;
                     navService.RemovePageFromBackstack(typeof(Activities));
                     cache.ListActivities.Clear(); //clear cache to force loading from web
-                    UserDialogs.Instance.Alert("Activity created", "Activity creation");
+
+                    await UserDialogs.Instance.AlertAsync("Activity created", "Activity creation");
+
                     navigation.NavigateTo(ViewModelLocator.Activities);
                     //clear backstack
                     (navigation as NavigationService).RemovePageFromBackstack(typeof(Views.CreateActivityPage));

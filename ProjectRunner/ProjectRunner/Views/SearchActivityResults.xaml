@@ -6,7 +6,7 @@
              xmlns:views="clr-namespace:ProjectRunner.Views"
              BindingContext="{Binding SearchActivityViewModel, Source={StaticResource Locator}}">
     <StackLayout>
-        <ListView ItemsSource="{Binding SearchResults}" ItemTemplate="{StaticResource sportSelector}" HasUnevenRows="True">
+        <ListView ItemsSource="{Binding SearchResults}" ItemTemplate="{StaticResource sportSelector}" HasUnevenRows="True" SeparatorVisibility="None">
             <ListView.Behaviors>
                 <views:EventToCommandBehavior EventName="ItemTapped" Command="{Binding OpenActivityCommand}" EventArgsConverter="{StaticResource ItemTappedConverter}" />
             </ListView.Behaviors>

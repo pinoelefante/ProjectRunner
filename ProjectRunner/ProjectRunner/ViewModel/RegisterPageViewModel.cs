@@ -39,7 +39,7 @@ namespace ProjectRunner.ViewModel
         public DateTime Birth { get => _birth; set => Set(ref _birth, value); }
         public string Phone { get => _phone; set => Set(ref _phone, value); }
         public int TimezoneIndex { get => _timezoneIndex; set { Set(ref _timezoneIndex, value); RaisePropertyChanged(() => TimezoneSelected); } }
-        public ObservableCollection<KeyValuePair<string,string>> Timezones { get; } = new ObservableCollection<KeyValuePair<string,string>>();
+        public MyObservableCollection<KeyValuePair<string,string>> Timezones { get; } = new MyObservableCollection<KeyValuePair<string,string>>();
         public int SexIndex { get => _sexIndex; set => Set(ref _sexIndex, value); }
         public List<string> SexList { get; } = new List<string>()
         {
@@ -86,8 +86,7 @@ namespace ProjectRunner.ViewModel
                     list.Add(new KeyValuePair<string, string>(item, name));
                 }
                 list = list.OrderBy(x => x.Value).ToList();
-                foreach (var item in list)
-                    Timezones.Add(item);
+                Timezones.AddRange(list);
 
                 RaisePropertyChanged(() => TimezoneSelected);
                 RaisePropertyChanged(() => Timezones);

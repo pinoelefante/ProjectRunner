@@ -26,7 +26,7 @@
 
         <StackLayout Grid.Row="1" IsVisible="{Binding SearchResults.Count, Converter={StaticResource IntGreaterThan}, ConverterParameter=0}" Margin="5,10,5,0">
             <Label Text="Search results" HorizontalOptions="Center"/>
-            <ListView ItemsSource="{Binding SearchResults}" ItemTemplate="{StaticResource ActivityUserProfileImageSelector}">
+            <ListView ItemsSource="{Binding SearchResults}" ItemTemplate="{StaticResource ActivityUserProfileImageSelector}" SeparatorVisibility="None">
                 <ListView.Behaviors>
                     <views:EventToCommandBehavior EventName="ItemTapped" Command="{Binding OpenProfileCommand}" EventArgsConverter="{StaticResource ItemTappedConverter}"/>
                 </ListView.Behaviors>

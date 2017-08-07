@@ -9,7 +9,15 @@
     <ContentPage Title="Pending" Padding="0,0,0,0">
         <Grid>
             <Label Text="There are no pending activities" HorizontalOptions="Center" IsVisible="{Binding ListPendingActivities.Count, Converter={StaticResource IntEquals}, ConverterParameter=0}" />
-            <ListView ItemsSource="{Binding ListPendingActivities}" IsPullToRefreshEnabled="True" RefreshCommand="{Binding RefreshActivitiesCommand}" IsRefreshing="{Binding IsBusyActive}" HasUnevenRows="True" ItemTemplate="{StaticResource sportSelector}" IsVisible="{Binding ListPendingActivities.Count, Converter={StaticResource IntGreaterThan}, ConverterParameter=0}" CachingStrategy="RecycleElement">
+            <ListView ItemsSource="{Binding ListPendingActivities}"
+                      IsPullToRefreshEnabled="True"
+                      RefreshCommand="{Binding RefreshActivitiesCommand}"
+                      IsRefreshing="{Binding IsBusyActive}"
+                      HasUnevenRows="True"
+                      ItemTemplate="{StaticResource sportSelector}"
+                      IsVisible="{Binding ListPendingActivities.Count, Converter={StaticResource IntGreaterThan}, ConverterParameter=0}"
+                      CachingStrategy="RecycleElement"
+                      SeparatorVisibility="None">
                 <ListView.Behaviors>
                     <views:EventToCommandBehavior EventName="ItemTapped" Command="{Binding OpenActivityCommand}" EventArgsConverter="{StaticResource ItemTappedConverter}" />
                 </ListView.Behaviors>
