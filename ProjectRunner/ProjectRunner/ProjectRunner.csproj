@@ -50,6 +50,7 @@
     <Compile Include="ServerAPI\PRCache.cs" />
     <Compile Include="ServerAPI\PRServer.cs" />
     <Compile Include="ServerAPI\PRSettings.cs" />
+    <Compile Include="Services\IClosingApp.cs" />
     <Compile Include="Services\ISQLite.cs" />
     <Compile Include="Services\MD5.cs" />
     <Compile Include="Services\NavigationService.cs" />

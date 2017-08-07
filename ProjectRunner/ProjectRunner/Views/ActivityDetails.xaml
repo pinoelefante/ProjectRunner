@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<pages:MyTabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+<views:MyTabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProjectRunner.Views.ActivityDetails"
-             xmlns:pages="clr-namespace:ProjectRunner.Views;assembly=ProjectRunner"
+             xmlns:views="clr-namespace:ProjectRunner.Views;assembly=ProjectRunner"
              Title="Activity details"
              BindingContext="{Binding ActivityDetailsViewModel, Source={StaticResource Locator}}">
   <!--Pages can be added as references or inline-->
-  <pages:ActivityDetailsOverview/>
+  <views:ActivityDetailsOverview/>
 
-  <pages:ActivityDetailsPeople/>
+  <views:ActivityDetailsPeople/>
 
-  <pages:ActivityDetailsChat/>
+  <views:ActivityDetailsChat/>
 
-</pages:MyTabbedPage>
+</views:MyTabbedPage>

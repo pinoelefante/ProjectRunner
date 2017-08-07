@@ -40,6 +40,8 @@ namespace ProjectRunner.ViewModel
             SimpleIoc.Default.Register<PRCache>();
             var dbService = DependencyService.Get<ISQLite>();
             SimpleIoc.Default.Register<ISQLite>(() => dbService);
+            var closeApp = DependencyService.Get<IClosingApp>();
+            SimpleIoc.Default.Register<IClosingApp>(() => closeApp);
 
             SimpleIoc.Default.Register<LoginPageViewModel>();
             SimpleIoc.Default.Register<RegisterPageViewModel>();

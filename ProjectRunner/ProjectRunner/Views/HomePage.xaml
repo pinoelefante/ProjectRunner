@@ -92,32 +92,41 @@
                                             WidthRequest="50"
                                             BackgroundColor="White" 
                                             BorderWidth="2"
-                                            BorderColor="White"
-                                            BorderRadius="40"/>
-                                    
+                                            BorderColor="White">
+                                        <Button.BorderRadius>
+                                            <OnPlatform x:TypeArguments="x:Int32" WinPhone="50" Android="25" iOS="25"/>
+                                        </Button.BorderRadius>
+                                    </Button>
+
                                     <Button BindingContext="{Binding HomePageViewModel, Source={StaticResource Locator}}" 
                                             Image="play.png"
                                             BackgroundColor="Green"
-                                            BorderRadius="80"
                                             HeightRequest="80"
                                             WidthRequest="80"
                                             BorderWidth="2"
                                             BorderColor="Green"
                                             HorizontalOptions="Center"
                                             IsVisible="{Binding ActivitySelected.Status, Converter={StaticResource IntEquals}, ConverterParameter=0}"
-                                            Command="{Binding StartActivity}"/>
+                                            Command="{Binding StartActivity}">
+                                        <Button.BorderRadius>
+                                            <OnPlatform x:TypeArguments="x:Int32" WinPhone="80" Android="40" iOS="40"/>
+                                        </Button.BorderRadius>
+                                    </Button>
 
                                     <Button BindingContext="{Binding HomePageViewModel, Source={StaticResource Locator}}" 
                                             Image="stop.png"
                                             BackgroundColor="Red"
-                                            BorderRadius="80"
                                             HeightRequest="80"
                                             WidthRequest="80"
                                             BorderWidth="2"
                                             BorderColor="Red"
                                             HorizontalOptions="Center"
                                             IsVisible="{Binding ActivitySelected.Status, Converter={StaticResource IntEquals}, ConverterParameter=1}"
-                                            Command="{Binding FinishActivity}"/>
+                                            Command="{Binding FinishActivity}">
+                                        <Button.BorderRadius>
+                                            <OnPlatform x:TypeArguments="x:Int32" WinPhone="80" Android="40" iOS="40"/>
+                                        </Button.BorderRadius>
+                                    </Button>
 
                                     <Label Text="Ended" 
                                            HorizontalOptions="Center"
@@ -135,12 +144,15 @@
                                             VerticalOptions="Center"
                                             HeightRequest="50"
                                             WidthRequest="50"
-                                            BorderRadius="50"
                                             BorderWidth="2"
                                             BorderColor="White"
                                             TextColor="Black"
                                             BindingContext="{Binding HomePageViewModel, Source={StaticResource Locator}}"
-                                            Command="{Binding OpenOtherOptionsCommand}"/>
+                                            Command="{Binding OpenOtherOptionsCommand}">
+                                        <Button.BorderRadius>
+                                            <OnPlatform x:TypeArguments="x:Int32" WinPhone="50" Android="25" iOS="25"/>
+                                        </Button.BorderRadius>
+                                    </Button>
                                 </Grid>
 
                             </Grid>

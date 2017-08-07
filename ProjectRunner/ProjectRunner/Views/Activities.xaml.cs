@@ -12,7 +12,7 @@ using Xamarin.Forms.Xaml;
 namespace ProjectRunner.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Activities : TabbedPage
+    public partial class Activities : MyTabbedPage
     {
         public Activities()
         {

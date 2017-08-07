@@ -28,10 +28,6 @@ namespace ProjectRunner.ViewModel
         {
             navigation.NavigateTo(pageKey);
         }
-        public void ConfigureNavigation(NavigationPage navPage)
-        {
-            (navigation as NavigationService).Initialize(navPage, ViewModelLocator.HomePage);
-        }
         private RelayCommand _openProfile;
         public RelayCommand CloseMasterPage { get; set; }
         public RelayCommand OpenUserProfile =>

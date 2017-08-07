@@ -1,4 +1,6 @@
-﻿using ProjectRunner.ServerAPI;
+﻿using Acr.UserDialogs;
+using ProjectRunner.ServerAPI;
+using ProjectRunner.Services;
 using ProjectRunner.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -20,10 +22,21 @@ namespace ProjectRunner
             if (cache.HasCredentials())
                 MainPage = new Views.LoadingPage();
             else
-            {
                 MainPage = new NavigationPage(new Views.LoginPage());
-                ViewModelLocator.NavigationService.Initialize(MainPage as NavigationPage, ViewModelLocator.HomePage);
-            }
+        }
+        public static void ConfigureNavigation(NavigationPage nav, string homePageKey, bool askToClose = false)
+        {
+            IClosingApp closer = ViewModelLocator.GetService<IClosingApp>();
+            Action act = async () =>
+            {
+                if (askToClose)
+                {
+                    if (!await UserDialogs.Instance.ConfirmAsync("Would you like to close the app?", "Closing app"))
+                        return;
+                }
+                closer.CloseApp();
+            };
+            ViewModelLocator.NavigationService.Initialize(nav, homePageKey, act);
         }
         protected override void OnStart()
         {

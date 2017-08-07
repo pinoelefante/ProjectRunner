@@ -35,21 +35,26 @@ namespace ProjectRunner.Services
                 }
             }
         }
-
+        public Action ExitAction { get; set; }
         public void GoBack()
         {
-            var taskNav = _navigation.PopAsync();
-            taskNav.ContinueWith((task) =>
+            if (_navigation.Navigation.NavigationStack.Count > 1)
             {
-                Page page = task.Result;
-                if(MainPageKey !=null)
+                var taskNav = _navigation.PopAsync();
+                taskNav.ContinueWith((task) =>
                 {
-                    Type mainPageType = _pagesByKey[MainPageKey];
-                    Type currPageType = page.GetType();
-                    if (mainPageType == currPageType)
-                        ClearBackstack();
-                }
-            });
+                    Page page = task.Result;
+                    if (MainPageKey != null)
+                    {
+                        Type mainPageType = _pagesByKey[MainPageKey];
+                        Type currPageType = page.GetType();
+                        if (mainPageType == currPageType)
+                            ClearBackstack();
+                    }
+                });
+            }
+            else
+                ExitAction?.Invoke();
         }
 
         public void NavigateTo(string pageKey)
@@ -148,10 +153,11 @@ namespace ProjectRunner.Services
             });
         }
         
-        public void Initialize(NavigationPage navigation, string mainPageKey)
+        public void Initialize(NavigationPage navigation, string mainPageKey, Action OnExit)
         {
             _navigation = navigation;
             MainPageKey = mainPageKey;
+            ExitAction = OnExit;
         }
         public void PrintBackstack()
         {
@@ -159,7 +165,6 @@ namespace ProjectRunner.Services
             foreach (var item in stack)
             {
                 Debug.WriteLine("classid: "+item.ClassId + " typeof: "+item.GetType().FullName);
-
             }
         }
         public void RemovePagesFromBackstack(IEnumerable<Type> types)

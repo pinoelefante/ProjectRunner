@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight.Views;
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
 using ProjectRunner.ServerAPI;
+using ProjectRunner.Services;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,10 +15,10 @@ namespace ProjectRunner.ViewModel
 {
     public class MyViewModel : ViewModelBase
     {
-        protected INavigationService navigation;
+        protected NavigationService navigation;
         public MyViewModel(INavigationService n)
         {
-            navigation = n;
+            navigation = n as NavigationService;
         }
         private bool busyActive;
         public bool IsBusyActive { get => busyActive; set => Set(ref busyActive, value); }
@@ -35,7 +36,8 @@ namespace ProjectRunner.ViewModel
          */
         public virtual bool OnBackPressed()
         {
-            return false;
+            navigation.GoBack();
+            return true;
         }
         public bool ManageCommonServerResponse(StatusCodes code)
         {

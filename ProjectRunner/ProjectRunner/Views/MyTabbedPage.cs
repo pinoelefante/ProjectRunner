@@ -26,5 +26,11 @@ namespace ProjectRunner.Views
             base.OnDisappearing();
             VM?.NavigatedFrom();
         }
+        protected override bool OnBackButtonPressed()
+        {
+            if(VM!=null)
+                return VM.OnBackPressed();
+            return base.OnBackButtonPressed();
+        }
     }
 }

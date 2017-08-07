@@ -18,7 +18,7 @@ namespace ProjectRunner.Views
             InitializeComponent();
             masterPage.ListView.ItemTapped += ListView_ItemTapped;
             masterPage.MasterDetails = this;
-            VM.ConfigureNavigation(navigationPage);
+            App.ConfigureNavigation(navigationPage, ViewModelLocator.HomePage, true);
         }
         private MyMasterDetailViewModel VM => this.BindingContext as MyMasterDetailViewModel;
         private void ListView_ItemTapped(object sender, ItemTappedEventArgs e)

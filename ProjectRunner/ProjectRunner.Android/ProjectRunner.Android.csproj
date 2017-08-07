@@ -238,6 +238,7 @@
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CloseAppDroid.cs" />
     <Compile Include="Services\SQLiteService_Droid.cs" />
   </ItemGroup>
   <ItemGroup>

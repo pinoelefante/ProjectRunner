@@ -91,6 +91,7 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="Services\CloseAppService_iOS.cs" />
     <Compile Include="Services\SQLiteService_iOS.cs" />
     <None Include="app.config" />
     <None Include="Entitlements.plist" />

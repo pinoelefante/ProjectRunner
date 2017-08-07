@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjectRunner.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,7 @@ namespace ProjectRunner.Views
         public LoginPage()
         {
             InitializeComponent();
+            App.ConfigureNavigation(Application.Current.MainPage as NavigationPage, ViewModelLocator.LoginPage, false);
         }
 
         private void UsernameEntry_Completed(object sender, EventArgs e)

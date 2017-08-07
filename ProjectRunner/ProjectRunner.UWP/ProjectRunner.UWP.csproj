@@ -101,6 +101,7 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CloseAppService_UWP.cs" />
     <Compile Include="Services\SQLiteService_UWP.cs" />
   </ItemGroup>
   <ItemGroup>

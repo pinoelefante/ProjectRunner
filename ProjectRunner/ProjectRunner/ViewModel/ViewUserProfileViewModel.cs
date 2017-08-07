@@ -99,10 +99,7 @@ namespace ProjectRunner.ViewModel
             {
                 var res = await server.Authentication.Logout();
                 if (res.response == StatusCodes.OK)
-                {
                     Application.Current.MainPage = new NavigationPage(new Views.LoginPage());
-                    ViewModelLocator.NavigationService.Initialize(Application.Current.MainPage as NavigationPage, ViewModelLocator.HomePage);
-                }
             }));
         private RelayCommand _takePhotoCmd;
         public RelayCommand TakePhotoCommand =>

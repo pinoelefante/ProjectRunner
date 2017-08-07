@@ -32,10 +32,7 @@ namespace ProjectRunner.ViewModel
                     if (res)
                         Application.Current.MainPage = new MyMasterPage();
                     else
-                    {
                         Application.Current.MainPage = new NavigationPage(new LoginPage());
-                        ViewModelLocator.NavigationService.Initialize(Application.Current.MainPage as NavigationPage, ViewModelLocator.HomePage);
-                    }
                 });
             });
         }
