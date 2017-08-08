@@ -28,9 +28,9 @@ namespace ProjectRunner.Views
         }
         protected override bool OnBackButtonPressed()
         {
-            if(!ViewModel.OnBackPressed())
-                return base.OnBackButtonPressed();
-            return base.OnBackButtonPressed();
+            if (ViewModel!=null)
+                return ViewModel.OnBackPressed();
+            return false;
         }
     }
 }

@@ -30,7 +30,7 @@ namespace ProjectRunner.Views
         {
             if(VM!=null)
                 return VM.OnBackPressed();
-            return base.OnBackButtonPressed();
+            return false;
         }
     }
 }
