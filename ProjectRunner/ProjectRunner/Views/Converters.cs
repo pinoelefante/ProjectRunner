@@ -429,4 +429,38 @@ namespace ProjectRunner.Views.Converters
             throw new NotImplementedException();
         }
     }
+    public class ActionPermittedStatus : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            ActivityStatus status = (ActivityStatus)value;
+            var param = parameter.ToString().ToLower();
+            switch(param)
+            {
+                case "leave":
+                    switch(status)
+                    {
+                        case ActivityStatus.PENDING:
+                        case ActivityStatus.CANCELLED:
+                        case ActivityStatus.DELETED:
+                            return true;
+                        case ActivityStatus.ENDED:
+                        case ActivityStatus.STARTED:
+                            return false;
+                    }
+                    break;
+                case "delete":
+                    if (status == ActivityStatus.PENDING)
+                        return true;
+                    else
+                        return false;
+            }
+            return false;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

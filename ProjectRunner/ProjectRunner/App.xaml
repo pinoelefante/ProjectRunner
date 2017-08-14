@@ -37,6 +37,7 @@
             <converters:AgeCalculationConverter x:Key="AgeCalculationConverter"/>
             <converters:SportImageConverter x:Key="SportImageConverter"/>
             <converters:SportBackgroundConverter x:Key="SportBackgroundConverter"/>
+            <converters:ActionPermittedStatus x:Key="ActionPermittedStatus"/>
 
             <DataTemplate x:Key="runningTemplate">
                 <ViewCell>

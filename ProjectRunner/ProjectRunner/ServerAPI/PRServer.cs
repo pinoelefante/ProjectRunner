@@ -186,15 +186,15 @@ namespace ProjectRunner.ServerAPI
         {
             FormUrlEncodedContent postContent = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>()
             {
-                new KeyValuePair<string, string>("username",username),
-                new KeyValuePair<string, string>("password", password),
-                new KeyValuePair<string, string>("firstName", firstName),
-                new KeyValuePair<string, string>("lastName", lastName),
-                new KeyValuePair<string, string>("birth", birth),
-                new KeyValuePair<string, string>("phone", phone),
-                new KeyValuePair<string, string>("email", email),
-                new KeyValuePair<string, string>("timezone", timezone),
-                new KeyValuePair<string, string>("sex", sex.ToString())
+                new KeyValuePair<string, string>(UserDatabase.USERNAME,username),
+                new KeyValuePair<string, string>(UserDatabase.PASSWORD, password),
+                new KeyValuePair<string, string>(UserDatabase.FIRST_NAME, firstName),
+                new KeyValuePair<string, string>(UserDatabase.LAST_NAME, lastName),
+                new KeyValuePair<string, string>(UserDatabase.BIRTH, birth),
+                new KeyValuePair<string, string>(UserDatabase.PHONE, phone),
+                new KeyValuePair<string, string>(UserDatabase.EMAIL, email),
+                new KeyValuePair<string, string>(UserDatabase.TIMEZONE, timezone),
+                new KeyValuePair<string, string>(UserDatabase.SEX, sex.ToString())
             });
 
             var response = await server.SendRequestWithAction<string, Dictionary<string, string>>("/registration.php?action=Register", (x) =>
@@ -700,7 +700,7 @@ namespace ProjectRunner.ServerAPI
         {
             var postContent = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>()
             {
-                new KeyValuePair<string, string>("id", userId.ToString())
+                new KeyValuePair<string, string>(UserDatabase.ID, userId.ToString())
             });
             return await server.SendRequestWithAction<UserProfile, Dictionary<string, string>>("/people.php?action=GetProfileInfo", (x) =>
             {
@@ -758,32 +758,32 @@ namespace ProjectRunner.ServerAPI
         {
             UserProfile profile = new UserProfile()
             {
-                Id = int.Parse(dictionary["id"]),
-                Username = dictionary["username"],
-                Email = dictionary.ContainsKey("email") ? dictionary["email"] : string.Empty,
-                FirstName = dictionary.ContainsKey("firstName") ? dictionary["firstName"] : string.Empty,
-                LastName = dictionary.ContainsKey("lastName") ? dictionary["lastName"] : string.Empty,
-                Phone = dictionary.ContainsKey("phone") ? dictionary["phone"] : string.Empty,
-                Sex = dictionary.ContainsKey("sex") ? Int32.Parse(dictionary["sex"]) : 0,
-                DefaultUserLocation = dictionary.ContainsKey("defaultLocation") && dictionary["defaultLocation"] != null ? Int32.Parse(dictionary["defaultLocation"]) : 0,
-                NotifyNearbyActivities = dictionary.ContainsKey("notifyNearbyActivities") ? (Int32.Parse(dictionary["notifyNearbyActivities"]) == 1 ? true : false) : false,
-                Coins = dictionary.ContainsKey("coins") ? Int32.Parse(dictionary["coins"]) : 0,
-                Experience = dictionary.ContainsKey("experience") ? Int32.Parse(dictionary["experience"]) : 0,
-                Level = dictionary.ContainsKey("level") ? Int32.Parse(dictionary["level"]) : 1,
-                IsPrivate = dictionary.ContainsKey("private") ? (Int32.Parse(dictionary["private"]) == 1 ? true : false) : false,
-                IsBanned = dictionary.ContainsKey("banned") ? (Int32.Parse(dictionary["banned"]) == 1 ? true : false) : false,
-                Image = dictionary.ContainsKey("image") ? dictionary["image"] : null
+                Id = int.Parse(dictionary[UserDatabase.ID]),
+                Username = dictionary[UserDatabase.USERNAME],
+                Email = dictionary.ContainsKey(UserDatabase.EMAIL) ? dictionary[UserDatabase.EMAIL] : string.Empty,
+                FirstName = dictionary.ContainsKey(UserDatabase.FIRST_NAME) ? dictionary[UserDatabase.FIRST_NAME] : string.Empty,
+                LastName = dictionary.ContainsKey(UserDatabase.LAST_NAME) ? dictionary[UserDatabase.LAST_NAME] : string.Empty,
+                Phone = dictionary.ContainsKey(UserDatabase.PHONE) ? dictionary[UserDatabase.PHONE] : string.Empty,
+                Sex = dictionary.ContainsKey(UserDatabase.SEX) ? Int32.Parse(dictionary[UserDatabase.SEX]) : 0,
+                DefaultUserLocation = dictionary.ContainsKey(UserDatabase.LOCATION_ID) && dictionary[UserDatabase.LOCATION_ID] != null ? Int32.Parse(dictionary[UserDatabase.LOCATION_ID]) : 0,
+                NotifyNearbyActivities = dictionary.ContainsKey(UserDatabase.NOTIFY_NEARBY) ? (Int32.Parse(dictionary[UserDatabase.NOTIFY_NEARBY]) == 1 ? true : false) : false,
+                Coins = dictionary.ContainsKey(UserDatabase.COINS) ? Int32.Parse(dictionary[UserDatabase.COINS]) : 0,
+                Experience = dictionary.ContainsKey(UserDatabase.EXPERIENCE) ? Int32.Parse(dictionary[UserDatabase.EXPERIENCE]) : 0,
+                Level = dictionary.ContainsKey(UserDatabase.LEVEL) ? Int32.Parse(dictionary[UserDatabase.LEVEL]) : 1,
+                IsPrivate = dictionary.ContainsKey(UserDatabase.PRIVATE) ? (Int32.Parse(dictionary[UserDatabase.PRIVATE]) == 1 ? true : false) : false,
+                IsBanned = dictionary.ContainsKey(UserDatabase.BANNED) ? (Int32.Parse(dictionary[UserDatabase.BANNED]) == 1 ? true : false) : false,
+                Image = dictionary.ContainsKey(UserDatabase.IMAGE) ? dictionary[UserDatabase.IMAGE] : null
             };
-            if (dictionary.ContainsKey("birth") && !string.IsNullOrEmpty(dictionary["birth"]))
-                profile.Birth = DateTime.Parse(dictionary["birth"], CultureInfo.InvariantCulture);
-            if(dictionary.ContainsKey("lastUpdate"))
-                profile.LastUpdate = DateTime.Parse(dictionary["lastUpdate"], CultureInfo.InvariantCulture);
-            if (dictionary.ContainsKey("registration"))
-                profile.RegistrationTime = DateTime.Parse(dictionary["registration"], CultureInfo.InvariantCulture);
+            if (dictionary.ContainsKey(UserDatabase.BIRTH) && !string.IsNullOrEmpty(dictionary[UserDatabase.BIRTH]))
+                profile.Birth = DateTime.Parse(dictionary[UserDatabase.BIRTH], CultureInfo.InvariantCulture);
+            if(dictionary.ContainsKey(UserDatabase.LAST_UPDATE))
+                profile.LastUpdate = DateTime.Parse(dictionary[UserDatabase.LAST_UPDATE], CultureInfo.InvariantCulture);
+            if (dictionary.ContainsKey(UserDatabase.REGISTRATION))
+                profile.RegistrationTime = DateTime.Parse(dictionary[UserDatabase.REGISTRATION], CultureInfo.InvariantCulture);
             if (dictionary.ContainsKey("status"))
                 profile.Status = (FriendshipStatus)Enum.Parse(typeof(FriendshipStatus), dictionary["status"]);
-            if(dictionary.ContainsKey("ban_timestamp") && !string.IsNullOrEmpty(dictionary["ban_timestamp"]))
-                profile.BanTime = DateTime.Parse(dictionary["ban_timestamp"], CultureInfo.InvariantCulture);
+            if(dictionary.ContainsKey(UserDatabase.BAN_TIMESTAMP) && !string.IsNullOrEmpty(dictionary[UserDatabase.BAN_TIMESTAMP]))
+                profile.BanTime = DateTime.Parse(dictionary[UserDatabase.BAN_TIMESTAMP], CultureInfo.InvariantCulture);
 
             return profile;
         }
@@ -1181,7 +1181,34 @@ namespace ProjectRunner.ServerAPI
     }
     class FriendshipDatabase
     {
-        public const string USER = "user_id", FRIEND = "friend_id",
-            REQUEST_USER = "user_id", REQUEST_FRIEND = "friend_id";
+        public const string USER = "user_id",
+            FRIEND = "friend_id",
+            REQUEST_USER = "user_id",
+            REQUEST_FRIEND = "friend_id";
+    }
+    class UserDatabase
+    {
+        public const string
+            ID = "id",
+            FIRST_NAME = "firstName",
+            LAST_NAME = "lastName",
+            USERNAME = "username",
+            PASSWORD = "password",
+            EMAIL = "email",
+            BIRTH = "birth",
+            PHONE = "phone",
+            REGISTRATION = "registration",
+            LAST_UPDATE = "lastUpdate",
+            TIMEZONE = "timezone",
+            NOTIFY_NEARBY = "notifyNearbyActivities",
+            LOCATION_ID = "defaultLocation",
+            SEX = "sex",
+            COINS = "coins",
+            EXPERIENCE = "experience",
+            LEVEL = "level",
+            PRIVATE = "private",
+            IMAGE = "image",
+            BANNED = "banned",
+            BAN_TIMESTAMP = "ban_timestamp";
     }
 }

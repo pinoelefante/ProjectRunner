@@ -72,9 +72,25 @@
 
                                 </Grid>
 
-                                <Grid Grid.Column="2" BackgroundColor="#80000000" Padding="10,20" BindingContext="{Binding HomePageViewModel, Source={StaticResource Locator}}" IsVisible="{Binding OtherOptionsShowing}">
-                                    <Label Text="OtherOptionsHere" TextColor="White"/>
-                                </Grid>
+                                <StackLayout Grid.Column="2" BackgroundColor="#80000000" BindingContext="{Binding HomePageViewModel, Source={StaticResource Locator}}" IsVisible="{Binding OtherOptionsShowing}">
+                                    <Button Text="Meeting point"
+                                            BindingContext="{Binding HomePageViewModel, Source={StaticResource Locator}}"
+                                            Command="{Binding OpenPositionCommand}"
+                                            TextColor="White"
+                                            BackgroundColor="#80000000"/>
+                                    
+                                    <Button Text="Leave"
+                                            BindingContext="{Binding HomePageViewModel, Source={StaticResource Locator}}"
+                                            TextColor="White" IsVisible="{Binding IsOwner,Converter={StaticResource NotBoolean}}"
+                                            IsEnabled="{Binding ActivitySelected.Status, Converter={StaticResource ActionPermittedStatus}, ConverterParameter=leave}"
+                                            BackgroundColor="#80000000" />
+                                    
+                                    <Button Text="Cancel"
+                                            BindingContext="{Binding HomePageViewModel, Source={StaticResource Locator}}"
+                                            TextColor="White" IsVisible="{Binding IsOwner}"
+                                            IsEnabled="{Binding ActivitySelected.Status, Converter={StaticResource ActionPermittedStatus}, ConverterParameter=delete}"
+                                            BackgroundColor="#80000000"/>
+                                </StackLayout>
                             </Grid>
 
                             <Grid Grid.Row="3" Padding="20" BackgroundColor="#80000000">
@@ -169,83 +185,4 @@
             <Button Text="Test" Command="{Binding XComm}"/>
         </StackLayout>
     </ContentPage>
-
-    <CarouselPage Title="Gallery">
-        <ContentPage>
-            <Image Source="bicycle1_bg.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
-        </ContentPage>
-        <ContentPage>
-            <Image Source="bicycle1_bg_desktop.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
-        </ContentPage>
-        <ContentPage>
-            <Image Source="bicycle2_bg.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
-        </ContentPage>
-        <ContentPage>
-            <Image Source="bicycle2_bg_desktop.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
-        </ContentPage>
-        <ContentPage>
-            <Image Source="football1_bg.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
-        </ContentPage>
-        <ContentPage>
-            <Image Source="football1_bg_desktop.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
-        </ContentPage>
-        <ContentPage>
-            <Image Source="football2_bg.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
-        </ContentPage>
-        <ContentPage>
-            <Image Source="football2_bg_desktop.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
-        </ContentPage>
-        <ContentPage>
-            <Image Source="football3_bg.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
-        </ContentPage>
-        <ContentPage>
-            <Image Source="football3_bg_desktop.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
-        </ContentPage>
-        <ContentPage>
-            <Image Source="football4_bg.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
-        </ContentPage>
-        <ContentPage>
-            <Image Source="football4_bg_desktop.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
-        </ContentPage>
-        <ContentPage>
-            <Image Source="running1_bg.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
-        </ContentPage>
-        <ContentPage>
-            <Image Source="running1_bg_desktop.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
-        </ContentPage>
-        <ContentPage>
-            <Image Source="running2_bg.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
-        </ContentPage>
-        <ContentPage>
-            <Image Source="running3_bg.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
-        </ContentPage>
-        <ContentPage>
-            <Image Source="tennis1_bg.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
-        </ContentPage>
-        <ContentPage>
-            <Image Source="tennis2_bg.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
-        </ContentPage>
-        <ContentPage>
-            <Image Source="tennis3_bg.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
-        </ContentPage>
-        <ContentPage>
-            <Image Source="tennis4_bg.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
-        </ContentPage>
-        <ContentPage>
-            <Image Source="tennis5_bg.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
-        </ContentPage>
-        <ContentPage>
-            <Image Source="tennis6_bg.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
-        </ContentPage>
-        <ContentPage>
-            <Image Source="tennis1_bg_desktop.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
-        </ContentPage>
-        <ContentPage>
-            <Image Source="tennis2_bg_desktop.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
-        </ContentPage>
-        <ContentPage>
-            <Image Source="tennis3_bg_desktop.jpg" Aspect="AspectFit" HorizontalOptions="Center"/>
-        </ContentPage>
-    </CarouselPage>
-
 </views:MyTabbedPage>
